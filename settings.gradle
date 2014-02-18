@@ -1,0 +1,6 @@
+include ':OasisLib'
+include ':pictogram-lib'
+include ':CategoryLib'
+include ':Ambilwarna'
+include ':GIRAF_Components'
+include ':PARROT'

@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="PARROTOasisLibUnspecified.aar" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTOasisLibUnspecified.aar\res" >
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTOasisLibUnspecified.aar\res\drawable-hdpi\ic_launcher.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTOasisLibUnspecified.aar\res\drawable-ldpi\ic_launcher.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTOasisLibUnspecified.aar\res\drawable-mdpi\ic_launcher.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="main"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTOasisLibUnspecified.aar\res\layout\main.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTOasisLibUnspecified.aar\res\values\values.xml"
+                qualifiers="" >
+                <string name="app_name" >OasisLib
+                </string>
+                <string name="hello" >Hello World!
+                </string>
+            </file>
+        </source>
+    </dataSet>
+    <dataSet config="PARROTGIRAF_ComponentsUnspecified.aar" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res" >
+            <file
+                name="cancel_icon"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\cancel_icon.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="colorborder"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\colorborder.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="gbackground"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\gbackground.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="gbackgroundlight"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\gbackgroundlight.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="gbutton"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\gbutton.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="gcal_icon"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\gcal_icon.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="gdialog_background"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\gdialog_background.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="ggiraficon_offline"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\ggiraficon_offline.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="ggiraficon_online"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\ggiraficon_online.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="ggiraficon_syncing"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\ggiraficon_syncing.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="glistitem"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\glistitem.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="glogout_icon"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\glogout_icon.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="gprofileselecter_background"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\gprofileselecter_background.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="gprofile_pic_box"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\gprofile_pic_box.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="grow"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\grow.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="gtooltip"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\gtooltip.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="gtooltip_arrow"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\gtooltip_arrow.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="gverifybutton"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\gverifybutton.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="no_profile_pic"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable\no_profile_pic.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable-hdpi\ic_launcher.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ok_icon"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable-hdpi\ok_icon.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable-ldpi\ic_launcher.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable-mdpi\ic_launcher.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\drawable-xhdpi\ic_launcher.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="colorpicker"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\layout\colorpicker.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="gdialog_layout"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\layout\gdialog_layout.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="gprofile_row"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\layout\gprofile_row.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="gtooltip_layout"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\layout\gtooltip_layout.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\res\values\values.xml"
+                qualifiers="" >
+                <string name="mPreString" >GIRAF er 
+                </string>
+                <string name="mOfflineString" >ikke i forbindelse med Savannah-serveren, indholdet i GIRAF er derfor muligvis ikke det nyeste.
+                </string>
+
+                <string-array name="week_days" >
+                    <item>
+Søndag
+                    </item>
+                    <item>
+Mandag
+                    </item>
+                    <item>
+Tirsdag
+                    </item>
+                    <item>
+Onsdag
+                    </item>
+                    <item>
+Torsdag
+                    </item>
+                    <item>
+Fredag
+                    </item>
+                    <item>
+Lørdag
+                    </item>
+                </string-array>
+
+                <string name="mOnlineString" >fuldt opdateret med det nyeste indhold.
+                </string>
+                <string name="mSyncingString" >i ved at synkronisere indhold med Savannah-serveren.
+                </string>
+
+                <integer-array name="appcolors" >
+                    <item>
+0xFFFFDC4A
+                    </item>
+                    <item>
+0xFFA47AE2
+                    </item>
+                    <item>
+0xFF4986E7
+                    </item>
+                    <item>
+0xFF16A765
+                    </item>
+                    <item>
+0xFFFA573C
+                    </item>
+                    <item>
+0xFFAC725E
+                    </item>
+                    <item>
+0xFFFF99BE
+                    </item>
+                    <item>
+0xFFFF7F4D
+                    </item>
+                    <item>
+0xFFB3DC6C
+                    </item>
+                    <item>
+0xFF9FC6E7
+                    </item>
+                </integer-array>
+
+                <string-array name="months" >
+                    <item>
+Januar
+                    </item>
+                    <item>
+Februar
+                    </item>
+                    <item>
+Marts
+                    </item>
+                    <item>
+April
+                    </item>
+                    <item>
+Maj
+                    </item>
+                    <item>
+Juni
+                    </item>
+                    <item>
+Juli
+                    </item>
+                    <item>
+August
+                    </item>
+                    <item>
+September
+                    </item>
+                    <item>
+Oktober
+                    </item>
+                    <item>
+November
+                    </item>
+                    <item>
+December
+                    </item>
+                </string-array>
+
+                <color name="gBrowncolor" >#FF9E6435
+                </color>
+            </file>
+        </source>
+    </dataSet>
+    <dataSet config="PARROTPictogramLibUnspecified.aar" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTPictogramLibUnspecified.aar\res" >
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTPictogramLibUnspecified.aar\res\drawable-hdpi\ic_launcher.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTPictogramLibUnspecified.aar\res\drawable-ldpi\ic_launcher.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTPictogramLibUnspecified.aar\res\drawable-mdpi\ic_launcher.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="picto_layout"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTPictogramLibUnspecified.aar\res\layout\picto_layout.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTPictogramLibUnspecified.aar\res\values\values.xml"
+                qualifiers="" >
+                <string name="app_name" >ACTIVITY_ENTRY_NAME
+                </string>
+
+                <dimen name="activity_horizontal_margin" >16dp
+                </dimen>
+                <dimen name="activity_vertical_margin" >16dp
+                </dimen>
+
+                <declare-styleable name="Pictogram" >
+                    <attr
+                        name="width"
+                        format="integer" />
+                    <!-- <attr name="height" format="integer"/> -->
+                </declare-styleable>
+            </file>
+            <file
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTPictogramLibUnspecified.aar\res\values-sw720dp-land\values.xml"
+                qualifiers="sw720dp-land" >
+                <dimen name="activity_horizontal_margin" >128dp
+                </dimen>
+            </file>
+        </source>
+    </dataSet>
+    <dataSet config="PARROTAmbilwarnaUnspecified.aar" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res" >
+            <file
+                name="ambilwarna_arrow_down"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable\ambilwarna_arrow_down.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="ambilwarna_arrow_right"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable\ambilwarna_arrow_right.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="ambilwarna_cursor"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable\ambilwarna_cursor.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="ambilwarna_hue"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable\ambilwarna_hue.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="ambilwarna_target"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable\ambilwarna_target.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="ambilwarna_arrow_down"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable-hdpi\ambilwarna_arrow_down.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ambilwarna_arrow_right"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable-hdpi\ambilwarna_arrow_right.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ambilwarna_cursor"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable-hdpi\ambilwarna_cursor.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ambilwarna_target"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable-hdpi\ambilwarna_target.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ambilwarna_arrow_down"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable-ldpi\ambilwarna_arrow_down.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="ambilwarna_arrow_right"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable-ldpi\ambilwarna_arrow_right.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="ambilwarna_cursor"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable-ldpi\ambilwarna_cursor.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="ambilwarna_target"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable-ldpi\ambilwarna_target.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="ambilwarna_arrow_down"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable-xhdpi\ambilwarna_arrow_down.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ambilwarna_arrow_right"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable-xhdpi\ambilwarna_arrow_right.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ambilwarna_cursor"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable-xhdpi\ambilwarna_cursor.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ambilwarna_target"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\drawable-xhdpi\ambilwarna_target.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ambilwarna_dialog"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\layout\ambilwarna_dialog.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="ambilwarna_dialog"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\layout-land\ambilwarna_dialog.xml"
+                qualifiers="land"
+                type="layout" />
+            <file
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\values\values.xml"
+                qualifiers="" >
+                <dimen name="ambilwarna_hsvHeight" >240dp
+                </dimen>
+                <dimen name="ambilwarna_spacer" >8dp
+                </dimen>
+                <dimen name="ambilwarna_hueWidth" >30dp
+                </dimen>
+                <dimen name="ambilwarna_hsvWidth" >240dp
+                </dimen>
+            </file>
+            <file
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\values-land\values.xml"
+                qualifiers="land" >
+                <dimen name="ambilwarna_hsvHeight" >120dp
+                </dimen>
+                <dimen name="ambilwarna_hsvWidth" >240dp
+                </dimen>
+            </file>
+            <file
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\res\values-xlarge-land\values.xml"
+                qualifiers="xlarge-land" >
+                <dimen name="ambilwarna_hsvWidth" >240dp
+                </dimen>
+                <dimen name="ambilwarna_hsvHeight" >240dp
+                </dimen>
+            </file>
+        </source>
+    </dataSet>
+    <dataSet config="PARROTCategoryLibUnspecified.aar" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTCategoryLibUnspecified.aar\res" >
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTCategoryLibUnspecified.aar\res\drawable-hdpi\ic_launcher.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="usynlig"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTCategoryLibUnspecified.aar\res\drawable-hdpi\usynlig.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTCategoryLibUnspecified.aar\res\drawable-mdpi\ic_launcher.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTCategoryLibUnspecified.aar\res\drawable-xhdpi\ic_launcher.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTCategoryLibUnspecified.aar\res\values\values.xml"
+                qualifiers="" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Light" >
+
+                    <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+                    -->
+                </style>
+
+                <string name="app_name" >CategoryManager
+                </string>
+
+                <style
+                    name="AppTheme"
+                    parent="AppBaseTheme" >
+
+                    <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+                </style>
+            </file>
+            <file
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTCategoryLibUnspecified.aar\res\values-v11\values.xml"
+                qualifiers="v11" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Holo.Light" >
+
+                    <!-- API 11 theme customizations can go here. -->
+                </style>
+            </file>
+        </source>
+    </dataSet>
+    <dataSet config="main" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res" >
+            <file
+                name="scrollbar_vertical_thumb"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable\scrollbar_vertical_thumb.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="scrollbar_vertical_track"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable\scrollbar_vertical_track.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="action_settings"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\action_settings.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="background"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\background.xml"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="button"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\button.xml"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="catbuttonlayout"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\catbuttonlayout.xml"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="catlayout"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\catlayout.xml"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="gridviewlayout"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\gridviewlayout.xml"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\ic_launcher.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="navigation_back"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\navigation_back.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="optionsbackground"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\optionsbackground.xml"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="parrot"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\parrot.jpg"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="play"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\play.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="record"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\record.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="sentenceboardlayout"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\sentenceboardlayout.xml"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="stop"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\stop.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="trashbin"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\trashbin.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="usynlig"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-hdpi\usynlig.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="action_settings"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-ldpi\action_settings.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-ldpi\ic_launcher.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="navigation_back"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-ldpi\navigation_back.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="play"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-ldpi\play.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="record"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-ldpi\record.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="stop"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-ldpi\stop.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="action_settings"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-mdpi\action_settings.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-mdpi\ic_launcher.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="navigation_back"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-mdpi\navigation_back.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="play"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-mdpi\play.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="record"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-mdpi\record.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="stop"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\drawable-mdpi\stop.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="activity_setting"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\layout\activity_setting.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="categoriesitem"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\layout\categoriesitem.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="main"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\layout\main.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="pictogramview"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\layout\pictogramview.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="speechboard_layout"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\layout\speechboard_layout.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_setting"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\menu\activity_setting.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="parrot_settings"
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\menu\parrot_settings.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\values\strings.xml"
+                qualifiers="" >
+                <string name="fourthTab" >Kamera
+                </string>
+                <string name="MediumPictogram" >Medium
+                </string>
+                <string name="selectSituationSpinnerPromptText" >Vælg situation
+                </string>
+                <string name="createSituationTextboxNameText" >Situationens Navn
+                </string>
+                <string name="addPictureSaveDescription" >Gem billede i pecs bogen
+                </string>
+                <string name="situationListOptionMenuDeleteText" ></string>
+                <string name="modifyPictureSaveDescription" >Gem ændringer/Fjern billede
+                </string>
+                <string name="createSituationCancelButtonText" >Annuler
+                </string>
+                <string name="dialog_message" >Barnets id blev ikke fundet
+                </string>
+                <string name="SentenceboardNo" >Antal bokse i sætningsboarded
+                </string>
+                <string name="modifyPictureSaveButtonText" >Gem Ændringer
+                </string>
+                <string name="selectActiveSituationOkButtonText" >ok
+                </string>
+                <string name="clearSentenceBoard" >Ryd sætning
+                </string>
+                <string name="menu_settings" >Indstillinger
+                </string>
+                <string name="modifyPicturePreviewText" >Preview
+                </string>
+                <string name="changeCategoryNameButton" >Kategori Titel
+                </string>
+                <string name="changeCategoryColorButton" >Kategori Farve
+                </string>
+                <string name="situationsListContextMenuAddText" >Ny Situation
+                </string>
+                <string name="addImageFromPhoneButtonText" >Fra Telefon
+                </string>
+                <string name="thirdTab" >Indstillinger
+                </string>
+                <string name="buttonChangeColorSentence" >Ændre farven
+                </string>
+                <string name="addPictureSaveButtonText" >Gem Billede
+                </string>
+                <string name="copyThisCategoryToOtherProfileCategoryButton" >Kopier Til Anden Profil Kategori
+                </string>
+                <string name="picture" >default picture content description
+                </string>
+                <string name="dialog_title" >Fejl
+                </string>
+                <string name="addImageFromCameraButtonText" >Fra Kamera
+                </string>
+                <string name="title_activity_setting" >SettingActivity
+                </string>
+                <string name="buttonSaveChanges" >Gem ændringer
+                </string>
+                <string name="hello" >Hello World, PARROTActivity!
+                </string>
+                <string name="firstTab" >Tale
+                </string>
+                <string name="KlimTest" >Her skal stå en lang tekst, som gerne skulle brydes
+                </string>
+                <string name="star" >Star
+                </string>
+                <string name="modifyPictureEditTextDescription" >Vælg Tekst
+                </string>
+                <string name="ok" >Ok
+                </string>
+                <string name="createNewCategoryButton" >Opret Ny Kategori
+                </string>
+                <string name="PictoSize" >Pictogram størrelse:
+                </string>
+                <string name="TakePictureButton" >Tag Billed
+                </string>
+                <string name="defaultSituationNameDB" >Hele Arkiv
+                </string>
+                <string name="returnItem" >Tilbage
+                </string>
+                <string name="hello_world" >Hello world!
+                </string>
+                <string name="modifyPictureDeleteButtonText" >Fjern Billede
+                </string>
+                <string name="changeCategoryPicButton" >Kategori Billede
+                </string>
+                <string name="situationListOptionsMenuEditText" >Ret Situationsnavn
+                </string>
+                <string name="electActiveSituationOkButtonText" >Fortryd
+                </string>
+                <string name="admin_app_name" >DigiPECS
+                </string>
+                <string name="errorSoundNotSavedIO" >Sound not Saved
+                </string>
+                <string name="secondTab" >Administrer
+                </string>
+                <string name="changesentencecolor" >Ændring af baggrunds farve på sætningsbrættet:
+                </string>
+                <string name="textToPic" >Vis text til pictogram
+                </string>
+                <string name="situationsListContextMenuDeleteText" >Fjern Situation
+                </string>
+                <string name="createSituationSaveButtonText" >Gem
+                </string>
+                <string name="pictogramOptions" >Pictogram
+                </string>
+                <string name="app_name" >PARROT
+                </string>
+                <string name="modifyPictureModifySoundDescription" >Afspil eller modifcer tilhørende lyd
+                </string>
+                <string name="addPictureTakePictureButtonText" >Tag Billede
+                </string>
+                <string name="LargePictogram" >Stor
+                </string>
+                <string name="copyThisCategoryToOtherProfileButton" >Kopier Denne Kategori
+                </string>
+
+                <color name="cell_empty" >#FF993311
+                </color>
+
+                <string name="sentensboardOptions" >Sætnings board
+                </string>
+            </file>
+            <file
+                path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\res\values\textstyles.xml"
+                qualifiers="" >
+
+                <style name="Text" />
+
+                <style name="Text.Admin.Head" >
+                    <item name="android:layout_alignParentTop">
+true
+                    </item>
+                    <item name="android:textSize">
+20dp
+                    </item>
+                    <item name="android:textColor">
+#ffffff
+                    </item>
+                    <item name="android:background">
+#000000 
+                    </item>
+                    <item name="android:layout_width">
+wrap_content
+                    </item>
+                    <item name="android:layout_height">
+wrap_content
+                    </item>
+                </style>
+
+                <style name="Text.Admin.Desc" >
+                    <item name="android:layout_alignParentTop">
+true
+                    </item>
+                    <item name="android:textSize">
+12dp
+                    </item>
+                    <item name="android:textColor">
+#ffffff
+                    </item>
+                    <item name="android:background">
+#000000 
+                    </item>
+                    <item name="android:layout_width">
+wrap_content
+                    </item>
+                    <item name="android:layout_height">
+wrap_content
+                    </item>
+                </style>
+
+                <style name="Text.Admin.Catagory" >
+                    <item name="android:gravity">
+center
+                    </item>
+                    <item name="android:textSize">
+12dp
+                    </item>
+                    <item name="android:textColor">
+#000000
+                    </item>
+                    <item name="android:background">
+#999999 
+                    </item>
+                    <item name="android:layout_width">
+fill_parent
+                    </item>
+                    <item name="android:layout_height">
+wrap_content
+                    </item>
+                </style>
+
+                <style name="Text.Admin.Catagory.Left" >
+                    <item name="android:gravity">
+left
+                    </item>
+                </style>
+
+                <style name="Text.Admin" >
+                </style>
+            </file>
+        </source>
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\res\rs\debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build-types\debug\res" />
+    </dataSet>
+
+</merger>

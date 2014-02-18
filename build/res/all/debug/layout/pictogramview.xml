@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pictogramView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+   
+    
+    >
+    <!-- from ImageView android:listSelector="@color/cell_empty" -->>
+    <ImageView
+        android:id="@+id/pictogrambitmap"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="3dp"/>
+
+
+    <TextView
+        android:id="@+id/pictogramtext"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal"
+        android:textColor="#FF000000" />
+
+</LinearLayout><!-- From: file:/D:/Windows%207/Dokumenter/SVN/P6%20-%20SW615F14/Temp%20Git/PARROT/res/layout/pictogramview.xml -->

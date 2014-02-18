@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="PARROTOasisLibUnspecified.aar" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTOasisLibUnspecified.aar\assets" />
+    </dataSet>
+    <dataSet config="PARROTGIRAF_ComponentsUnspecified.aar" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTGIRAF_ComponentsUnspecified.aar\assets" />
+    </dataSet>
+    <dataSet config="PARROTPictogramLibUnspecified.aar" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTPictogramLibUnspecified.aar\assets" />
+    </dataSet>
+    <dataSet config="PARROTAmbilwarnaUnspecified.aar" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTAmbilwarnaUnspecified.aar\assets" />
+    </dataSet>
+    <dataSet config="PARROTCategoryLibUnspecified.aar" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build\exploded-bundles\PARROTCategoryLibUnspecified.aar\assets" />
+    </dataSet>
+    <dataSet config="main" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\assets" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="D:\Windows 7\Dokumenter\SVN\P6 - SW615F14\Temp Git\PARROT\build-types\debug\assets" />
+    </dataSet>
+
+</merger>
