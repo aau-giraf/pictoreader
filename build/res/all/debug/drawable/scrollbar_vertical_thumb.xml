@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient android:startColor="#3333FF" android:endColor="#8080FF"
-            android:angle="0"/>
-    <corners android:radius="10dp" />
-</shape><!-- From: file:/D:/Windows%207/Dokumenter/SVN/P6%20-%20SW615F14/Temp%20Git/PARROT/res/drawable/scrollbar_vertical_thumb.xml -->
