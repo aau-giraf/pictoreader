@@ -44,7 +44,7 @@ public class PARROTActivity extends Activity {
 		app = help.applicationHelper.getAppByPackageName();
 		/*don't delete this is for lisbeth and anders when running on our own device*/
 		guardianID = 1;
-		childID=11;1
+		childID=11;
 		
 		
 		if(guardianID == -1 )
@@ -58,7 +58,7 @@ public class PARROTActivity extends Activity {
 		{ 	
 			dataLoader = new PARROTDataLoader(this, true);
 
-			parrotUser = dataLoader.loadProfile(childID, app.getID());
+			parrotUser = dataLoader.loadProfile((int)childID, app.getID());
 
 			if(parrotUser != null)
 			{
