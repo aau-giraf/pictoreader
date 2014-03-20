@@ -14,6 +14,7 @@ import dk.aau.cs.giraf.categorylib.PARROTCategory;
 import dk.aau.cs.giraf.oasis.lib.Helper;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
 import dk.aau.cs.giraf.oasis.lib.models.Profile;
+import dk.aau.cs.giraf.oasis.lib.models.ProfileApplication;
 import dk.aau.cs.giraf.oasis.lib.models.Setting;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
@@ -32,6 +33,7 @@ public class PARROTDataLoader {
 	private Activity parent;
 	private Helper help;
 	private Application app;
+    private ProfileApplication proApp;
 	private CategoryHelper categoryHelper= null;
     private Helper oasisHelper = null;
 
@@ -194,10 +196,12 @@ public class PARROTDataLoader {
 	public void saveChanges(PARROTProfile user)
 	{
 		
-		Profile prof = help.profilesHelper.getProfileById(user.getProfileID());
+		Profile prof = help.profilesHelper.getProfileById((int)user.getProfileID());
 		Setting<String, String, String> profileSetting = new Setting<String, String, String>();
-		profileSetting = help.appsHelper.getSettingByIds(app.getId(), prof.getId());
-		
+
+
+		profileSetting = help.profileApplicationHelper.getProfileApplicationByProfileIdAndApplicationId(app, prof).getSettings();
+
 		profileSetting.remove("SentenceboardSettings");
 		profileSetting.remove("PictogramSettings");
 		
@@ -206,9 +210,16 @@ public class PARROTDataLoader {
 		profileSetting.get("SentenceboardSettings").put("NoOfBoxes", String.valueOf(user.getNumberOfSentencePictograms()));
 		profileSetting.addValue("PictogramSettings","PictogramSize", String.valueOf(user.getPictogramSize()));
 		profileSetting.get("PictogramSettings").put("ShowText", String.valueOf(user.getShowText()));
-		
-		app.setSettings(profileSetting);
-		help.appsHelper.modifyAppByProfile(app, prof);
+
+
+        proApp = oasisHelper.profileApplicationHelper.getProfileApplicationByProfileIdAndApplicationId(app, prof);
+
+        proApp.setSettings(profileSetting);
+
+        //Old for history/roll back:
+		//help.appsHelper.modifyAppByProfile(app, prof);
+
+        help.applicationHelper.modifyApplication(app);
 		
 	}
 
