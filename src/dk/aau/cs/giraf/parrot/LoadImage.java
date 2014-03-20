@@ -1,5 +1,4 @@
 package dk.aau.cs.giraf.parrot;
-import java.lang.ref.WeakReference;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,8 +6,10 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 import android.widget.TextView;
-import dk.aau.cs.giraf.pictogram.Pictogram;
 
+import java.lang.ref.WeakReference;
+
+import dk.aau.cs.giraf.pictogram.Pictogram;
 /**
  * 
  * @author Lisbeth Nielsen, SW605f13 Parrot-group
@@ -50,7 +51,7 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
         if(pictogram.getPictogramID() == -1)
 		{
         	//Log.v("LoadImage;Message","doInBackground usynlig");
-        	bitmap=BitmapFactory.decodeResource(context.getResources(),R.drawable.usynlig);
+        	bitmap=BitmapFactory.decodeResource(context.getResources(), R.drawable.usynlig);
 			
 		}
         else	
