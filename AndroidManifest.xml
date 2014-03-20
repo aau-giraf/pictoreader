@@ -23,7 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="dk.aau.cs.giraf.parrot.SpeechBoardFragment" />
+
+      <!--
+        Dont ever specify fragments in AndroidManifest.xml
+      <activity android:name="dk.aau.cs.giraf.parrot.SpeechBoardFragment" />
+      -->
     </application>
 	
 </manifest>
