@@ -1,6 +1,7 @@
 package dk.aau.cs.giraf.parrot;
 
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import android.util.Log;
 import dk.aau.cs.giraf.categorylib.CategoryHelper;
 import dk.aau.cs.giraf.categorylib.PARROTCategory;
 import dk.aau.cs.giraf.oasis.lib.Helper;
-import dk.aau.cs.giraf.oasis.lib.models.App;
+import dk.aau.cs.giraf.oasis.lib.models.Application;
 import dk.aau.cs.giraf.oasis.lib.models.Profile;
 import dk.aau.cs.giraf.oasis.lib.models.Setting;
 import dk.aau.cs.giraf.pictogram.Pictogram;
@@ -30,9 +31,9 @@ public class PARROTDataLoader {
 
 	private Activity parent;
 	private Helper help;
-	private App app;
+	private Application app;
 	private CategoryHelper categoryHelper= null;
-
+    private Helper oasisHelper = null;
 
 	/**
 	 * Constructor.
@@ -41,8 +42,9 @@ public class PARROTDataLoader {
 	public PARROTDataLoader(Activity activity, boolean categories)
 	{
 		this.parent = activity;
-		help = new Helper(parent); 
-		app = help.appsHelper.getAppById(PARROTActivity.getApp().getId()); 
+		help = new Helper(parent);
+        app = help.applicationHelper.getApplicationById(PARROTActivity.getApp().getID());
+
 		if(categories)
 		{
 			categoryHelper= new CategoryHelper(parent);
@@ -58,7 +60,7 @@ public class PARROTDataLoader {
 	 * @param An profile id of a guardian.
 	 * @return An ArrayList of all the children asociated with the guardian who is currently using the system.
 	 */
-	public ArrayList<PARROTProfile> getChildrenFromGuardian(long guardianID)
+	public ArrayList<PARROTProfile> getChildrenFromGuardian(int guardianID)
 	{
 		ArrayList<PARROTProfile> parrotChildren = new ArrayList<PARROTProfile>();
 		Profile guardian = help.profilesHelper.getProfileById(guardianID);
@@ -66,7 +68,7 @@ public class PARROTDataLoader {
 		
 		for(int i = 0;i<children.size();i++)
 		{
-			parrotChildren.add(loadProfile(children.get(i).getId(), app.getId()));
+			parrotChildren.add(loadProfile(children.get(i).getId(), app.getID()));
 		}
 		return parrotChildren;
 	}
@@ -79,7 +81,7 @@ public class PARROTDataLoader {
 	 * @param appId,  The ID of the app.
 	 * @return PARROTProfile or null.
 	 */
-	public PARROTProfile loadProfile(long childId,long appId)	
+	public PARROTProfile loadProfile(int childId,int appId)
 	{
 		Profile prof =null;
 		List<PARROTCategory> categories = null;
@@ -89,16 +91,20 @@ public class PARROTDataLoader {
 			//Get the childs profile and setup the PARROTProfile.	
 			prof = help.profilesHelper.getProfileById(childId);	
 			Pictogram pic = new Pictogram(parent.getApplicationContext(), "","", null,null, false, -1);
-			PARROTProfile parrotUser = new PARROTProfile(prof.getFirstname(), pic);
+			PARROTProfile parrotUser = new PARROTProfile(prof.getName(), pic);
 			parrotUser.setProfileID(prof.getId());
-			Setting<String, String, String> specialSettings = help.appsHelper.getSettingByIds(appId, childId);
+
+             Blob settings = help.profileApplicationHelper.getProfileApplicationByProfileIdAndApplicationId(help.applicationHelper.getApplicationById(appId), help.profilesHelper.getProfileById(childId)).getSettings();
+
+			Setting<String, String, String> specialSettings = settings;
 
 			//Load the settings
 			parrotUser = loadSettings(parrotUser, specialSettings);
 
 			//Get the child's categories. This return null if the child does not exist.
 			categories = categoryHelper.getChildsCategories(prof.getId());	
-			
+
+
 			if(categories!=null)
 			{
 				Log.v("MessageXML", "xmlChild does exist");

@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import dk.aau.cs.giraf.oasis.lib.Helper;
-import dk.aau.cs.giraf.oasis.lib.models.App;
+import dk.aau.cs.giraf.oasis.lib.models.Application;
 
 /**
  * 
@@ -22,7 +22,7 @@ public class PARROTActivity extends Activity {
 	private static long guardianID;
 	private static long childID;
 	private PARROTDataLoader dataLoader;
-	private static App app;
+	private static Application app;
 	private static Helper help;
 	private static Intent girafIntent;
 	private static ActionBar actionBar = null;
@@ -41,10 +41,10 @@ public class PARROTActivity extends Activity {
 		guardianID = girafIntent.getLongExtra("currentGuardianID", -1);
 		childID = girafIntent.getLongExtra("currentChildID", -1);
 		Helper help = new Helper(this);
-		app = help.appsHelper.getAppByPackageName();
+		app = help.applicationHelper.getAppByPackageName();
 		/*don't delete this is for lisbeth and anders when running on our own device*/
 		guardianID = 1;
-		childID=11;
+		childID=11;1
 		
 		
 		if(guardianID == -1 )
@@ -57,12 +57,13 @@ public class PARROTActivity extends Activity {
 		else
 		{ 	
 			dataLoader = new PARROTDataLoader(this, true);
-			
-			parrotUser = dataLoader.loadProfile(childID, app.getId());
-			Log.v("No in sentence", ""+ parrotUser.getNumberOfSentencePictograms());
-			Log.v("MessageParrot", "returned");	
+
+			parrotUser = dataLoader.loadProfile(childID, app.getID());
+
 			if(parrotUser != null)
 			{
+                Log.v("No in sentence", ""+ parrotUser.getNumberOfSentencePictograms());
+                Log.v("MessageParrot", "returned");
 						
 				/* Here all the Tabs in the system is initialized based on whether or not a user
 				 * is allowed to use them. If not they will not be initialized.
@@ -178,7 +179,7 @@ public class PARROTActivity extends Activity {
 	 * 
 	 * @return instance of App with this apps data
 	 */
-	public static App getApp()
+	public static Application getApp()
 	{
 		return app;
 	}
