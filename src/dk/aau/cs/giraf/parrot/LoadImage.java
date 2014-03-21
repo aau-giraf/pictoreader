@@ -1,5 +1,4 @@
 package dk.aau.cs.giraf.parrot;
-import java.lang.ref.WeakReference;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,8 +6,10 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 import android.widget.TextView;
-import dk.aau.cs.giraf.pictogram.Pictogram;
 
+import java.lang.ref.WeakReference;
+
+import dk.aau.cs.giraf.pictogram.Pictogram;
 /**
  * 
  * @author Lisbeth Nielsen, SW605f13 Parrot-group
@@ -19,19 +20,19 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
 
 		private final WeakReference<ImageView> imageView;
         private Context context;
-        private final WeakReference<TextView>text;
+        private final WeakReference<TextView> textView;
         private Pictogram pictogram;
 
         /**
          * 
-         * @param imv this is the ImageView in which the bitmap are to be shown. 
-         * @param text this is the TextView in which the pictogram text are to be shown.
+         * @param imageView this is the ImageView in which the bitmap are to be shown.
+         * @param textView this is the TextView in which the pictogram text are to be shown.
          * @param context this is the application context.
          */
-        public LoadImage(ImageView imv, TextView text, Context context) {
+        public LoadImage(ImageView imageView, TextView textView, Context context) {
         	//Log.v("LoadImage;Message","begin LoadImage");
-        	 imageView = new WeakReference<ImageView>(imv);
-        	 this.text = new WeakReference<TextView>(text);
+        	 this.imageView = new WeakReference<ImageView>(imageView);
+        	 this.textView = new WeakReference<TextView>(textView);
              this.context= context;
              //Log.v("LoadImage;Message","end LoadImage");
              
@@ -50,7 +51,7 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
         if(pictogram.getPictogramID() == -1)
 		{
         	//Log.v("LoadImage;Message","doInBackground usynlig");
-        	bitmap=BitmapFactory.decodeResource(context.getResources(),R.drawable.usynlig);
+        	bitmap=BitmapFactory.decodeResource(context.getResources(), R.drawable.usynlig);
 			
 		}
         else	
@@ -69,17 +70,17 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
     protected void onPostExecute(Bitmap result) {
     	//Log.v("LoadImage;Message","begin onPostExecute");
         if(result != null && imageView != null){
-    	     final ImageView imageView2 = imageView.get();
-    	     final TextView textView = text.get();
-             if (imageView2 != null) {
+    	     final ImageView imageViewTemp = imageView.get();
+    	     final TextView textViewTemp = textView.get();
+             if (imageViewTemp != null) {
             	 //set the text in TextView
-          		 if(PARROTActivity.getUser().getShowText()==true)//pct.getPictogramID() != -1 && PARROTActivity.getUser().getShowText()==true)
+          		 if(PARROTActivity.getUser().getShowText() == true)//pct.getPictogramID() != -1 && PARROTActivity.getUser().getShowText()==true)
         		 {
-        			textView.setTextSize(20);	//TODO this value should be customizable
-        			textView.setText(pictogram.getTextLabel());
+        			textViewTemp.setTextSize(20);	//TODO this value should be customizable
+        			textViewTemp.setText(pictogram.getTextLabel());
         		 }
           		 //set the bitmap into the ImageView
-                 imageView2.setImageBitmap(result);
+                 imageViewTemp.setImageBitmap(result);
              }
 
         }

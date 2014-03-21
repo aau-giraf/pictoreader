@@ -18,7 +18,7 @@ public class PARROTProfile {
 	private String name;
 	private Pictogram icon;
 	private ArrayList<PARROTCategory> categories = new ArrayList<PARROTCategory>();
-	private long profileID =-1;
+	private int profileID =-1;
 	private int noOfboxesInSentenceboard = 1;
 	private int sentenceBoardColor = Color.WHITE;
 	private PictogramSize pictogramSize = PictogramSize.MEDIUM; 
@@ -117,18 +117,18 @@ public class PARROTProfile {
 	 * get ProfileID
 	 * @return profileID
 	 */
-	public long getProfileID() {
+	public int getProfileID() {
 		return profileID;
 	}
 	
 	/**
 	 * set ProfileID
-	 * @param l, profileID 
+	 * @param id, profileID
 	 */
-	public void setProfileID(long l) {
-		this.profileID = l;
+	public void setProfileID(int id) {
+		this.profileID = id;
 	}
-	
+
 	/**
 	 * get number of boxes in sentenceboard, which the child can handle
 	 * @return int, the number of boxes in sentenceboard

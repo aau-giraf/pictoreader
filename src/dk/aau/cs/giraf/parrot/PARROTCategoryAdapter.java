@@ -1,7 +1,5 @@
 package dk.aau.cs.giraf.parrot;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.view.View;
@@ -9,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import java.util.ArrayList;
+
 import dk.aau.cs.giraf.categorylib.PARROTCategory;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
@@ -21,24 +22,24 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
 
 public class PARROTCategoryAdapter extends BaseAdapter{
 
-	private ArrayList<PARROTCategory> catList;
+	private ArrayList<PARROTCategory> categories;
 	private Context context;
 
 	/**
 	 * Constructor taking List of PARROTCategories, and a Context.
-	 * @param catList, List of PARROTCategories. 
-	 * @param c, a Context.
+	 * @param categories, List of PARROTCategories. 
+	 * @param _context, a Context.
 	 */
-	public PARROTCategoryAdapter(ArrayList<PARROTCategory> catList, Context c)
+	public PARROTCategoryAdapter(ArrayList<PARROTCategory> categories, Context _context)
 	{
-		this.catList=catList;
-		context = c;
+		this.categories = categories;
+		context = _context;
 	}
 
 	@Override
 	public int getCount() {
 		//return the number of categories
-		return catList.size();
+		return categories.size();
 	}
 
 	@Override
@@ -58,13 +59,13 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 	@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 			ImageView imageView;
-			Pictogram pct=catList.get(position).getIcon();
+			Pictogram pictogram = categories.get(position).getIcon();
 			if (convertView == null) {  // if it's not recycled, initialize some attributes
 				imageView = new ImageView(context);
 				imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
 				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 				imageView.setPadding(8, 8, 8, 8);
-				imageView.setBackgroundColor(catList.get(position).getCategoryColor());
+				imageView.setBackgroundColor(categories.get(position).getCategoryColor());
 			} 
 			
 			else {
@@ -73,7 +74,7 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 			
 			//we then set the imageview to the icon of the category
 			
-			imageView.setImageBitmap(BitmapFactory.decodeFile(pct.getImagePath()));
+			imageView.setImageBitmap(BitmapFactory.decodeFile(pictogram.getImagePath()));
 			
 			return imageView;
 		}
