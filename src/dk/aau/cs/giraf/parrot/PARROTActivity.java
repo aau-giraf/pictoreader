@@ -42,6 +42,7 @@ public class PARROTActivity extends Activity {
 		childID = girafIntent.getLongExtra("currentChildID", -1);
 		Helper help = new Helper(this);
 		app = help.applicationHelper.getAppByPackageName();
+
 		/*don't delete this is for lisbeth and anders when running on our own device*/
 		guardianID = 1;
 		childID=11;
