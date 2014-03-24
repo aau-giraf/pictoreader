@@ -173,26 +173,24 @@ public class SpeechBoardFragment extends Fragment
 				}
 			});
 			
-			//Drag pictogram from the sentenceBoard, start drag 
-			sentenceBoardGrid.setOnItemLongClickListener(new OnItemLongClickListener()
-			{
 
-				@Override
-				public boolean onItemLongClick(AdapterView<?> arg0, View view, int position, long id)
-				{
-					Pictogram p = speechBoardCategory.getPictogramAtIndex(position);
-					if(!(p.getPictogramID()==-1))
-					{
-						draggedPictogramIndex = position; 
-						dragOwnerID = R.id.sentenceboard;			
-						ClipData data = ClipData.newPlainText("label", "text"); //TODO Dummy. Pictogram information can be placed here instead.
-						DragShadowBuilder shadowBuilder = new DragShadowBuilder(view);
-						view.startDrag(data, shadowBuilder, view, 0);
-					}
-					return true;
-				}
 
-			});
+			//Drag pictogram from the sentenceBoard, start drag
+			sentenceBoardGrid.setOnItemClickListener(new OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+                    Pictogram p = speechBoardCategory.getPictogramAtIndex(position);
+                    if (!(p.getPictogramID() == -1)) {
+                        draggedPictogramIndex = position;
+                        dragOwnerID = R.id.sentenceboard;
+                        ClipData data = ClipData.newPlainText("label", "text"); //TODO Dummy. Pictogram information can be placed here instead.
+                        DragShadowBuilder shadowBuilder = new DragShadowBuilder(view);
+                        view.startDrag(data, shadowBuilder, view, 0);
+                    }
+                }
+
+            });
 			
 			
 			//change category that is to be shown 
