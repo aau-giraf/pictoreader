@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import dk.aau.cs.giraf.parrot.PARROTProfile.PictogramSize;
 
 public class OptionFragment extends Fragment{
@@ -36,8 +38,16 @@ public class OptionFragment extends Fragment{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
 		setHasOptionsMenu(true);
-       
-	}
+        final Button button;
+
+        button = (Button) getView().findViewById(R.id.btnSettingsSave);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                
+            }
+        });
+    }
 	
 	@Override
 	public void onPrepareOptionsMenu(Menu menu)

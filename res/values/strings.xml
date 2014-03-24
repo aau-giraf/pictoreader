@@ -72,6 +72,6 @@
     <string name="clearSentenceBoard">Ryd sætning</string>
     <string name="returnItem">Tilbage</string>
     <string name="title_activity_setting">SettingActivity</string>
-    <string name="picture">default picture content description</string>
+    <string name="picture">default picture content description</string><string name="btnSettingsSave">Save Settings</string>
 
 </resources>

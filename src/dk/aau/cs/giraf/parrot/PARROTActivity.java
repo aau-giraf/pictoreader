@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.Window;
+
 import dk.aau.cs.giraf.oasis.lib.Helper;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
 
@@ -34,6 +36,7 @@ public class PARROTActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.main);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
 		
 		//These lines get the intent from the launcher //TODO use us when testing with the launcher.
@@ -73,6 +76,7 @@ public class PARROTActivity extends Activity {
 				 * Remember: Make sure the order of the Taps is consistent with the order of their rights in the
 				 * 			 Rights array.
 				 */
+                /*
 				actionBar = getActionBar();
 				actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 				//Creating a new Tab, setting the text it is to show and construct and attach a Tab Listener to control it.
@@ -82,7 +86,7 @@ public class PARROTActivity extends Activity {
 				Tab tab2 = actionBar.newTab()
 						.setTabListener(new TabListener<OptionFragment>(this,"options",OptionFragment.class));
 				actionBar.addTab(tab2, 1);
-				
+				*/
 				
 			}
 		}
