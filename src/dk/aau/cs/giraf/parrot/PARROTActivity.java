@@ -21,8 +21,8 @@ import dk.aau.cs.giraf.oasis.lib.models.Application;
 public class PARROTActivity extends Activity {
 
 	private static PARROTProfile parrotUser;
-	private static long guardianID;
-	private static long childID;
+	private static int guardianID;
+	private static int childID;
 	private PARROTDataLoader dataLoader;
 	private static Application app;
 	private static Helper help;
@@ -41,10 +41,11 @@ public class PARROTActivity extends Activity {
 		
 		//These lines get the intent from the launcher //TODO use us when testing with the launcher.
 		girafIntent = getIntent();
-		guardianID = girafIntent.getLongExtra("currentGuardianID", -1);
-		childID = girafIntent.getLongExtra("currentChildID", -1);
+		guardianID = girafIntent.getIntExtra("currentGuardianID", -1);
+		childID = girafIntent.getIntExtra("currentChildID", -1);
 		Helper help = new Helper(this);
-		app = help.applicationHelper.getAppByPackageName();
+		//app = help.applicationHelper.getAppByPackageName();
+        app = null;
 
 		/*don't delete this is for lisbeth and anders when running on our own device*/
 		guardianID = 1;
@@ -62,7 +63,7 @@ public class PARROTActivity extends Activity {
 		{ 	
 			dataLoader = new PARROTDataLoader(this, true);
 
-			parrotUser = dataLoader.loadProfile((int)childID, app.getID());
+			parrotUser = dataLoader.loadProfile((int)childID, app.getId());
 
 			if(parrotUser != null)
 			{
