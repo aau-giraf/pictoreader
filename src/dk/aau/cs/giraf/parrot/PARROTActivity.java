@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
+import android.view.WindowManager;
 
 import dk.aau.cs.giraf.oasis.lib.Helper;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
@@ -37,9 +38,11 @@ public class PARROTActivity extends Activity {
 		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.main);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
-		
-		//These lines get the intent from the launcher //TODO use us when testing with the launcher.
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+
+        //These lines get the intent from the launcher //TODO use us when testing with the launcher.
 		girafIntent = getIntent();
 		guardianID = girafIntent.getLongExtra("currentGuardianID", -1);
 		childID = girafIntent.getLongExtra("currentChildID", -1);

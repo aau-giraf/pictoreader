@@ -44,7 +44,7 @@ public class OptionFragment extends Fragment{
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                
+                //Save the settings here
             }
         });
     }
