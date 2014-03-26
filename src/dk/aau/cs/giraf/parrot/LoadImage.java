@@ -74,7 +74,7 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
     	     final TextView textViewTemp = textView.get();
              if (imageViewTemp != null) {
             	 //set the text in TextView
-          		 if(PARROTActivity.getUser().getShowText() == true)//pct.getPictogramID() != -1 && PARROTActivity.getUser().getShowText()==true)
+          		 if(PARROTActivity.getUser().getShowText() == true)//pct.getPictogramID() != -1 && MainActivity.getUser().getShowText()==true)
         		 {
         			textViewTemp.setTextSize(20);	//TODO this value should be customizable
         			textViewTemp.setText(pictogram.getTextLabel());

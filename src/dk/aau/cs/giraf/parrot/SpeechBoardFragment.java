@@ -81,7 +81,7 @@ public class SpeechBoardFragment extends Fragment
 		//TODO
 	}
 	/**
-	 * This exits the PARROTActivity and should return to the giraf-launcher. 
+	 * This exits the MainActivity and should return to the giraf-launcher.
 	 */
 	public void returnToLauncher()
 	{
