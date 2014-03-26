@@ -57,7 +57,7 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
         else	
     	{
         	//Log.v("LoadImage;Message","doInBackground path" + pictogram.getImagePath());
-        	bitmap = BitmapFactory.decodeFile(pictogram.getImagePath());
+        	bitmap = pictogram.getImageData();
     	}
         //Log.v("LoadImage;Message","end doInBackground");
         return bitmap;

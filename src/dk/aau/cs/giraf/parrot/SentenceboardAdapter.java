@@ -102,7 +102,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 			}
 			else
 			{
-				bitmap = BitmapFactory.decodeFile(pct.getImagePath());
+				bitmap = pct.getImageData();
 			}
 			imageView.setImageBitmap(bitmap);
 			view.setPadding(8, 8, 8, 8);

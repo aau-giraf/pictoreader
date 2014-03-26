@@ -48,7 +48,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 					
 					//remove pictogram from sentenceboard and add an empty pictogram 
 					SpeechBoardFragment.speechBoardCategory.removePictogram(SpeechBoardFragment.draggedPictogramIndex);	
-					SpeechBoardFragment.speechBoardCategory.addPictogram(new Pictogram(parrent.getApplicationContext(),"#emptyPictogram#", "", "", null, insideOfMe, -1));
+					SpeechBoardFragment.speechBoardCategory.addPictogram(new Pictogram(1,"#emptyPictogram#", -1, null, null, "#emptyPictogram#", -1, parrent.getApplicationContext()));
 					
 					speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.speechBoardCategory, parrent));
 				}

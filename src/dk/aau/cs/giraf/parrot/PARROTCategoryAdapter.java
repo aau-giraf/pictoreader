@@ -1,7 +1,6 @@
 package dk.aau.cs.giraf.parrot;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -74,7 +73,7 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 			
 			//we then set the imageview to the icon of the category
 			
-			imageView.setImageBitmap(BitmapFactory.decodeFile(pictogram.getImagePath()));
+			imageView.setImageBitmap(pictogram.getImageData());
 			
 			return imageView;
 		}

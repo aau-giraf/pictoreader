@@ -1,7 +1,6 @@
 package dk.aau.cs.giraf.parrot;
 
 import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -11,6 +10,7 @@ import android.view.Menu;
 import android.view.Window;
 
 import dk.aau.cs.giraf.oasis.lib.Helper;
+import dk.aau.cs.giraf.oasis.lib.controllers.ApplicationController;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
 
 /**
@@ -43,8 +43,8 @@ public class PARROTActivity extends Activity {
 		girafIntent = getIntent();
 		guardianID = girafIntent.getIntExtra("currentGuardianID", -1);
 		childID = girafIntent.getIntExtra("currentChildID", -1);
-		Helper help = new Helper(this);
-		//app = help.applicationHelper.getAppByPackageName();
+        ApplicationController applicationController = new ApplicationController(getApplicationContext());
+		app = applicationController.getApplicationByPackageName();
         app = null;
 
 		/*don't delete this is for lisbeth and anders when running on our own device*/
