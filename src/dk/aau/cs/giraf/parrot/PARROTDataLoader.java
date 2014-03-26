@@ -45,7 +45,7 @@ public class PARROTDataLoader {
 	{
 		this.parent = activity;
 		help = new Helper(parent);
-        app = help.applicationHelper.getApplicationById(PARROTActivity.getApp().getID());
+        app = help.applicationHelper.getApplicationById(PARROTActivity.getApp().getId());
 
 		if(categories)
 		{
@@ -70,7 +70,7 @@ public class PARROTDataLoader {
 		
 		for(int i = 0;i<children.size();i++)
 		{
-			parrotChildren.add(loadProfile(children.get(i).getId(), app.getID()));
+			parrotChildren.add(loadProfile(children.get(i).getId(), app.getId()));
 		}
 		return parrotChildren;
 	}
@@ -92,7 +92,7 @@ public class PARROTDataLoader {
 		 {
 			//Get the childs profile and setup the PARROTProfile.	
 			prof = help.profilesHelper.getProfileById(childId);	
-			Pictogram pic = new Pictogram(parent.getApplicationContext(), "","", null,null, false, -1);
+			Pictogram pic = new Pictogram(5, "name",1, null,null, "inline", -1, parent.getApplicationContext());
 			PARROTProfile parrotUser = new PARROTProfile(prof.getName(), pic);
 			parrotUser.setProfileID(prof.getId());
 

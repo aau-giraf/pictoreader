@@ -1,8 +1,6 @@
 package dk.aau.cs.giraf.parrot;
 
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.ClipData;
@@ -16,8 +14,10 @@ import android.view.View;
 import android.view.View.DragShadowBuilder;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
+
+import java.util.ArrayList;
+
 import dk.aau.cs.giraf.categorylib.PARROTCategory;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
@@ -81,7 +81,7 @@ public class SpeechBoardFragment extends Fragment
 		//TODO
 	}
 	/**
-	 * This exits the PARROTActivity and should return to the giraf-launcher. 
+	 * This exits the MainActivity and should return to the giraf-launcher.
 	 */
 	public void returnToLauncher()
 	{
@@ -234,7 +234,7 @@ public class SpeechBoardFragment extends Fragment
 	public static void clearSentenceboard(Activity activity)
 	{
 		//(Context context, final String image, final String text, final String audio, final long id)
-			emptyPictogram = new Pictogram(activity.getApplicationContext(),"#emptyPictogram#", "", "", null, false, -1);
+			emptyPictogram = new Pictogram(1,"#emptyPictogram#", -1, null, null, "#emptyPictogram#", -1, activity.getApplicationContext());
 			int count = speechBoardCategory.getPictograms().size()-1;
 			while(speechBoardCategory.getPictograms().size()!= 0)
 			{

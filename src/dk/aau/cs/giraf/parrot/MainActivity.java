@@ -8,10 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
-import android.view.WindowManager;
 
 import dk.aau.cs.giraf.oasis.lib.Helper;
-import dk.aau.cs.giraf.oasis.lib.controllers.ApplicationController;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
 
 /**
@@ -19,7 +17,7 @@ import dk.aau.cs.giraf.oasis.lib.models.Application;
  * @author SW605f13-PARROT and PARROT spring 2012.
  *	This is the main Activity Class in Parrot.
  */
-public class PARROTActivity extends Activity {
+public class MainActivity extends Activity {
 
 	private static PARROTProfile parrotUser;
 	private static int guardianID;
@@ -38,16 +36,14 @@ public class PARROTActivity extends Activity {
 		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.main);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
-
-        //These lines get the intent from the launcher //TODO use us when testing with the launcher.
+		
+		
+		//These lines get the intent from the launcher //TODO use us when testing with the launcher.
 		girafIntent = getIntent();
 		guardianID = girafIntent.getIntExtra("currentGuardianID", -1);
 		childID = girafIntent.getIntExtra("currentChildID", -1);
-        ApplicationController applicationController = new ApplicationController(getApplicationContext());
-		app = applicationController.getApplicationByPackageName();
+		Helper help = new Helper(this);
+		//app = help.applicationHelper.getAppByPackageName();
         app = null;
 
 		/*don't delete this is for lisbeth and anders when running on our own device*/
