@@ -100,7 +100,7 @@ public class OptionFragment extends Fragment{
 		//Setup of the spinner with is the selector of how many of boxes the child can handle in the sentenceboard
 		Spinner spinner = (Spinner) parrent.findViewById(R.id.spinnerNoOfsentence);
 		// Create an ArrayAdapter using the string array and a default spinner layout
-		Integer[] items = new Integer[]{1,2,3,4,5,6};
+		Integer[] items = new Integer[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
 		ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(parrent,android.R.layout.simple_spinner_item, items);
 		// Specify the layout to use when the list of choices appears
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
