@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.DragShadowBuilder;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.GridView;
 
 import java.util.ArrayList;
@@ -172,8 +173,13 @@ public class SpeechBoardFragment extends Fragment
 					}
 				}
 			});
-			
 
+            final Button button = (Button) getView().findViewById(R.id.btnClear);
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    clearSentenceboard(getActivity());
+                }
+            });
 
 			//Drag pictogram from the sentenceBoard, start drag
 			sentenceBoardGrid.setOnItemClickListener(new OnItemClickListener() {
