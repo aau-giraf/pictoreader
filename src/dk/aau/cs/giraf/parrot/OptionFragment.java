@@ -44,7 +44,7 @@ public class OptionFragment extends Fragment{
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                
+                //Save the settings here
             }
         });
     }
@@ -100,7 +100,7 @@ public class OptionFragment extends Fragment{
 		//Setup of the spinner with is the selector of how many of boxes the child can handle in the sentenceboard
 		Spinner spinner = (Spinner) parrent.findViewById(R.id.spinnerNoOfsentence);
 		// Create an ArrayAdapter using the string array and a default spinner layout
-		Integer[] items = new Integer[]{1,2,3,4,5,6};
+		Integer[] items = new Integer[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
 		ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(parrent,android.R.layout.simple_spinner_item, items);
 		// Specify the layout to use when the list of choices appears
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -125,13 +125,7 @@ public class OptionFragment extends Fragment{
             }        
         }); 
         
-        Button changeColor = (Button) parrent.findViewById(R.id.buttonChangeSentenceColor);
-        changeColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            	onSentenceboardColorChanged(v);
-            }
-        });
+
         RadioButton mRadioButton = (RadioButton) parrent.findViewById(R.id.mediumPicRadioButton);
         mRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,29 +186,7 @@ public class OptionFragment extends Fragment{
 		}
 	}
 	
-	/**
-	 * When buttonChangeSentenceColor is clicked this happens, change the color of the sentenceboard
-	 * @param view, the buttonChangeSentenceColor
-	 */
-	public void onSentenceboardColorChanged(View view)
-	{
-		AmbilWarnaDialog dialog = new AmbilWarnaDialog(parrent, 
-				user.getSentenceBoardColor(),
-				new OnAmbilWarnaListener() {
-			@Override
-			public void onCancel(AmbilWarnaDialog dialog) {
-			}
 
-			@Override
-			public void onOk(AmbilWarnaDialog dialog, int color) {
-				user.setSentenceBoardColor(color);
-				Log.v("MessageParrot", "color: " + color);
-			}
-		});
-		dialog.show();
-
-	}
-	
 	/**
 	 * When mediumPicRadioButton or largePicRadioButton is clicked, this happens. 
 	 * Change pictogram size.
