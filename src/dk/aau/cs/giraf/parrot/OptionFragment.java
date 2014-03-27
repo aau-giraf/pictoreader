@@ -125,13 +125,7 @@ public class OptionFragment extends Fragment{
             }        
         }); 
         
-        Button changeColor = (Button) parrent.findViewById(R.id.buttonChangeSentenceColor);
-        changeColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            	onSentenceboardColorChanged(v);
-            }
-        });
+
         RadioButton mRadioButton = (RadioButton) parrent.findViewById(R.id.mediumPicRadioButton);
         mRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,29 +186,7 @@ public class OptionFragment extends Fragment{
 		}
 	}
 	
-	/**
-	 * When buttonChangeSentenceColor is clicked this happens, change the color of the sentenceboard
-	 * @param view, the buttonChangeSentenceColor
-	 */
-	public void onSentenceboardColorChanged(View view)
-	{
-		AmbilWarnaDialog dialog = new AmbilWarnaDialog(parrent, 
-				user.getSentenceBoardColor(),
-				new OnAmbilWarnaListener() {
-			@Override
-			public void onCancel(AmbilWarnaDialog dialog) {
-			}
 
-			@Override
-			public void onOk(AmbilWarnaDialog dialog, int color) {
-				user.setSentenceBoardColor(color);
-				Log.v("MessageParrot", "color: " + color);
-			}
-		});
-		dialog.show();
-
-	}
-	
 	/**
 	 * When mediumPicRadioButton or largePicRadioButton is clicked, this happens. 
 	 * Change pictogram size.
