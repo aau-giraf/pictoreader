@@ -62,10 +62,7 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
         //Log.v("LoadImage;Message","end doInBackground");
         return bitmap;
     }
-    /**
-     * This metode vil show the bitmap when it is posted on the screen.
-     * @param Bitmap result. The result of the operation computed by doInBackground.
-     */
+
     @Override
     protected void onPostExecute(Bitmap result) {
     	//Log.v("LoadImage;Message","begin onPostExecute");
