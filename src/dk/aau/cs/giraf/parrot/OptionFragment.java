@@ -52,12 +52,12 @@ public class OptionFragment extends Fragment{
 	@Override
 	public void onPrepareOptionsMenu(Menu menu)
 	{
-		menu.findItem(R.id.goToParrot).setVisible(true);
+        super.onPrepareOptionsMenu(menu);
+
+        menu.findItem(R.id.goToParrot).setVisible(true);
 		menu.findItem(R.id.goToSettings).setVisible(false);
 		menu.findItem(R.id.goToLauncher).setVisible(false);
 		menu.findItem(R.id.clearBoard).setVisible(false);
-		
-		super.onPrepareOptionsMenu(menu);
 	}
 	/**
 	 * Selector for what happens when a menu Item is clicked
