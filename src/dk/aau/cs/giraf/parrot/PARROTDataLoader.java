@@ -45,7 +45,7 @@ public class PARROTDataLoader {
 	{
 		this.parent = activity;
 		help = new Helper(parent);
-        app = help.applicationHelper.getApplicationById(PARROTActivity.getApp().getId());
+        app = help.applicationHelper.getApplicationById(MainActivity.getApp().getId());
 
 		if(categories)
 		{

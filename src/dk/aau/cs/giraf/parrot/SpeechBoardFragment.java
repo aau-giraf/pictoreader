@@ -67,8 +67,8 @@ public class SpeechBoardFragment extends Fragment
 		case R.id.goToLauncher:
 			returnToLauncher();
 			break;
-		case R.id.goToSettings:	
-			PARROTActivity parrotA= new PARROTActivity();
+		case R.id.goToSettings:
+            MainActivity parrotA= new MainActivity();
 			parrotA.switchTabs();
 			break;
 		}
@@ -112,7 +112,7 @@ public class SpeechBoardFragment extends Fragment
 		parrent.invalidateOptionsMenu();
 		parrent.setContentView(R.layout.speechboard_layout);
 		
-		user=PARROTActivity.getUser();	
+		user=MainActivity.getUser();
 		
 		//check whether there are categories
 		if(user.getCategoryAt(0)!=null)
@@ -249,7 +249,7 @@ public class SpeechBoardFragment extends Fragment
 			}
 			count=0;
 			//Fills the sentenceboard with emptyPictogram pictograms
-			while(speechBoardCategory.getPictograms().size() <PARROTActivity.getUser().getNumberOfSentencePictograms())
+			while(speechBoardCategory.getPictograms().size() <MainActivity.getUser().getNumberOfSentencePictograms())
 			{
 				speechBoardCategory.addPictogram(emptyPictogram);
 			}

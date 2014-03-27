@@ -18,7 +18,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 {
 	private Activity parrent;
 	private Pictogram draggedPictogram = null;
-	private PARROTProfile profile = PARROTActivity.getUser();
+	private PARROTProfile profile = MainActivity.getUser();
 	int numberOfSentencePictograms = profile.getNumberOfSentencePictograms();
 	boolean insideOfMe = false;
 

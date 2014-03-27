@@ -78,7 +78,7 @@ public class PictogramAdapter extends BaseAdapter {
 		
 		//setup layout for imageView
 		LinearLayout.LayoutParams layoutParams;
-		if(PARROTActivity.getUser().getPictogramSize()== PARROTProfile.PictogramSize.LARGE)
+		if(MainActivity.getUser().getPictogramSize()== PARROTProfile.PictogramSize.LARGE)
 		{
 			layoutParams = new LinearLayout.LayoutParams(180, 180);
 		}

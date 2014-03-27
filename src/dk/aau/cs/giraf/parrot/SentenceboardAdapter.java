@@ -75,7 +75,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 			
 			//setup layout for imageView
 			LinearLayout.LayoutParams layoutParams;
-			if(PARROTActivity.getUser().getPictogramSize()== PARROTProfile.PictogramSize.LARGE)
+			if(MainActivity.getUser().getPictogramSize()== PARROTProfile.PictogramSize.LARGE)
 			{
 				layoutParams = new LinearLayout.LayoutParams(180, 180);
 			}
@@ -87,7 +87,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 			imageView.setLayoutParams(layoutParams);
 
 			//load the Bitmap and set the setImageBitmap
-			if(PARROTActivity.getUser().getShowText()==true)
+			if(MainActivity.getUser().getShowText()==true)
 			{
 				
 				textView.setTextSize(20);	//TODO this value should be customizable

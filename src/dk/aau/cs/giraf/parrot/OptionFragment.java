@@ -66,7 +66,7 @@ public class OptionFragment extends Fragment{
 	public boolean onOptionsItemSelected (MenuItem item) {
 		switch(item.getItemId()){
 		case R.id.goToParrot:
-			PARROTActivity parrotA= new PARROTActivity();
+			MainActivity parrotA= new MainActivity();
 			parrotA.switchTabs();
 			break;
 		}
@@ -80,7 +80,7 @@ public class OptionFragment extends Fragment{
 	public void onPause() {
 		super.onPause();
 		dataloader.saveChanges(user);
-		PARROTActivity.setUser(user);
+        MainActivity.setUser(user);
 		
 	}
 		
@@ -93,7 +93,7 @@ public class OptionFragment extends Fragment{
 		super.onResume();
 		parrent.setContentView(R.layout.activity_setting);
 		parrent.invalidateOptionsMenu();
-		user = PARROTActivity.getUser();
+		user = MainActivity.getUser();
 		dataloader = new PARROTDataLoader(parrent, false);
 		
 		
