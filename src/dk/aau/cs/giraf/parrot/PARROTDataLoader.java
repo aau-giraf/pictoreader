@@ -1,9 +1,14 @@
 package dk.aau.cs.giraf.parrot;
 
 
+import java.net.ContentHandler;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.Context;
+import android.content.Intent;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,7 +17,9 @@ import android.util.Log;
 import dk.aau.cs.giraf.categorylib.CategoryHelper;
 import dk.aau.cs.giraf.categorylib.PARROTCategory;
 import dk.aau.cs.giraf.oasis.lib.Helper;
+import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
+import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.oasis.lib.models.Profile;
 import dk.aau.cs.giraf.oasis.lib.models.ProfileApplication;
 import dk.aau.cs.giraf.oasis.lib.models.Setting;
@@ -36,12 +43,13 @@ public class PARROTDataLoader {
     private ProfileApplication proApp;
 	private CategoryHelper categoryHelper= null;
     private Helper oasisHelper = null;
+    private Context _context;
 
 	/**
 	 * Constructor.
 	 * @param activity An activity.
 	 */
-	public PARROTDataLoader(Activity activity, boolean categories)
+	public PARROTDataLoader(Activity activity, boolean categories, Context context)
 	{
 		this.parent = activity;
 		help = new Helper(parent);
@@ -87,6 +95,8 @@ public class PARROTDataLoader {
 	{
 		Profile prof =null;
 		List<PARROTCategory> categories = null;
+        CategoryController categoryController = new CategoryController(_context);
+
 		
 		if(childId != -1 && appId >=0)
 		 {
@@ -96,20 +106,27 @@ public class PARROTDataLoader {
 			PARROTProfile parrotUser = new PARROTProfile(prof.getName(), pic);
 			parrotUser.setProfileID(prof.getId());
 
-             Blob settings = help.profileApplicationHelper.getProfileApplicationByProfileIdAndApplicationId(help.applicationHelper.getApplicationById(appId), help.profilesHelper.getProfileById(childId)).getSettings();
+            Blob settings = help.profileApplicationHelper.getProfileApplicationByProfileIdAndApplicationId(help.applicationHelper.getApplicationById(appId), help.profilesHelper.getProfileById(childId)).getSettings();
 
 			Setting<String, String, String> specialSettings = settings;
 
 			//Load the settings
 			parrotUser = loadSettings(parrotUser, specialSettings);
 
+            for (Category category : categoryController.getCategoriesByProfileId(prof.getId()))
+            {
+                PARROTCategory temp = new PARROTCategory(category.getName(), category.getColour(), category.getIcon());
+                categories.add(temp);
+            }
+
+
 			//Get the child's categories. This return null if the child does not exist.
-			categories = categoryHelper.getChildsCategories(prof.getId());	
+			categories = categoryHelper.getChildsCategories(prof.getId());
+
 
 
 			if(categories!=null)
 			{
-				Log.v("MessageXML", "xmlChild does exist");
 				for(PARROTCategory c : categories)
 				{
 					for(PARROTCategory sc : c.getSubCategories())
