@@ -3,7 +3,9 @@ package dk.aau.cs.giraf.parrot;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -36,9 +38,9 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
 
@@ -47,8 +49,9 @@ public class MainActivity extends Activity {
         guardianID = girafIntent.getIntExtra("currentGuardianID", -1);
         childID = girafIntent.getIntExtra("currentChildID", -1);
         ApplicationController applicationController = new ApplicationController(getApplicationContext());
+
         app = applicationController.getApplicationByPackageName();
-        app = null;
+        //app = new Application(1, "myapp", "1.0", null, "hah", "Main", "mysecr", 1);
 
 		/*don't delete this is for lisbeth and anders when running on our own device*/
         guardianID = 1;
@@ -64,7 +67,7 @@ public class MainActivity extends Activity {
         }
         else
         {
-            dataLoader = new PARROTDataLoader(this, true);
+            dataLoader = new PARROTDataLoader(this, true, this.getApplicationContext());
 
             parrotUser = dataLoader.loadProfile((int)childID, app.getId());
 
@@ -80,17 +83,17 @@ public class MainActivity extends Activity {
 				 * Remember: Make sure the order of the Taps is consistent with the order of their rights in the
 				 * 			 Rights array.
 				 */
-                /*
+
 				actionBar = getActionBar();
 				actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 				//Creating a new Tab, setting the text it is to show and construct and attach a Tab Listener to control it.
-				Tab tab = actionBar.newTab() 
+				ActionBar.Tab tab = actionBar.newTab()
 						.setTabListener(new TabListener<SpeechBoardFragment>(this,"speechboard",SpeechBoardFragment.class));
 				actionBar.addTab(tab, 0);
-				Tab tab2 = actionBar.newTab()
+				ActionBar.Tab tab2 = actionBar.newTab()
 						.setTabListener(new TabListener<OptionFragment>(this,"options",OptionFragment.class));
 				actionBar.addTab(tab2, 1);
-				*/
+
 
             }
         }

@@ -17,7 +17,7 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
 public class SpeechBoardBoxDragListener implements OnDragListener 
 {
 	private Activity parrent;
-	private Pictogram draggedPictogram = null;
+	private dk.aau.cs.giraf.oasis.lib.models.Pictogram draggedPictogram = null;
 	private PARROTProfile profile = MainActivity.getUser();
 	int numberOfSentencePictograms = profile.getNumberOfSentencePictograms();
 	boolean insideOfMe = false;
@@ -42,13 +42,24 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 			{
 				draggedPictogram = SpeechBoardFragment.speechBoardCategory.getPictogramAtIndex(SpeechBoardFragment.draggedPictogramIndex);
 				//Do not allow dragging empty pictograms, show do nothing
-				if(draggedPictogram.getPictogramID()!=-1)
+				if(draggedPictogram.getId() !=-1)
 				{
 					GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
 					
 					//remove pictogram from sentenceboard and add an empty pictogram 
-					SpeechBoardFragment.speechBoardCategory.removePictogram(SpeechBoardFragment.draggedPictogramIndex);	
-					SpeechBoardFragment.speechBoardCategory.addPictogram(new Pictogram(1,"#emptyPictogram#", -1, null, null, "#emptyPictogram#", -1, parrent.getApplicationContext()));
+					SpeechBoardFragment.speechBoardCategory.removePictogram(SpeechBoardFragment.draggedPictogramIndex);
+
+                    dk.aau.cs.giraf.oasis.lib.models.Pictogram p = new dk.aau.cs.giraf.oasis.lib.models.Pictogram();
+
+                    p.setId(1);
+                    p.setAuthor(-1);
+                    p.setInlineText("#emptyPictogram#");
+                    p.setName("#emptyPictogram");
+                    p.setPub(-1);
+
+
+
+					SpeechBoardFragment.speechBoardCategory.addPictogram(p);
 					
 					speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.speechBoardCategory, parrent));
 				}
@@ -81,7 +92,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 
 
 						//Replaces a pictogram already in the sentencebord
-						if(SpeechBoardFragment.speechBoardCategory.getPictogramAtIndex(index).getPictogramID() != -1) 
+						if(SpeechBoardFragment.speechBoardCategory.getPictogramAtIndex(index).getId() != -1)
 						{
 							SpeechBoardFragment.speechBoardCategory.removePictogram(index); //Removes the pictogram at the specific index
 							SpeechBoardFragment.speechBoardCategory.addPictogramAtIndex(draggedPictogram, index); //add the pictogram at the specific position
@@ -93,7 +104,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 							//place the new pictogram in the first empty filled
 							while (count < numberOfSentencePictograms) 
 							{
-								if (SpeechBoardFragment.speechBoardCategory.getPictogramAtIndex(count).getPictogramID() == -1) 
+								if (SpeechBoardFragment.speechBoardCategory.getPictogramAtIndex(count).getId() == -1)
 								{
 									SpeechBoardFragment.speechBoardCategory.removePictogram(count); //Removes the pictogram at the specific index
 									SpeechBoardFragment.speechBoardCategory.addPictogramAtIndex(draggedPictogram, count); //add the pictogram at the specific position
@@ -124,14 +135,14 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 					}
 					else
 					{
-						if(SpeechBoardFragment.speechBoardCategory.getPictogramAtIndex(index).getPictogramID() == -1)
+						if(SpeechBoardFragment.speechBoardCategory.getPictogramAtIndex(index).getId() == -1)
 						{
 							//if it is empty, there might be empty spaces to the left of it too
 							int count = 0;
 							while (count < numberOfSentencePictograms) 
 							{
 
-								if (SpeechBoardFragment.speechBoardCategory.getPictogramAtIndex(count).getPictogramID() == -1) 
+								if (SpeechBoardFragment.speechBoardCategory.getPictogramAtIndex(count).getId() == -1)
 								{
 									SpeechBoardFragment.speechBoardCategory.removePictogram(count); //Removes the pictogram at the specific index
 									SpeechBoardFragment.speechBoardCategory.addPictogramAtIndex(draggedPictogram, count); //add the pictogram at the specific position

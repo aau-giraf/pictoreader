@@ -38,11 +38,11 @@ public class SpeechBoardFragment extends Fragment
 	public static ArrayList<Pictogram> speechboardPictograms = new ArrayList<Pictogram>();
 	
 	//This category contains the pictograms on the sentenceboard
-	public static PARROTCategory speechBoardCategory = new PARROTCategory(0xffffff,null);	
+	public static PARROTCategory speechBoardCategory = new PARROTCategory("#ffffff",null);
 	//This category contains the pictograms displayed on the big board
 	public static PARROTCategory displayedCategory = null;
 	private PARROTProfile user = null;
-	private static Pictogram emptyPictogram =null;  
+	private static dk.aau.cs.giraf.oasis.lib.models.Pictogram emptyPictogram =null;
 	
 	@Override
 	public void onPrepareOptionsMenu(Menu menu)
@@ -166,10 +166,11 @@ public class SpeechBoardFragment extends Fragment
 
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View view,	int position, long id) {
-					Pictogram p =speechBoardCategory.getPictogramAtIndex(position);
-					if(!(p.getPictogramID()==-1))
+					dk.aau.cs.giraf.oasis.lib.models.Pictogram p =speechBoardCategory.getPictogramAtIndex(position);
+					if(!(p.getId() ==-1))
 					{
-						p.playAudio();
+                        //PLAY AUDIO HERE
+						//p.playAudio();
 					}
 				}
 			});
@@ -186,8 +187,8 @@ public class SpeechBoardFragment extends Fragment
 
                 @Override
                 public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-                    Pictogram p = speechBoardCategory.getPictogramAtIndex(position);
-                    if (!(p.getPictogramID() == -1)) {
+                    dk.aau.cs.giraf.oasis.lib.models.Pictogram p = speechBoardCategory.getPictogramAtIndex(position);
+                    if (!(p.getId() == -1)) {
                         draggedPictogramIndex = position;
                         dragOwnerID = R.id.sentenceboard;
                         ClipData data = ClipData.newPlainText("label", "text"); //TODO Dummy. Pictogram information can be placed here instead.
@@ -240,7 +241,7 @@ public class SpeechBoardFragment extends Fragment
 	public static void clearSentenceboard(Activity activity)
 	{
 		//(Context context, final String image, final String text, final String audio, final long id)
-			emptyPictogram = new Pictogram(1,"#emptyPictogram#", -1, null, null, "#emptyPictogram#", -1, activity.getApplicationContext());
+			emptyPictogram = new dk.aau.cs.giraf.oasis.lib.models.Pictogram();
 			int count = speechBoardCategory.getPictograms().size()-1;
 			while(speechBoardCategory.getPictograms().size()!= 0)
 			{
@@ -293,7 +294,7 @@ public class SpeechBoardFragment extends Fragment
 		//setup colors of the pictogram listnings view
 				GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
 				Drawable draw = parrent.getResources().getDrawable(R.drawable.gridviewlayout);
-				draw.setColorFilter(displayedCategory.getCategoryColor(),PorterDuff.Mode.OVERLAY);
+				draw.setColorFilter(10,PorterDuff.Mode.OVERLAY);
 				pictogramGrid.setBackgroundDrawable(draw);
 				
 	}

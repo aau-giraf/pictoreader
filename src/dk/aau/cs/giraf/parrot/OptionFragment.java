@@ -94,7 +94,7 @@ public class OptionFragment extends Fragment{
 		parrent.setContentView(R.layout.activity_setting);
 		parrent.invalidateOptionsMenu();
 		user = MainActivity.getUser();
-		dataloader = new PARROTDataLoader(parrent, false);
+		dataloader = new PARROTDataLoader(parrent, false, null);
 		
 		
 		//Setup of the spinner with is the selector of how many of boxes the child can handle in the sentenceboard

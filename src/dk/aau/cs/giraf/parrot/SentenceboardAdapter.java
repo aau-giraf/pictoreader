@@ -67,7 +67,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 			LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View view = layoutInflater.inflate(R.layout.pictogramview, null);
 			
-			Pictogram pct=cat.getPictogramAtIndex(position);
+			dk.aau.cs.giraf.oasis.lib.models.Pictogram pct=cat.getPictogramAtIndex(position);
 			
 			imageView = (ImageView) view.findViewById(R.id.pictogrambitmap); 
 			textView = (TextView) view.findViewById(R.id.pictogramtext);
@@ -91,11 +91,12 @@ public class SentenceboardAdapter extends BaseAdapter {
 			{
 				
 				textView.setTextSize(20);	//TODO this value should be customizable
-				textView.setText(pct.getTextLabel());
+				textView.setText(pct.getInlineText());
 				
 			}
 			Bitmap bitmap;
-			if(pct.getPictogramID() == -1)
+			if(pct.getId()
+                    == -1)
 			{
 	        	bitmap=BitmapFactory.decodeResource(context.getResources(),R.drawable.usynlig);
 				

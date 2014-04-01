@@ -52,7 +52,7 @@ public class PictogramAdapter extends BaseAdapter {
 	@Override
 	public long getItemId(int arg0) {
 		// TODO Auto-generated method stub
-		return cat.getPictogramAtIndex(arg0).getPictogramID();
+		return cat.getPictogramAtIndex(arg0).getId();
 	}
 	/**
 	 * create an image view for each pictogram in the pictogram list from the PARROTCategory.
@@ -65,7 +65,7 @@ public class PictogramAdapter extends BaseAdapter {
 		View view = convertView;
 		TextView textView;
 		//view.setTag(position);
-		Pictogram pct=cat.getPictogramAtIndex(position);
+		dk.aau.cs.giraf.oasis.lib.models.Pictogram pct=cat.getPictogramAtIndex(position);
 
 		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		view = layoutInflater.inflate(R.layout.pictogramview, null);

@@ -55,11 +55,11 @@ public class PARROTDataLoader {
 		help = new Helper(parent);
         app = help.applicationHelper.getApplicationById(MainActivity.getApp().getId());
 
+        _context = context;
 		if(categories)
 		{
 			categoryHelper= new CategoryHelper(parent);
 		}
-		
 
 	}
 
@@ -106,7 +106,7 @@ public class PARROTDataLoader {
 			PARROTProfile parrotUser = new PARROTProfile(prof.getName(), pic);
 			parrotUser.setProfileID(prof.getId());
 
-            Blob settings = help.profileApplicationHelper.getProfileApplicationByProfileIdAndApplicationId(help.applicationHelper.getApplicationById(appId), help.profilesHelper.getProfileById(childId)).getSettings();
+            Setting settings = help.profileApplicationHelper.getProfileApplicationByProfileIdAndApplicationId(help.applicationHelper.getApplicationById(appId), help.profilesHelper.getProfileById(childId)).getSettings();
 
 			Setting<String, String, String> specialSettings = settings;
 
@@ -115,7 +115,7 @@ public class PARROTDataLoader {
 
             for (Category category : categoryController.getCategoriesByProfileId(prof.getId()))
             {
-                PARROTCategory temp = new PARROTCategory(category.getName(), category.getColour(), category.getIcon());
+                PARROTCategory temp = new PARROTCategory(category.getName(), ""+category.getColour(), category.getIcon());
                 categories.add(temp);
             }
 
@@ -217,7 +217,7 @@ public class PARROTDataLoader {
 		Setting<String, String, String> profileSetting = new Setting<String, String, String>();
 
 
-		profileSetting = help.profileApplicationHelper.getProfileApplicationByProfileIdAndApplicationId(app, prof).getSettings();
+//		profileSetting = help.profileApplicationHelper.getProfileApplicationByProfileIdAndApplicationId(app, prof).getSettings();
 
 		profileSetting.remove("SentenceboardSettings");
 		profileSetting.remove("PictogramSettings");
@@ -231,7 +231,7 @@ public class PARROTDataLoader {
 
         proApp = oasisHelper.profileApplicationHelper.getProfileApplicationByProfileIdAndApplicationId(app, prof);
 
-        proApp.setSettings(profileSetting);
+     //   proApp.setSettings(profileSetting);
 
         //Old for history/roll back:
 		//help.appsHelper.modifyAppByProfile(app, prof);

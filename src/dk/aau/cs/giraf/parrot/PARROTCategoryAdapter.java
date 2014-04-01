@@ -1,6 +1,7 @@
 package dk.aau.cs.giraf.parrot;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -58,13 +59,13 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 	@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 			ImageView imageView;
-			Pictogram pictogram = categories.get(position).getIcon();
+			Bitmap pictogram = categories.get(position).getIcon();
 			if (convertView == null) {  // if it's not recycled, initialize some attributes
 				imageView = new ImageView(context);
 				imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
 				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 				imageView.setPadding(8, 8, 8, 8);
-				imageView.setBackgroundColor(categories.get(position).getCategoryColor());
+				imageView.setBackgroundColor(10);
 			} 
 			
 			else {
@@ -73,7 +74,7 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 			
 			//we then set the imageview to the icon of the category
 			
-			imageView.setImageBitmap(pictogram.getImageData());
+			imageView.setImageBitmap(pictogram);
 			
 			return imageView;
 		}
