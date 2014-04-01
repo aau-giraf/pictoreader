@@ -18,12 +18,13 @@ import dk.aau.cs.giraf.categorylib.CategoryHelper;
 import dk.aau.cs.giraf.categorylib.PARROTCategory;
 import dk.aau.cs.giraf.oasis.lib.Helper;
 import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
+import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.oasis.lib.models.Profile;
 import dk.aau.cs.giraf.oasis.lib.models.ProfileApplication;
 import dk.aau.cs.giraf.oasis.lib.models.Setting;
-import dk.aau.cs.giraf.pictogram.Pictogram;
+import dk.aau.cs.giraf.oasis.lib.models.Pictogram;
 
 
 /**
@@ -83,6 +84,29 @@ public class PARROTDataLoader {
 		return parrotChildren;
 	}
 
+    public PARROTCategory convertCategoryToParrotCategory(Category category)
+    {
+        CategoryController categoryController = new CategoryController(_context);
+        PictogramController pictogramController = new PictogramController(_context);
+        PARROTCategory temp = new PARROTCategory(category.getName(), category.getColour(), category.getImage());
+
+        temp.setId(category.getId());
+        temp.setChanged(false);
+        temp.setNewCategory(false);
+        temp.setSuperCategory(convertCategoryToParrotCategory(categoryController.getCategoryById(category.getSuperCategoryId())));
+
+        List<Pictogram> picList = pictogramController.getPictogramsByCategory(category);
+        for (Pictogram pic : picList)
+        {
+            temp.addPictogram(pic);
+        }
+
+        ArrayList<Category> catList = categoryController. "her skal alle/delvist alle cagories hentes"
+
+
+        ArrayList<PARROTCategory> subCategories;
+    }
+
 
 	/**
 	 * This method loads a specific PARROTProfile, which are to be shown in PARROT
@@ -115,8 +139,7 @@ public class PARROTDataLoader {
 
             for (Category category : categoryController.getCategoriesByProfileId(prof.getId()))
             {
-                PARROTCategory temp = new PARROTCategory(category.getName(), category.getColour(), category.getIcon());
-                categories.add(temp);
+                categories.add(convertCategoryToParrotCategory(category));
             }
 
 
