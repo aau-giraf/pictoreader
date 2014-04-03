@@ -27,6 +27,7 @@ public class PictogramAdapter extends BaseAdapter {
 	private Context context;
 	private Activity activity;
     private PictogramController catController;
+    PictogramController pictogramController = new PictogramController(this.context);
 	
 	/**
 	 * 
@@ -44,21 +45,19 @@ public class PictogramAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		//return the number of pictograms
-
-
-		return cat.getPictograms().size();
+		return pictogramController.getPictogramsByCategory(cat).size();
 	}
 
 	@Override
 	public Object getItem(int arg0) {
 		// TODO Auto-generated method stub
-		return cat.getPictogramAtIndex(arg0);
+        return pictogramController.getPictogramsByCategory(cat).get(arg0);
 	}
 
 	@Override
 	public long getItemId(int arg0) {
 		// TODO Auto-generated method stub
-		return cat.getPictogramAtIndex(arg0).getId();
+		return pictogramController.getPictogramsByCategory(cat).get(arg0).getId();
 	}
 	/**
 	 * create an image view for each pictogram in the pictogram list from the PARROTCategory.
@@ -72,7 +71,8 @@ public class PictogramAdapter extends BaseAdapter {
 		TextView textView;
 		//view.setTag(position);
 
-		Pictogram pct=cat.getPictogramAtIndex(position);
+
+		Pictogram pct=pictogramController.getPictogramsByCategory(cat).get(position);
 
 		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		view = layoutInflater.inflate(R.layout.pictogramview, null);
