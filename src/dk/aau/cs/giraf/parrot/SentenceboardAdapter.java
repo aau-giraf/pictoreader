@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
-import dk.aau.cs.giraf.pictogram.Pictogram;
+import dk.aau.cs.giraf.oasis.lib.models.Pictogram;
+
 
     /**
 	 * 
@@ -26,7 +27,8 @@ public class SentenceboardAdapter extends BaseAdapter {
 
 
     private PictogramController pictogramController;
-	private Category cat;
+    private Pictogram pictogram;
+	private Category category;
 	private Context context;
 	
 	/**
@@ -36,7 +38,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 	public SentenceboardAdapter(Category cat, Context c)
 	{
 		super();
-		this.cat=cat;
+		this.category=cat;
 		context = c;
 	}
 
@@ -64,7 +66,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 		 * create an image view for each pictogram in the pictogram list from the PARROTCategory.
 		 */
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) 
+		public View getView(int id, View convertView, ViewGroup parent)
 		{
 			
 			ImageView imageView;
@@ -73,7 +75,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 			LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View view = layoutInflater.inflate(R.layout.pictogramview, null);
 
-			Pictogram pct=cat.getPictogramAtIndex(position);
+			Pictogram pct = pictogramController.getPictogramById(id);
 			
 			imageView = (ImageView) view.findViewById(R.id.pictogrambitmap); 
 			textView = (TextView) view.findViewById(R.id.pictogramtext);
