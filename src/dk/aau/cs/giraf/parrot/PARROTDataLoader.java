@@ -82,6 +82,29 @@ public class PARROTDataLoader {
 		return parrotChildren;
 	}
 
+    public PARROTCategory convertCategoryToParrotCategory(Category category)
+    {
+        CategoryController categoryController = new CategoryController(_context);
+        PictogramController pictogramController = new PictogramController(_context);
+        PARROTCategory temp = new PARROTCategory(category.getName(), category.getColour(), category.getImage());
+
+        temp.setId(category.getId());
+        temp.setChanged(false);
+        temp.setNewCategory(false);
+        temp.setSuperCategory(convertCategoryToParrotCategory(categoryController.getCategoryById(category.getSuperCategoryId())));
+
+        List<Pictogram> picList = pictogramController.getPictogramsByCategory(category);
+        for (Pictogram pic : picList)
+        {
+            temp.addPictogram(pic);
+        }
+
+        ArrayList<Category> catList = categoryController. "her skal alle/delvist alle cagories hentes"
+
+
+        ArrayList<PARROTCategory> subCategories;
+    }
+
 
 	/**
 	 * This method loads a specific PARROTProfile, which are to be shown in PARROT
@@ -93,7 +116,7 @@ public class PARROTDataLoader {
 	public PARROTProfile loadProfile(int childId,int appId)
 	{
 		Profile prof =null;
-		List<Category> categories = null;
+		List<PARROTCategory> categories = null;
         CategoryController categoryController = new CategoryController(_context);
 
 		
@@ -113,6 +136,10 @@ public class PARROTDataLoader {
 			parrotUser = loadSettings(parrotUser, specialSettings);
 
             categories =  categoryController.getCategoriesByProfileId(prof.getId());
+            for (Category category : categoryController.getCategoriesByProfileId(prof.getId()))
+            {
+                categories.add(convertCategoryToParrotCategory(category));
+            }
 
 
 
