@@ -10,9 +10,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import dk.aau.cs.giraf.categorylib.PARROTCategory;
+
+import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
+import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.pictogram.Pictogram;
-	/**
+
+    /**
 	 * 
 	 * @author PARROT spring 2012 and adapted by sw605f13-PARROT
 	 * This is the SentenceboardAdapter class. 
@@ -22,14 +25,15 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
 public class SentenceboardAdapter extends BaseAdapter {
 
 
-	private PARROTCategory cat;
+    private PictogramController pictogramController;
+	private Category cat;
 	private Context context;
 	
 	/**
 	 * @param cat, a PARROTCategory
 	 * @param c, the applications context
 	 */
-	public SentenceboardAdapter(PARROTCategory cat, Context c)
+	public SentenceboardAdapter(Category cat, Context c)
 	{
 		super();
 		this.cat=cat;
@@ -39,7 +43,9 @@ public class SentenceboardAdapter extends BaseAdapter {
 		@Override
 		public int getCount() {
 			//return the number of pictograms
-			return cat.getPictograms().size();
+
+
+			return pictogramController.getPictograms().size();
 		}
 
 		@Override
@@ -66,8 +72,8 @@ public class SentenceboardAdapter extends BaseAdapter {
 			
 			LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View view = layoutInflater.inflate(R.layout.pictogramview, null);
-			
-			dk.aau.cs.giraf.oasis.lib.models.Pictogram pct=cat.getPictogramAtIndex(position);
+
+			Pictogram pct=cat.getPictogramAtIndex(position);
 			
 			imageView = (ImageView) view.findViewById(R.id.pictogrambitmap); 
 			textView = (TextView) view.findViewById(R.id.pictogramtext);

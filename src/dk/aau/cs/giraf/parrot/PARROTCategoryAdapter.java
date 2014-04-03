@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import dk.aau.cs.giraf.categorylib.PARROTCategory;
+import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
 /**
@@ -22,7 +22,7 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
 
 public class PARROTCategoryAdapter extends BaseAdapter{
 
-	private ArrayList<PARROTCategory> categories;
+	private ArrayList<Category> categories;
 	private Context context;
 
 	/**
@@ -30,7 +30,7 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 	 * @param categories, List of PARROTCategories. 
 	 * @param _context, a Context.
 	 */
-	public PARROTCategoryAdapter(ArrayList<PARROTCategory> categories, Context _context)
+	public PARROTCategoryAdapter(ArrayList<Category> categories, Context _context)
 	{
 		this.categories = categories;
 		context = _context;
@@ -59,7 +59,7 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 	@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 			ImageView imageView;
-			Bitmap pictogram = categories.get(position).getIcon();
+			Bitmap pictogram = categories.get(position).getImage();
 			if (convertView == null) {  // if it's not recycled, initialize some attributes
 				imageView = new ImageView(context);
 				imageView.setLayoutParams(new GridView.LayoutParams(85, 85));

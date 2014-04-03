@@ -10,7 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import dk.aau.cs.giraf.categorylib.PARROTCategory;
+
+import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
+import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
+import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
 /**
@@ -20,16 +23,17 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
  */
 public class PictogramAdapter extends BaseAdapter {
 
-	private PARROTCategory cat;
+	private Category cat;
 	private Context context;
 	private Activity activity;
+    private PictogramController catController;
 	
 	/**
 	 * 
 	 * @param cat, a PARROTCategory
 	 * @param c, the applications context
 	 */
-	public PictogramAdapter(PARROTCategory cat, Context c, Activity act)
+	public PictogramAdapter(Category cat, Context c, Activity act)
 	{
 		super();
 		this.cat=cat;
@@ -40,6 +44,8 @@ public class PictogramAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		//return the number of pictograms
+
+
 		return cat.getPictograms().size();
 	}
 
@@ -65,7 +71,8 @@ public class PictogramAdapter extends BaseAdapter {
 		View view = convertView;
 		TextView textView;
 		//view.setTag(position);
-		dk.aau.cs.giraf.oasis.lib.models.Pictogram pct=cat.getPictogramAtIndex(position);
+
+		Pictogram pct=cat.getPictogramAtIndex(position);
 
 		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		view = layoutInflater.inflate(R.layout.pictogramview, null);

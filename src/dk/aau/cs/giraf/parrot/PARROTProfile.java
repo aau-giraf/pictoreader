@@ -3,7 +3,8 @@ package dk.aau.cs.giraf.parrot;
 import java.util.ArrayList;
 
 import android.graphics.Color;
-import dk.aau.cs.giraf.categorylib.PARROTCategory;
+
+import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
 
@@ -17,7 +18,7 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
 public class PARROTProfile {
 	private String name;
 	private Pictogram icon;
-	private ArrayList<PARROTCategory> categories = new ArrayList<PARROTCategory>();
+	private ArrayList<Category> categories = new ArrayList<Category>();
 	private int profileID =-1;
 	private int noOfboxesInSentenceboard = 1;
 	private int sentenceBoardColor = Color.WHITE;
@@ -41,7 +42,7 @@ public class PARROTProfile {
 	/**
 	 * @return this PARROTProfile's categories.
 	 */
-	public ArrayList<PARROTCategory> getCategories() {
+	public ArrayList<Category> getCategories() {
 		return categories;
 	}
 	
@@ -50,7 +51,7 @@ public class PARROTProfile {
 	 * @param i, index to get the Category at that location.
 	 * @return a PARROTCategory.
 	 */
-	public PARROTCategory getCategoryAt(int i)
+	public Category getCategoryAt(int i)
 	{
 		return categories.get(i);
 	}
@@ -60,7 +61,7 @@ public class PARROTProfile {
 	 * @param i, index to where the category should be located.
 	 * @param cat, the category to be saved.
 	 */
-	public void setCategoryAt(int i, PARROTCategory cat)
+	public void setCategoryAt(int i, Category cat)
 	{
 		this.categories.set(i, cat);
 	}
@@ -68,7 +69,7 @@ public class PARROTProfile {
 	 * Add a new PARROTCategory to categories.
 	 * @param cat, the category to be added.
 	 */
-	public void addCategory(PARROTCategory cat)
+	public void addCategory(Category cat)
 	{
 		categories.add(cat);
 	}

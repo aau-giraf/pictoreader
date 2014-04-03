@@ -14,8 +14,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
-import dk.aau.cs.giraf.categorylib.CategoryHelper;
-import dk.aau.cs.giraf.categorylib.PARROTCategory;
+import dk.aau.cs.giraf.categorylib.CatLibHelper;
 import dk.aau.cs.giraf.oasis.lib.Helper;
 import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
@@ -41,7 +40,7 @@ public class PARROTDataLoader {
 	private Helper help;
 	private Application app;
     private ProfileApplication proApp;
-	private CategoryHelper categoryHelper= null;
+	private CatLibHelper categoryHelper= null;
     private Helper oasisHelper = null;
     private Context _context;
 
@@ -58,7 +57,7 @@ public class PARROTDataLoader {
         _context = context;
 		if(categories)
 		{
-			categoryHelper= new CategoryHelper(parent);
+			categoryHelper= new CatLibHelper(parent);
 		}
 
 	}
@@ -94,7 +93,7 @@ public class PARROTDataLoader {
 	public PARROTProfile loadProfile(int childId,int appId)
 	{
 		Profile prof =null;
-		List<PARROTCategory> categories = null;
+		List<Category> categories = null;
         CategoryController categoryController = new CategoryController(_context);
 
 		
@@ -113,26 +112,19 @@ public class PARROTDataLoader {
 			//Load the settings
 			parrotUser = loadSettings(parrotUser, specialSettings);
 
-            for (Category category : categoryController.getCategoriesByProfileId(prof.getId()))
-            {
-                PARROTCategory temp = new PARROTCategory(category.getName(), ""+category.getColour(), category.getIcon());
-                categories.add(temp);
-            }
+            categories =  categoryController.getCategoriesByProfileId(prof.getId());
+
 
 
 			//Get the child's categories. This return null if the child does not exist.
-			categories = categoryHelper.getChildsCategories(prof.getId());
+			categories = categoryHelper.getCategoriesFromProfile(prof);
 
 
 
 			if(categories!=null)
 			{
-				for(PARROTCategory c : categories)
+				for(Category c : categories)
 				{
-					for(PARROTCategory sc : c.getSubCategories())
-					{
-						Log.v("something", "subcategory"+ sc.getCategoryName()+ "super: " +sc.getSuperCategory().getCategoryName());
-					}
 					parrotUser.addCategory(c);
 				}
 				

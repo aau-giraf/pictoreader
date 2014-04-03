@@ -19,7 +19,7 @@ import android.widget.GridView;
 
 import java.util.ArrayList;
 
-import dk.aau.cs.giraf.categorylib.PARROTCategory;
+import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
 /**
@@ -38,11 +38,11 @@ public class SpeechBoardFragment extends Fragment
 	public static ArrayList<Pictogram> speechboardPictograms = new ArrayList<Pictogram>();
 	
 	//This category contains the pictograms on the sentenceboard
-	public static PARROTCategory speechBoardCategory = new PARROTCategory("#ffffff",null);
+	public static Category speechBoardCategory = new Category("MyCat", 100,  null, 0);
 	//This category contains the pictograms displayed on the big board
-	public static PARROTCategory displayedCategory = null;
+	public static Category displayedCategory = null;
 	private PARROTProfile user = null;
-	private static dk.aau.cs.giraf.oasis.lib.models.Pictogram emptyPictogram =null;
+	private static Pictogram emptyPictogram =null;
 	
 	@Override
 	public void onPrepareOptionsMenu(Menu menu)
