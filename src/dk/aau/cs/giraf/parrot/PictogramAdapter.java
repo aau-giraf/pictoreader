@@ -76,7 +76,7 @@ public class PictogramAdapter extends BaseAdapter {
 
 		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		view = layoutInflater.inflate(R.layout.pictogramview, null);
-		view.setOnDragListener(new SpeechBoardBoxDragListener(activity));
+		view.setOnDragListener(new SpeechBoardBoxDragListener(activity, context));
 		view.setOnTouchListener(new pictogramTouchListener( position) );
 
 		//setup views
