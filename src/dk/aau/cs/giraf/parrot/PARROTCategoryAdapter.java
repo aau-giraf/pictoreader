@@ -9,6 +9,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.pictogram.Pictogram;
@@ -22,7 +23,7 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
 
 public class PARROTCategoryAdapter extends BaseAdapter{
 
-	private ArrayList<Category> categories;
+	private List<Category> categories;
 	private Context context;
 
 	/**
@@ -30,7 +31,7 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 	 * @param categories, List of PARROTCategories. 
 	 * @param _context, a Context.
 	 */
-	public PARROTCategoryAdapter(ArrayList<Category> categories, Context _context)
+	public PARROTCategoryAdapter(List<Category> categories, Context _context)
 	{
 		this.categories = categories;
 		context = _context;

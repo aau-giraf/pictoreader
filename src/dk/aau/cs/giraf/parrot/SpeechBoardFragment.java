@@ -19,7 +19,11 @@ import android.widget.GridView;
 
 import java.util.ArrayList;
 
+import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
+import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
+import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
+import dk.aau.cs.giraf.oasis.lib.models.PictogramCategory;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
 /**
@@ -43,6 +47,7 @@ public class SpeechBoardFragment extends Fragment
 	public static Category displayedCategory = null;
 	private PARROTProfile user = null;
 	private static Pictogram emptyPictogram =null;
+    private PictogramController pictogramController = new PictogramController(parrent);
 	
 	@Override
 	public void onPrepareOptionsMenu(Menu menu)
@@ -150,7 +155,10 @@ public class SpeechBoardFragment extends Fragment
 			GridView superCategoryGrid = (GridView) parrent.findViewById(R.id.supercategory);
 			superCategoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parrent.getApplicationContext()));
 			GridView subCategoryGrid = (GridView) parrent.findViewById(R.id.subcategory);
-			subCategoryGrid.setAdapter(new PARROTCategoryAdapter(displayedCategory.getSubCategories(), parrent.getApplicationContext()));
+
+            CategoryController categoryController = new CategoryController(parrent);
+
+			subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent.getApplicationContext()));
 			pictogramGrid.setAdapter(new PictogramAdapter(displayedCategory, parrent.getApplicationContext(),parrent));
 			
 			//initialise the colors of the fragment
@@ -158,7 +166,7 @@ public class SpeechBoardFragment extends Fragment
 			
 			//setup drag listeners for the views
 			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
-			parrent.findViewById(R.id.sentenceboard).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
+			parrent.findViewById(R.id.sentenceboard).setOnDragListener(new SpeechBoardBoxDragListener(parrent, parrent.getApplicationContext()));
 	
 			
 			//Play sound, when click on a pictogram in the sentence board
@@ -166,7 +174,8 @@ public class SpeechBoardFragment extends Fragment
 
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View view,	int position, long id) {
-					dk.aau.cs.giraf.oasis.lib.models.Pictogram p =speechBoardCategory.getPictogramAtIndex(position);
+
+					dk.aau.cs.giraf.oasis.lib.models.Pictogram p = pictogramController.getPictogramsByCategory(speechBoardCategory).get(position);
 					if(!(p.getId() ==-1))
 					{
                         //PLAY AUDIO HERE
@@ -187,7 +196,8 @@ public class SpeechBoardFragment extends Fragment
 
                 @Override
                 public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-                    dk.aau.cs.giraf.oasis.lib.models.Pictogram p = speechBoardCategory.getPictogramAtIndex(position);
+
+                    dk.aau.cs.giraf.oasis.lib.models.Pictogram p = pictogramController.getPictogramsByCategory(speechBoardCategory).get(position);
                     if (!(p.getId() == -1)) {
                         draggedPictogramIndex = position;
                         dragOwnerID = R.id.sentenceboard;
@@ -198,21 +208,22 @@ public class SpeechBoardFragment extends Fragment
                 }
 
             });
-			
-			
+
+
 			//change category that is to be shown 
 			superCategoryGrid.setOnItemClickListener(new OnItemClickListener() {
+
 
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View view, int position, long id)
 				{
-
+                    CategoryController categoryController = new CategoryController(parrent.getBaseContext());
 					displayedCategory = user.getCategoryAt(position);
 					GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
 					pictogramGrid.setAdapter(new PictogramAdapter(displayedCategory, parrent.getApplicationContext(),parrent));
 					//Setup the view for the categories 
 					GridView subCategoryGrid = (GridView) parrent.findViewById(R.id.subcategory);
-					subCategoryGrid.setAdapter(new PARROTCategoryAdapter(displayedCategory.getSubCategories(), parrent.getApplicationContext()));
+					subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent.getApplicationContext()));
 					setPictogramGridColor();					
 				}
 			});
@@ -223,10 +234,11 @@ public class SpeechBoardFragment extends Fragment
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View view, int position, long id)
 				{
+                    CategoryController categoryController = new CategoryController(parrent.getBaseContext());
 					//this check is neccessary if you click twice at a subcategory it will crash since subCategories does not contain any subCategory
-					if(!displayedCategory.getSubCategories().isEmpty())
+					if(!categoryController.getSubcategoriesByCategory(displayedCategory).isEmpty())
 					{
-						displayedCategory = displayedCategory.getSubCategoryAtIndex(position);
+						displayedCategory = categoryController.getSubcategoriesByCategory(displayedCategory).get(position);
 						GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
 						pictogramGrid.setAdapter(new PictogramAdapter(displayedCategory, parrent.getApplicationContext(), parrent));
 					}
@@ -240,19 +252,22 @@ public class SpeechBoardFragment extends Fragment
 	 */
 	public static void clearSentenceboard(Activity activity)
 	{
+        PictogramController newPictogramController = new PictogramController(activity.getApplicationContext());
+        PictogramCategoryController categoryController = new PictogramCategoryController(activity.getApplicationContext());
+
 		//(Context context, final String image, final String text, final String audio, final long id)
-			emptyPictogram = new dk.aau.cs.giraf.oasis.lib.models.Pictogram();
-			int count = speechBoardCategory.getPictograms().size()-1;
-			while(speechBoardCategory.getPictograms().size()!= 0)
+			//emptyPictogram = new dk.aau.cs.giraf.oasis.lib.models.Pictogram();
+			int count = newPictogramController.getPictogramsByCategory(speechBoardCategory).size()-1;
+			while(newPictogramController.getPictogramsByCategory(speechBoardCategory).size() != 0)
 			{
-				speechBoardCategory.removePictogram(count);
+                categoryController.removePictogramCategory(speechBoardCategory.getId(), count);
 				count--;
 			}
 			count=0;
 			//Fills the sentenceboard with emptyPictogram pictograms
-			while(speechBoardCategory.getPictograms().size() <MainActivity.getUser().getNumberOfSentencePictograms())
+			while(newPictogramController.getPictogramsByCategory(speechBoardCategory).size() < MainActivity.getUser().getNumberOfSentencePictograms())
 			{
-				speechBoardCategory.addPictogram(emptyPictogram);
+                categoryController.insertPictogramCategory(new PictogramCategory(emptyPictogram.getId(), speechBoardCategory.getId()));
 			}
 			GridView sentenceBoardGrid = (GridView) activity.findViewById(R.id.sentenceboard);
 		
