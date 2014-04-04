@@ -16,7 +16,10 @@ import android.content.DialogInterface;
 import android.util.Log;
 import dk.aau.cs.giraf.categorylib.CatLibHelper;
 import dk.aau.cs.giraf.oasis.lib.Helper;
+import dk.aau.cs.giraf.oasis.lib.controllers.ApplicationController;
 import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
+import dk.aau.cs.giraf.oasis.lib.controllers.ProfileApplicationController;
+import dk.aau.cs.giraf.oasis.lib.controllers.ProfileController;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.oasis.lib.models.Profile;
@@ -59,7 +62,8 @@ public class PARROTDataLoader {
         {
             Log.v("Exception", e.getMessage());
         }
-        app = help.applicationHelper.getApplicationById(MainActivity.getApp().getId());
+        ApplicationController applicationController = new ApplicationController(context);
+        app = applicationController.getApplicationById(MainActivity.getApp().getId());
 
         _context = context;
 		if(categories)
@@ -106,13 +110,18 @@ public class PARROTDataLoader {
 		
 		if(childId != -1 && appId >=0)
 		 {
-			//Get the childs profile and setup the PARROTProfile.	
-			prof = help.profilesHelper.getProfileById(childId);	
+			//Get the childs profile and setup the PARROTProfile.
+            ProfileController profileController = new ProfileController(_context);
+			prof = profileController.getProfileById(childId);
 			Pictogram pic = new Pictogram(5, "name",1, null,null, "inline", -1, parent.getApplicationContext());
 			PARROTProfile parrotUser = new PARROTProfile(prof.getName(), pic);
 			parrotUser.setProfileID(prof.getId());
+            ApplicationController applicationController = new ApplicationController(_context);
 
-            Setting settings = help.profileApplicationHelper.getProfileApplicationByProfileIdAndApplicationId(help.applicationHelper.getApplicationById(appId), help.profilesHelper.getProfileById(childId)).getSettings();
+
+            ProfileApplicationController profileApplicationController = new ProfileApplicationController(_context);
+
+            Setting settings = profileApplicationController.getProfileApplicationByProfileIdAndApplicationId(applicationController.getApplicationById(appId), profileController.getProfileById(childId)).getSettings();
 
 			Setting<String, String, String> specialSettings = settings;
 

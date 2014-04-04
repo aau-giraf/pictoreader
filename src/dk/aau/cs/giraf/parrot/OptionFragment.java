@@ -6,9 +6,11 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -34,13 +36,12 @@ public class OptionFragment extends Fragment{
 	}
 	
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState, LayoutInflater inflater, ViewGroup container) {
 		super.onCreate(savedInstanceState);		
 		setHasOptionsMenu(true);
         final Button button;
-
-        button = (Button) getView().findViewById(R.id.btnSettingsSave);
+        View V = inflater.inflate(R.layout.activity_setting, container, false);
+        button = (Button) V.findViewById(R.id.btnSettingsSave);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

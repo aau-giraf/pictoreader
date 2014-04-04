@@ -53,7 +53,14 @@ public class PARROTProfile {
 	 */
 	public Category getCategoryAt(int i)
 	{
-		return categories.get(i);
+        if(categories.size() == 0 && i == 0)
+        {
+            return null;
+        }
+        else
+        {
+		    return categories.get(i);
+        }
 	}
 	
 	/**
