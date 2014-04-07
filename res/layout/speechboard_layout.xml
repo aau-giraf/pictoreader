@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:orientation="horizontal" >
 
         <!-- Screen Design for Photos -->
@@ -42,10 +42,18 @@
 	        android:scrollbarAlwaysDrawVerticalTrack="true"
     		android:scrollbarTrackVertical="@drawable/scrollbar_vertical_track"
     		android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"
-    		android:scrollbarSize="20dip"
-	        >
+    		android:scrollbarSize="20dip" />
+
+            <GridView
+                android:id="@+id/controlbuttons"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:numColumns="1"
+                android:background="@drawable/sentenceboardlayout"
+                android:visibility="visible" >
 	        
-		    </GridView>
+         </GridView>
 
     </LinearLayout>
 
@@ -90,6 +98,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="^"
+                    android:id="@+id/btnUp"
+                    android:layout_gravity="center_vertical" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="gear"
                     android:id="@+id/btnUp"
                     android:layout_gravity="center_vertical" />
 

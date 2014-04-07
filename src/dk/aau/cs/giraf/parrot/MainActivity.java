@@ -3,6 +3,9 @@ package dk.aau.cs.giraf.parrot;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -38,9 +41,9 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
-        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
 
@@ -48,6 +51,7 @@ public class MainActivity extends Activity {
         girafIntent = getIntent();
         guardianID = girafIntent.getIntExtra("currentGuardianID", -1);
         childID = girafIntent.getIntExtra("currentChildID", -1);
+
         ApplicationController applicationController = new ApplicationController(getApplicationContext());
 
         app = applicationController.getApplicationByPackageName();
@@ -76,25 +80,17 @@ public class MainActivity extends Activity {
                 Log.v("No in sentence", ""+ parrotUser.getNumberOfSentencePictograms());
                 Log.v("MessageParrot", "returned");
 						
-				/* Here all the Tabs in the system is initialized based on whether or not a user
-				 * is allowed to use them. If not they will not be initialized.
-				 * We wish not make users aware that there exists functionality that they are not
-				 * entitled to.
-				 * Remember: Make sure the order of the Taps is consistent with the order of their rights in the
-				 * 			 Rights array.
-				 */
+                // Create new fragment and transaction
+                Fragment newFragment = new SpeechBoardFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-				actionBar = getActionBar();
-				actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-				//Creating a new Tab, setting the text it is to show and construct and attach a Tab Listener to control it.
-				ActionBar.Tab tab = actionBar.newTab()
-						.setTabListener(new TabListener<SpeechBoardFragment>(this,"speechboard",SpeechBoardFragment.class));
-				actionBar.addTab(tab, 0);
-				ActionBar.Tab tab2 = actionBar.newTab()
-						.setTabListener(new TabListener<OptionFragment>(this,"options",OptionFragment.class));
-				actionBar.addTab(tab2, 1);
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack
+                transaction.add(R.id.main, newFragment);
+                transaction.addToBackStack(null);
 
-
+                // Commit the transaction
+                transaction.commit();
             }
         }
     }
