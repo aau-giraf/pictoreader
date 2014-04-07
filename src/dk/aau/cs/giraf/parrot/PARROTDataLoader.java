@@ -121,10 +121,18 @@ public class PARROTDataLoader {
 
             ProfileApplicationController profileApplicationController = new ProfileApplicationController(_context);
 
-            Setting settings = profileApplicationController.getProfileApplicationByProfileIdAndApplicationId(applicationController.getApplicationById(appId), profileController.getProfileById(childId)).getSettings();
+             Setting<String, String, String> specialSettings = new Setting<String, String, String>();
 
-			Setting<String, String, String> specialSettings = settings;
+             try
+            {
+                Setting settings = profileApplicationController.getProfileApplicationByProfileIdAndApplicationId(applicationController.getApplicationById(appId), profileController.getProfileById(childId)).getSettings();
 
+                specialSettings = settings;
+            }
+            catch (Exception e)
+            {
+                specialSettings.addValue("test", "test", "text");
+            }
 			//Load the settings
 			parrotUser = loadSettings(parrotUser, specialSettings);
 
