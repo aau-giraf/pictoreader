@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.util.Log;
 import dk.aau.cs.giraf.categorylib.CatLibHelper;
 import dk.aau.cs.giraf.oasis.lib.Helper;
@@ -220,8 +221,8 @@ public class PARROTDataLoader {
 	 */
 	public void saveChanges(PARROTProfile user)
 	{
-		
-		Profile prof = help.profilesHelper.getProfileById((int)user.getProfileID());
+		ProfileController profileController = new ProfileController(_context);
+        Profile prof = profileController.getProfileById(user.getProfileID());
 		Setting<String, String, String> profileSetting = new Setting<String, String, String>();
 
 
@@ -236,16 +237,8 @@ public class PARROTDataLoader {
 		profileSetting.addValue("PictogramSettings","PictogramSize", String.valueOf(user.getPictogramSize()));
 		profileSetting.get("PictogramSettings").put("ShowText", String.valueOf(user.getShowText()));
 
-
-        proApp = oasisHelper.profileApplicationHelper.getProfileApplicationByProfileIdAndApplicationId(app, prof);
-
-     //   proApp.setSettings(profileSetting);
-
-        //Old for history/roll back:
-		//help.appsHelper.modifyAppByProfile(app, prof);
-
-        help.applicationHelper.modifyApplication(app);
-		
+        ProfileApplicationController profileApplicationController = new ProfileApplicationController(_context);
+        proApp = profileApplicationController.getProfileApplicationByProfileIdAndApplicationId(app, prof);
 	}
 
 

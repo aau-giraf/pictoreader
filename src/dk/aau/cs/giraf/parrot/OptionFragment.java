@@ -5,6 +5,8 @@ import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -85,7 +87,7 @@ public class OptionFragment extends Fragment{
 		parrent.setContentView(R.layout.activity_setting);
 		parrent.invalidateOptionsMenu();
 		user = MainActivity.getUser();
-		dataloader = new PARROTDataLoader(parrent, false, null);
+		dataloader = new PARROTDataLoader(parrent, false, this.getActivity());
 		
 		
 		//Setup of the spinner with is the selector of how many of boxes the child can handle in the sentenceboard
@@ -225,8 +227,6 @@ public class OptionFragment extends Fragment{
 	    	user.setShowText(false);
 	    }
 	}
-
-
 }
 
 

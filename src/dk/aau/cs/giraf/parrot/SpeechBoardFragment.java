@@ -3,6 +3,7 @@ package dk.aau.cs.giraf.parrot;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.ClipData;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -126,7 +127,7 @@ public class SpeechBoardFragment extends Fragment
 			clearSentenceboard(parrent);
 
 			//Setup the view for the listing of pictograms in pictogramgrid
-			final GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
+			final GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramView);
 
 			
 			//Setup the view for the sentences
@@ -245,6 +246,30 @@ public class SpeechBoardFragment extends Fragment
 				}
 			});
 		}
+
+        Button btnOptions = (Button) parrent.findViewById(R.id.btnSettings);
+
+        btnOptions.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Create new fragment and transaction
+                Fragment newFragment = new OptionFragment();
+                //FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack
+                //transaction.add(R.id.SpeechBoard, newFragment);
+                //transaction.addToBackStack( "main" );
+
+                // Commit the transaction
+//                transaction.commit();
+
+                getFragmentManager().beginTransaction()
+                        .add(newFragment, "options")
+                                // Add this transaction to the back stack
+                        .addToBackStack("options")
+                        .commit();
+            }
+        });
 	}
 	/**
 	 * fill the sentenceboard with empty pictograms
