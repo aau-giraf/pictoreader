@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.ClipData;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -252,25 +254,19 @@ public class SpeechBoardFragment extends Fragment
         btnOptions.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Create new fragment and transaction
+
+
                 Fragment newFragment = new OptionFragment();
-                //FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
-                //transaction.add(R.id.SpeechBoard, newFragment);
-                //transaction.addToBackStack( "main" );
-
-                // Commit the transaction
-//                transaction.commit();
 
                 getFragmentManager().beginTransaction()
                         .add(newFragment, "options")
-                                // Add this transaction to the back stack
+                        // Add this transaction to the back stack
                         .addToBackStack("options")
                         .commit();
             }
         });
 	}
+
 	/**
 	 * fill the sentenceboard with empty pictograms
 	 * @param activity
@@ -338,8 +334,5 @@ public class SpeechBoardFragment extends Fragment
 				pictogramGrid.setBackgroundDrawable(draw);
 				
 	}
-	
-
-
 }
 

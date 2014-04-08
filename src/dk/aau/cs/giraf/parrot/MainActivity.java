@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import dk.aau.cs.giraf.oasis.lib.Helper;
 import dk.aau.cs.giraf.oasis.lib.controllers.ApplicationController;
@@ -128,9 +129,10 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        // TODO Auto-generated method stub
-        super.onBackPressed();
-    }
+        Context context = getApplicationContext();
+        getFragmentManager().popBackStack();
+        getFragmentManager().beginTransaction().add(new SpeechBoardFragment(), "1").commit();
+        }
 
     /**
      * this activating a new  Activity class which handles the settings which can be changed.
@@ -154,6 +156,8 @@ public class MainActivity extends Activity {
         }
         Log.v("","switchTabs end");
     }
+
+
 
 
     /**
