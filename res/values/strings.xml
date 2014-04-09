@@ -9,7 +9,7 @@
     <string name="PictoSize">Pictogram størrelse:</string>
     <string name="LargePictogram">Stor</string>
     <string name="MediumPictogram">Medium</string>
-    <string name="textToPic">Vis text til pictogram</string>
+    <string name="textToPic">Vis tekst til pictogram</string>
     <string name="SentenceboardNo">Antal bokse i sætningsboarded</string>
     <string name="buttonChangeColorSentence">Ændre farven</string>
     <string name="buttonSaveChanges">Gem ændringer</string>

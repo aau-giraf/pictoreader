@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
@@ -109,6 +110,7 @@ public class SpeechBoardFragment extends Fragment
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
+
 	}
 
 	/**
@@ -301,6 +303,7 @@ public class SpeechBoardFragment extends Fragment
 	@SuppressWarnings("deprecation")
 	private void setColours()
 	{
+        /*
 		//setup colors of the sentenceBoard view	
 		GridView sentenceBoardGrid = (GridView) parrent.findViewById(R.id.sentenceboard);
 		Drawable draw = parrent.getResources().getDrawable(R.drawable.sentenceboardlayout);
@@ -319,7 +322,7 @@ public class SpeechBoardFragment extends Fragment
 		draw.setColorFilter(Color.DKGRAY, PorterDuff.Mode.OVERLAY);
 		subCategoryGrid.setBackgroundDrawable(draw);
 		setPictogramGridColor();
-		
+		*/
 	}
 	/**
 	 * set color for the PictogramGrid, which changes upon a change of category to be shown
@@ -327,12 +330,13 @@ public class SpeechBoardFragment extends Fragment
 	@SuppressWarnings("deprecation")
 	private void setPictogramGridColor()
 	{
+        /*
 		//setup colors of the pictogram listnings view
 				GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
 				Drawable draw = parrent.getResources().getDrawable(R.drawable.gridviewlayout);
 				draw.setColorFilter(10,PorterDuff.Mode.OVERLAY);
 				pictogramGrid.setBackgroundDrawable(draw);
-				
+		*/
 	}
 }
 

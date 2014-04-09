@@ -1,5 +1,6 @@
 package dk.aau.cs.giraf.parrot;
 
+import dk.aau.cs.giraf.gui.GComponent;
 import yuku.ambilwarna.AmbilWarnaDialog;
 import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
 import android.app.Activity;
@@ -16,9 +17,16 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import dk.aau.cs.giraf.parrot.PARROTProfile.PictogramSize;
 
@@ -40,6 +48,7 @@ public class OptionFragment extends Fragment{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
 		setHasOptionsMenu(true);
+        GComponent.SetBaseColor(0xFF961BC2);
     }
 
 	@Override
@@ -88,51 +97,45 @@ public class OptionFragment extends Fragment{
 		parrent.invalidateOptionsMenu();
 		user = MainActivity.getUser();
 		dataloader = new PARROTDataLoader(parrent, false, this.getActivity());
-		
-		
-		//Setup of the spinner with is the selector of how many of boxes the child can handle in the sentenceboard
-		Spinner spinner = (Spinner) parrent.findViewById(R.id.spinnerNoOfsentence);
-		// Create an ArrayAdapter using the string array and a default spinner layout
-		Integer[] items = new Integer[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
-		ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(parrent,android.R.layout.simple_spinner_item, items);
-		// Specify the layout to use when the list of choices appears
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// Apply the adapter to the spinner
-		spinner.setAdapter(adapter);
-		
+
+
+
 		//get the current Settings
         readTheCurrentData();
-        
-        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-            @Override
-			public void onItemSelected(AdapterView<?> parent, View view, 
-                    int pos, long id) {
-                user.setNumberOfSentencePictograms((Integer)parent.getItemAtPosition(pos));
-                
-            }
+        final SeekBar sk=(SeekBar) parrent.findViewById(R.id.sbarNumberOfPictograms);
+        sk.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
-            @Override
-			public void onNothingSelected(AdapterView<?> parent) {
-                // do nothing   
-            }        
-        }); 
-        
+        TextView numberOfPictograms = (TextView) parrent.findViewById(R.id.txtNumberofPictograms);
 
-        RadioButton mRadioButton = (RadioButton) parrent.findViewById(R.id.mediumPicRadioButton);
-        mRadioButton.setOnClickListener(new View.OnClickListener() {
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            // TODO Auto-generated method stub
+            user.setNumberOfSentencePictograms(progress+1);
+
+            numberOfPictograms.setText(String.valueOf(progress+1));
+        }
+        });
+
+        Switch pictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
+        pictogramSize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             	onSizePictogramChanged(v);
             }
         });
-        RadioButton lRadioButton = (RadioButton) parrent.findViewById(R.id.largePicRadioButton);
-        lRadioButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            	onSizePictogramChanged(v);
-            }
-        }); 
+
         CheckBox textChangeCheckBox = (CheckBox) parrent.findViewById(R.id.checkBoxShowText);
         textChangeCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +152,15 @@ public class OptionFragment extends Fragment{
             }
         });
 
+        Button button = (Button) parrent.findViewById(R.id.btnBack);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+                getFragmentManager().beginTransaction().add(new SpeechBoardFragment(), "1").commit();
+            }
+        });
+
     }
 	
 	/**
@@ -162,17 +174,22 @@ public class OptionFragment extends Fragment{
 		
 		if(pictogramSize == PARROTProfile.PictogramSize.MEDIUM)
 		{ 
-			RadioButton radioB = (RadioButton) parrent.findViewById(R.id.mediumPicRadioButton);
-			radioB.setChecked(true);
+			Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
+            switchPictogramSize.setChecked(false);
 		}
 		else if(pictogramSize == PARROTProfile.PictogramSize.LARGE)
 		{
-			RadioButton radioB = (RadioButton) parrent.findViewById(R.id.largePicRadioButton);
-			radioB.setChecked(true);
+            Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
+            switchPictogramSize.setChecked(true);
 		}
 
-		Spinner spinner = (Spinner) parrent.findViewById(R.id.spinnerNoOfsentence);
-		spinner.setSelection(noOfPlacesInSentenceboard-1,true);
+
+        SeekBar seek = (SeekBar) parrent.findViewById(R.id.sbarNumberOfPictograms);
+
+        seek.setProgress(noOfPlacesInSentenceboard-1);
+
+        TextView tview = (TextView) parrent.findViewById(R.id.txtNumberofPictograms);
+        tview.setText(String.valueOf(noOfPlacesInSentenceboard));
 		
 		CheckBox checkBox  = (CheckBox) parrent.findViewById(R.id.checkBoxShowText);
 		if(showText)
@@ -194,19 +211,16 @@ public class OptionFragment extends Fragment{
 	 */
 	public void onSizePictogramChanged(View view)
 	{
-	    boolean checked = ((RadioButton) view).isChecked();
-	    
-	    // Check which radio button was clicked
-	    switch(view.getId()) {
-	        case R.id.mediumPicRadioButton:
-	            if (checked)
-	                user.setPictogramSize(PictogramSize.MEDIUM);
-	            break;
-	        case R.id.largePicRadioButton:
-	            if (checked)
-	            	user.setPictogramSize(PictogramSize.LARGE);
-	            break;
-	    }
+	    boolean checked = ((Switch) view).isChecked();
+
+        if(checked)
+        {
+            user.setPictogramSize(PictogramSize.LARGE);
+        }
+        else
+        {
+            user.setPictogramSize(PictogramSize.MEDIUM);
+        }
 	}
 	
 	/**

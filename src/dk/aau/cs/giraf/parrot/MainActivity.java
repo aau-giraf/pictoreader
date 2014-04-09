@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.oasis.lib.Helper;
 import dk.aau.cs.giraf.oasis.lib.controllers.ApplicationController;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
@@ -46,7 +47,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
+        GComponent.SetBaseColor(0xFF961BC2);
 
         //These lines get the intent from the launcher //TODO use us when testing with the launcher.
         girafIntent = getIntent();
@@ -61,6 +62,8 @@ public class MainActivity extends Activity {
 		/*don't delete this is for lisbeth and anders when running on our own device*/
         guardianID = 1;
         childID=11;
+
+
 
 
         if(guardianID == -1 )
@@ -129,7 +132,6 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        Context context = getApplicationContext();
         getFragmentManager().popBackStack();
         getFragmentManager().beginTransaction().add(new SpeechBoardFragment(), "1").commit();
         }

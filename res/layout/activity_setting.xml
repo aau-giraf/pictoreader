@@ -6,7 +6,15 @@
     android:background="@drawable/optionsbackground"
     android:orientation="vertical"
     android:weightSum="1">
-        <TextView
+
+    <dk.aau.cs.giraf.gui.GButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/btnBack"
+        android:layout_gravity="right" />
+
+    <dk.aau.cs.giraf.gui.GTextView
             android:id="@+id/pictogramSetting"
             android:textSize="40sp"
 			android:textColor="#ffffff"
@@ -14,45 +22,22 @@
             android:layout_height="wrap_content"
        		android:layout_marginLeft="50dp"
             android:text="@string/pictogramOptions" />
-
-        <RadioGroup
-            android:id="@+id/radioGroupSizePictogram"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"     
-       		android:layout_marginLeft="50dp"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/pictogramSize"
-                android:textSize="20sp"
-				android:textColor="#ffffff"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="40dp"
-                android:layout_weight="0.91"
-                android:text="@string/PictoSize" />
+                android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/mediumPicRadioButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.53"
-                android:onClick="onSizePictogramChanged"
-                android:text="@string/MediumPictogram"
-                android:textSize="20sp" />
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="50dp"
+                    android:text="@string/PictoSize"
+                    android:id="@+id/swtPictogramSize"
+                    android:layout_weight="0.91"
+                    android:textOn="Stor"
+                    android:textOff="Lille" />
+                </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/largePicRadioButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="5.14"
-                android:onClick="onSizePictogramChanged"
-                android:text="@string/LargePictogram"
-                android:textSize="20sp" />
-        </RadioGroup>
-
-        <CheckBox
-
+    <dk.aau.cs.giraf.gui.GCheckBox
             android:id="@+id/checkBoxShowText"         
     	   	android:layout_marginLeft="50dp"    
             android:layout_width="fill_parent"
@@ -71,7 +56,7 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical" >
 
-        <TextView
+        <dk.aau.cs.giraf.gui.GTextView
             android:id="@+id/sentenceSetting"
           	android:textSize="40sp"
 			android:textColor="#ffffff"
@@ -85,9 +70,9 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:orientation="horizontal"
-             >            
-            
-            <TextView
+             >
+
+             <dk.aau.cs.giraf.gui.GTextView
                 android:id="@+id/pickNoSentenceBoard"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -96,21 +81,38 @@
                 android:textSize="20sp" />
 
 
-            <Spinner
-                android:id="@+id/spinnerNoOfsentence"
-				android:layout_width="60dp"
-    			android:layout_height="60dp"
-    			android:layout_gravity="fill_vertical"
-    			android:layout_marginLeft="30dp" />
-        </LinearLayout>
+             <TextView
+                 android:layout_width="60dp"
+                 android:layout_height="wrap_content"
+                 android:inputType="text"
+                 android:ems="10"
+                 android:id="@+id/txtNumberofPictograms"
+                 android:textColor="#ffffff"
+                 android:textIsSelectable="false"
+                 android:textSize="20sp" />
+
+             <SeekBar
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/sbarNumberOfPictograms"
+                 android:layout_weight="1"
+                 android:max="19"
+                 android:progress="0" />
+
+             <Space
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:layout_weight="0.11" />
+         </LinearLayout>
 
     </LinearLayout>
 
-    <Button
-        android:layout_width="583dp"
+    <dk.aau.cs.giraf.gui.GButton
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/btnSettingsSave"
         android:id="@+id/btnSettingsSave"
+        android:textSize="24pt"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.66" />
 
