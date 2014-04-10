@@ -78,11 +78,6 @@ public class SentenceboardAdapter extends BaseAdapter {
 
 			Pictogram pct = pictogramController.getPictogramById(id);
 
-            if(pct == null)
-            {
-                return null;
-            }
-			
 			imageView = (ImageView) view.findViewById(R.id.pictogrambitmap); 
 			textView = (TextView) view.findViewById(R.id.pictogramtext);
 
