@@ -27,7 +27,7 @@ public class PictogramAdapter extends BaseAdapter {
 	private Context context;
 	private Activity activity;
     private PictogramController catController;
-    PictogramController pictogramController = new PictogramController(this.context);
+    PictogramController pictogramController;
 	
 	/**
 	 * 
@@ -40,6 +40,7 @@ public class PictogramAdapter extends BaseAdapter {
 		this.cat=cat;
 		context = c;
 		activity= act;
+        this.pictogramController = new PictogramController(context);
 	}
 
 	@Override

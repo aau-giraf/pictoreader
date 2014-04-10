@@ -28,7 +28,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 	int numberOfSentencePictograms = profile.getNumberOfSentencePictograms();
 	boolean insideOfMe = false;
     private Context _context;
-    private PictogramController pictogramController = new PictogramController(_context);
+    private PictogramController pictogramController;
     private PictogramCategoryController categoryController = new PictogramCategoryController(_context);
 
 	/**
@@ -37,6 +37,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 	public SpeechBoardBoxDragListener(Activity active, Context c) {
 		parrent = active;
         _context = c;
+        this.pictogramController = new PictogramController(_context);
 	}
 
 	/**

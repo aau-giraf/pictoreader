@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import dk.aau.cs.giraf.gui.GComponent;
+import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.oasis.lib.Helper;
 import dk.aau.cs.giraf.oasis.lib.controllers.ApplicationController;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
@@ -48,6 +49,13 @@ public class MainActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         GComponent.SetBaseColor(0xFF961BC2);
+
+        Helper help = new Helper(this.getApplicationContext());
+
+        //help.CreateDummyData();
+
+
+
 
         //These lines get the intent from the launcher //TODO use us when testing with the launcher.
         girafIntent = getIntent();

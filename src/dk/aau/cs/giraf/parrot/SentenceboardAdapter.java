@@ -40,6 +40,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 		super();
 		this.category=cat;
 		context = c;
+        this.pictogramController = new PictogramController(c);
 	}
 
 		@Override
@@ -76,6 +77,11 @@ public class SentenceboardAdapter extends BaseAdapter {
 			View view = layoutInflater.inflate(R.layout.pictogramview, null);
 
 			Pictogram pct = pictogramController.getPictogramById(id);
+
+            if(pct == null)
+            {
+                return null;
+            }
 			
 			imageView = (ImageView) view.findViewById(R.id.pictogrambitmap); 
 			textView = (TextView) view.findViewById(R.id.pictogramtext);
@@ -95,7 +101,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 			imageView.setLayoutParams(layoutParams);
 
 			//load the Bitmap and set the setImageBitmap
-			if(MainActivity.getUser().getShowText()==true)
+			if(MainActivity.getUser().getShowText())
 			{
 				
 				textView.setTextSize(20);	//TODO this value should be customizable
