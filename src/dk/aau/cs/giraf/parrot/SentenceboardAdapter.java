@@ -107,7 +107,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 			}
 			else
 			{
-				layoutParams = new LinearLayout.LayoutParams(145, 145);	
+				layoutParams = new LinearLayout.LayoutParams(145, 145);
 			}
 
 
@@ -126,11 +126,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 				textView.setTextSize(20);	//TODO this value should be customizable
                 try{
 				textView.setText(pct.getInlineText());
-                }
-                catch (Exception e)
-                {
-                    e.getStackTrace();
-                }
+				
 			}
 
 			Bitmap bitmap = null;
