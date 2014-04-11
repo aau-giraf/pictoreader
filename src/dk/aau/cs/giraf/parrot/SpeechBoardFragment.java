@@ -3,12 +3,7 @@ package dk.aau.cs.giraf.parrot;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.ClipData;
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,9 +11,7 @@ import android.view.View;
 import android.view.View.DragShadowBuilder;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -46,7 +39,7 @@ public class SpeechBoardFragment extends Fragment
 	public static ArrayList<Pictogram> speechboardPictograms = new ArrayList<Pictogram>();
 	
 	//This category contains the pictograms on the sentenceboard
-	public static Category speechBoardCategory = new Category("MyCat", 100,  null, 0);
+	public static ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictogramList = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
 	//This category contains the pictograms displayed on the big board
 	public static Category displayedCategory = null;
 	private PARROTProfile user = null;
@@ -137,7 +130,7 @@ public class SpeechBoardFragment extends Fragment
 			
 			//Setup the view for the sentences
 			GridView sentenceBoardGrid = (GridView) parrent.findViewById(R.id.sentenceboard);
-			sentenceBoardGrid.setAdapter(new SentenceboardAdapter(speechBoardCategory, parrent.getApplicationContext()));
+			sentenceBoardGrid.setAdapter(new SentenceboardAdapter(pictogramList, parrent.getApplicationContext()));
 			int noInSentence=user.getNumberOfSentencePictograms();
 			sentenceBoardGrid.setNumColumns(noInSentence);
 
@@ -181,7 +174,7 @@ public class SpeechBoardFragment extends Fragment
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View view,	int position, long id) {
 
-					dk.aau.cs.giraf.oasis.lib.models.Pictogram p = pictogramController.getPictogramsByCategory(speechBoardCategory).get(position);
+					dk.aau.cs.giraf.oasis.lib.models.Pictogram p = pictogramList.get(position);
 					if(!(p.getId() ==-1))
 					{
                         //PLAY AUDIO HERE
@@ -204,7 +197,7 @@ public class SpeechBoardFragment extends Fragment
                 public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                     PictogramController pictogramController = new PictogramController(getActivity());
 
-                    dk.aau.cs.giraf.oasis.lib.models.Pictogram p = pictogramController.getPictogramsByCategory(speechBoardCategory).get(position);
+                    dk.aau.cs.giraf.oasis.lib.models.Pictogram p = pictogramList.get(position);
                     if (!(p.getId() == -1)) {
                         draggedPictogramIndex = position;
                         dragOwnerID = R.id.sentenceboard;
@@ -282,23 +275,26 @@ public class SpeechBoardFragment extends Fragment
 
 		//(Context context, final String image, final String text, final String audio, final long id)
 			//emptyPictogram = new dk.aau.cs.giraf.oasis.lib.models.Pictogram();
-			int count = newPictogramController.getPictogramsByCategory(speechBoardCategory).size()-1;
-			while(newPictogramController.getPictogramsByCategory(speechBoardCategory).size() != 0)
+			int count = pictogramList.size()-1;
+			while(pictogramList.size() != 0)
 			{
-                categoryController.removePictogramCategory(speechBoardCategory.getId(), count);
+                categoryController.removePictogramCategory(-1, count);
 				count--;
 			}
 			count=0;
 			//Fills the sentenceboard with emptyPictogram pictograms
-			/*
-            while(newPictogramController.getPictogramsByCategory(speechBoardCategory).size() < MainActivity.getUser().getNumberOfSentencePictograms())
+
+            while(pictogramList.size()+count < MainActivity.getUser().getNumberOfSentencePictograms())
 			{
-                categoryController.insertPictogramCategory(new PictogramCategory(0, speechBoardCategory.getId()));
+                categoryController.insertPictogramCategory(new PictogramCategory(0, -1));
+                count++;
 			}
-			*/
+
 			GridView sentenceBoardGrid = (GridView) activity.findViewById(R.id.sentenceboard);
-		
-			sentenceBoardGrid.setAdapter(new SentenceboardAdapter(speechBoardCategory, activity.getApplicationContext()));
+
+
+
+			sentenceBoardGrid.setAdapter(new SentenceboardAdapter(pictogramList, activity.getApplicationContext()));
 	}
 
 	/**

@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.security.spec.ECField;
+import java.util.ArrayList;
+import java.util.List;
 
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
@@ -30,17 +32,17 @@ public class SentenceboardAdapter extends BaseAdapter {
 
     private PictogramController pictogramController;
     private Pictogram pictogram;
-	private Category category;
+	private ArrayList<Pictogram> pictogramList;
 	private Context context;
 	
 	/**
 	 * @param cat, a PARROTCategory
 	 * @param c, the applications context
 	 */
-	public SentenceboardAdapter(Category cat, Context c)
+	public SentenceboardAdapter(ArrayList<Pictogram> cat, Context c)
 	{
 		super();
-		this.category=cat;
+		this.pictogramList=cat;
 		context = c;
         this.pictogramController = new PictogramController(c);
 	}
@@ -64,6 +66,28 @@ public class SentenceboardAdapter extends BaseAdapter {
 			// TODO Auto-generated method stub
 			return 0;
 		}
+
+        public void addItem(Pictogram p)
+        {
+            this.pictogramList.add(p);
+        }
+
+        public void replaceItem(int index, Pictogram p)
+        {
+            this.pictogramList.get(index).setId(p.getId());
+            this.pictogramList.get(index).setPub(p.getPub());
+            this.pictogramList.get(index).setName(p.getName());
+            this.pictogramList.get(index).setInlineText(p.getInlineText());
+            this.pictogramList.get(index).setImage(p.getImage());
+            this.pictogramList.get(index).setEditableImage(p.getEditableImage());
+            this.pictogramList.get(index).setAuthor(p.getAuthor());
+            this.pictogramList.get(index).setSoundDataBytes(p.getSoundData());
+        }
+
+        public void emptyPictogramList()
+        {
+            this.pictogramList.clear();
+        }
 		
 		/**
 		 * create an image view for each pictogram in the pictogram list from the PARROTCategory.

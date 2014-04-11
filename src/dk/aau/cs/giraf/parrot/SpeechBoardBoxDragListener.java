@@ -7,13 +7,11 @@ import android.view.View;
 import android.view.View.OnDragListener;
 import android.widget.GridView;
 
-import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.PictogramCategory;
-import dk.aau.cs.giraf.pictogram.Pictogram;
 
-/**
+ /**
  * 
  * @author PARROT spring 2012 and small adaption made by SW605f13-PARROT
  * This is the BoxDragListener class.
@@ -51,7 +49,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 			//When pictogram is dragged from sentenceboard
 			if(self.getId() == R.id.sentenceboard && SpeechBoardFragment.dragOwnerID == R.id.sentenceboard)
 			{
-				draggedPictogram = pictogramController.getPictogramsByCategory(SpeechBoardFragment.speechBoardCategory).get(SpeechBoardFragment.draggedPictogramIndex);
+				draggedPictogram = SpeechBoardFragment.pictogramList.get(SpeechBoardFragment.draggedPictogramIndex);
 				//Do not allow dragging empty pictograms, show do nothing
 				if(draggedPictogram.getId() !=-1)
 				{
@@ -59,7 +57,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 					
 					//remove pictogram from sentenceboard and add an empty pictogram
 
-                    categoryController.removePictogramCategory(SpeechBoardFragment.speechBoardCategory.getId(), SpeechBoardFragment.draggedPictogramIndex);
+                    categoryController.removePictogramCategory(-1, SpeechBoardFragment.draggedPictogramIndex);
 
 
                     dk.aau.cs.giraf.oasis.lib.models.Pictogram p = new dk.aau.cs.giraf.oasis.lib.models.Pictogram();
@@ -71,10 +69,10 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                     p.setPub(-1);
 
 
-                    PictogramCategory newCat = new PictogramCategory(p.getId(), SpeechBoardFragment.speechBoardCategory.getId());
+                    PictogramCategory newCat = new PictogramCategory(p.getId(), -1);
                     categoryController.insertPictogramCategory(newCat);
-					
-					speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.speechBoardCategory, parrent));
+
+					speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
 				}
 			}
 		} else if (event.getAction() == DragEvent.ACTION_DRAG_ENTERED){ 
@@ -109,7 +107,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 						{
 
                             categoryController.removePictogramCategory(SpeechBoardFragment.displayedCategory.getId(), index); //Removes the pictogram at the specific index
-                            categoryController.insertPictogramCategory(new PictogramCategory(SpeechBoardFragment.displayedCategory.getId(), SpeechBoardFragment.speechBoardCategory.getId())); //add the pictogram at the specific position-
+                            categoryController.insertPictogramCategory(new PictogramCategory(SpeechBoardFragment.displayedCategory.getId(), -1)); //add the pictogram at the specific position-
 						}
 						//place the dragged pictogram into an empty filled
 						else 
@@ -120,8 +118,8 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 							{
 								if (pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).get(count).getId() == -1)
 								{
-                                    categoryController.removePictogramCategory(SpeechBoardFragment.speechBoardCategory.getId(), count); //Removes the pictogram at the specific index
-									categoryController.insertPictogramCategory(new PictogramCategory(draggedPictogram.getId(), SpeechBoardFragment.speechBoardCategory.getId()));  //add the pictogram at the specific position
+                                    categoryController.removePictogramCategory(-1, count); //Removes the pictogram at the specific index
+									categoryController.insertPictogramCategory(new PictogramCategory(draggedPictogram.getId(), -1));  //add the pictogram at the specific position
 									break;
 								} 
 								count++;
@@ -129,7 +127,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 						}
 
 
-						speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.speechBoardCategory, parrent));
+						speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
 						speech.invalidate();
 					}
 				}
@@ -149,17 +147,17 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 					}
 					else
 					{
-						if(pictogramController.getPictogramsByCategory(SpeechBoardFragment.speechBoardCategory).get(index).getId() == -1)
+						if(SpeechBoardFragment.pictogramList.get(index).getId() == -1)
 						{
 							//if it is empty, there might be empty spaces to the left of it too
 							int count = 0;
 							while (count < numberOfSentencePictograms) 
 							{
 
-								if (pictogramController.getPictogramsByCategory(SpeechBoardFragment.speechBoardCategory).get(count).getId() == -1)
+								if (SpeechBoardFragment.pictogramList.get(count).getId() == -1)
 								{
-                                    categoryController.removePictogramCategory(SpeechBoardFragment.speechBoardCategory.getId(), count); //Removes the pictogram at the specific index
-                                    categoryController.insertPictogramCategory(new PictogramCategory(draggedPictogram.getId(), SpeechBoardFragment.speechBoardCategory.getId()));  //add the pictogram at the specific position
+                                    categoryController.removePictogramCategory(-1, count); //Removes the pictogram at the specific index
+                                    categoryController.insertPictogramCategory(new PictogramCategory(draggedPictogram.getId(), -1));  //add the pictogram at the specific position
                                     break;
 								} 
 								count++;
@@ -167,18 +165,18 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 						}
 						else
 						{
-                            categoryController.insertPictogramCategory(new PictogramCategory(draggedPictogram.getId(), SpeechBoardFragment.speechBoardCategory.getId() ));
+                            categoryController.insertPictogramCategory(new PictogramCategory(draggedPictogram.getId(), -1 ));
 						}
 
 
-						speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.speechBoardCategory, parrent));
+						speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
 						speech.invalidate();
 						draggedPictogram = null;
 					}
 
-					while(pictogramController.getPictogramsByCategory(SpeechBoardFragment.speechBoardCategory).size() > profile.getNumberOfSentencePictograms())
+					while(SpeechBoardFragment.pictogramList.size() > profile.getNumberOfSentencePictograms())
 					{
-                        categoryController.removePictogramCategory(SpeechBoardFragment.speechBoardCategory.getId(), pictogramController.getPictogramsByCategory(SpeechBoardFragment.speechBoardCategory).size()-1);
+                        categoryController.removePictogramCategory(-1, SpeechBoardFragment.pictogramList.size()-1);
 					}
 
 				}
@@ -187,7 +185,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 				{
 
 					GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
-					speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.speechBoardCategory, parrent));
+					speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
 					speech.invalidate();
 				}
 
