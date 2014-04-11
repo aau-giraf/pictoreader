@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.security.spec.ECField;
+
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.oasis.lib.models.Pictogram;
@@ -70,16 +72,31 @@ public class SentenceboardAdapter extends BaseAdapter {
 		public View getView(int id, View convertView, ViewGroup parent)
 		{
 			
-			ImageView imageView;
-			TextView textView;
+			ImageView imageView = null;
+			TextView textView = null;
+            Pictogram pct = null;
 			
 			LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View view = layoutInflater.inflate(R.layout.pictogramview, null);
 
-			Pictogram pct = pictogramController.getPictogramById(id);
+            try {
+                pct = pictogramController.getPictogramById(id);
+            }
+            catch (Exception e)
+            {
+                e.getStackTrace();
+            }
 
-			imageView = (ImageView) view.findViewById(R.id.pictogrambitmap); 
-			textView = (TextView) view.findViewById(R.id.pictogramtext);
+
+            try {
+                imageView = (ImageView) view.findViewById(R.id.pictogrambitmap);
+                textView = (TextView) view.findViewById(R.id.pictogramtext);
+            }
+            catch (Exception e)
+            {
+                e.getStackTrace();
+            }
+
 
 			
 			//setup layout for imageView
@@ -92,20 +109,33 @@ public class SentenceboardAdapter extends BaseAdapter {
 			{
 				layoutParams = new LinearLayout.LayoutParams(145, 145);	
 			}
-			
-			imageView.setLayoutParams(layoutParams);
+
+
+            try {
+			    imageView.setLayoutParams(layoutParams);
+            }
+            catch (Exception e)
+            {
+                e.getStackTrace();
+            }
 
 			//load the Bitmap and set the setImageBitmap
 			if(MainActivity.getUser().getShowText())
 			{
 				
 				textView.setTextSize(20);	//TODO this value should be customizable
+                try{
 				textView.setText(pct.getInlineText());
-				
+                }
+                catch (Exception e)
+                {
+                    e.getStackTrace();
+                }
 			}
-			Bitmap bitmap;
-			if(pct.getId()
-                    == -1)
+
+			Bitmap bitmap = null;
+            try{
+			if(pct.getId() == -1)
 			{
 	        	bitmap=BitmapFactory.decodeResource(context.getResources(),R.drawable.usynlig);
 				
@@ -114,6 +144,11 @@ public class SentenceboardAdapter extends BaseAdapter {
 			{
 				bitmap = pct.getImageData();
 			}
+            }
+            catch (Exception e)
+            {
+                e.getStackTrace();
+            }
 			imageView.setImageBitmap(bitmap);
 			view.setPadding(8, 8, 8, 8);
 			

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 
 import dk.aau.cs.giraf.pictogram.Pictogram;
+
 /**
  * 
  * @author Lisbeth Nielsen, SW605f13 Parrot-group
@@ -21,7 +22,7 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
 		private final WeakReference<ImageView> imageView;
         private Context context;
         private final WeakReference<TextView> textView;
-        private Pictogram pictogram;
+        private dk.aau.cs.giraf.oasis.lib.models.Pictogram pictogram;
 
         /**
          * 
@@ -44,11 +45,11 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
     @Override
     protected Bitmap doInBackground(Object... params) {
     	//Log.v("LoadImage;Message","begin doInBackground");
-    	pictogram = (Pictogram) params[0];
+    	pictogram = (dk.aau.cs.giraf.oasis.lib.models.Pictogram) params[0];
         Bitmap bitmap = null;
         
         //decode the into bitmap that there is to be shown
-        if(pictogram.getPictogramID() == -1)
+        if(pictogram.getId() == -1)
 		{
         	//Log.v("LoadImage;Message","doInBackground usynlig");
         	bitmap=BitmapFactory.decodeResource(context.getResources(), R.drawable.usynlig);
@@ -74,7 +75,7 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
           		 if(MainActivity.getUser().getShowText() == true)//pct.getPictogramID() != -1 && MainActivity.getUser().getShowText()==true)
         		 {
         			textViewTemp.setTextSize(20);	//TODO this value should be customizable
-        			textViewTemp.setText(pictogram.getTextLabel());
+        			textViewTemp.setText(pictogram.getInlineText());
         		 }
           		 //set the bitmap into the ImageView
                  imageViewTemp.setImageBitmap(result);

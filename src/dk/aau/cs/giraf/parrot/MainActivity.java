@@ -85,7 +85,14 @@ public class MainActivity extends Activity {
         {
             dataLoader = new PARROTDataLoader(this, true, this.getApplicationContext());
 
-            parrotUser = dataLoader.loadProfile((int)childID, app.getId());
+            if (dataLoader != null)
+            {
+                parrotUser = dataLoader.loadProfile((int)childID, app.getId());
+            }
+            else
+            {
+                Log.v("dataLoader is Null","dataLoader is Null");
+            }
 
             if(parrotUser != null)
             {
