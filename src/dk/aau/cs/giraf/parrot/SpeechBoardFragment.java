@@ -43,7 +43,7 @@ public class SpeechBoardFragment extends Fragment
 	//This category contains the pictograms displayed on the big board
 	public static Category displayedCategory = null;
 	private PARROTProfile user = null;
-	private static Pictogram emptyPictogram =null;
+	private static Pictogram emptyPictogram = null;
 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu)
@@ -63,7 +63,7 @@ public class SpeechBoardFragment extends Fragment
 	public boolean onOptionsItemSelected (MenuItem item) {
 		switch(item.getItemId()){
 		case R.id.clearBoard:
-			clearSentenceboard(parrent);
+			clearSentenceboard();
 			break;
 		case R.id.goToLauncher:
 			returnToLauncher();
@@ -122,7 +122,7 @@ public class SpeechBoardFragment extends Fragment
 		if(user.getCategoryAt(0)!=null)
 		{
 			displayedCategory = user.getCategoryAt(0);
-			clearSentenceboard(parrent);
+			clearSentenceboard();
 
 			//Setup the view for the listing of pictograms in pictogramgrid
 			final GGridView pictogramGrid = (GGridView) parrent.findViewById(R.id.pictogramgrid);
@@ -186,7 +186,7 @@ public class SpeechBoardFragment extends Fragment
             final GButtonTrash button = (GButtonTrash) parrent.findViewById(R.id.btnClear);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    clearSentenceboard(getActivity());
+                    clearSentenceboard();
                 }
             });
 
@@ -266,35 +266,10 @@ public class SpeechBoardFragment extends Fragment
 
 	/**
 	 * fill the sentenceboard with empty pictograms
-	 * @param activity
 	 */
-	public static void clearSentenceboard(Activity activity)
+	public static void clearSentenceboard()
 	{
-        PictogramController newPictogramController = new PictogramController(activity.getApplicationContext());
-        PictogramCategoryController categoryController = new PictogramCategoryController(activity.getApplicationContext());
-
-		//(Context context, final String image, final String text, final String audio, final long id)
-			//emptyPictogram = new dk.aau.cs.giraf.oasis.lib.models.Pictogram();
-			int count = pictogramList.size()-1;
-			while(pictogramList.size() != 0)
-			{
-                categoryController.removePictogramCategory(-1, count);
-				count--;
-			}
-			count=0;
-			//Fills the sentenceboard with emptyPictogram pictograms
-
-            while(pictogramList.size()+count < MainActivity.getUser().getNumberOfSentencePictograms())
-			{
-                categoryController.insertPictogramCategory(new PictogramCategory(0, -1));
-                count++;
-			}
-
-			GridView sentenceBoardGrid = (GridView) activity.findViewById(R.id.sentenceboard);
-
-
-
-			sentenceBoardGrid.setAdapter(new SentenceboardAdapter(pictogramList, activity.getApplicationContext()));
+        pictogramList.clear();
 	}
 
 	/**

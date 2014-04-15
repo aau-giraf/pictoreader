@@ -27,7 +27,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 	boolean insideOfMe = false;
     private Context _context;
     private PictogramController pictogramController;
-    private PictogramCategoryController categoryController = new PictogramCategoryController(_context);
+    private PictogramCategoryController categoryController;
 
 	/**
 	 * @param active
@@ -36,6 +36,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 		parrent = active;
         _context = c;
         this.pictogramController = new PictogramController(_context);
+        this.categoryController = new PictogramCategoryController(_context);
 	}
 
 	/**
@@ -103,11 +104,12 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 
 						//Replaces a pictogram already in the sentencebord
 
-						if(pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).get(index).getId() != -1)
+                         if(SpeechBoardFragment.pictogramList.get(index).getId() != -1)
 						{
-
                             categoryController.removePictogramCategory(SpeechBoardFragment.displayedCategory.getId(), index); //Removes the pictogram at the specific index
                             categoryController.insertPictogramCategory(new PictogramCategory(SpeechBoardFragment.displayedCategory.getId(), -1)); //add the pictogram at the specific position-
+
+
 						}
 						//place the dragged pictogram into an empty filled
 						else 
