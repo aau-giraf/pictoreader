@@ -104,7 +104,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 			View view = layoutInflater.inflate(R.layout.pictogramview, null);
 
             try {
-                pct = pictogramController.getPictogramById(id);
+                pct = this.pictogramList.get(id);
             }
             catch (Exception e)
             {

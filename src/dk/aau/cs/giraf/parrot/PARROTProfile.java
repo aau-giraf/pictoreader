@@ -20,7 +20,7 @@ public class PARROTProfile {
 	private Pictogram icon;
 	private ArrayList<Category> categories = new ArrayList<Category>();
 	private int profileID =-1;
-	private int noOfboxesInSentenceboard = 1;
+	private int noOfboxesInSentenceboard = 7;
 	private int sentenceBoardColor = Color.WHITE;
 	private PictogramSize pictogramSize = PictogramSize.MEDIUM; 
 	private boolean showText = true;

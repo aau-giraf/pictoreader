@@ -158,11 +158,11 @@ public class SpeechBoardFragment extends Fragment
             CategoryController categoryController = new CategoryController(parrent);
 
 			subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent.getApplicationContext()));
-			pictogramGrid.setAdapter(new PictogramAdapter(displayedCategory, parrent.getApplicationContext(),parrent));
-			
+		 	pictogramGrid.setAdapter(new PictogramAdapter(displayedCategory, parrent.getApplicationContext(),parrent));
+
 			//initialise the colors of the fragment
 			setColours();
-			
+
 			//setup drag listeners for the views
 			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
 			parrent.findViewById(R.id.sentenceboard).setOnDragListener(new SpeechBoardBoxDragListener(parrent, parrent.getApplicationContext()));
@@ -197,13 +197,20 @@ public class SpeechBoardFragment extends Fragment
                 public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                     PictogramController pictogramController = new PictogramController(getActivity());
 
-                    dk.aau.cs.giraf.oasis.lib.models.Pictogram p = pictogramList.get(position);
-                    if (!(p.getId() == -1)) {
-                        draggedPictogramIndex = position;
-                        dragOwnerID = R.id.sentenceboard;
-                        ClipData data = ClipData.newPlainText("label", "text"); //TODO Dummy. Pictogram information can be placed here instead.
-                        DragShadowBuilder shadowBuilder = new DragShadowBuilder(view);
-                        view.startDrag(data, shadowBuilder, view, 0);
+                    try {
+                        dk.aau.cs.giraf.oasis.lib.models.Pictogram p = pictogramList.get(position);
+
+                        if (!(p.getId() == -1)) {
+                            draggedPictogramIndex = position;
+                            dragOwnerID = R.id.sentenceboard;
+                            ClipData data = ClipData.newPlainText("label", "text"); //TODO Dummy. Pictogram information can be placed here instead.
+                            DragShadowBuilder shadowBuilder = new DragShadowBuilder(view);
+                            view.startDrag(data, shadowBuilder, view, 0);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        e.getStackTrace();
                     }
                 }
 
@@ -263,6 +270,7 @@ public class SpeechBoardFragment extends Fragment
             }
         });
 	}
+
 
 	/**
 	 * fill the sentenceboard with empty pictograms
