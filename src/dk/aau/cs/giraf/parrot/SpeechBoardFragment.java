@@ -168,6 +168,10 @@ public class SpeechBoardFragment extends Fragment
 			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
 			parrent.findViewById(R.id.sentenceboard).setOnDragListener(new SpeechBoardBoxDragListener(parrent, parrent.getApplicationContext()));
 
+            for (int i = 0; i < noInSentence; i++)
+            {
+                pictogramList.add(null);
+            }
 
 			//Play sound, when click on a pictogram in the sentence board
 			sentenceBoardGrid.setOnItemClickListener(new OnItemClickListener() {
