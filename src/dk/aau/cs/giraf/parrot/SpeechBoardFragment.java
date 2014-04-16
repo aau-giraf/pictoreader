@@ -162,7 +162,6 @@ public class SpeechBoardFragment extends Fragment
 		 	pictogramGrid.setAdapter(new PictogramAdapter(displayedCategory, parrent.getApplicationContext(),parrent));
 
 			//initialise the colors of the fragment
-			setColours();
 
 			//setup drag listeners for the views
 			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
@@ -298,29 +297,7 @@ public class SpeechBoardFragment extends Fragment
 	 *This function set the colors in the speechBoardFragment
 	 */
 	@SuppressWarnings("deprecation")
-	private void setColours()
-	{
-        /*
-		//setup colors of the sentenceBoard view	
-		GridView sentenceBoardGrid = (GridView) parrent.findViewById(R.id.sentenceboard);
-		Drawable draw = parrent.getResources().getDrawable(R.drawable.sentenceboardlayout);
-		draw.setColorFilter(user.getSentenceBoardColor(), PorterDuff.Mode.OVERLAY);
-		sentenceBoardGrid.setBackgroundDrawable(draw);
 
-		
-		//setup colors of the catagory listnings view
-		GridView superCategoryGrid = (GridView) parrent.findViewById(R.id.supercategory);
-		draw=parrent.getResources().getDrawable(R.drawable.catlayout);
-		draw.setColorFilter(Color.DKGRAY, PorterDuff.Mode.OVERLAY);
-		superCategoryGrid.setBackgroundDrawable(draw);
-		
-		GridView subCategoryGrid = (GridView) parrent.findViewById(R.id.subcategory);
-		draw=parrent.getResources().getDrawable(R.drawable.catlayout);
-		draw.setColorFilter(Color.DKGRAY, PorterDuff.Mode.OVERLAY);
-		subCategoryGrid.setBackgroundDrawable(draw);
-		setPictogramGridColor();
-		*/
-	}
 	/**
 	 * set color for the PictogramGrid, which changes upon a change of category to be shown
 	 */
