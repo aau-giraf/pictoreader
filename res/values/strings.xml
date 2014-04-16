@@ -4,20 +4,19 @@
     
     <!-- In SettingsActivity --> 
     <string name="sentensboardOptions">Sætnings board</string>
-    <string name="pictogramOptions">Pictogram</string>
+    <string name="pictogramOptions">Piktogram</string>
     <string name="changesentencecolor">Ændring af baggrunds farve på sætningsbrættet:</string>
-    <string name="PictoSize">Pictogram størrelse:</string>
+    <string name="PictoSize">Piktogram størrelse:</string>
     <string name="LargePictogram">Stor</string>
     <string name="MediumPictogram">Medium</string>
-    <string name="textToPic">Vis tekst til pictogram</string>
+    <string name="textToPic">Vis tekst til piktogram</string>
     <string name="SentenceboardNo">Antal bokse i sætningsboarded</string>
     <string name="buttonChangeColorSentence">Ændre farven</string>
     <string name="buttonSaveChanges">Gem ændringer</string>
     
     
     <!-- In ParrotActivity -->
-    <string name="hello">Hello World, PARROTActivity!</string>
-    <string name="app_name">PARROT</string>
+    <string name="app_name">Piktooplæser</string>
     <string name="firstTab">Tale</string>
     <string name="secondTab">Administrer</string>
 	<string name="dialog_title">Fejl</string>
@@ -59,7 +58,7 @@
     <string name="situationListOptionsMenuEditText">Ret Situationsnavn</string>
     <string name="addImageFromCameraButtonText">Fra Kamera</string>
     <string name="addImageFromPhoneButtonText">Fra Telefon</string>
-    <string name="errorSoundNotSavedIO">Sound not Saved</string>
+    <string name="errorSoundNotSavedIO">Lyd ikke gemt</string>
     <string name="createNewCategoryButton">Opret Ny Kategori</string>
     <string name="changeCategoryPicButton">Kategori Billede</string>
     <string name="changeCategoryColorButton">Kategori Farve</string>
