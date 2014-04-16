@@ -81,7 +81,7 @@
                 android:textSize="20sp" />
 
 
-             <TextView
+             <dk.aau.cs.giraf.gui.GTextView
                  android:layout_width="60dp"
                  android:layout_height="wrap_content"
                  android:inputType="text"
