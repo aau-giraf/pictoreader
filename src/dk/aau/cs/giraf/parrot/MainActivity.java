@@ -9,6 +9,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -48,7 +49,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        GComponent.SetBaseColor(0xFF961BC2);
+        //GComponent.SetBaseColor(Color.rgb(255, 160, 0));
 
         Helper help = new Helper(this.getApplicationContext());
 
