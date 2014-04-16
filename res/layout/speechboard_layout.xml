@@ -34,11 +34,11 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:gravity="right"
-            >
+            android:weightSum="1">
 
             <dk.aau.cs.giraf.gui.GGridView
                 android:id="@+id/pictogramgrid"
-                android:layout_width="wrap_content"
+                android:layout_width="1002dp"
                 android:layout_height="match_parent"
                 android:stretchMode="none"
                 android:scrollbars="vertical"
@@ -46,7 +46,8 @@
                 android:scrollbarAlwaysDrawVerticalTrack="true"
                 android:scrollbarTrackVertical="@drawable/scrollbar_vertical_track"
                 android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"
-                android:scrollbarSize="20dip" />
+                android:scrollbarSize="20dip"
+                android:layout_weight="1" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -87,9 +88,9 @@
         android:orientation="horizontal">
         <dk.aau.cs.giraf.gui.GGridView
             android:id="@+id/sentenceboard"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:columnWidth="205dp"
             android:numColumns="7"
             android:stretchMode="none"
