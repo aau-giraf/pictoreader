@@ -235,7 +235,6 @@ public class SpeechBoardFragment extends Fragment
 					//Setup the view for the categories 
 					GridView subCategoryGrid = (GridView) parrent.findViewById(R.id.subcategory);
 					subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent.getApplicationContext()));
-					setPictogramGridColor();					
 				}
 			});
 			//change subcategory that is to be shown 
@@ -296,21 +295,10 @@ public class SpeechBoardFragment extends Fragment
 	/**
 	 *This function set the colors in the speechBoardFragment
 	 */
-	@SuppressWarnings("deprecation")
 
 	/**
 	 * set color for the PictogramGrid, which changes upon a change of category to be shown
 	 */
-	@SuppressWarnings("deprecation")
-	private void setPictogramGridColor()
-	{
-        /*
-		//setup colors of the pictogram listnings view
-				GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
-				Drawable draw = parrent.getResources().getDrawable(R.drawable.gridviewlayout);
-				draw.setColorFilter(10,PorterDuff.Mode.OVERLAY);
-				pictogramGrid.setBackgroundDrawable(draw);
-		*/
-	}
+
 }
 
