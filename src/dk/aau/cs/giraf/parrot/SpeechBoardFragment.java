@@ -282,12 +282,16 @@ public class SpeechBoardFragment extends Fragment
 	 */
 	public void clearSentenceboard()
 	{
-        pictogramList.clear();
-        //TODO Update GridView to use pictogramList.
+        for(int i= 0; i <= pictogramList.size()-1; i++)
+        {
+            pictogramList.set(i, null);
+        }
 
 
-        //PictogramController pictogramController = new PictogramController(this.parrent.getApplicationContext());
-        //pictogramList.add(pictogramController.getPictograms().get(0));
+        GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
+
+        speech.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
+        speech.invalidate();
 	}
 
 	/**
