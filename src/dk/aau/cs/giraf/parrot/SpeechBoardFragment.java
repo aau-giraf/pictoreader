@@ -141,13 +141,14 @@ public class SpeechBoardFragment extends Fragment
 				pictogramGrid.setNumColumns(6);
 				pictogramGrid.setColumnWidth(160);
 				sentenceBoardGrid.setColumnWidth(160);
-		
+
 			}
 			else
 			{
 				pictogramGrid.setNumColumns(5);
 				pictogramGrid.setColumnWidth(200);
 				sentenceBoardGrid.setColumnWidth(200);
+
 			}
 
 			

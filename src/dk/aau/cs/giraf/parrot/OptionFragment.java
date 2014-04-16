@@ -176,11 +176,13 @@ public class OptionFragment extends Fragment{
 		{ 
 			Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
             switchPictogramSize.setChecked(false);
+
 		}
 		else if(pictogramSize == PARROTProfile.PictogramSize.LARGE)
 		{
             Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
             switchPictogramSize.setChecked(true);
+
 		}
 
 
