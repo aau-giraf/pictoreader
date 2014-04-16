@@ -48,7 +48,7 @@ public class OptionFragment extends Fragment{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
 		setHasOptionsMenu(true);
-        GComponent.SetBaseColor(0xFF961BC2);
+        //GComponent.SetBaseColor(0xFF961BC2);
     }
 
 	@Override
@@ -176,11 +176,13 @@ public class OptionFragment extends Fragment{
 		{ 
 			Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
             switchPictogramSize.setChecked(false);
+
 		}
 		else if(pictogramSize == PARROTProfile.PictogramSize.LARGE)
 		{
             Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
             switchPictogramSize.setChecked(true);
+
 		}
 
 
