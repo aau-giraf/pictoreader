@@ -4,6 +4,7 @@ package dk.aau.cs.giraf.parrot;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.ClipData;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -275,9 +276,14 @@ public class SpeechBoardFragment extends Fragment
 	/**
 	 * fill the sentenceboard with empty pictograms
 	 */
-	public static void clearSentenceboard()
+	public void clearSentenceboard()
 	{
         pictogramList.clear();
+        //TODO Update GridView to use pictogramList.
+
+
+        //PictogramController pictogramController = new PictogramController(this.parrent.getApplicationContext());
+        //pictogramList.add(pictogramController.getPictograms().get(0));
 	}
 
 	/**
