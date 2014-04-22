@@ -5,7 +5,10 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.ClipData;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -168,6 +171,12 @@ public class SpeechBoardFragment extends Fragment
 			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
 			parrent.findViewById(R.id.sentenceboard).setOnDragListener(new SpeechBoardBoxDragListener(parrent, parrent.getApplicationContext()));
 
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+            noInSentence = (int)width/(145+dpToPx(10));
+
             for (int i = 0; i < noInSentence; i++)
             {
                 pictogramList.add(null);
@@ -313,6 +322,12 @@ public class SpeechBoardFragment extends Fragment
         speech.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
         speech.invalidate();
 	}
+
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
+    }
 
 	/**
 	 *This function set the colors in the speechBoardFragment
