@@ -55,6 +55,13 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical" >
 
+        <dk.aau.cs.giraf.gui.GDividerHorizontal
+            android:layout_width="match_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_height="2dp"
+            />
+
         <dk.aau.cs.giraf.gui.GTextView
             android:id="@+id/sentenceSetting"
           	android:textSize="40sp"
@@ -100,16 +107,5 @@
                  android:layout_height="match_parent"
                  android:layout_weight="0.11" />
          </LinearLayout>
-
     </LinearLayout>
-
-    <dk.aau.cs.giraf.gui.GButton
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btnSettingsSave"
-        android:id="@+id/btnSettingsSave"
-        android:textSize="24pt"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.66" />
-
 </LinearLayout>
