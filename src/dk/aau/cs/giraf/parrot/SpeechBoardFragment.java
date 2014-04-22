@@ -273,6 +273,27 @@ public class SpeechBoardFragment extends Fragment
                         .commit();
             }
         });
+
+        GButtonPlay btnPlay = (GButtonPlay) parrent.findViewById(R.id.btnPlay);
+
+        btnPlay.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                for(int i = 0; i < pictogramList.size(); i++)
+                {
+                    if(pictogramList.get(i) == null)
+                    {
+                        for (int j = i + 1; j < pictogramList.size(); j++)
+                        {
+                            pictogramList.set(j-1,pictogramList.get(j));
+                            pictogramList.set(j,null);
+                        }
+                    }
+                }
+                GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
+                speech.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
+                speech.invalidate();
+            }
+        });
 	}
 
 
