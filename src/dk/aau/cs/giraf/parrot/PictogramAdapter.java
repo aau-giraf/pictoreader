@@ -100,7 +100,7 @@ public class PictogramAdapter extends BaseAdapter {
 		//load the Bitmap and set the setImageBitmap
 		LoadImage task = new LoadImage(imageView,textView, context);
 	    task.execute(pct);
-		
+        view.setPadding(4, 4, 4, 4);
 
 		return view;
 	}

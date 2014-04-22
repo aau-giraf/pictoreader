@@ -94,7 +94,8 @@
             android:columnWidth="205dp"
             android:numColumns="7"
             android:stretchMode="none"
-             />
+            android:horizontalSpacing="5dp"
+            android:verticalSpacing="5dp" />
 
 
     </LinearLayout>
