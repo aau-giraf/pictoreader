@@ -126,7 +126,6 @@ public class SpeechBoardFragment extends Fragment
 		if(user.getCategoryAt(0)!=null)
 		{
 			displayedCategory = user.getCategoryAt(0);
-			clearSentenceboard();
 
 			//Setup the view for the listing of pictograms in pictogramgrid
 			final GGridView pictogramGrid = (GGridView) parrent.findViewById(R.id.pictogramgrid);
@@ -174,25 +173,30 @@ public class SpeechBoardFragment extends Fragment
             int width = size.x;
             noInSentence = (int)width/(145+dpToPx(10));
 
-            for (int i = 0; i < noInSentence; i++)
+            if(pictogramList.size() == 0)
             {
-                pictogramList.add(null);
+                for (int i = 0; i < noInSentence; i++)
+                {
+                    pictogramList.add(null);
+                }
             }
+
+            sentenceBoardGrid.setNumColumns(noInSentence);
 
 			//Play sound, when click on a pictogram in the sentence board
 			sentenceBoardGrid.setOnItemClickListener(new OnItemClickListener() {
                 PictogramController pictogramController = new PictogramController(getActivity());
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View view,	int position, long id) {
 
-					dk.aau.cs.giraf.oasis.lib.models.Pictogram p = pictogramList.get(position);
-					if(!(p.getId() ==-1))
-					{
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+
+                    dk.aau.cs.giraf.oasis.lib.models.Pictogram p = pictogramList.get(position);
+                    if (!(p.getId() == -1)) {
                         //PLAY AUDIO HERE
-						//p.playAudio();
-					}
-				}
-			});
+                        //p.playAudio();
+                    }
+                }
+            });
 
             final GButtonTrash button = (GButtonTrash) parrent.findViewById(R.id.btnClear);
             button.setOnClickListener(new View.OnClickListener() {
