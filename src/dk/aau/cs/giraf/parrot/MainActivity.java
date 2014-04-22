@@ -12,7 +12,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -46,7 +48,12 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.main);
+        View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main, null);
+
+        //Set the background
+        v.setBackgroundColor(GComponent.GetBackgroundColor());
+
+        setContentView(v);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //GComponent.SetBaseColor(Color.rgb(255, 160, 0));

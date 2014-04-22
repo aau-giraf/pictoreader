@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -93,7 +94,12 @@ public class OptionFragment extends Fragment{
 	@Override
 	public void onResume() {
 		super.onResume();
-		parrent.setContentView(R.layout.activity_setting);
+        View v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.activity_setting, null);
+
+        //Set the background
+        v.setBackgroundColor(GComponent.GetBackgroundColor());
+
+        parrent.setContentView(v);
 		parrent.invalidateOptionsMenu();
 		user = MainActivity.getUser();
 		dataloader = new PARROTDataLoader(parrent, false, this.getActivity());

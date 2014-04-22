@@ -215,17 +215,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 			
 		} else if (event.getAction() == DragEvent.ACTION_DRAG_ENDED){
 			insideOfMe = false;
-			//To ensure that no wrong references will be made, the index is reset to -1
-			SpeechBoardFragment.draggedPictogramIndex = -1;
-			SpeechBoardFragment.dragOwnerID = -1;
-			draggedPictogram = null;
-			/*try {
-				Thread.currentThread().sleep(40);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
-			//Dummy				
+
 		}
 		return true;
 	}

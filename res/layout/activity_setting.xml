@@ -17,7 +17,6 @@
     <dk.aau.cs.giraf.gui.GTextView
             android:id="@+id/pictogramSetting"
             android:textSize="40sp"
-			android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
        		android:layout_marginLeft="50dp"
@@ -59,7 +58,6 @@
         <dk.aau.cs.giraf.gui.GTextView
             android:id="@+id/sentenceSetting"
           	android:textSize="40sp"
-			android:textColor="#ffffff"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/sentensboardOptions" />
@@ -77,7 +75,6 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="@string/SentenceboardNo"
-                android:textColor="#ffffff"
                 android:textSize="20sp" />
 
 
@@ -87,7 +84,6 @@
                  android:inputType="text"
                  android:ems="10"
                  android:id="@+id/txtNumberofPictograms"
-                 android:textColor="#ffffff"
                  android:textIsSelectable="false"
                  android:textSize="20sp" />
 
