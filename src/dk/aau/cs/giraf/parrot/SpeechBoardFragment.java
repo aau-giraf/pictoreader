@@ -138,19 +138,18 @@ public class SpeechBoardFragment extends Fragment
 			sentenceBoardGrid.setNumColumns(noInSentence);
 
 			//setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
-			if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
+
+            sentenceBoardGrid.setColumnWidth(160);
+
+            if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
 			{
 				pictogramGrid.setNumColumns(6);
 				pictogramGrid.setColumnWidth(160);
-				sentenceBoardGrid.setColumnWidth(160);
-
 			}
 			else
 			{
 				pictogramGrid.setNumColumns(5);
 				pictogramGrid.setColumnWidth(200);
-				sentenceBoardGrid.setColumnWidth(200);
-
 			}
 
 			

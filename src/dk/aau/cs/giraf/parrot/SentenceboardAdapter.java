@@ -162,7 +162,7 @@ public class SentenceboardAdapter extends BaseAdapter {
                 e.getStackTrace();
             }
 			imageView.setImageBitmap(bitmap);
-			
+            view.setPadding(8, 8, 8, 8);
 
 			return view;
 		}
