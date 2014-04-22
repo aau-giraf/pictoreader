@@ -52,8 +52,8 @@ public class SentenceboardAdapter extends BaseAdapter {
 		public int getCount() {
 			//return the number of pictograms
 
-
-			return pictogramController.getPictograms().size();
+            return pictogramList.size();
+			//return pictogramController.getPictograms().size();
 		}
 
 		@Override
@@ -75,14 +75,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 
         public void replaceItem(int index, Pictogram p)
         {
-            this.pictogramList.get(index).setId(p.getId());
-            this.pictogramList.get(index).setPub(p.getPub());
-            this.pictogramList.get(index).setName(p.getName());
-            this.pictogramList.get(index).setInlineText(p.getInlineText());
-            this.pictogramList.get(index).setImage(p.getImage());
-            this.pictogramList.get(index).setEditableImage(p.getEditableImage());
-            this.pictogramList.get(index).setAuthor(p.getAuthor());
-            this.pictogramList.get(index).setSoundDataBytes(p.getSoundData());
+            this.pictogramList.set(index,p);
         }
 
         public void emptyPictogramList()
