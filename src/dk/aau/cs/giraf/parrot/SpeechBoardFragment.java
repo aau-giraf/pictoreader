@@ -133,7 +133,7 @@ public class SpeechBoardFragment extends Fragment
 
 			
 			//Setup the view for the sentences
-			GridView sentenceBoardGrid = (GridView) parrent.findViewById(R.id.sentenceboard);
+            GGridView sentenceBoardGrid = (GGridView) parrent.findViewById(R.id.sentenceboard);
 			sentenceBoardGrid.setAdapter(new SentenceboardAdapter(pictogramList, parrent.getApplicationContext()));
 			int noInSentence=user.getNumberOfSentencePictograms();
 			sentenceBoardGrid.setNumColumns(noInSentence);
@@ -164,8 +164,6 @@ public class SpeechBoardFragment extends Fragment
 
 			subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent.getApplicationContext()));
 		 	pictogramGrid.setAdapter(new PictogramAdapter(displayedCategory, parrent.getApplicationContext(),parrent));
-
-			//initialise the colors of the fragment
 
 			//setup drag listeners for the views
 			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));

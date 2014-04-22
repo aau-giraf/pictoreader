@@ -118,15 +118,9 @@ public class SentenceboardAdapter extends BaseAdapter {
 			//setup layout for imageView
             GGridView sentenceBoard = (GGridView) view.findViewById(R.id.sentenceboard); // SKAL SKRIVES TIL AT TILPASSE HØJDE
 			LinearLayout.LayoutParams layoutParams;
-			if(MainActivity.getUser().getPictogramSize()== PARROTProfile.PictogramSize.LARGE)
-			{
-				layoutParams = new LinearLayout.LayoutParams(180, 180);
-			}
-			else
-			{
-				layoutParams = new LinearLayout.LayoutParams(145, 145);
 
-			}
+			layoutParams = new LinearLayout.LayoutParams(145, 145);
+
 
 
             try {
@@ -160,7 +154,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 			}
 			else
 			{
-				bitmap = pct.getImageData();
+				bitmap = pct.getImage();
 			}
             }
             catch (Exception e)
@@ -168,7 +162,6 @@ public class SentenceboardAdapter extends BaseAdapter {
                 e.getStackTrace();
             }
 			imageView.setImageBitmap(bitmap);
-			view.setPadding(8, 8, 8, 8);
 			
 
 			return view;
