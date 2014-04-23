@@ -169,6 +169,22 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 					}
 					else
 					{
+                        int i = SpeechBoardFragment.draggedPictogramIndex;
+
+                        while (index != i)
+                        {
+                            int j;
+                            if(i < index)
+                            {
+                                j = i +1;
+                            }
+                            else
+                            {
+                                j = i -1;
+                            }
+                            SpeechBoardFragment.pictogramList.set(i, SpeechBoardFragment.pictogramList.get(j));
+                            i = j;
+                        }
                         SpeechBoardFragment.pictogramList.set(index, draggedPictogram);
 
 
@@ -177,26 +193,50 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 						draggedPictogram = null;
 					}
 
-					while(SpeechBoardFragment.pictogramList.size() > profile.getNumberOfSentencePictograms())
+					/*while(SpeechBoardFragment.pictogramList.size() > profile.getNumberOfSentencePictograms())
 					{
                         categoryController.removePictogramCategory(-1, SpeechBoardFragment.pictogramList.size()-1);
-					}
+					}*/
 
 				}
 		//3
 				else if(self.getId() != R.id.sentenceboard && SpeechBoardFragment.dragOwnerID == R.id.sentenceboard) //If we drag something from the sentenceboard to somewhere else
 				{
+                    GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
+                    int x = (int)event.getX();
+                    int y = (int)event.getY();
+                    int index = speech.pointToPosition(x, y);
+                    if(index <0)//if the pictogram is dropped at an illegal position
+                    {
+                        //do nothing, let the pictogram be removed
+                        //TODO improve this
 
-					GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
+                    }
+                    else
+                    {
+                    SpeechBoardFragment.pictogramList.set(index, null);
 					speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
 					speech.invalidate();
+                    }
 				}
 
 			}
-			
+            SpeechBoardFragment.dragOwnerID = -1;
 		} else if (event.getAction() == DragEvent.ACTION_DRAG_ENDED){
 			insideOfMe = false;
+            if(self.getId() != R.id.sentenceboard && SpeechBoardFragment.dragOwnerID == R.id.sentenceboard) //If we drag something from the sentenceboard to somewhere else
+            {
+                GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
+                if(SpeechBoardFragment.draggedPictogramIndex >= 0)
+                {
+                    SpeechBoardFragment.pictogramList.set(SpeechBoardFragment.draggedPictogramIndex, null);
+                    speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
+                    speech.invalidate();
+                }
 
+            }
+            SpeechBoardFragment.dragOwnerID = -1;
+            SpeechBoardFragment.draggedPictogramIndex = -1;
 		}
 		return true;
 	}
