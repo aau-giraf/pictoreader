@@ -48,6 +48,7 @@ public class SpeechBoardFragment extends Fragment
 	public static Category displayedCategory = null;
 	private PARROTProfile user = null;
 	private static Pictogram emptyPictogram = null;
+    public static SpeechBoardBoxDragListener speechDragListener;
 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu)
@@ -165,7 +166,9 @@ public class SpeechBoardFragment extends Fragment
 
 			//setup drag listeners for the views
 			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
-			parrent.findViewById(R.id.sentenceboard).setOnDragListener(new SpeechBoardBoxDragListener(parrent, parrent.getApplicationContext()));
+            speechDragListener = new SpeechBoardBoxDragListener(parrent, parrent.getApplicationContext());
+
+			parrent.findViewById(R.id.sentenceboard).setOnDragListener(speechDragListener);
 
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             Point size = new Point();
@@ -205,7 +208,7 @@ public class SpeechBoardFragment extends Fragment
                 }
             });
 
-			//Drag pictogram from the sentenceBoard, start drag
+			/*//Drag pictogram from the sentenceBoard, start drag
 			sentenceBoardGrid.setOnItemClickListener(new OnItemClickListener() {
 
                 @Override
@@ -218,6 +221,7 @@ public class SpeechBoardFragment extends Fragment
                         if (!(p.getId() == -1)) {
                             draggedPictogramIndex = position;
                             dragOwnerID = R.id.sentenceboard;
+                            speechDragListener.draggedPictogram = p;
                             ClipData data = ClipData.newPlainText("label", "text"); //TODO Dummy. Pictogram information can be placed here instead.
                             DragShadowBuilder shadowBuilder = new DragShadowBuilder(view);
                             view.startDrag(data, shadowBuilder, view, 0);
@@ -229,7 +233,7 @@ public class SpeechBoardFragment extends Fragment
                     }
                 }
 
-            });
+            });*/
 
 
 			//change category that is to be shown 

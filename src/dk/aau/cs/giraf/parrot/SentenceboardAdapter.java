@@ -121,7 +121,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 
 			layoutParams = new LinearLayout.LayoutParams(145, 145);
 
-
+            view.setOnTouchListener(new SentenceboardTouchListener( id) );
 
             try {
 			    imageView.setLayoutParams(layoutParams);

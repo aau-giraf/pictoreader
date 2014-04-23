@@ -21,7 +21,7 @@ import dk.aau.cs.giraf.oasis.lib.models.PictogramCategory;
 public class SpeechBoardBoxDragListener implements OnDragListener 
 {
 	private Activity parrent;
-	private dk.aau.cs.giraf.oasis.lib.models.Pictogram draggedPictogram = null;
+	public dk.aau.cs.giraf.oasis.lib.models.Pictogram draggedPictogram = null;
 	private PARROTProfile profile = MainActivity.getUser();
 	int numberOfSentencePictograms = profile.getNumberOfSentencePictograms();
 	boolean insideOfMe = false;
@@ -169,26 +169,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 					}
 					else
 					{
-						if(SpeechBoardFragment.pictogramList.get(index).getId() == -1)
-						{
-							//if it is empty, there might be empty spaces to the left of it too
-							int count = 0;
-							while (count < numberOfSentencePictograms) 
-							{
-
-								if (SpeechBoardFragment.pictogramList.get(count).getId() == -1)
-								{
-                                    categoryController.removePictogramCategory(-1, count); //Removes the pictogram at the specific index
-                                    categoryController.insertPictogramCategory(new PictogramCategory(draggedPictogram.getId(), -1));  //add the pictogram at the specific position
-                                    break;
-								} 
-								count++;
-							}
-						}
-						else
-						{
-                            categoryController.insertPictogramCategory(new PictogramCategory(draggedPictogram.getId(), -1 ));
-						}
+                        SpeechBoardFragment.pictogramList.set(index, draggedPictogram);
 
 
 						speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
