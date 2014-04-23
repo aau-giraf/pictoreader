@@ -150,13 +150,7 @@ public class OptionFragment extends Fragment{
             }
         });
 
-        Button btnSave = (Button) parrent.findViewById(R.id.btnSettingsSave);
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //Save the settings here
-            }
-        });
 
         Button button = (Button) parrent.findViewById(R.id.btnBack);
 

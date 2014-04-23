@@ -171,7 +171,7 @@ public class SpeechBoardFragment extends Fragment
             Point size = new Point();
             display.getSize(size);
             int width = size.x;
-            noInSentence = (int)width/(145+dpToPx(10));
+            noInSentence = (int)width/(145+dpToPx(16));
 
             if(pictogramList.size() == 0)
             {
