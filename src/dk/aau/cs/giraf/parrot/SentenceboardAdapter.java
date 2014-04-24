@@ -33,14 +33,14 @@ public class SentenceboardAdapter extends BaseAdapter {
 
     private PictogramController pictogramController;
     private Pictogram pictogram;
-	private ArrayList<Pictogram> pictogramList;
+	private ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictogramList;
 	private Context context;
 	
 	/**
 	 * @param cat, a PARROTCategory
 	 * @param c, the applications context
 	 */
-	public SentenceboardAdapter(ArrayList<Pictogram> cat, Context c)
+	public SentenceboardAdapter(ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> cat, Context c)
 	{
 		super();
 		this.pictogramList=cat;

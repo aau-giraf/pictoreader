@@ -46,37 +46,42 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 	 */
 	@Override
 	public boolean onDrag(View self, DragEvent event) {
+        //Do not allow dragging empty pictograms, show do nothing
+
 		if (event.getAction() == DragEvent.ACTION_DRAG_STARTED){
 			//When pictogram is dragged from sentenceboard
 			if(self.getId() == R.id.sentenceboard && SpeechBoardFragment.dragOwnerID == R.id.sentenceboard)
 			{
-				draggedPictogram = SpeechBoardFragment.pictogramList.get(SpeechBoardFragment.draggedPictogramIndex);
+                draggedPictogram = SpeechBoardFragment.pictogramList.get(SpeechBoardFragment.draggedPictogramIndex);
 				//Do not allow dragging empty pictograms, show do nothing
-				if(draggedPictogram.getId() !=-1)
-				{
-					GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
-					
-					//remove pictogram from sentenceboard and add an empty pictogram
+				/*if(draggedPictogram != null)
+                {
+                    if(draggedPictogram.getId() !=-1)
+                    {
+                        GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
 
-                    categoryController.removePictogramCategory(-1, SpeechBoardFragment.draggedPictogramIndex);
+                        //remove pictogram from sentenceboard and add an empty pictogram
 
-
-                    dk.aau.cs.giraf.oasis.lib.models.Pictogram p = new dk.aau.cs.giraf.oasis.lib.models.Pictogram();
-
-                    p.setId(1);
-                    p.setAuthor(-1);
-                    p.setInlineText("#emptyPictogram#");
-                    p.setName("#emptyPictogram");
-                    p.setPub(-1);
+                        categoryController.removePictogramCategory(-1, SpeechBoardFragment.draggedPictogramIndex);
 
 
-                    PictogramCategory newCat = new PictogramCategory(p.getId(), -1);
-                    categoryController.insertPictogramCategory(newCat);
+                        dk.aau.cs.giraf.oasis.lib.models.Pictogram p = new dk.aau.cs.giraf.oasis.lib.models.Pictogram();
 
-					speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
-				}
+                        p.setId(1);
+                        p.setAuthor(-1);
+                        p.setInlineText("#emptyPictogram#");
+                        p.setName("#emptyPictogram");
+                        p.setPub(-1);
+
+
+                        PictogramCategory newCat = new PictogramCategory(p.getId(), -1);
+                        categoryController.insertPictogramCategory(newCat);
+
+                        speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
+                    }
+                }*/
 			}
-		} else if (event.getAction() == DragEvent.ACTION_DRAG_ENTERED){ 
+		} else if (event.getAction() == DragEvent.ACTION_DRAG_ENTERED){
 			insideOfMe = true;
 		} else if (event.getAction() == DragEvent.ACTION_DRAG_EXITED){
 			insideOfMe = false;
@@ -100,7 +105,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 					}
 					else
 					{
-                        draggedPictogram = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).get(SpeechBoardFragment.draggedPictogramIndex);
+                        draggedPictogram = SpeechBoardFragment.speechboardPictograms.get(SpeechBoardFragment.draggedPictogramIndex);
 
                         if(SpeechBoardFragment.pictogramList.size() <= index)
                         {
@@ -241,6 +246,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 		return true;
 	}
 }
+
 
 
 

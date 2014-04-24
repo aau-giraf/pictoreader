@@ -18,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dk.aau.cs.giraf.gui.*;
 import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
@@ -40,7 +41,7 @@ public class SpeechBoardFragment extends Fragment
 	public static int draggedPictogramIndex = -1;
 	public static int dragOwnerID =-1;
 	//Serves as the back-end storage for the visual speechboard
-	public static ArrayList<Pictogram> speechboardPictograms = new ArrayList<Pictogram>();
+	public static List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> speechboardPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
 	
 	//This category contains the pictograms on the sentenceboard
 	public static ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictogramList = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
@@ -49,6 +50,9 @@ public class SpeechBoardFragment extends Fragment
 	private PARROTProfile user = null;
 	private static Pictogram emptyPictogram = null;
     public static SpeechBoardBoxDragListener speechDragListener;
+
+    private PictogramController pictogramController;
+    private PictogramCategoryController pictogramCategoryController;
 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu)
@@ -100,6 +104,8 @@ public class SpeechBoardFragment extends Fragment
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		this.parrent = activity;
+        pictogramController = new PictogramController(activity.getApplicationContext());
+        pictogramCategoryController = new PictogramCategoryController(activity.getApplicationContext());
 	}
 	
 
@@ -162,7 +168,8 @@ public class SpeechBoardFragment extends Fragment
             CategoryController categoryController = new CategoryController(parrent);
 
 			subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent.getApplicationContext()));
-		 	pictogramGrid.setAdapter(new PictogramAdapter(displayedCategory, parrent.getApplicationContext(),parrent));
+            speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+		 	pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent));
 
 			//setup drag listeners for the views
 			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
@@ -246,7 +253,8 @@ public class SpeechBoardFragment extends Fragment
                     CategoryController categoryController = new CategoryController(parrent.getBaseContext());
 					displayedCategory = user.getCategoryAt(position);
 					GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
-					pictogramGrid.setAdapter(new PictogramAdapter(displayedCategory, parrent.getApplicationContext(),parrent));
+                    speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+                    pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent));
 					//Setup the view for the categories 
 					GridView subCategoryGrid = (GridView) parrent.findViewById(R.id.subcategory);
 					subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent.getApplicationContext()));
@@ -265,7 +273,9 @@ public class SpeechBoardFragment extends Fragment
 					{
 						displayedCategory = categoryController.getSubcategoriesByCategory(displayedCategory).get(position);
 						GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
-						pictogramGrid.setAdapter(new PictogramAdapter(displayedCategory, parrent.getApplicationContext(), parrent));
+                        speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+                        pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent));
+
 					}
 				}
 			});

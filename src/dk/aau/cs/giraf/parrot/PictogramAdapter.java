@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
@@ -23,21 +26,17 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
  */
 public class PictogramAdapter extends BaseAdapter {
 
-	private Category cat;
 	private Context context;
 	private Activity activity;
     private PictogramController catController;
     PictogramController pictogramController;
+    private List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pics;
 	
-	/**
-	 * 
-	 * @param cat, a PARROTCategory
-	 * @param c, the applications context
-	 */
-	public PictogramAdapter(Category cat, Context c, Activity act)
+
+	public PictogramAdapter(List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pics, Context c, Activity act)
 	{
 		super();
-		this.cat=cat;
+		this.pics=pics;
 		context = c;
 		activity= act;
         this.pictogramController = new PictogramController(context);
@@ -46,19 +45,19 @@ public class PictogramAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		//return the number of pictograms
-		return pictogramController.getPictogramsByCategory(cat).size();
+		return pics.size();
 	}
 
 	@Override
 	public Object getItem(int arg0) {
 		// TODO Auto-generated method stub
-        return pictogramController.getPictogramsByCategory(cat).get(arg0);
+        return pics.get(arg0);
 	}
 
 	@Override
 	public long getItemId(int arg0) {
 		// TODO Auto-generated method stub
-		return pictogramController.getPictogramsByCategory(cat).get(arg0).getId();
+		return pics.get(arg0).getId();
 	}
 	/**
 	 * create an image view for each pictogram in the pictogram list from the PARROTCategory.
@@ -73,7 +72,7 @@ public class PictogramAdapter extends BaseAdapter {
 		//view.setTag(position);
 
 
-		dk.aau.cs.giraf.oasis.lib.models.Pictogram pct=pictogramController.getPictogramsByCategory(cat).get(position);
+        dk.aau.cs.giraf.oasis.lib.models.Pictogram pct = pics.get(position);
 
 		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		view = layoutInflater.inflate(R.layout.pictogramview, null);
