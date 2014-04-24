@@ -238,10 +238,10 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                     speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
                     speech.invalidate();
                 }
-
+                SpeechBoardFragment.dragOwnerID = -1;
+                SpeechBoardFragment.draggedPictogramIndex = -1;
             }
-            SpeechBoardFragment.dragOwnerID = -1;
-            SpeechBoardFragment.draggedPictogramIndex = -1;
+
 		}
 		return true;
 	}
