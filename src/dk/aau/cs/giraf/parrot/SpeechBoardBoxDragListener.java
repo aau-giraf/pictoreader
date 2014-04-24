@@ -97,7 +97,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 					int x = (int)event.getX();
 					int y = (int)event.getY();
 					int index = speech.pointToPosition(x, y);
-					if(index <0)	//If the pictorgram is dropped at an illegal index
+					if(index <0 || SpeechBoardFragment.draggedPictogramIndex < 0)	//If the pictorgram is dropped at an illegal index
 					{
 						//Do nothing
 						return false;
