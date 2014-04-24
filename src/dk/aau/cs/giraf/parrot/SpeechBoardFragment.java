@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -123,7 +124,13 @@ public class SpeechBoardFragment extends Fragment
 	public void onResume() {
 		super.onResume();
 		parrent.invalidateOptionsMenu();
-		parrent.setContentView(R.layout.speechboard_layout);
+
+        View v = LayoutInflater.from(parrent.getApplicationContext()).inflate(R.layout.speechboard_layout, null);
+
+        //Set the background
+        v.setBackgroundColor(GComponent.GetBackgroundColor());
+
+        parrent.setContentView(v);
 
 
 		
