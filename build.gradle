@@ -17,6 +17,7 @@ dependencies {
     compile project(':Ambilwarna')
     compile project(':pictogram-lib')
     compile project(':GIRAF_Components')
+    compile files('libraries/libGoogleAnalyticsServices.jar')
 }
 
 android {
