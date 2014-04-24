@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
@@ -26,6 +27,7 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
  */
 public class PictogramAdapter extends BaseAdapter {
 
+	private Category cat;
 	private Context context;
 	private Activity activity;
     private PictogramController catController;
@@ -70,6 +72,8 @@ public class PictogramAdapter extends BaseAdapter {
 		View view = convertView;
 		TextView textView;
 		//view.setTag(position);
+        int sizeLarge = GComponent.DpToPixel(180, context);
+        int sizeSmall = GComponent.DpToPixel(145, context);
 
 
         dk.aau.cs.giraf.oasis.lib.models.Pictogram pct = pics.get(position);
@@ -91,7 +95,7 @@ public class PictogramAdapter extends BaseAdapter {
 		}
 		else
 		{
-			layoutParams = new LinearLayout.LayoutParams(145, 145);	
+			layoutParams = new LinearLayout.LayoutParams(145, 145);
 		}
 		
 		imageView.setLayoutParams(layoutParams);
