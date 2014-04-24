@@ -77,8 +77,6 @@ public class MainActivity extends Activity {
         //help.CreateDummyData();
 
 
-
-
         //These lines get the intent from the launcher //TODO use us when testing with the launcher.
         girafIntent = getIntent();
         guardianID = girafIntent.getIntExtra("currentGuardianID", -1);

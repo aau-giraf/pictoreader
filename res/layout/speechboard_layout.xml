@@ -51,30 +51,26 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="90dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="right"
                 >
 
                 <dk.aau.cs.giraf.gui.GButtonSettings
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnSettings"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/btnSettings"/>
 
                 <dk.aau.cs.giraf.gui.GButtonTrash
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnClear"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/btnClear"/>
 
 
                 <dk.aau.cs.giraf.gui.GButtonPlay
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnPlay"
-                    android:layout_gravity="center_vertical"
-                    />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/btnPlay"/>
 
             </LinearLayout>
 
@@ -84,12 +80,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
         <dk.aau.cs.giraf.gui.GGridView
             android:id="@+id/sentenceboard"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="145dp"
             android:scrollbars="horizontal"
             android:columnWidth="205dp"
             android:numColumns="7"

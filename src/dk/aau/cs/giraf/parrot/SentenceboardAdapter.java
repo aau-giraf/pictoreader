@@ -15,6 +15,7 @@ import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GGridView;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
@@ -75,7 +76,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 
         public void replaceItem(int index, Pictogram p)
         {
-            this.pictogramList.set(index,p);
+            this.pictogramList.set(index, p);
         }
 
         public void emptyPictogramList()
@@ -118,6 +119,8 @@ public class SentenceboardAdapter extends BaseAdapter {
 			//setup layout for imageView
             GGridView sentenceBoard = (GGridView) view.findViewById(R.id.sentenceboard); // SKAL SKRIVES TIL AT TILPASSE HØJDE
 			LinearLayout.LayoutParams layoutParams;
+
+            int size = GComponent.DpToPixel(145, context);
 
 			layoutParams = new LinearLayout.LayoutParams(145, 145);
 
