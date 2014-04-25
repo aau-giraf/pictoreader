@@ -127,7 +127,7 @@ public class SentenceboardAdapter extends BaseAdapter {
             //size adapted using dp to calculate pixels
             //int size = GComponent.DpToPixel(120, context);
 
-            imageLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            imageLayoutParams = new LinearLayout.LayoutParams(120, 120);
 
 
             view.setOnTouchListener(new SentenceboardTouchListener( id) );
