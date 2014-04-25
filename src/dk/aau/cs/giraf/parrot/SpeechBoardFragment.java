@@ -55,6 +55,8 @@ public class SpeechBoardFragment extends Fragment
     private PictogramController pictogramController;
     private PictogramCategoryController pictogramCategoryController;
 
+    private Context context = this.getActivity();
+
 	@Override
 	public void onPrepareOptionsMenu(Menu menu)
 	{
@@ -117,6 +119,7 @@ public class SpeechBoardFragment extends Fragment
 
 	}
 
+
 	/**
 	 * Most is done in this. eg setup the gridviews get data shown in the gridviews.
 	 */
@@ -124,6 +127,7 @@ public class SpeechBoardFragment extends Fragment
 	public void onResume() {
 		super.onResume();
 		parrent.invalidateOptionsMenu();
+
 
         View v = LayoutInflater.from(parrent.getApplicationContext()).inflate(R.layout.speechboard_layout, null);
 
@@ -159,6 +163,7 @@ public class SpeechBoardFragment extends Fragment
 			{
 				pictogramGrid.setNumColumns(6);
 				pictogramGrid.setColumnWidth(160);
+
 			}
 			else
 			{
