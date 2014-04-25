@@ -33,14 +33,16 @@ public class PictogramAdapter extends BaseAdapter {
     private PictogramController catController;
     PictogramController pictogramController;
     private List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pics;
+    private PARROTProfile user;
 	
 
-	public PictogramAdapter(List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pics, Context c, Activity act)
+	public PictogramAdapter(List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pics, Context c, Activity act, PARROTProfile user)
 	{
 		super();
 		this.pics=pics;
 		context = c;
 		activity= act;
+        this.user = user;
         this.pictogramController = new PictogramController(context);
 	}
 
@@ -80,8 +82,8 @@ public class PictogramAdapter extends BaseAdapter {
 
 		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		view = layoutInflater.inflate(R.layout.pictogramview, null);
-		view.setOnDragListener(new SpeechBoardBoxDragListener(activity, context));
-		view.setOnTouchListener(new pictogramTouchListener( position) );
+		view.setOnDragListener(new SpeechBoardBoxDragListener(activity, context, user));
+		view.setOnTouchListener(new pictogramTouchListener( position, R.id.pictogramgrid, activity, user) );
 
 		//setup views
 		imageView = (ImageView) view.findViewById(R.id.pictogrambitmap); 

@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.View.OnDragListener;
 import android.widget.GridView;
 
+import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
+import dk.aau.cs.giraf.oasis.lib.models.Category;
+import dk.aau.cs.giraf.oasis.lib.models.Pictogram;
 import dk.aau.cs.giraf.oasis.lib.models.PictogramCategory;
 
  /**
@@ -27,16 +30,21 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 	boolean insideOfMe = false;
     private Context _context;
     private PictogramController pictogramController;
-    private PictogramCategoryController categoryController;
+    private PictogramCategoryController pictogramCategoryController;
+    private CategoryController categoryController;
+
+    private PARROTProfile user = null;
 
 	/**
 	 * @param active
 	 */
-	public SpeechBoardBoxDragListener(Activity active, Context c) {
+	public SpeechBoardBoxDragListener(Activity active, Context c, PARROTProfile user) {
 		parrent = active;
         _context = c;
+        this.user = user;
         this.pictogramController = new PictogramController(_context);
-        this.categoryController = new PictogramCategoryController(_context);
+        this.pictogramCategoryController = new PictogramCategoryController(_context);
+        this.categoryController = new CategoryController(_context);
 	}
 
 	/**
@@ -105,7 +113,23 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 					}
 					else
 					{
+                        if(SpeechBoardFragment.dragOwnerID == R.id.pictogramgrid)
+                        {
                         draggedPictogram = SpeechBoardFragment.speechboardPictograms.get(SpeechBoardFragment.draggedPictogramIndex);
+                        }
+                        else if(SpeechBoardFragment.dragOwnerID == R.id.supercategory || SpeechBoardFragment.dragOwnerID == R.id.subcategory)
+                        {
+                            Category cat = SpeechBoardFragment.displayedCategory;
+                            draggedPictogram = new Pictogram();
+                            draggedPictogram.setName(cat.getName());
+                            draggedPictogram.setInlineText(cat.getName());
+                            draggedPictogram.setImage(cat.getImage());
+                        }
+                        else
+                        {
+                            return false; //TODO improve this situation
+                        }
+
 
                         if(SpeechBoardFragment.pictogramList.size() <= index)
                         {

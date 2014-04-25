@@ -1,5 +1,6 @@
 package dk.aau.cs.giraf.parrot;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.aau.cs.giraf.oasis.lib.models.Application;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
@@ -25,16 +27,18 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 
 	private List<Category> categories;
 	private Context context;
+    private int ID;
+    private Activity activity;
+    PARROTProfile user;
 
-	/**
-	 * Constructor taking List of PARROTCategories, and a Context.
-	 * @param categories, List of PARROTCategories. 
-	 * @param _context, a Context.
-	 */
-	public PARROTCategoryAdapter(List<Category> categories, Context _context)
+
+	public PARROTCategoryAdapter(List<Category> categories, Activity activity, int ID, PARROTProfile user)
 	{
 		this.categories = categories;
-		context = _context;
+		context = activity.getApplicationContext();
+        this.ID = ID;
+        this.activity = activity;
+        this.user = user;
 	}
 
 	@Override
@@ -76,7 +80,7 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 			//we then set the imageview to the icon of the category
 			
 			imageView.setImageBitmap(pictogram);
-			
+            imageView.setOnTouchListener(new pictogramTouchListener( position, ID, activity, user) );
 			return imageView;
 		}
 	

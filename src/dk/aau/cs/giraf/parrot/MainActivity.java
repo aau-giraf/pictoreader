@@ -19,6 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+
 import com.google.analytics.tracking.android.EasyTracker;
 
 import dk.aau.cs.giraf.gui.GComponent;

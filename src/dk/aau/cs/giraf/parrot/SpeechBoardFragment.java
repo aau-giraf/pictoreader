@@ -169,18 +169,18 @@ public class SpeechBoardFragment extends Fragment
 			
 			//Setup the view for the categories 
             GGridView superCategoryGrid = (GGridView) parrent.findViewById(R.id.supercategory);
-			superCategoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parrent.getApplicationContext()));
+			superCategoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parrent, R.id.supercategory, user));
             GGridView subCategoryGrid = (GGridView) parrent.findViewById(R.id.subcategory);
 
             CategoryController categoryController = new CategoryController(parrent);
 
-			subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent.getApplicationContext()));
+			subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent, R.id.subcategory, user));
             speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
-		 	pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent));
+		 	pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent, user));
 
 			//setup drag listeners for the views
 			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
-            speechDragListener = new SpeechBoardBoxDragListener(parrent, parrent.getApplicationContext());
+            speechDragListener = new SpeechBoardBoxDragListener(parrent, parrent.getApplicationContext(), user);
 
 			parrent.findViewById(R.id.sentenceboard).setOnDragListener(speechDragListener);
 
@@ -250,42 +250,7 @@ public class SpeechBoardFragment extends Fragment
             });*/
 
 
-			//change category that is to be shown 
-			superCategoryGrid.setOnItemClickListener(new OnItemClickListener() {
 
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View view, int position, long id)
-				{
-                    CategoryController categoryController = new CategoryController(parrent.getBaseContext());
-					displayedCategory = user.getCategoryAt(position);
-					GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
-                    speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
-                    pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent));
-					//Setup the view for the categories 
-					GridView subCategoryGrid = (GridView) parrent.findViewById(R.id.subcategory);
-					subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent.getApplicationContext()));
-				}
-			});
-			//change subcategory that is to be shown 
-			
-			subCategoryGrid.setOnItemClickListener(new OnItemClickListener() 
-			{
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View view, int position, long id)
-				{
-                    CategoryController categoryController = new CategoryController(parrent.getBaseContext());
-					//this check is neccessary if you click twice at a subcategory it will crash since subCategories does not contain any subCategory
-					if(!categoryController.getSubcategoriesByCategory(displayedCategory).isEmpty())
-					{
-						displayedCategory = categoryController.getSubcategoriesByCategory(displayedCategory).get(position);
-						GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
-                        speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
-                        pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent));
-
-					}
-				}
-			});
 		}
 
         GButtonSettings btnOptions = (GButtonSettings) parrent.findViewById(R.id.btnSettings);
