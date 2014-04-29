@@ -53,8 +53,8 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
 		{
         	//Log.v("LoadImage;Message","doInBackground usynlig");
         	bitmap=BitmapFactory.decodeResource(context.getResources(), R.drawable.usynlig);
-			
-		}
+
+        }
         else	
     	{
         	//Log.v("LoadImage;Message","doInBackground path" + pictogram.getImagePath());
