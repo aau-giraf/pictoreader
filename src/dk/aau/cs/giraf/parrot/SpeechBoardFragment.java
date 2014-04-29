@@ -111,7 +111,7 @@ public class SpeechBoardFragment extends Fragment
 
 			//setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
 
-            sentenceBoardGrid.setColumnWidth(160);
+            sentenceBoardGrid.setColumnWidth(120);
 
             if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
 			{
@@ -147,7 +147,7 @@ public class SpeechBoardFragment extends Fragment
             Point size = new Point();
             display.getSize(size);
             int width = size.x;
-            noInSentence = (int)width/(145+dpToPx(16));
+            noInSentence = width/(145+dpToPx(16));
 
             if(pictogramList.size() == 0)
             {
