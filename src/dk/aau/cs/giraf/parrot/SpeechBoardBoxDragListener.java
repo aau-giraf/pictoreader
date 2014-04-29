@@ -156,28 +156,6 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                             }
                         }
 
-
-                         /*catch (Exception e)
-                         {
-                             //place the dragged pictogram into an empty filled
-                             int count = 0;
-                             //place the new pictogram in the first empty filled
-                             while (count < numberOfSentencePictograms)
-                             {
-                                 if (pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).get(count).getId() == -1)
-                                 {
-                                     categoryController.removePictogramCategory(-1, count); //Removes the pictogram at the specific index
-                                     categoryController.insertPictogramCategory(new PictogramCategory(draggedPictogram.getId(), -1));  //add the pictogram at the specific position
-                                     break;
-                                 }
-                                 count++;
-                             }
-
-                             e.getStackTrace();
-                         }*/
-
-
-
 						speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
 						speech.invalidate();
 					}

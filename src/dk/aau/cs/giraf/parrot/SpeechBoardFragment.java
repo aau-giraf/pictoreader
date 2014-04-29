@@ -58,52 +58,6 @@ public class SpeechBoardFragment extends Fragment
     private Context context = this.getActivity();
 
 	@Override
-	public void onPrepareOptionsMenu(Menu menu)
-	{
-		menu.findItem(R.id.goToParrot).setVisible(false);
-		menu.findItem(R.id.goToSettings).setVisible(true);
-		menu.findItem(R.id.goToLauncher).setVisible(true);
-		menu.findItem(R.id.clearBoard).setVisible(true);
-		
-		super.onPrepareOptionsMenu(menu);
-	}
-	
-	/**
-	 * Selector for what happens when a menu Item is clicked
-	 */
-	@Override
-	public boolean onOptionsItemSelected (MenuItem item) {
-		switch(item.getItemId()){
-		case R.id.clearBoard:
-			clearSentenceboard();
-			break;
-		case R.id.goToLauncher:
-			returnToLauncher();
-			break;
-		case R.id.goToSettings:
-            MainActivity parrotA= new MainActivity();
-			parrotA.switchTabs();
-			break;
-		}
-		return true;
-	}
-	
-	/**
-	 * this activating a new  Activity class which handles the settings which can be changed. 
-	 */
-	public void goToSettings(){
-		//TODO
-	}
-	/**
-	 * This exits the MainActivity and should return to the giraf-launcher.
-	 */
-	public void returnToLauncher()
-	{
-		parrent.finish();
-	}
-	
-
-	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		this.parrent = activity;

@@ -42,14 +42,14 @@ public class pictogramTouchListener implements OnTouchListener {
             if(owner == R.id.supercategory)
             {
 
-                        CategoryController categoryController = new CategoryController(activity.getApplicationContext());
-                        SpeechBoardFragment.displayedCategory = categoryController.getCategoriesByProfileId(user.getProfileID()).get(position);
-                        GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
-                        SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
-                        pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(),activity, user));
-                        //Setup the view for the categories
-                        GridView subCategoryGrid = (GridView) activity.findViewById(R.id.subcategory);
-                        subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory), activity, R.id.subcategory, user));
+                CategoryController categoryController = new CategoryController(activity.getApplicationContext());
+                SpeechBoardFragment.displayedCategory = categoryController.getCategoriesByProfileId(user.getProfileID()).get(position);
+                GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
+                SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
+                pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
+                //Setup the view for the categories
+                GridView subCategoryGrid = (GridView) activity.findViewById(R.id.subcategory);
+                subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory), activity, R.id.subcategory, user));
             }
             else if (owner == R.id.subcategory)
             {
@@ -65,8 +65,9 @@ public class pictogramTouchListener implements OnTouchListener {
                 }
             }
 			
-			ClipData data = ClipData.newPlainText("label", "text");
-	    	DragShadowBuilder shadowBuilder = new DragShadowBuilder(view);
+			ClipData data = ClipData.newPlainText("label", "text"); 
+
+            PictogramDragShadow shadowBuilder = new PictogramDragShadow(view);
 	    	view.startDrag(data, shadowBuilder, view, 0);
 	    	return true;
 		 }
