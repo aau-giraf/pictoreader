@@ -50,30 +50,6 @@ public class OptionFragment extends Fragment{
         //GComponent.SetBaseColor(0xFF961BC2);
     }
 
-	@Override
-	public void onPrepareOptionsMenu(Menu menu)
-	{
-        super.onPrepareOptionsMenu(menu);
-
-        menu.findItem(R.id.goToParrot).setVisible(true);
-		menu.findItem(R.id.goToSettings).setVisible(false);
-		menu.findItem(R.id.goToLauncher).setVisible(false);
-		menu.findItem(R.id.clearBoard).setVisible(false);
-	}
-	/**
-	 * Selector for what happens when a menu Item is clicked
-	 */
-	@Override
-	public boolean onOptionsItemSelected (MenuItem item) {
-		switch(item.getItemId()){
-		case R.id.goToParrot:
-			MainActivity parrotA= new MainActivity();
-			parrotA.switchTabs();
-			break;
-		}
-		return true;
-	}
-	
 	/**
 	 * This is called when exitting the activity 
 	 */
@@ -147,7 +123,6 @@ public class OptionFragment extends Fragment{
             	onShowTextChanged(v);
             }
         });
-
 
 
         Button button = (Button) parrent.findViewById(R.id.btnBack);

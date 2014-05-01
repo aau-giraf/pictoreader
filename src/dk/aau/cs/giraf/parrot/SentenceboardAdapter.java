@@ -1,6 +1,7 @@
 	package dk.aau.cs.giraf.parrot;
 	
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -96,7 +97,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 			TextView textView = null;
             Pictogram pct = null;
             LinearLayout picView = null;
-			
+
 			LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View view = layoutInflater.inflate(R.layout.pictogramview, null);
 
@@ -125,9 +126,10 @@ public class SentenceboardAdapter extends BaseAdapter {
             LinearLayout.LayoutParams picLayoutParams;
 
             //size adapted using dp to calculate pixels
-            //int size = GComponent.DpToPixel(120, context);
+            int size = GComponent.DpToPixel(100, context);
 
-            imageLayoutParams = new LinearLayout.LayoutParams(120, 120);
+            imageLayoutParams = new LinearLayout.LayoutParams(size, size);
+
 
 
             view.setOnTouchListener(new SentenceboardTouchListener( id) );
@@ -145,7 +147,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 			if(MainActivity.getUser().getShowText())
 			{
 				
-				textView.setTextSize(20);	//TODO this value should be customizable
+				textView.setTextSize(15);	//TODO this value should be customizable
                 try{
 				textView.setText(pct.getInlineText());
                 }

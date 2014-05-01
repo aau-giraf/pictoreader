@@ -42,8 +42,6 @@ public class MainActivity extends Activity {
     private static Application app;
     private static Helper help;
     private static Intent girafIntent;
-    private static ActionBar actionBar = null;
-
 
     @Override
     public void onStart() {
@@ -154,49 +152,11 @@ public class MainActivity extends Activity {
 
     }
 
-    /**
-     * A menu is created upon creation
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.parrot_settings, menu);
-
-        return true;
-    }
-
     @Override
     public void onBackPressed() {
         getFragmentManager().popBackStack();
         getFragmentManager().beginTransaction().add(new SpeechBoardFragment(this.getApplicationContext()), "1").commit();
         }
-
-    /**
-     * this activating a new  Activity class which handles the settings which can be changed.
-     */
-    public void switchTabs(){
-        Log.v("","switchTabs begin");
-        if(actionBar!=null)
-        {
-            Log.v("","switchTabs in 1 if");
-            int index = actionBar.getSelectedNavigationIndex();
-            if(index == 0)
-            {
-                Log.v("","switchTabs in 2 if");
-                actionBar.selectTab(actionBar.getTabAt(1));
-            }
-            else
-            {
-                Log.v("","switchTabs in else");
-                actionBar.selectTab(actionBar.getTabAt(0));
-            }
-        }
-        Log.v("","switchTabs end");
-    }
-
-
-
 
     /**
      * @return the child's user profile.

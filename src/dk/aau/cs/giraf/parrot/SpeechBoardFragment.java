@@ -65,52 +65,6 @@ public class SpeechBoardFragment extends Fragment
     }
 
 	@Override
-	public void onPrepareOptionsMenu(Menu menu)
-	{
-		menu.findItem(R.id.goToParrot).setVisible(false);
-		menu.findItem(R.id.goToSettings).setVisible(true);
-		menu.findItem(R.id.goToLauncher).setVisible(true);
-		menu.findItem(R.id.clearBoard).setVisible(true);
-		
-		super.onPrepareOptionsMenu(menu);
-	}
-	
-	/**
-	 * Selector for what happens when a menu Item is clicked
-	 */
-	@Override
-	public boolean onOptionsItemSelected (MenuItem item) {
-		switch(item.getItemId()){
-		case R.id.clearBoard:
-			clearSentenceboard();
-			break;
-		case R.id.goToLauncher:
-			returnToLauncher();
-			break;
-		case R.id.goToSettings:
-            MainActivity parrotA= new MainActivity();
-			parrotA.switchTabs();
-			break;
-		}
-		return true;
-	}
-	
-	/**
-	 * this activating a new  Activity class which handles the settings which can be changed. 
-	 */
-	public void goToSettings(){
-		//TODO
-	}
-	/**
-	 * This exits the MainActivity and should return to the giraf-launcher.
-	 */
-	public void returnToLauncher()
-	{
-		parrent.finish();
-	}
-	
-
-	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		this.parrent = activity;
@@ -164,7 +118,7 @@ public class SpeechBoardFragment extends Fragment
 
 			//setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
 
-            sentenceBoardGrid.setColumnWidth(160);
+            sentenceBoardGrid.setColumnWidth(120);
 
             if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
 			{
@@ -200,7 +154,7 @@ public class SpeechBoardFragment extends Fragment
             Point size = new Point();
             display.getSize(size);
             int width = size.x;
-            noInSentence = (int)width/(145+dpToPx(16));
+            noInSentence = width/(145+dpToPx(16));
 
             if(pictogramList.size() == 0)
             {
