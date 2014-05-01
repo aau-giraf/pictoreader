@@ -59,9 +59,12 @@ public class SpeechBoardFragment extends Fragment
 
     private Context context;
 
+    private PictoMediaPlayer pictoMediaPlayer;
+
     public SpeechBoardFragment(Context c)
     {
         context = c;
+        pictoMediaPlayer =  new PictoMediaPlayer(context);
     }
 
 	@Override
@@ -258,7 +261,7 @@ public class SpeechBoardFragment extends Fragment
                 speech.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
                 speech.invalidate();
 
-                PictoMediaPlayer pictoMediaPlayer = new PictoMediaPlayer(context);
+
 
                 pictoMediaPlayer.playListOfPictograms(pictogramList);
             }
