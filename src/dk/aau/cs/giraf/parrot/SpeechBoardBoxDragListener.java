@@ -124,7 +124,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                             draggedPictogram.setName(cat.getName());
                             draggedPictogram.setInlineText(cat.getName());
                             draggedPictogram.setImage(cat.getImage());
-                            draggedPictogram.setId(-1);
+                            draggedPictogram.setId(cat.getId()*-1);
                         }
                         else
                         {
