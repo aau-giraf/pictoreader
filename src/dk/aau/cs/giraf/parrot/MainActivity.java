@@ -121,7 +121,7 @@ public class MainActivity extends Activity {
                 Log.v("MessageParrot", "returned");
 						
                 // Create new fragment and transaction
-                Fragment newFragment = new SpeechBoardFragment();
+                Fragment newFragment = new SpeechBoardFragment(this.getApplicationContext());
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                 // Replace whatever is in the fragment_container view with this fragment,
@@ -169,7 +169,7 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         getFragmentManager().popBackStack();
-        getFragmentManager().beginTransaction().add(new SpeechBoardFragment(), "1").commit();
+        getFragmentManager().beginTransaction().add(new SpeechBoardFragment(this.getApplicationContext()), "1").commit();
         }
 
     /**

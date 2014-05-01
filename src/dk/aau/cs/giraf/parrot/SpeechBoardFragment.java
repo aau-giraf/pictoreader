@@ -27,7 +27,9 @@ import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.oasis.lib.models.PictogramCategory;
+import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 import dk.aau.cs.giraf.pictogram.Pictogram;
+import dk.aau.cs.giraf.pictogram.tts;
 
 /**
  * @author PARROT spring 2012 and adapted by SW605f13
@@ -55,7 +57,12 @@ public class SpeechBoardFragment extends Fragment
     private PictogramController pictogramController;
     private PictogramCategoryController pictogramCategoryController;
 
-    private Context context = this.getActivity();
+    private Context context;
+
+    public SpeechBoardFragment(Context c)
+    {
+        context = c;
+    }
 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu)
@@ -296,6 +303,10 @@ public class SpeechBoardFragment extends Fragment
                 GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
                 speech.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
                 speech.invalidate();
+
+                PictoMediaPlayer pictoMediaPlayer = new PictoMediaPlayer(context);
+
+                pictoMediaPlayer.playListOfPictograms(pictogramList);
             }
         });
 	}

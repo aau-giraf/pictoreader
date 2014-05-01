@@ -155,7 +155,7 @@ public class OptionFragment extends Fragment{
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getFragmentManager().popBackStack();
-                getFragmentManager().beginTransaction().add(new SpeechBoardFragment(), "1").commit();
+                getFragmentManager().beginTransaction().add(new SpeechBoardFragment(parrent.getApplicationContext()), "1").commit();
             }
         });
 
