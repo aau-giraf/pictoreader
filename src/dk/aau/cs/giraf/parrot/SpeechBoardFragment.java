@@ -243,23 +243,29 @@ public class SpeechBoardFragment extends Fragment
 
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                for(int q = 0; q < pictogramList.size(); q++)
-                {
+
                 for(int i = 0; i < pictogramList.size(); i++)
                 {
-                    if(pictogramList.get(i) == null)
+                    boolean isEnd = false;
+                    while(!isEnd && pictogramList.get(i) == null)
                     {
-                        for (int j = i + 1; j < pictogramList.size(); j++)
+                        for (int j = i + 1; j <= pictogramList.size(); j++)
                         {
-                            pictogramList.set(j-1,pictogramList.get(j));
-                            pictogramList.set(j,null);
+                            if(j == pictogramList.size())
+                            {
+                                isEnd = true;
+                            }
+                            else
+                            {
+                                pictogramList.set(j-1,pictogramList.get(j));
+                                pictogramList.set(j,null);
+                            }
                         }
                     }
                 }
-                }
-                GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
-                speech.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
-                speech.invalidate();
+                GridView sentence = (GridView) parrent.findViewById(R.id.sentenceboard);
+                sentence.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
+                sentence.invalidate();
 
 
 
