@@ -244,9 +244,10 @@ public class SpeechBoardFragment extends Fragment
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                boolean change;
                 for(int i = 0; i < pictogramList.size(); i++)
                 {
-                    boolean change = true;
+                    change = true;
                     while(change && pictogramList.get(i) == null)
                     {
                         change = false;
