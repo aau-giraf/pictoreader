@@ -246,19 +246,17 @@ public class SpeechBoardFragment extends Fragment
 
                 for(int i = 0; i < pictogramList.size(); i++)
                 {
-                    boolean isEnd = false;
-                    while(!isEnd && pictogramList.get(i) == null)
+                    boolean change = true;
+                    while(change && pictogramList.get(i) == null)
                     {
-                        for (int j = i + 1; j <= pictogramList.size(); j++)
+                        change = false;
+                        for (int j = i + 1; j < pictogramList.size(); j++)
                         {
-                            if(j == pictogramList.size())
-                            {
-                                isEnd = true;
-                            }
-                            else
+                            if(pictogramList.get(j) != null)
                             {
                                 pictogramList.set(j-1,pictogramList.get(j));
                                 pictogramList.set(j,null);
+                                change = true;
                             }
                         }
                     }
