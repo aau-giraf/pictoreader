@@ -68,14 +68,9 @@ public class PARROTCategoryAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         TextView textView;
-        Bitmap pictogram = categories.get(position).getImage();
+        Bitmap bitmap = categories.get(position).getImage();
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.pictogramview, null);
-
-        for (Category cat : categories)
-        {
-            Log.w("Alle I Category", cat.getName());
-        }
+        View view = layoutInflater.inflate(R.layout.categoryview, null);
 
        if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(context);
@@ -88,8 +83,8 @@ public class PARROTCategoryAdapter extends BaseAdapter{
         }
 
         else {
-            imageView = (ImageView) view.findViewById(R.id.pictogrambitmap);
-            textView = (TextView) view.findViewById(R.id.pictogramtext);
+            imageView = (ImageView) view.findViewById(R.id.categorybitmap);
+            textView = (TextView) view.findViewById(R.id.categorytext);
         }
 
         if(MainActivity.getUser().getShowText())
@@ -107,7 +102,7 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 
 
         //we then set the imageview to the icon of the category
-        imageView.setImageBitmap(pictogram);
+        imageView.setImageBitmap(bitmap);
         imageView.setOnTouchListener(new pictogramTouchListener( position, ID, activity, user) );
 
         return view;
