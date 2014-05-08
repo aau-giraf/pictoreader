@@ -107,17 +107,7 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 
 
         //we then set the imageview to the icon of the category
-
-        Log.w("Category Navn", textView.getText().toString());
-        if (pictogram != null)
-        {
-        Log.w("Billede", pictogram.toString());
-        }
-        else {
-            Log.w("Billede", "Null");
-        }
-
-            imageView.setImageBitmap(pictogram);
+        imageView.setImageBitmap(pictogram);
         imageView.setOnTouchListener(new pictogramTouchListener( position, ID, activity, user) );
 
         return view;
