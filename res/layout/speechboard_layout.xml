@@ -15,7 +15,7 @@
         <!-- Screen Design for Photos -->
         <dk.aau.cs.giraf.gui.GGridView
             android:id="@+id/supercategory"
-            android:layout_width="90dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:numColumns="1"
@@ -23,7 +23,7 @@
 
         <dk.aau.cs.giraf.gui.GGridView
             android:id="@+id/subcategory"
-            android:layout_width="90dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:numColumns="1"
