@@ -3,11 +3,14 @@ package dk.aau.cs.giraf.parrot;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,26 +65,62 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 	 * Create an image view for each icon of the categories in the list.
 	 */
 	@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-			ImageView imageView;
-			Bitmap pictogram = categories.get(position).getImage();
-			if (convertView == null) {  // if it's not recycled, initialize some attributes
-				imageView = new ImageView(context);
-				imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				imageView.setPadding(8, 8, 8, 8);
-				imageView.setBackgroundColor(10);
-			} 
-			
-			else {
-				imageView = (ImageView) convertView;
-			}
-			
-			//we then set the imageview to the icon of the category
-			
-			imageView.setImageBitmap(pictogram);
-            imageView.setOnTouchListener(new pictogramTouchListener( position, ID, activity, user) );
-			return imageView;
-		}
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ImageView imageView;
+        TextView textView;
+        Bitmap pictogram = categories.get(position).getImage();
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.pictogramview, null);
+
+        for (Category cat : categories)
+        {
+            Log.w("Alle I Category", cat.getName());
+        }
+
+       if (convertView == null) {  // if it's not recycled, initialize some attributes
+            imageView = new ImageView(context);
+            imageView.setLayoutParams(new GridView.LayoutParams(75, 75));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setPadding(8, 8, 8, 8);
+            imageView.setBackgroundColor(10);
+
+            textView = new TextView(context);
+        }
+
+        else {
+            imageView = (ImageView) view.findViewById(R.id.pictogrambitmap);
+            textView = (TextView) view.findViewById(R.id.pictogramtext);
+        }
+
+        if(MainActivity.getUser().getShowText())
+        {
+            textView.setTextSize(15);	//TODO this value should be customizable
+            try{
+                textView.setText(categories.get(position).getName());
+            }
+            catch (Exception e)
+            {
+                e.getStackTrace();
+            }
+        }
+
+
+
+        //we then set the imageview to the icon of the category
+
+        Log.w("Category Navn", textView.getText().toString());
+        if (pictogram != null)
+        {
+        Log.w("Billede", pictogram.toString());
+        }
+        else {
+            Log.w("Billede", "Null");
+        }
+
+            imageView.setImageBitmap(pictogram);
+        imageView.setOnTouchListener(new pictogramTouchListener( position, ID, activity, user) );
+
+        return view;
+	}
 	
 }
