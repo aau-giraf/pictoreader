@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.aau.cs.giraf.gui.GSelectableContent;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.pictogram.Pictogram;
@@ -99,13 +101,11 @@ public class PARROTCategoryAdapter extends BaseAdapter{
             }
         }
 
-
-
         //we then set the imageview to the icon of the category
         imageView.setImageBitmap(bitmap);
-        imageView.setOnTouchListener(new pictogramTouchListener( position, ID, activity, user) );
+
+        imageView.setOnTouchListener(new pictogramTouchListener(position, ID, activity, user));
 
         return view;
 	}
-	
 }
