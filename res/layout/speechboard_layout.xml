@@ -66,11 +66,18 @@
                     android:layout_height="100dp"
                     android:id="@+id/btnClear"/>
 
-
-                <dk.aau.cs.giraf.gui.GButtonPlay
+                <dk.aau.cs.giraf.gui.GButton
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:id="@+id/btnPlay"/>
+                    android:id="@+id/catButton"
+                    android:layout_marginTop="25dp"
+                    android:visibility="invisible" />
+
+                <dk.aau.cs.giraf.gui.GButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/crocButton"
+                    android:visibility="invisible" />
 
             </LinearLayout>
 
@@ -79,21 +86,39 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <dk.aau.cs.giraf.gui.GGridView
-            android:id="@+id/sentenceboard"
-            android:layout_width="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:gravity="right">
+        <LinearLayout
+            android:id="@+id/sentenceBoardLayout"
+            android:layout_width="10dp"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
+            <dk.aau.cs.giraf.gui.GGridView
+                android:id="@+id/sentenceboard"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scrollbars="horizontal"
+                android:columnWidth="205dp"
+                android:numColumns="7"
+                android:stretchMode="none"
+                android:horizontalSpacing="5dp"
+                android:verticalSpacing="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/playButtonLayout"
+            android:layout_width="100dp"
             android:layout_height="150dp"
-            android:scrollbars="horizontal"
-            android:columnWidth="205dp"
-            android:numColumns="7"
-            android:stretchMode="none"
-            android:horizontalSpacing="5dp"
-            android:verticalSpacing="5dp" />
+            android:orientation="horizontal"
+            android:layout_gravity="right">
 
-
+            <dk.aau.cs.giraf.gui.GButtonPlay
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:id="@+id/btnPlay" />
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>
