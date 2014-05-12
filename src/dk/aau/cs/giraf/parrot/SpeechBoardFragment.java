@@ -323,6 +323,8 @@ public class SpeechBoardFragment extends Fragment
                 pictoMediaPlayer.playListOfPictograms(pictogramList);
             }
         });
+
+        markSelectedCategory(0,-1,parrent);
 	}
 
 
