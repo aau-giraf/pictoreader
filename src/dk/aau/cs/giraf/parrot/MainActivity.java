@@ -152,11 +152,19 @@ public class MainActivity extends Activity {
 
     }
 
+
+
+
     @Override
-    public void onBackPressed() {
-        getFragmentManager().popBackStack();
-        getFragmentManager().beginTransaction().add(new SpeechBoardFragment(this.getApplicationContext()), "1").commit();
-        }
+    public void onBackPressed()
+    {
+        finish();
+
+        //super.onBackPressed();
+
+        //getFragmentManager().popBackStack();
+        //getFragmentManager().beginTransaction().add(new SpeechBoardFragment(this.getApplicationContext()), "1").commit();
+    }
 
     /**
      * @return the child's user profile.
