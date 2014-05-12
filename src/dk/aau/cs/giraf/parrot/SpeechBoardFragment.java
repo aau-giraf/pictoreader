@@ -4,10 +4,12 @@ package dk.aau.cs.giraf.parrot;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.ClipData;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -23,7 +25,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.content.pm.PackageManager;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -291,6 +295,15 @@ public class SpeechBoardFragment extends Fragment
             }
         });
 
+        GButton btnPictosearch = (GButton) parrent.findViewById(R.id.btnPictosearch);
+
+        btnPictosearch.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Create new fragment and transaction
+                callPictosearch();
+            }
+        });
+
         GButtonPlay btnPlay = (GButtonPlay) parrent.findViewById(R.id.btnPlay);
 
         btnPlay.setOnClickListener(new View.OnClickListener() {
@@ -381,6 +394,57 @@ public class SpeechBoardFragment extends Fragment
             boolean mustSet = i == subCategory;
             ((GSelectableContent)subCat.getChildAt(i)).SetSelected(mustSet);
         }
+    }
+
+    /**
+     * Opens pictosearch application, so pictograms can be loaded into pictocreator.
+     */
+    private void callPictosearch(){
+        Intent intent = new Intent();
+
+        try{
+            intent.setComponent(new ComponentName( "dk.aau.cs.giraf.pictosearch",  "dk.aau.cs.giraf.pictosearch.PictoAdminMain"));
+            intent.putExtra("currentGuardianID", user.getProfileID());
+            intent.putExtra("purpose", "multi");
+
+            startActivityForResult(intent, parrent.RESULT_FIRST_USER);
+        } catch (Exception e){
+            Toast.makeText(parrent, "Pictosearch er ikke installeret.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * This method gets the pictogram that are returned by pictosearch.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == parrent.RESULT_OK){
+            loadPictogram(data);
+        }
+    }
+
+    private void loadPictogram(Intent data){
+        int[] pictogramIDs = {};
+        try{
+            pictogramIDs = data.getExtras().getIntArray("checkoutIds");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
+
+        for (int i = 0; i < pictogramIDs.length; i++)
+        {
+            selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
+        }
+
+        displayPictograms(selectedPictograms, parrent);
     }
 
 }
