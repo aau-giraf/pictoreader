@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.DragShadowBuilder;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.content.pm.PackageManager;
@@ -333,6 +334,9 @@ public class SpeechBoardFragment extends Fragment
 	 */
 	public void clearSentenceboard()
 	{
+        speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+        displayPictograms(speechboardPictograms, this.getActivity());
+
         for(int i= 0; i <= pictogramList.size()-1; i++)
         {
             pictogramList.set(i, null);
@@ -347,12 +351,20 @@ public class SpeechBoardFragment extends Fragment
 
     private void displayPictograms(List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictograms, Activity activity)
     {
-        activity.findViewById(R.id.supercategory).setVisibility(View.GONE);
-        activity.findViewById(R.id.subcategory).setVisibility(View.GONE);
+        activity.findViewById(R.id.psubcategory).setVisibility(View.GONE);
+        activity.findViewById(R.id.psupercategory).setVisibility(View.GONE);
+
+        LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
+
 
         GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
-        pictogramGrid.setAdapter(new PictogramAdapter(pictograms, activity.getApplicationContext(), activity, user));
 
+
+        pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+
+
+        pictogramGrid.setAdapter(new PictogramAdapter(pictograms, activity.getApplicationContext(), activity, user));
+        pictogramGrid.invalidate();
     }
 
     // Create onclicklistener for GButton

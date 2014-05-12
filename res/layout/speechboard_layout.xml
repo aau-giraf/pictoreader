@@ -14,6 +14,7 @@
 
         <!-- Screen Design for Photos -->
         <LinearLayout
+            android:id="@+id/psupercategory"
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -41,6 +42,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/psubcategory"
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -73,6 +75,7 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
+            android:id="@+id/ppictogramview"
             android:gravity="right"
             android:weightSum="1">
 
