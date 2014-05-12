@@ -159,15 +159,14 @@ public class SentenceboardAdapter extends BaseAdapter {
 
 			Bitmap bitmap = null;
             try{
-			if(pct.getId() == -1)
-			{
-	        	bitmap=BitmapFactory.decodeResource(context.getResources(),R.drawable.usynlig);
-				
-			}
-			else
-			{
-				bitmap = pct.getImage();
-			}
+                if(pct.getId() == -1)
+                {
+                    bitmap=BitmapFactory.decodeResource(context.getResources(),R.drawable.usynlig);
+                }
+                else
+                {
+                    bitmap = pct.getImage();
+                }
             }
             catch (Exception e)
             {
