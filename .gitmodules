@@ -13,3 +13,6 @@
 [submodule "GIRAF_Components"]
 	path = GIRAF_Components
 	url = http://cs-cust06-int.cs.aau.dk/git-ro/giraf-component.git
+[submodule "pictosearch"]
+	path = pictosearch
+	url = http://cs-cust06-int.cs.aau.dk/git-ro/pictosearch.git
