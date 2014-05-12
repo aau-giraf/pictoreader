@@ -1,6 +1,7 @@
 package dk.aau.cs.giraf.parrot;
 
 import dk.aau.cs.giraf.gui.GComponent;
+import dk.aau.cs.giraf.gui.GSwitch;
 import yuku.ambilwarna.AmbilWarnaDialog;
 import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
 import android.app.Activity;
@@ -71,7 +72,7 @@ public class OptionFragment extends Fragment{
         View v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.activity_setting, null);
 
         //Set the background
-        v.setBackgroundColor(GComponent.GetBackgroundColor());
+        v.setBackgroundDrawable(GComponent.GetBackground(GComponent.Background.GRADIENT));
 
         parrent.setContentView(v);
 		parrent.invalidateOptionsMenu();
@@ -83,32 +84,7 @@ public class OptionFragment extends Fragment{
 		//get the current Settings
         readTheCurrentData();
 
-        final SeekBar sk=(SeekBar) parrent.findViewById(R.id.sbarNumberOfPictograms);
-        sk.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-        TextView numberOfPictograms = (TextView) parrent.findViewById(R.id.txtNumberofPictograms);
-
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-            // TODO Auto-generated method stub
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-            // TODO Auto-generated method stub
-        }
-
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            // TODO Auto-generated method stub
-            user.setNumberOfSentencePictograms(progress+1);
-
-            numberOfPictograms.setText(String.valueOf(progress+1));
-        }
-        });
-
-        Switch pictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
+        GSwitch pictogramSize = (GSwitch) parrent.findViewById(R.id.swtPictogramSize);
         pictogramSize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,9 +123,11 @@ public class OptionFragment extends Fragment{
 		
 		if(pictogramSize == PARROTProfile.PictogramSize.MEDIUM)
 		{
-			Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
-            switchPictogramSize.setChecked(false);
-
+			GSwitch switchPictogramSize = (GSwitch) parrent.findViewById(R.id.swtPictogramSize);
+            if(switchPictogramSize.isToggled())
+            {
+                switchPictogramSize.Toggle();
+            }
 		}
 		else if(pictogramSize == PARROTProfile.PictogramSize.LARGE)
 		{
@@ -158,13 +136,6 @@ public class OptionFragment extends Fragment{
 
 		}
 
-
-        SeekBar seek = (SeekBar) parrent.findViewById(R.id.sbarNumberOfPictograms);
-
-        seek.setProgress(noOfPlacesInSentenceboard-1);
-
-        TextView tview = (TextView) parrent.findViewById(R.id.txtNumberofPictograms);
-        tview.setText(String.valueOf(noOfPlacesInSentenceboard));
 		
 		CheckBox checkBox  = (CheckBox) parrent.findViewById(R.id.checkBoxShowText);
 		if(showText)
@@ -186,7 +157,7 @@ public class OptionFragment extends Fragment{
 	 */
 	public void onSizePictogramChanged(View view)
 	{
-	    boolean checked = ((Switch) view).isChecked();
+	    boolean checked = ((GSwitch) view).isToggled();
 
         if(checked)
         {
