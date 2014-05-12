@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:GComponent="http://schemas.android.com/apk/res-auto"
     android:id="@+id/options_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,15 +26,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
+                <dk.aau.cs.giraf.gui.GTextView
+                    android:id="@+id/pictogramSetting"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:text="@string/PictoSize" />
+
                 <dk.aau.cs.giraf.gui.GSwitch
                     android:layout_width="80dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="50dp"
-                    android:text="@string/PictoSize"
                     android:id="@+id/swtPictogramSize"
                     android:layout_weight="0.91"
-                    android:textOn="Stor"
-                    android:textOff="Lille" />
+                    GComponent:OnText="Stor"
+                    GComponent:OffText="Lille" />
                 </LinearLayout>
 
     <dk.aau.cs.giraf.gui.GCheckBox
