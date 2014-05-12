@@ -158,7 +158,24 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed()
     {
-        finish();
+        try
+        {
+            OptionFragment optionFragment = (OptionFragment) getFragmentManager().findFragmentByTag("options");
+
+            if (optionFragment.isResumed())
+            {
+                getFragmentManager().popBackStack();
+                getFragmentManager().beginTransaction().add(new SpeechBoardFragment(this.getApplicationContext()), "1").commit();
+            }
+            else
+            {
+                finish();
+            }
+        }
+        catch (Exception e)
+        {
+            finish();
+        }
 
         //super.onBackPressed();
 
