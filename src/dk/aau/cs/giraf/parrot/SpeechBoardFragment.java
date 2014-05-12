@@ -56,6 +56,7 @@ public class SpeechBoardFragment extends Fragment
 	public static ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictogramList = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
 	//This category contains the pictograms displayed on the big board
 	public static Category displayedCategory = null;
+    public static Category displayedMainCategory = null;
 	private PARROTProfile user = null;
 	private static Pictogram emptyPictogram = null;
     public static SpeechBoardBoxDragListener speechDragListener;
@@ -114,6 +115,7 @@ public class SpeechBoardFragment extends Fragment
 		if(user.getCategoryAt(0)!=null)
 		{
 			displayedCategory = user.getCategoryAt(0);
+            displayedMainCategory = displayedCategory;
 
 			//Setup the view for the listing of pictograms in pictogramgrid
 			final GGridView pictogramGrid = (GGridView) parrent.findViewById(R.id.pictogramgrid);

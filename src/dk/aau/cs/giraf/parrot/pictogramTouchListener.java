@@ -66,6 +66,7 @@ public class pictogramTouchListener implements OnTouchListener {
 
                 CategoryController categoryController = new CategoryController(activity.getApplicationContext());
                 SpeechBoardFragment.displayedCategory = categoryController.getCategoriesByProfileId(user.getProfileID()).get(position);
+                SpeechBoardFragment.displayedMainCategory = SpeechBoardFragment.displayedCategory;
                 GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
                 SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
                 pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
@@ -93,9 +94,9 @@ public class pictogramTouchListener implements OnTouchListener {
 
                 CategoryController categoryController = new CategoryController(activity.getBaseContext());
                 //this check is neccessary if you click twice at a subcategory it will crash since subCategories does not contain any subCategory
-                if(!categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory).isEmpty())
+                if(!categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedMainCategory).isEmpty())
                 {
-                    SpeechBoardFragment.displayedCategory = categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory).get(position);
+                    SpeechBoardFragment.displayedCategory = categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedMainCategory).get(position);
                     GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
                     SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
                     pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(),activity, user));
