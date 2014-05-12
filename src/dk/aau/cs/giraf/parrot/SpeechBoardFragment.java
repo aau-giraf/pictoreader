@@ -207,6 +207,7 @@ public class SpeechBoardFragment extends Fragment
                     if (catIntent != null)
                     {
                         catButton.setVisibility(this.getView().VISIBLE);
+                        catButton.SetImage(appInfo.loadIcon(packMan));
                     }
                     createOnClickListener(catButton, catIntent);
                 }
@@ -216,6 +217,7 @@ public class SpeechBoardFragment extends Fragment
                     if (crocIntent != null)
                     {
                         crocButton.setVisibility(this.getView().VISIBLE);
+                        crocButton.SetImage(appInfo.loadIcon(packMan));
                     }
                     createOnClickListener(crocButton, crocIntent);
                 }
