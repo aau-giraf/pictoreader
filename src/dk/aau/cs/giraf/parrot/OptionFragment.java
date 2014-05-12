@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -101,9 +102,9 @@ public class OptionFragment extends Fragment{
         });
 
 
-        Button button = (Button) parrent.findViewById(R.id.btnBack);
+        Button buttonBack = (Button) parrent.findViewById(R.id.btnBack);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getFragmentManager().popBackStack();
                 getFragmentManager().beginTransaction().add(new SpeechBoardFragment(parrent.getApplicationContext()), "1").commit();
@@ -187,6 +188,8 @@ public class OptionFragment extends Fragment{
 	    	user.setShowText(false);
 	    }
 	}
+
+
 }
 
 
