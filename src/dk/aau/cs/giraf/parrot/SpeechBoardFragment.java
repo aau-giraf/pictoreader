@@ -5,9 +5,13 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +21,8 @@ import android.view.View.DragShadowBuilder;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.content.pm.PackageManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,7 +163,7 @@ public class SpeechBoardFragment extends Fragment
             Point size = new Point();
             display.getSize(size);
             int width = size.x;
-            noInSentence = width/(145+dpToPx(16));
+            noInSentence = width/(145+GComponent.DpToPixel(16, parrent));
 
             if(pictogramList.size() == 0)
             {
@@ -168,6 +174,49 @@ public class SpeechBoardFragment extends Fragment
             }
 
             sentenceBoardGrid.setNumColumns(noInSentence);
+
+            // Set sentence board width dependent on the screen size
+            LinearLayout playButton = (LinearLayout) parrent.findViewById(R.id.playButtonLayout);
+            LinearLayout.LayoutParams playButtonLayout = new LinearLayout.LayoutParams(playButton.getLayoutParams());
+
+            LinearLayout sentenceBoard = (LinearLayout) parrent.findViewById(R.id.sentenceBoardLayout);
+            LinearLayout.LayoutParams sBParams = new LinearLayout.LayoutParams(width - playButtonLayout.width, GComponent.DpToPixel(150, parrent));
+
+            sentenceBoard.setLayoutParams(sBParams);
+
+            // Initialise cat and croc buttons
+            String catName = "dk.aau.cs.giraf.pictoadmin";
+            String crocName = "dk.aau.cs.giraf.pictocreator";
+            Intent catIntent = null;
+            Intent crocIntent = null;
+            GButton catButton = (GButton) parrent.findViewById(R.id.catButton);
+            GButton crocButton = (GButton) parrent.findViewById(R.id.crocButton);
+
+
+            final PackageManager packMan = parrent.getPackageManager();
+            List<ApplicationInfo> apps = packMan.getInstalledApplications(PackageManager.GET_META_DATA);
+
+            for (ApplicationInfo appInfo : apps)
+            {
+                if (appInfo.packageName.toString().equalsIgnoreCase(catName))
+                {
+                    catIntent = packMan.getLaunchIntentForPackage(catName);
+                    if (catIntent != null)
+                    {
+                        catButton.setVisibility(this.getView().VISIBLE);
+                    }
+                    createOnClickListener(catButton, catIntent);
+                }
+                else if (appInfo.packageName.toString().equalsIgnoreCase(crocName))
+                {
+                    crocIntent = packMan.getLaunchIntentForPackage(crocName);
+                    if (crocIntent != null)
+                    {
+                        crocButton.setVisibility(this.getView().VISIBLE);
+                    }
+                    createOnClickListener(crocButton, crocIntent);
+                }
+            }
 
 			//Play sound, when click on a pictogram in the sentence board
 			sentenceBoardGrid.setOnItemClickListener(new OnItemClickListener() {
@@ -291,10 +340,15 @@ public class SpeechBoardFragment extends Fragment
         speech.invalidate();
 	}
 
-    public int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
-        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return px;
+    // Create onclicklistener for GButton
+    private void createOnClickListener(GButton button, final Intent intent)
+    {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent);
+            }
+        });
     }
 
 	/**
