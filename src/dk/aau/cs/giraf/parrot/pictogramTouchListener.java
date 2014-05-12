@@ -40,30 +40,7 @@ public class pictogramTouchListener implements OnTouchListener {
             SpeechBoardFragment.dragOwnerID = owner;
             if(owner == R.id.supercategory)
             {
-               try
-               {
-                   if (((GSelectableContent) view.getParent().getParent()).getBackground() == null)
-                   {
-                       ((GSelectableContent) view.getParent().getParent()).SetSelected(true);
-                   }
-                   else
-                   {
-                       ((GSelectableContent) view.getParent().getParent()).SetSelected(false);
-                   }
-                    // Der skal tilføjes begrænsninger til ovenstående.
-                    // Først skal der fjernes markeringer for alle andre superkategorier end den nyligt markerede.
-                    // Der skal derefter også fjernes markeringer for alle andre subkategorier end den nyligt markerede.
-
-                    // Det skal ydermere være muligt at have markeret en superkategori uden en subkategori.
-                    // Dette kan gøres ved at fjerne markeringer for subkategorier ved valg af superkategori.
-                    // Dette kan også gøres ved at fjerne en markering ved at trykke på den allerede markerede subkategori.
-               }
-               catch (Exception e)
-               {
-                   e.getStackTrace();
-               }
-
-
+                SpeechBoardFragment.displayedMainCategoryIndex = SpeechBoardFragment.draggedPictogramIndex;
                 CategoryController categoryController = new CategoryController(activity.getApplicationContext());
                 SpeechBoardFragment.displayedCategory = categoryController.getCategoriesByProfileId(user.getProfileID()).get(position);
                 SpeechBoardFragment.displayedMainCategory = SpeechBoardFragment.displayedCategory;
@@ -76,22 +53,6 @@ public class pictogramTouchListener implements OnTouchListener {
             }
             else if (owner == R.id.subcategory)
             {
-                try
-                {
-                    if (((GSelectableContent) view.getParent().getParent()).getBackground() == null)
-                    {
-                        ((GSelectableContent) view.getParent().getParent()).SetSelected(true);
-                    }
-                    else
-                    {
-                        ((GSelectableContent) view.getParent().getParent()).SetSelected(false);
-                    }
-                }
-                catch (Exception e)
-                {
-                    e.getStackTrace();
-                }
-
                 CategoryController categoryController = new CategoryController(activity.getBaseContext());
                 //this check is neccessary if you click twice at a subcategory it will crash since subCategories does not contain any subCategory
                 if(!categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedMainCategory).isEmpty())
@@ -108,6 +69,16 @@ public class pictogramTouchListener implements OnTouchListener {
 
             PictogramDragShadow shadowBuilder = new PictogramDragShadow(view);
 	    	view.startDrag(data, shadowBuilder, view, 0);
+
+            if(SpeechBoardFragment.displayedMainCategory == SpeechBoardFragment.displayedCategory)
+            {
+                SpeechBoardFragment.markSelectedCategory(SpeechBoardFragment.draggedPictogramIndex, -1, activity);
+            }
+            else
+            {
+                SpeechBoardFragment.markSelectedCategory(SpeechBoardFragment.displayedMainCategoryIndex, SpeechBoardFragment.draggedPictogramIndex, activity);
+            }
+
 	    	return true;
 		}
 		else

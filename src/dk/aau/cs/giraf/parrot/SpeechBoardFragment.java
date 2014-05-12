@@ -57,6 +57,7 @@ public class SpeechBoardFragment extends Fragment
 	//This category contains the pictograms displayed on the big board
 	public static Category displayedCategory = null;
     public static Category displayedMainCategory = null;
+    public static int displayedMainCategoryIndex = 0;
 	private PARROTProfile user = null;
 	private static Pictogram emptyPictogram = null;
     public static SpeechBoardBoxDragListener speechDragListener;
@@ -353,13 +354,22 @@ public class SpeechBoardFragment extends Fragment
         });
     }
 
-	/**
-	 *This function set the colors in the speechBoardFragment
-	 */
+    public static void markSelectedCategory(int mainCategory, int subCategory, Activity activity)
+    {
+        GGridView mainCat = (GGridView) activity.findViewById(R.id.supercategory);
+        for (int i = 0; i < mainCat.getChildCount(); i++)
+        {
+            boolean mustSet = i == mainCategory;
+            ((GSelectableContent)mainCat.getChildAt(i)).SetSelected(mustSet);
+        }
 
-	/**
-	 * set color for the PictogramGrid, which changes upon a change of category to be shown
-	 */
+        GGridView subCat = (GGridView) activity.findViewById(R.id.subcategory);
+        for (int i = 0; i < subCat.getChildCount(); i++)
+        {
+            boolean mustSet = i == subCategory;
+            ((GSelectableContent)subCat.getChildAt(i)).SetSelected(mustSet);
+        }
+    }
 
 }
 
