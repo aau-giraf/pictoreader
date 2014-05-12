@@ -13,21 +13,61 @@
         android:orientation="horizontal" >
 
         <!-- Screen Design for Photos -->
-        <dk.aau.cs.giraf.gui.GGridView
-            android:id="@+id/supercategory"
+        <LinearLayout
             android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:numColumns="1"
-            />
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
 
-        <dk.aau.cs.giraf.gui.GGridView
-            android:id="@+id/subcategory"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Hovedkategori"
+                android:id="@+id/textViewHovedkateori"
+                android:gravity="center"
+                android:autoText="false"
+                android:layout_gravity="center"
+                android:textColor="#000000" />
+
+            <dk.aau.cs.giraf.gui.GGridView
+                android:id="@+id/supercategory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="1"
+                android:gravity="center"
+                android:layout_gravity="bottom" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:numColumns="1"
-            android:visibility="visible" />
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Underkategori"
+                android:id="@+id/textViewUnderkategori"
+                android:gravity="center"
+                android:autoText="false"
+                android:layout_gravity="center"
+                android:textColor="#000000" />
+
+            <dk.aau.cs.giraf.gui.GGridView
+                android:id="@+id/subcategory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:numColumns="1"
+                android:layout_gravity="bottom"
+                android:visibility="visible" />
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
