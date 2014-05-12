@@ -345,6 +345,16 @@ public class SpeechBoardFragment extends Fragment
         speech.invalidate();
 	}
 
+    private void displayPictograms(List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictograms, Activity activity)
+    {
+        activity.findViewById(R.id.supercategory).setVisibility(View.GONE);
+        activity.findViewById(R.id.subcategory).setVisibility(View.GONE);
+
+        GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
+        pictogramGrid.setAdapter(new PictogramAdapter(pictograms, activity.getApplicationContext(), activity, user));
+
+    }
+
     // Create onclicklistener for GButton
     private void createOnClickListener(GButton button, final Intent intent)
     {
