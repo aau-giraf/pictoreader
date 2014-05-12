@@ -15,7 +15,7 @@
         android:layout_gravity="right" />
 
     <dk.aau.cs.giraf.gui.GTextView
-            android:id="@+id/pictog½ramSetting"
+            android:id="@+id/pictogramSetting"
             android:textSize="40sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
