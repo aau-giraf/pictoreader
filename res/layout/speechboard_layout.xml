@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:GComponent="http://schemas.android.com/apk/res-auto"
     android:id="@+id/SpeechBoard"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -109,10 +110,17 @@
                     android:layout_height="100dp"
                     android:id="@+id/btnClear"/>
 
-                <dk.aau.cs.giraf.gui.GButton
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:id="@+id/btnPictosearch"/>
+                <dk.aau.cs.giraf.gui.GLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    GComponent:Markable="true"
+                    android:id="@+id/btnPictosearchLayout">
+
+                    <dk.aau.cs.giraf.gui.GButton
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/btnPictosearch"/>
+                </dk.aau.cs.giraf.gui.GLayout>
 
                 <dk.aau.cs.giraf.gui.GButton
                     android:layout_width="100dp"

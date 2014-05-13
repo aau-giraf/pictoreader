@@ -318,6 +318,17 @@ public class SpeechBoardFragment extends Fragment
         {
             displayPictograms(displayPictogramList, this.getActivity());
         }
+
+        if(backToNormalView)
+        {
+            GLayout btnSearch = (GLayout)parrent.findViewById(R.id.btnPictosearchLayout);
+            btnSearch.SetMarked(true);
+        }
+        else
+        {
+            GLayout btnSearch = (GLayout)parrent.findViewById(R.id.btnPictosearchLayout);
+            btnSearch.SetMarked(false);
+        }
 	}
 
 
@@ -420,6 +431,9 @@ public class SpeechBoardFragment extends Fragment
 
             pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, activity.getApplicationContext(), activity, user));
             pictogramGrid.invalidate();
+
+            GLayout btnSearch = (GLayout)parrent.findViewById(R.id.btnPictosearchLayout);
+            btnSearch.SetMarked(false);
         }
     }
 
