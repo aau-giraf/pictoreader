@@ -401,10 +401,14 @@ public class SpeechBoardFragment extends Fragment
             } catch (Exception e){
                 Toast.makeText(parrent, "Pictosearch er ikke installeret.", Toast.LENGTH_LONG).show();
             }
+            GLayout btnSearch = (GLayout)parrent.findViewById(R.id.btnPictosearch);
+            btnSearch.SetMarked(true);
         }
         else
         {
             backToNormalView = false;
+            GLayout btnSearch = (GLayout)parrent.findViewById(R.id.btnPictosearch);
+            btnSearch.SetMarked(false);
 
             Activity activity = this.getActivity();
             activity.findViewById(R.id.psubcategory).setVisibility(View.VISIBLE);
