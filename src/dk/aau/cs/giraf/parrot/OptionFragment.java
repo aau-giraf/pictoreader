@@ -132,8 +132,8 @@ public class OptionFragment extends Fragment{
 		}
 		else if(pictogramSize == PARROTProfile.PictogramSize.LARGE)
 		{
-            Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
-            switchPictogramSize.setChecked(true);
+            GSwitch switchPictogramSize = (GSwitch) parrent.findViewById(R.id.swtPictogramSize);
+            switchPictogramSize.setToggled(true);
 
 		}
 
