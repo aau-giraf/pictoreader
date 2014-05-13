@@ -141,8 +141,9 @@ public class SpeechBoardFragment extends Fragment
             display.getSize(size);
             int width = size.x;
 
-            sentenceBoardGrid.setColumnWidth(180);
-            noInSentence = width/(180+GComponent.DpToPixel(16, parrent));
+            int colWidth = GComponent.DpToPixel(125, parrent.getApplicationContext());
+            sentenceBoardGrid.setColumnWidth(colWidth);
+            noInSentence = width/(colWidth+GComponent.DpToPixel(16, parrent));
 
             if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
 			{
@@ -157,7 +158,7 @@ public class SpeechBoardFragment extends Fragment
 			}
 
 			
-			//Setup the view for the categories 
+			//Setup the view for the categories
             GGridView superCategoryGrid = (GGridView) parrent.findViewById(R.id.supercategory);
 			superCategoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parrent, R.id.supercategory, user));
             GGridView subCategoryGrid = (GGridView) parrent.findViewById(R.id.subcategory);
