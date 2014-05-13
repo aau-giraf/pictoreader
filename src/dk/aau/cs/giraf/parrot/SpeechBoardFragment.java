@@ -4,10 +4,12 @@ package dk.aau.cs.giraf.parrot;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.ClipData;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -20,10 +22,13 @@ import android.view.View;
 import android.view.View.DragShadowBuilder;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.content.pm.PackageManager;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +73,9 @@ public class SpeechBoardFragment extends Fragment
     private Context context;
 
     private PictoMediaPlayer pictoMediaPlayer;
+    private List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> displayPictogramList = null;
+
+    private boolean backToNormalView = false;
 
     public SpeechBoardFragment(Context c)
     {
@@ -108,8 +116,6 @@ public class SpeechBoardFragment extends Fragment
 
         parrent.setContentView(v);
 
-
-		
 		user=MainActivity.getUser();
 		
 		//check whether there are categories
@@ -130,17 +136,23 @@ public class SpeechBoardFragment extends Fragment
 
 			//setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
 
-            sentenceBoardGrid.setColumnWidth(120);
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+
+            sentenceBoardGrid.setColumnWidth(180);
+            noInSentence = width/(180+GComponent.DpToPixel(16, parrent));
 
             if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
 			{
-				pictogramGrid.setNumColumns(6);
+				pictogramGrid.setNumColumns(noInSentence+1);
 				pictogramGrid.setColumnWidth(160);
 
 			}
 			else
 			{
-				pictogramGrid.setNumColumns(5);
+				pictogramGrid.setNumColumns(noInSentence-1);
 				pictogramGrid.setColumnWidth(200);
 			}
 
@@ -162,11 +174,8 @@ public class SpeechBoardFragment extends Fragment
 
 			parrent.findViewById(R.id.sentenceboard).setOnDragListener(speechDragListener);
 
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-            int width = size.x;
-            noInSentence = width/(145+GComponent.DpToPixel(16, parrent));
+
+
 
             if(pictogramList.size() == 0)
             {
@@ -244,36 +253,6 @@ public class SpeechBoardFragment extends Fragment
                     clearSentenceboard();
                 }
             });
-
-			/*//Drag pictogram from the sentenceBoard, start drag
-			sentenceBoardGrid.setOnItemClickListener(new OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-                    PictogramController pictogramController = new PictogramController(getActivity());
-
-                    try {
-                        dk.aau.cs.giraf.oasis.lib.models.Pictogram p = pictogramList.get(position);
-
-                        if (!(p.getId() == -1)) {
-                            draggedPictogramIndex = position;
-                            dragOwnerID = R.id.sentenceboard;
-                            speechDragListener.draggedPictogram = p;
-                            ClipData data = ClipData.newPlainText("label", "text"); //TODO Dummy. Pictogram information can be placed here instead.
-                            DragShadowBuilder shadowBuilder = new DragShadowBuilder(view);
-                            view.startDrag(data, shadowBuilder, view, 0);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        e.getStackTrace();
-                    }
-                }
-
-            });*/
-
-
-
 		}
 
         GButtonSettings btnOptions = (GButtonSettings) parrent.findViewById(R.id.btnSettings);
@@ -290,6 +269,15 @@ public class SpeechBoardFragment extends Fragment
                         // Add this transaction to the back stack
                         .addToBackStack("options")
                         .commit();
+            }
+        });
+
+        GButton btnPictosearch = (GButton) parrent.findViewById(R.id.btnPictosearch);
+
+        btnPictosearch.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Create new fragment and transaction
+                callPictosearch();
             }
         });
 
@@ -327,6 +315,22 @@ public class SpeechBoardFragment extends Fragment
         });
 
         markSelectedCategory(0,-1,parrent);
+
+        if(displayPictogramList != null && backToNormalView)
+        {
+            displayPictograms(displayPictogramList, this.getActivity());
+        }
+
+        if(backToNormalView)
+        {
+            GLayout btnSearch = (GLayout)parrent.findViewById(R.id.btnPictosearchLayout);
+            btnSearch.SetMarked(true);
+        }
+        else
+        {
+            GLayout btnSearch = (GLayout)parrent.findViewById(R.id.btnPictosearchLayout);
+            btnSearch.SetMarked(false);
+        }
 	}
 
 
@@ -340,12 +344,29 @@ public class SpeechBoardFragment extends Fragment
             pictogramList.set(i, null);
         }
 
-
         GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
 
         speech.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
         speech.invalidate();
 	}
+
+    public void displayPictograms(List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictograms, Activity activity)
+    {
+
+        speechboardPictograms = (ArrayList) pictograms;
+
+        activity.findViewById(R.id.psubcategory).setVisibility(View.GONE);
+        activity.findViewById(R.id.psupercategory).setVisibility(View.GONE);
+        activity.findViewById(R.id.btnSettings).setVisibility(View.GONE);
+
+        LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
+        pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+
+        GGridView pictogramGrid = (GGridView) activity.findViewById(R.id.pictogramgrid);
+
+        pictogramGrid.setAdapter(new PictogramAdapter(pictograms, activity.getApplicationContext(), activity, user));
+        pictogramGrid.invalidate();
+    }
 
     // Create onclicklistener for GButton
     private void createOnClickListener(GButton button, final Intent intent)
@@ -375,5 +396,79 @@ public class SpeechBoardFragment extends Fragment
         }
     }
 
+    /**
+     * Opens pictosearch application, so pictograms can be loaded into pictocreator.
+     */
+    private void callPictosearch(){
+        if(!backToNormalView)
+        {
+            backToNormalView = true;
+            Intent intent = new Intent();
+
+            try{
+                intent.setComponent(new ComponentName( "dk.aau.cs.giraf.pictosearch",  "dk.aau.cs.giraf.pictosearch.PictoAdminMain"));
+                intent.putExtra("currentGuardianID", user.getProfileID());
+                intent.putExtra("purpose", "multi");
+
+                startActivityForResult(intent, parrent.RESULT_FIRST_USER);
+            } catch (Exception e){
+                Toast.makeText(parrent, "Pictosearch er ikke installeret.", Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+            backToNormalView = false;
+
+            Activity activity = this.getActivity();
+            activity.findViewById(R.id.psubcategory).setVisibility(View.VISIBLE);
+            activity.findViewById(R.id.psupercategory).setVisibility(View.VISIBLE);
+            activity.findViewById(R.id.btnSettings).setVisibility(View.VISIBLE);
+
+            LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
+            pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+
+            speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+
+            GGridView pictogramGrid = (GGridView) activity.findViewById(R.id.pictogramgrid);
+
+            pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, activity.getApplicationContext(), activity, user));
+            pictogramGrid.invalidate();
+
+            GLayout btnSearch = (GLayout)parrent.findViewById(R.id.btnPictosearchLayout);
+            btnSearch.SetMarked(false);
+        }
+    }
+
+    /**
+     * This method gets the pictogram that are returned by pictosearch.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == parrent.RESULT_OK){
+            loadPictogram(data);
+        }
+    }
+
+    private void loadPictogram(Intent data){
+            int[] pictogramIDs = {};
+            try{
+                pictogramIDs = data.getExtras().getIntArray("checkoutIds");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
+            List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
+            for (int i = 0; i < pictogramIDs.length; i++)
+            {
+                selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
+            }
+            displayPictogramList = selectedPictograms;
+    }
 }
 
