@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
@@ -26,19 +27,22 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
  */
 public class PictogramAdapter extends BaseAdapter {
 
+	private Category cat;
 	private Context context;
 	private Activity activity;
     private PictogramController catController;
     PictogramController pictogramController;
     private List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pics;
+    private PARROTProfile user;
 	
 
-	public PictogramAdapter(List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pics, Context c, Activity act)
+	public PictogramAdapter(List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pics, Context c, Activity act, PARROTProfile user)
 	{
 		super();
 		this.pics=pics;
 		context = c;
 		activity= act;
+        this.user = user;
         this.pictogramController = new PictogramController(context);
 	}
 
@@ -70,14 +74,16 @@ public class PictogramAdapter extends BaseAdapter {
 		View view = convertView;
 		TextView textView;
 		//view.setTag(position);
+        int sizeLarge = GComponent.DpToPixel(180, context);
+        int sizeSmall = GComponent.DpToPixel(145, context);
 
 
         dk.aau.cs.giraf.oasis.lib.models.Pictogram pct = pics.get(position);
 
 		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		view = layoutInflater.inflate(R.layout.pictogramview, null);
-		view.setOnDragListener(new SpeechBoardBoxDragListener(activity, context));
-		view.setOnTouchListener(new pictogramTouchListener( position) );
+		view.setOnDragListener(new SpeechBoardBoxDragListener(activity, context, user));
+		view.setOnTouchListener(new pictogramTouchListener( position, R.id.pictogramgrid, activity, user) );
 
 		//setup views
 		imageView = (ImageView) view.findViewById(R.id.pictogrambitmap); 
@@ -91,7 +97,7 @@ public class PictogramAdapter extends BaseAdapter {
 		}
 		else
 		{
-			layoutParams = new LinearLayout.LayoutParams(145, 145);	
+			layoutParams = new LinearLayout.LayoutParams(145, 145);
 		}
 		
 		imageView.setLayoutParams(layoutParams);

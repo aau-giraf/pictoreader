@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.View.OnDragListener;
 import android.widget.GridView;
 
+import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
+import dk.aau.cs.giraf.oasis.lib.models.Category;
+import dk.aau.cs.giraf.oasis.lib.models.Pictogram;
 import dk.aau.cs.giraf.oasis.lib.models.PictogramCategory;
 
  /**
@@ -27,16 +30,21 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 	boolean insideOfMe = false;
     private Context _context;
     private PictogramController pictogramController;
-    private PictogramCategoryController categoryController;
+    private PictogramCategoryController pictogramCategoryController;
+    private CategoryController categoryController;
+
+    private PARROTProfile user = null;
 
 	/**
 	 * @param active
 	 */
-	public SpeechBoardBoxDragListener(Activity active, Context c) {
+	public SpeechBoardBoxDragListener(Activity active, Context c, PARROTProfile user) {
 		parrent = active;
         _context = c;
+        this.user = user;
         this.pictogramController = new PictogramController(_context);
-        this.categoryController = new PictogramCategoryController(_context);
+        this.pictogramCategoryController = new PictogramCategoryController(_context);
+        this.categoryController = new CategoryController(_context);
 	}
 
 	/**
@@ -97,7 +105,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 					int x = (int)event.getX();
 					int y = (int)event.getY();
 					int index = speech.pointToPosition(x, y);
-					if(index <0)	//If the pictorgram is dropped at an illegal index
+					if(index <0 || SpeechBoardFragment.draggedPictogramIndex < 0)	//If the pictorgram is dropped at an illegal index
 					{
 						//Do nothing
 						return false;
@@ -105,7 +113,24 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 					}
 					else
 					{
-                        draggedPictogram = SpeechBoardFragment.speechboardPictograms.get(SpeechBoardFragment.draggedPictogramIndex);
+                        if(SpeechBoardFragment.dragOwnerID == R.id.pictogramgrid)
+                        {
+                            draggedPictogram = SpeechBoardFragment.speechboardPictograms.get(SpeechBoardFragment.draggedPictogramIndex);
+                        }
+                        else if(SpeechBoardFragment.dragOwnerID == R.id.supercategory || SpeechBoardFragment.dragOwnerID == R.id.subcategory)
+                        {
+                            Category cat = SpeechBoardFragment.displayedCategory;
+                            draggedPictogram = new Pictogram();
+                            draggedPictogram.setName(cat.getName());
+                            draggedPictogram.setInlineText(cat.getName());
+                            draggedPictogram.setImage(cat.getImage());
+                            draggedPictogram.setId(cat.getId()*-1);
+                        }
+                        else
+                        {
+                            return false; //TODO improve this situation
+                        }
+
 
                         if(SpeechBoardFragment.pictogramList.size() <= index)
                         {
@@ -131,28 +156,6 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                                 e.getStackTrace();
                             }
                         }
-
-
-                         /*catch (Exception e)
-                         {
-                             //place the dragged pictogram into an empty filled
-                             int count = 0;
-                             //place the new pictogram in the first empty filled
-                             while (count < numberOfSentencePictograms)
-                             {
-                                 if (pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).get(count).getId() == -1)
-                                 {
-                                     categoryController.removePictogramCategory(-1, count); //Removes the pictogram at the specific index
-                                     categoryController.insertPictogramCategory(new PictogramCategory(draggedPictogram.getId(), -1));  //add the pictogram at the specific position
-                                     break;
-                                 }
-                                 count++;
-                             }
-
-                             e.getStackTrace();
-                         }*/
-
-
 
 						speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
 						speech.invalidate();
@@ -225,7 +228,37 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                     }
 				}
 
+                else
+                {
+                    GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
+                    int x = (int)event.getX();
+                    int y = (int)event.getY();
+                    int index = pictogramGrid.pointToPosition(x, y);
+                    if(index >= 0)
+                    {
+                        if(index == SpeechBoardFragment.draggedPictogramIndex)
+                        {
+                            int i = 0;
+                            boolean placed = false;
+                            while(i < SpeechBoardFragment.pictogramList.size() && !placed)
+                            {
+                                if(SpeechBoardFragment.pictogramList.get(i) == null)
+                                {
+                                    placed = true;
+                                    draggedPictogram = SpeechBoardFragment.speechboardPictograms.get(SpeechBoardFragment.draggedPictogramIndex);
+                                    SpeechBoardFragment.pictogramList.set(i,draggedPictogram);
+                                    GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
+                                    speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
+                                    speech.invalidate();
+                                }
+                                i++;
+                            }
+                        }
+                    }
+                }
+
 			}
+
             SpeechBoardFragment.dragOwnerID = -1;
 		} else if (event.getAction() == DragEvent.ACTION_DRAG_ENDED){
 			insideOfMe = false;
@@ -241,6 +274,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                 SpeechBoardFragment.dragOwnerID = -1;
                 SpeechBoardFragment.draggedPictogramIndex = -1;
             }
+
 
 		}
 		return true;

@@ -1,14 +1,14 @@
 package dk.aau.cs.giraf.parrot;
 
 import dk.aau.cs.giraf.gui.GComponent;
+import dk.aau.cs.giraf.gui.GSwitch;
 import yuku.ambilwarna.AmbilWarnaDialog;
 import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,30 +52,6 @@ public class OptionFragment extends Fragment{
         //GComponent.SetBaseColor(0xFF961BC2);
     }
 
-	@Override
-	public void onPrepareOptionsMenu(Menu menu)
-	{
-        super.onPrepareOptionsMenu(menu);
-
-        menu.findItem(R.id.goToParrot).setVisible(true);
-		menu.findItem(R.id.goToSettings).setVisible(false);
-		menu.findItem(R.id.goToLauncher).setVisible(false);
-		menu.findItem(R.id.clearBoard).setVisible(false);
-	}
-	/**
-	 * Selector for what happens when a menu Item is clicked
-	 */
-	@Override
-	public boolean onOptionsItemSelected (MenuItem item) {
-		switch(item.getItemId()){
-		case R.id.goToParrot:
-			MainActivity parrotA= new MainActivity();
-			parrotA.switchTabs();
-			break;
-		}
-		return true;
-	}
-	
 	/**
 	 * This is called when exitting the activity 
 	 */
@@ -97,7 +73,7 @@ public class OptionFragment extends Fragment{
         View v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.activity_setting, null);
 
         //Set the background
-        v.setBackgroundColor(GComponent.GetBackgroundColor());
+        v.setBackgroundDrawable(GComponent.GetBackground(GComponent.Background.GRADIENT));
 
         parrent.setContentView(v);
 		parrent.invalidateOptionsMenu();
@@ -109,32 +85,7 @@ public class OptionFragment extends Fragment{
 		//get the current Settings
         readTheCurrentData();
 
-        final SeekBar sk=(SeekBar) parrent.findViewById(R.id.sbarNumberOfPictograms);
-        sk.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-        TextView numberOfPictograms = (TextView) parrent.findViewById(R.id.txtNumberofPictograms);
-
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-            // TODO Auto-generated method stub
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-            // TODO Auto-generated method stub
-        }
-
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            // TODO Auto-generated method stub
-            user.setNumberOfSentencePictograms(progress+1);
-
-            numberOfPictograms.setText(String.valueOf(progress+1));
-        }
-        });
-
-        Switch pictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
+        GSwitch pictogramSize = (GSwitch) parrent.findViewById(R.id.swtPictogramSize);
         pictogramSize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,13 +102,12 @@ public class OptionFragment extends Fragment{
         });
 
 
+        Button buttonBack = (Button) parrent.findViewById(R.id.btnBack);
 
-        Button button = (Button) parrent.findViewById(R.id.btnBack);
-
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getFragmentManager().popBackStack();
-                getFragmentManager().beginTransaction().add(new SpeechBoardFragment(), "1").commit();
+                getFragmentManager().beginTransaction().add(new SpeechBoardFragment(parrent.getApplicationContext()), "1").commit();
             }
         });
 
@@ -173,25 +123,20 @@ public class OptionFragment extends Fragment{
 		PARROTProfile.PictogramSize pictogramSize = user.getPictogramSize();
 		
 		if(pictogramSize == PARROTProfile.PictogramSize.MEDIUM)
-		{ 
-			Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
-            switchPictogramSize.setChecked(false);
-
+		{
+			GSwitch switchPictogramSize = (GSwitch) parrent.findViewById(R.id.swtPictogramSize);
+            if(switchPictogramSize.isToggled())
+            {
+                switchPictogramSize.Toggle();
+            }
 		}
 		else if(pictogramSize == PARROTProfile.PictogramSize.LARGE)
 		{
-            Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
-            switchPictogramSize.setChecked(true);
+            GSwitch switchPictogramSize = (GSwitch) parrent.findViewById(R.id.swtPictogramSize);
+            switchPictogramSize.setToggled(true);
 
 		}
 
-
-        SeekBar seek = (SeekBar) parrent.findViewById(R.id.sbarNumberOfPictograms);
-
-        seek.setProgress(noOfPlacesInSentenceboard-1);
-
-        TextView tview = (TextView) parrent.findViewById(R.id.txtNumberofPictograms);
-        tview.setText(String.valueOf(noOfPlacesInSentenceboard));
 		
 		CheckBox checkBox  = (CheckBox) parrent.findViewById(R.id.checkBoxShowText);
 		if(showText)
@@ -213,7 +158,7 @@ public class OptionFragment extends Fragment{
 	 */
 	public void onSizePictogramChanged(View view)
 	{
-	    boolean checked = ((Switch) view).isChecked();
+	    boolean checked = ((GSwitch) view).isToggled();
 
         if(checked)
         {
@@ -243,6 +188,8 @@ public class OptionFragment extends Fragment{
 	    	user.setShowText(false);
 	    }
 	}
+
+
 }
 
 

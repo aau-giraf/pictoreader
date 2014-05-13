@@ -19,6 +19,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+
+import com.google.analytics.tracking.android.EasyTracker;
+
 import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.oasis.lib.Helper;
@@ -39,8 +42,18 @@ public class MainActivity extends Activity {
     private static Application app;
     private static Helper help;
     private static Intent girafIntent;
-    private static ActionBar actionBar = null;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(this).activityStop(this);  // Add this method.
+    }
 
     /** Called when the activity is first created. */
 
@@ -63,8 +76,6 @@ public class MainActivity extends Activity {
         //help.CreateDummyData();
 
 
-
-
         //These lines get the intent from the launcher //TODO use us when testing with the launcher.
         girafIntent = getIntent();
         guardianID = girafIntent.getIntExtra("currentGuardianID", -1);
@@ -75,11 +86,18 @@ public class MainActivity extends Activity {
         app = applicationController.getApplicationByPackageName();
         //app = new Application(1, "myapp", "1.0", null, "hah", "Main", "mysecr", 1);
 
-		/*don't delete this is for lisbeth and anders when running on our own device*/
-        guardianID = 1;
-        childID=11;
 
+        if(guardianID == -1 )
+        {
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Dette er til Test");
+            alertDialog.setMessage("Ikke åbnet gennem Launcher, slet nedenstående når færdig.\n"+"MainActivity line 90-100.");
 
+            /*don't delete this is for lisbeth and anders when running on our own device*/
+            guardianID = 1;
+            childID=11;
+            alertDialog.show();
+        }
 
 
         if(guardianID == -1 )
@@ -88,6 +106,7 @@ public class MainActivity extends Activity {
             alertDialog.setTitle("guardianID");
             alertDialog.setMessage("Could not find guardian.");
             alertDialog.show();
+
         }
         else
         {
@@ -108,7 +127,7 @@ public class MainActivity extends Activity {
                 Log.v("MessageParrot", "returned");
 						
                 // Create new fragment and transaction
-                Fragment newFragment = new SpeechBoardFragment();
+                Fragment newFragment = new SpeechBoardFragment(this.getApplicationContext());
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                 // Replace whatever is in the fragment_container view with this fragment,
@@ -141,49 +160,36 @@ public class MainActivity extends Activity {
 
     }
 
-    /**
-     * A menu is created upon creation
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.parrot_settings, menu);
 
-        return true;
-    }
+
 
     @Override
-    public void onBackPressed() {
-        getFragmentManager().popBackStack();
-        getFragmentManager().beginTransaction().add(new SpeechBoardFragment(), "1").commit();
-        }
-
-    /**
-     * this activating a new  Activity class which handles the settings which can be changed.
-     */
-    public void switchTabs(){
-        Log.v("","switchTabs begin");
-        if(actionBar!=null)
+    public void onBackPressed()
+    {
+        try
         {
-            Log.v("","switchTabs in 1 if");
-            int index = actionBar.getSelectedNavigationIndex();
-            if(index == 0)
+            OptionFragment optionFragment = (OptionFragment) getFragmentManager().findFragmentByTag("options");
+
+            if (optionFragment.isResumed())
             {
-                Log.v("","switchTabs in 2 if");
-                actionBar.selectTab(actionBar.getTabAt(1));
+                getFragmentManager().popBackStack();
+                getFragmentManager().beginTransaction().add(new SpeechBoardFragment(this.getApplicationContext()), "1").commit();
             }
             else
             {
-                Log.v("","switchTabs in else");
-                actionBar.selectTab(actionBar.getTabAt(0));
+                finish();
             }
         }
-        Log.v("","switchTabs end");
+        catch (Exception e)
+        {
+            finish();
+        }
+
+        //super.onBackPressed();
+
+        //getFragmentManager().popBackStack();
+        //getFragmentManager().beginTransaction().add(new SpeechBoardFragment(this.getApplicationContext()), "1").commit();
     }
-
-
-
 
     /**
      * @return the child's user profile.

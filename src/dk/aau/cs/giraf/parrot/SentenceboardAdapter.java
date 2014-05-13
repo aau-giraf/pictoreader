@@ -1,5 +1,7 @@
 	package dk.aau.cs.giraf.parrot;
 	
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +17,7 @@ import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GGridView;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
@@ -75,7 +78,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 
         public void replaceItem(int index, Pictogram p)
         {
-            this.pictogramList.set(index,p);
+            this.pictogramList.set(index, p);
         }
 
         public void emptyPictogramList()
@@ -93,7 +96,8 @@ public class SentenceboardAdapter extends BaseAdapter {
 			ImageView imageView = null;
 			TextView textView = null;
             Pictogram pct = null;
-			
+            LinearLayout picView = null;
+
 			LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View view = layoutInflater.inflate(R.layout.pictogramview, null);
 
@@ -109,6 +113,7 @@ public class SentenceboardAdapter extends BaseAdapter {
             try {
                 imageView = (ImageView) view.findViewById(R.id.pictogrambitmap);
                 textView = (TextView) view.findViewById(R.id.pictogramtext);
+                picView = (LinearLayout) view.findViewById(R.id.pictogramView);
             }
             catch (Exception e)
             {
@@ -117,14 +122,21 @@ public class SentenceboardAdapter extends BaseAdapter {
 
 			//setup layout for imageView
             GGridView sentenceBoard = (GGridView) view.findViewById(R.id.sentenceboard); // SKAL SKRIVES TIL AT TILPASSE HØJDE
-			LinearLayout.LayoutParams layoutParams;
+			LinearLayout.LayoutParams imageLayoutParams;
+            LinearLayout.LayoutParams picLayoutParams;
 
-			layoutParams = new LinearLayout.LayoutParams(145, 145);
+            //size adapted using dp to calculate pixels
+            int size = GComponent.DpToPixel(100, context);
+
+            imageLayoutParams = new LinearLayout.LayoutParams(size, size);
+
+
 
             view.setOnTouchListener(new SentenceboardTouchListener( id) );
 
             try {
-			    imageView.setLayoutParams(layoutParams);
+                imageView.setLayoutParams(imageLayoutParams);
+
             }
             catch (Exception e)
             {
@@ -135,7 +147,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 			if(MainActivity.getUser().getShowText())
 			{
 				
-				textView.setTextSize(20);	//TODO this value should be customizable
+				textView.setTextSize(15);	//TODO this value should be customizable
                 try{
 				textView.setText(pct.getInlineText());
                 }
@@ -147,15 +159,14 @@ public class SentenceboardAdapter extends BaseAdapter {
 
 			Bitmap bitmap = null;
             try{
-			if(pct.getId() == -1)
-			{
-	        	bitmap=BitmapFactory.decodeResource(context.getResources(),R.drawable.usynlig);
-				
-			}
-			else
-			{
-				bitmap = pct.getImage();
-			}
+                if(pct.getId() == -1)
+                {
+                    bitmap=BitmapFactory.decodeResource(context.getResources(),R.drawable.usynlig);
+                }
+                else
+                {
+                    bitmap = pct.getImage();
+                }
             }
             catch (Exception e)
             {

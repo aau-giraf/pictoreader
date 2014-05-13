@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:GComponent="http://schemas.android.com/apk/res-auto"
     android:id="@+id/SpeechBoard"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -13,26 +14,69 @@
         android:orientation="horizontal" >
 
         <!-- Screen Design for Photos -->
-        <dk.aau.cs.giraf.gui.GGridView
-            android:id="@+id/supercategory"
-            android:layout_width="90dp"
+        <LinearLayout
+            android:id="@+id/psupercategory"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:numColumns="1"
-            />
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
 
-        <dk.aau.cs.giraf.gui.GGridView
-            android:id="@+id/subcategory"
-            android:layout_width="90dp"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Hovedkategori"
+                android:id="@+id/textViewHovedkateori"
+                android:gravity="center"
+                android:autoText="false"
+                android:layout_gravity="center"
+                android:textColor="#000000" />
+
+            <dk.aau.cs.giraf.gui.GGridView
+                android:id="@+id/supercategory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="1"
+                android:gravity="center"
+                android:layout_gravity="bottom" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/psubcategory"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:numColumns="1"
-            android:visibility="visible" />
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Underkategori"
+                android:id="@+id/textViewUnderkategori"
+                android:gravity="center"
+                android:autoText="false"
+                android:layout_gravity="center"
+                android:textColor="#000000" />
+
+            <dk.aau.cs.giraf.gui.GGridView
+                android:id="@+id/subcategory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:numColumns="1"
+                android:layout_gravity="bottom"
+                android:visibility="visible" />
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
+            android:id="@+id/ppictogramview"
             android:gravity="right"
             android:weightSum="1">
 
@@ -49,55 +93,96 @@
                 android:scrollbarSize="20dip"
                 android:layout_weight="1" />
 
+            <dk.aau.cs.giraf.gui.GVerticalScrollViewSnapper
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="90dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="right"
                 >
 
                 <dk.aau.cs.giraf.gui.GButtonSettings
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnSettings"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/btnSettings"/>
 
                 <dk.aau.cs.giraf.gui.GButtonTrash
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/btnClear"/>
+
+                <dk.aau.cs.giraf.gui.GLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/btnClear"
-                    android:layout_gravity="center_vertical" />
+                    GComponent:Markable="true"
+                    android:id="@+id/btnPictosearchLayout">
 
+                    <dk.aau.cs.giraf.gui.GButtonSearch
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/btnPictosearch"/>
+                </dk.aau.cs.giraf.gui.GLayout>
 
-                <dk.aau.cs.giraf.gui.GButtonPlay
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnPlay"
-                    android:layout_gravity="center_vertical"
-                    />
+                <dk.aau.cs.giraf.gui.GButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/catButton"
+                    android:layout_marginTop="25dp"
+                    android:visibility="invisible" />
+
+                <dk.aau.cs.giraf.gui.GButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/crocButton"
+                    android:visibility="invisible" />
 
             </LinearLayout>
 
+            </dk.aau.cs.giraf.gui.GVerticalScrollViewSnapper>
+
         </LinearLayout>
+
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="horizontal">
-        <dk.aau.cs.giraf.gui.GGridView
-            android:id="@+id/sentenceboard"
-            android:layout_width="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:gravity="right">
+
+        <LinearLayout
+            android:id="@+id/sentenceBoardLayout"
+            android:layout_width="10dp"
             android:layout_height="fill_parent"
-            android:scrollbars="horizontal"
-            android:columnWidth="205dp"
-            android:numColumns="7"
-            android:stretchMode="none"
-            android:horizontalSpacing="5dp"
-            android:verticalSpacing="5dp" />
+            android:orientation="horizontal">
+            <dk.aau.cs.giraf.gui.GGridView
+                android:id="@+id/sentenceboard"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scrollbars="horizontal"
+                android:columnWidth="205dp"
+                android:numColumns="7"
+                android:stretchMode="none"
+                android:horizontalSpacing="0dp"
+                android:verticalSpacing="5dp" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/playButtonLayout"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            android:layout_gravity="right">
 
+            <dk.aau.cs.giraf.gui.GButtonPlay
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:id="@+id/btnPlay" />
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

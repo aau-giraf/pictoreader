@@ -1,16 +1,23 @@
 package dk.aau.cs.giraf.parrot;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.aau.cs.giraf.gui.GSelectableContent;
+import dk.aau.cs.giraf.oasis.lib.models.Application;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
@@ -25,16 +32,18 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 
 	private List<Category> categories;
 	private Context context;
+    private int ID;
+    private Activity activity;
+    PARROTProfile user;
 
-	/**
-	 * Constructor taking List of PARROTCategories, and a Context.
-	 * @param categories, List of PARROTCategories. 
-	 * @param _context, a Context.
-	 */
-	public PARROTCategoryAdapter(List<Category> categories, Context _context)
+
+	public PARROTCategoryAdapter(List<Category> categories, Activity activity, int ID, PARROTProfile user)
 	{
 		this.categories = categories;
-		context = _context;
+		context = activity.getApplicationContext();
+        this.ID = ID;
+        this.activity = activity;
+        this.user = user;
 	}
 
 	@Override
@@ -58,26 +67,45 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 	 * Create an image view for each icon of the categories in the list.
 	 */
 	@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-			ImageView imageView;
-			Bitmap pictogram = categories.get(position).getImage();
-			if (convertView == null) {  // if it's not recycled, initialize some attributes
-				imageView = new ImageView(context);
-				imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				imageView.setPadding(8, 8, 8, 8);
-				imageView.setBackgroundColor(10);
-			} 
-			
-			else {
-				imageView = (ImageView) convertView;
-			}
-			
-			//we then set the imageview to the icon of the category
-			
-			imageView.setImageBitmap(pictogram);
-			
-			return imageView;
-		}
-	
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ImageView imageView;
+        TextView textView;
+        Bitmap bitmap = categories.get(position).getImage();
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.categoryview, null);
+
+       if (convertView == null) {  // if it's not recycled, initialize some attributes
+            imageView = new ImageView(context);
+            imageView.setLayoutParams(new GridView.LayoutParams(75, 75));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setPadding(8, 8, 8, 8);
+            imageView.setBackgroundColor(10);
+
+            textView = new TextView(context);
+        }
+
+        else {
+            imageView = (ImageView) view.findViewById(R.id.categorybitmap);
+            textView = (TextView) view.findViewById(R.id.categorytext);
+        }
+
+        if(MainActivity.getUser().getShowText())
+        {
+            textView.setTextSize(15);	//TODO this value should be customizable
+            try{
+                textView.setText(categories.get(position).getName());
+            }
+            catch (Exception e)
+            {
+                e.getStackTrace();
+            }
+        }
+
+        //we then set the imageview to the icon of the category
+        imageView.setImageBitmap(bitmap);
+
+        imageView.setOnTouchListener(new pictogramTouchListener(position, ID, activity, user));
+
+        return view;
+	}
 }

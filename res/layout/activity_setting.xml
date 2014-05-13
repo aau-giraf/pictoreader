@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:GComponent="http://schemas.android.com/apk/res-auto"
     android:id="@+id/options_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,15 +26,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <Switch
+                <dk.aau.cs.giraf.gui.GTextView
+                    android:id="@+id/pictogramSetting"
+                    android:textSize="20sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
-                    android:text="@string/PictoSize"
+                    android:text="@string/PictoSize" />
+
+                <dk.aau.cs.giraf.gui.GSwitch
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="50dp"
                     android:id="@+id/swtPictogramSize"
                     android:layout_weight="0.91"
-                    android:textOn="Stor"
-                    android:textOff="Lille" />
+                    GComponent:OnText="Stor"
+                    GComponent:OffText="Lille" />
                 </LinearLayout>
 
     <dk.aau.cs.giraf.gui.GCheckBox
@@ -46,66 +54,4 @@
             android:textSize="20sp" />
 
     
-    <LinearLayout
-        android:id="@+id/numberLayout"
-       	android:layout_marginLeft="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical" >
-
-        <dk.aau.cs.giraf.gui.GDividerHorizontal
-            android:layout_width="match_parent"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_height="2dp"
-            />
-
-        <dk.aau.cs.giraf.gui.GTextView
-            android:id="@+id/sentenceSetting"
-          	android:textSize="40sp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sentensboardOptions" />
-
-         <LinearLayout
-            android:id="@+id/alignChoseForNoInSentenceBoard"
-            android:layout_marginTop="20dp" 
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal"
-             >
-
-             <dk.aau.cs.giraf.gui.GTextView
-                android:id="@+id/pickNoSentenceBoard"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="@string/SentenceboardNo"
-                android:textSize="20sp" />
-
-
-             <dk.aau.cs.giraf.gui.GTextView
-                 android:layout_width="60dp"
-                 android:layout_height="wrap_content"
-                 android:inputType="text"
-                 android:ems="10"
-                 android:id="@+id/txtNumberofPictograms"
-                 android:textIsSelectable="false"
-                 android:textSize="20sp" />
-
-             <SeekBar
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/sbarNumberOfPictograms"
-                 android:layout_weight="1"
-                 android:max="19"
-                 android:progress="0" />
-
-             <Space
-                 android:layout_width="wrap_content"
-                 android:layout_height="match_parent"
-                 android:layout_weight="0.11" />
-         </LinearLayout>
-    </LinearLayout>
 </LinearLayout>

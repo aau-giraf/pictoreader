@@ -4,19 +4,31 @@ package dk.aau.cs.giraf.parrot;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.ClipData;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.DragShadowBuilder;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridLayout;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.content.pm.PackageManager;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +38,9 @@ import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.oasis.lib.models.PictogramCategory;
+import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 import dk.aau.cs.giraf.pictogram.Pictogram;
+import dk.aau.cs.giraf.pictogram.TextToSpeech;
 
 /**
  * @author PARROT spring 2012 and adapted by SW605f13
@@ -47,6 +61,8 @@ public class SpeechBoardFragment extends Fragment
 	public static ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictogramList = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
 	//This category contains the pictograms displayed on the big board
 	public static Category displayedCategory = null;
+    public static Category displayedMainCategory = null;
+    public static int displayedMainCategoryIndex = 0;
 	private PARROTProfile user = null;
 	private static Pictogram emptyPictogram = null;
     public static SpeechBoardBoxDragListener speechDragListener;
@@ -54,51 +70,18 @@ public class SpeechBoardFragment extends Fragment
     private PictogramController pictogramController;
     private PictogramCategoryController pictogramCategoryController;
 
-	@Override
-	public void onPrepareOptionsMenu(Menu menu)
-	{
-		menu.findItem(R.id.goToParrot).setVisible(false);
-		menu.findItem(R.id.goToSettings).setVisible(true);
-		menu.findItem(R.id.goToLauncher).setVisible(true);
-		menu.findItem(R.id.clearBoard).setVisible(true);
-		
-		super.onPrepareOptionsMenu(menu);
-	}
-	
-	/**
-	 * Selector for what happens when a menu Item is clicked
-	 */
-	@Override
-	public boolean onOptionsItemSelected (MenuItem item) {
-		switch(item.getItemId()){
-		case R.id.clearBoard:
-			clearSentenceboard();
-			break;
-		case R.id.goToLauncher:
-			returnToLauncher();
-			break;
-		case R.id.goToSettings:
-            MainActivity parrotA= new MainActivity();
-			parrotA.switchTabs();
-			break;
-		}
-		return true;
-	}
-	
-	/**
-	 * this activating a new  Activity class which handles the settings which can be changed. 
-	 */
-	public void goToSettings(){
-		//TODO
-	}
-	/**
-	 * This exits the MainActivity and should return to the giraf-launcher.
-	 */
-	public void returnToLauncher()
-	{
-		parrent.finish();
-	}
-	
+    private Context context;
+
+    private PictoMediaPlayer pictoMediaPlayer;
+    private List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> displayPictogramList = null;
+
+    private boolean backToNormalView = false;
+
+    public SpeechBoardFragment(Context c)
+    {
+        context = c;
+        pictoMediaPlayer =  new PictoMediaPlayer(context);
+    }
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -116,6 +99,7 @@ public class SpeechBoardFragment extends Fragment
 
 	}
 
+
 	/**
 	 * Most is done in this. eg setup the gridviews get data shown in the gridviews.
 	 */
@@ -123,16 +107,22 @@ public class SpeechBoardFragment extends Fragment
 	public void onResume() {
 		super.onResume();
 		parrent.invalidateOptionsMenu();
-		parrent.setContentView(R.layout.speechboard_layout);
 
 
-		
+        View v = LayoutInflater.from(parrent.getApplicationContext()).inflate(R.layout.speechboard_layout, null);
+
+        //Set the background
+        v.setBackgroundColor(GComponent.GetBackgroundColor());
+
+        parrent.setContentView(v);
+
 		user=MainActivity.getUser();
 		
 		//check whether there are categories
 		if(user.getCategoryAt(0)!=null)
 		{
 			displayedCategory = user.getCategoryAt(0);
+            displayedMainCategory = displayedCategory;
 
 			//Setup the view for the listing of pictograms in pictogramgrid
 			final GGridView pictogramGrid = (GGridView) parrent.findViewById(R.id.pictogramgrid);
@@ -146,42 +136,47 @@ public class SpeechBoardFragment extends Fragment
 
 			//setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
 
-            sentenceBoardGrid.setColumnWidth(160);
-
-            if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
-			{
-				pictogramGrid.setNumColumns(6);
-				pictogramGrid.setColumnWidth(160);
-			}
-			else
-			{
-				pictogramGrid.setNumColumns(5);
-				pictogramGrid.setColumnWidth(200);
-			}
-
-			
-			//Setup the view for the categories 
-            GGridView superCategoryGrid = (GGridView) parrent.findViewById(R.id.supercategory);
-			superCategoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parrent.getApplicationContext()));
-            GGridView subCategoryGrid = (GGridView) parrent.findViewById(R.id.subcategory);
-
-            CategoryController categoryController = new CategoryController(parrent);
-
-			subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent.getApplicationContext()));
-            speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
-		 	pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent));
-
-			//setup drag listeners for the views
-			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
-            speechDragListener = new SpeechBoardBoxDragListener(parrent, parrent.getApplicationContext());
-
-			parrent.findViewById(R.id.sentenceboard).setOnDragListener(speechDragListener);
-
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             Point size = new Point();
             display.getSize(size);
             int width = size.x;
-            noInSentence = (int)width/(145+dpToPx(16));
+
+            int colWidth = GComponent.DpToPixel(125, parrent.getApplicationContext());
+            sentenceBoardGrid.setColumnWidth(colWidth);
+            noInSentence = width/(colWidth+GComponent.DpToPixel(16, parrent));
+
+            if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
+			{
+				pictogramGrid.setNumColumns(noInSentence+1);
+				pictogramGrid.setColumnWidth(160);
+
+			}
+			else
+			{
+				pictogramGrid.setNumColumns(noInSentence-1);
+				pictogramGrid.setColumnWidth(200);
+			}
+
+			
+			//Setup the view for the categories
+            GGridView superCategoryGrid = (GGridView) parrent.findViewById(R.id.supercategory);
+			superCategoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parrent, R.id.supercategory, user));
+            GGridView subCategoryGrid = (GGridView) parrent.findViewById(R.id.subcategory);
+
+            CategoryController categoryController = new CategoryController(parrent);
+
+			subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent, R.id.subcategory, user));
+            speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+		 	pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent, user));
+
+			//setup drag listeners for the views
+			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
+            speechDragListener = new SpeechBoardBoxDragListener(parrent, parrent.getApplicationContext(), user);
+
+			parrent.findViewById(R.id.sentenceboard).setOnDragListener(speechDragListener);
+
+
+
 
             if(pictogramList.size() == 0)
             {
@@ -192,6 +187,51 @@ public class SpeechBoardFragment extends Fragment
             }
 
             sentenceBoardGrid.setNumColumns(noInSentence);
+
+            // Set sentence board width dependent on the screen size
+            LinearLayout playButton = (LinearLayout) parrent.findViewById(R.id.playButtonLayout);
+            LinearLayout.LayoutParams playButtonLayout = new LinearLayout.LayoutParams(playButton.getLayoutParams());
+
+            LinearLayout sentenceBoard = (LinearLayout) parrent.findViewById(R.id.sentenceBoardLayout);
+            LinearLayout.LayoutParams sBParams = new LinearLayout.LayoutParams(width - playButtonLayout.width, GComponent.DpToPixel(150, parrent));
+
+            sentenceBoard.setLayoutParams(sBParams);
+
+            // Initialise cat and croc buttons
+            String catName = "dk.aau.cs.giraf.pictoadmin";
+            String crocName = "dk.aau.cs.giraf.pictocreator";
+            Intent catIntent = null;
+            Intent crocIntent = null;
+            GButton catButton = (GButton) parrent.findViewById(R.id.catButton);
+            GButton crocButton = (GButton) parrent.findViewById(R.id.crocButton);
+
+
+            final PackageManager packMan = parrent.getPackageManager();
+            List<ApplicationInfo> apps = packMan.getInstalledApplications(PackageManager.GET_META_DATA);
+
+            for (ApplicationInfo appInfo : apps)
+            {
+                if (appInfo.packageName.toString().equalsIgnoreCase(catName))
+                {
+                    catIntent = packMan.getLaunchIntentForPackage(catName);
+                    if (catIntent != null)
+                    {
+                        catButton.setVisibility(this.getView().VISIBLE);
+                        catButton.SetImage(appInfo.loadIcon(packMan));
+                    }
+                    createOnClickListener(catButton, catIntent);
+                }
+                else if (appInfo.packageName.toString().equalsIgnoreCase(crocName))
+                {
+                    crocIntent = packMan.getLaunchIntentForPackage(crocName);
+                    if (crocIntent != null)
+                    {
+                        crocButton.setVisibility(this.getView().VISIBLE);
+                        crocButton.SetImage(appInfo.loadIcon(packMan));
+                    }
+                    createOnClickListener(crocButton, crocIntent);
+                }
+            }
 
 			//Play sound, when click on a pictogram in the sentence board
 			sentenceBoardGrid.setOnItemClickListener(new OnItemClickListener() {
@@ -214,71 +254,6 @@ public class SpeechBoardFragment extends Fragment
                     clearSentenceboard();
                 }
             });
-
-			/*//Drag pictogram from the sentenceBoard, start drag
-			sentenceBoardGrid.setOnItemClickListener(new OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-                    PictogramController pictogramController = new PictogramController(getActivity());
-
-                    try {
-                        dk.aau.cs.giraf.oasis.lib.models.Pictogram p = pictogramList.get(position);
-
-                        if (!(p.getId() == -1)) {
-                            draggedPictogramIndex = position;
-                            dragOwnerID = R.id.sentenceboard;
-                            speechDragListener.draggedPictogram = p;
-                            ClipData data = ClipData.newPlainText("label", "text"); //TODO Dummy. Pictogram information can be placed here instead.
-                            DragShadowBuilder shadowBuilder = new DragShadowBuilder(view);
-                            view.startDrag(data, shadowBuilder, view, 0);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        e.getStackTrace();
-                    }
-                }
-
-            });*/
-
-
-			//change category that is to be shown 
-			superCategoryGrid.setOnItemClickListener(new OnItemClickListener() {
-
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View view, int position, long id)
-				{
-                    CategoryController categoryController = new CategoryController(parrent.getBaseContext());
-					displayedCategory = user.getCategoryAt(position);
-					GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
-                    speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
-                    pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent));
-					//Setup the view for the categories 
-					GridView subCategoryGrid = (GridView) parrent.findViewById(R.id.subcategory);
-					subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent.getApplicationContext()));
-				}
-			});
-			//change subcategory that is to be shown 
-			
-			subCategoryGrid.setOnItemClickListener(new OnItemClickListener() 
-			{
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View view, int position, long id)
-				{
-                    CategoryController categoryController = new CategoryController(parrent.getBaseContext());
-					//this check is neccessary if you click twice at a subcategory it will crash since subCategories does not contain any subCategory
-					if(!categoryController.getSubcategoriesByCategory(displayedCategory).isEmpty())
-					{
-						displayedCategory = categoryController.getSubcategoriesByCategory(displayedCategory).get(position);
-						GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
-                        speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
-                        pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent));
-
-					}
-				}
-			});
 		}
 
         GButtonSettings btnOptions = (GButtonSettings) parrent.findViewById(R.id.btnSettings);
@@ -298,26 +273,65 @@ public class SpeechBoardFragment extends Fragment
             }
         });
 
+        GButtonSearch btnPictosearch = (GButtonSearch) parrent.findViewById(R.id.btnPictosearch);
+
+        btnPictosearch.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Create new fragment and transaction
+                callPictosearch();
+            }
+        });
+
         GButtonPlay btnPlay = (GButtonPlay) parrent.findViewById(R.id.btnPlay);
 
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                boolean change;
                 for(int i = 0; i < pictogramList.size(); i++)
                 {
-                    if(pictogramList.get(i) == null)
+                    change = true;
+                    while(change && pictogramList.get(i) == null)
                     {
+                        change = false;
                         for (int j = i + 1; j < pictogramList.size(); j++)
                         {
-                            pictogramList.set(j-1,pictogramList.get(j));
-                            pictogramList.set(j,null);
+                            if(pictogramList.get(j) != null)
+                            {
+                                pictogramList.set(j-1,pictogramList.get(j));
+                                pictogramList.set(j,null);
+                                change = true;
+                            }
                         }
                     }
                 }
-                GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
-                speech.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
-                speech.invalidate();
+                GridView sentence = (GridView) parrent.findViewById(R.id.sentenceboard);
+                sentence.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
+                sentence.invalidate();
+
+
+
+                pictoMediaPlayer.playListOfPictograms(pictogramList);
             }
         });
+
+        markSelectedCategory(0,-1,parrent);
+
+        if(displayPictogramList != null && backToNormalView)
+        {
+            displayPictograms(displayPictogramList, this.getActivity());
+        }
+
+        if(backToNormalView)
+        {
+            GLayout btnSearch = (GLayout)parrent.findViewById(R.id.btnPictosearchLayout);
+            btnSearch.SetMarked(true);
+        }
+        else
+        {
+            GLayout btnSearch = (GLayout)parrent.findViewById(R.id.btnPictosearchLayout);
+            btnSearch.SetMarked(false);
+        }
 	}
 
 
@@ -331,26 +345,131 @@ public class SpeechBoardFragment extends Fragment
             pictogramList.set(i, null);
         }
 
-
         GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
 
         speech.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
         speech.invalidate();
 	}
 
-    public int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
-        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return px;
+    public void displayPictograms(List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictograms, Activity activity)
+    {
+
+        speechboardPictograms = (ArrayList) pictograms;
+
+        activity.findViewById(R.id.psubcategory).setVisibility(View.GONE);
+        activity.findViewById(R.id.psupercategory).setVisibility(View.GONE);
+        activity.findViewById(R.id.btnSettings).setVisibility(View.GONE);
+
+        LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
+        pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+
+        GGridView pictogramGrid = (GGridView) activity.findViewById(R.id.pictogramgrid);
+
+        pictogramGrid.setAdapter(new PictogramAdapter(pictograms, activity.getApplicationContext(), activity, user));
+        pictogramGrid.invalidate();
     }
 
-	/**
-	 *This function set the colors in the speechBoardFragment
-	 */
+    // Create onclicklistener for GButton
+    private void createOnClickListener(GButton button, final Intent intent)
+    {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent);
+            }
+        });
+    }
 
-	/**
-	 * set color for the PictogramGrid, which changes upon a change of category to be shown
-	 */
+    public static void markSelectedCategory(int mainCategory, int subCategory, Activity activity)
+    {
+        GGridView mainCat = (GGridView) activity.findViewById(R.id.supercategory);
+        for (int i = 0; i < mainCat.getChildCount(); i++)
+        {
+            boolean mustSet = i == mainCategory;
+            ((GSelectableContent)mainCat.getChildAt(i)).SetSelected(mustSet);
+        }
 
+        GGridView subCat = (GGridView) activity.findViewById(R.id.subcategory);
+        for (int i = 0; i < subCat.getChildCount(); i++)
+        {
+            boolean mustSet = i == subCategory;
+            ((GSelectableContent)subCat.getChildAt(i)).SetSelected(mustSet);
+        }
+    }
+
+    /**
+     * Opens pictosearch application, so pictograms can be loaded into pictocreator.
+     */
+    private void callPictosearch(){
+        if(!backToNormalView)
+        {
+            backToNormalView = true;
+            Intent intent = new Intent();
+
+            try{
+                intent.setComponent(new ComponentName( "dk.aau.cs.giraf.pictosearch",  "dk.aau.cs.giraf.pictosearch.PictoAdminMain"));
+                intent.putExtra("currentGuardianID", user.getProfileID());
+                intent.putExtra("purpose", "multi");
+
+                startActivityForResult(intent, parrent.RESULT_FIRST_USER);
+            } catch (Exception e){
+                Toast.makeText(parrent, "Pictosearch er ikke installeret.", Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+            backToNormalView = false;
+
+            Activity activity = this.getActivity();
+            activity.findViewById(R.id.psubcategory).setVisibility(View.VISIBLE);
+            activity.findViewById(R.id.psupercategory).setVisibility(View.VISIBLE);
+            activity.findViewById(R.id.btnSettings).setVisibility(View.VISIBLE);
+
+            LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
+            pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+
+            speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+
+            GGridView pictogramGrid = (GGridView) activity.findViewById(R.id.pictogramgrid);
+
+            pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, activity.getApplicationContext(), activity, user));
+            pictogramGrid.invalidate();
+
+            GLayout btnSearch = (GLayout)parrent.findViewById(R.id.btnPictosearchLayout);
+            btnSearch.SetMarked(false);
+        }
+    }
+
+    /**
+     * This method gets the pictogram that are returned by pictosearch.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == parrent.RESULT_OK){
+            loadPictogram(data);
+        }
+    }
+
+    private void loadPictogram(Intent data){
+            int[] pictogramIDs = {};
+            try{
+                pictogramIDs = data.getExtras().getIntArray("checkoutIds");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
+            List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
+            for (int i = 0; i < pictogramIDs.length; i++)
+            {
+                selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
+            }
+            displayPictogramList = selectedPictograms;
+    }
 }
 

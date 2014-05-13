@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dk.aau.cs.giraf.gui.GSelectableContent xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/selectContent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/categoryView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+            <!-- from ImageView android:listSelector="@color/cell_empty" -->>
+            <ImageView
+                android:id="@+id/categorybitmap"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_marginBottom="3dp" />
+
+            <TextView
+                android:id="@+id/categorytext"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:textColor="#FF000000" />
+  </LinearLayout>
+</dk.aau.cs.giraf.gui.GSelectableContent>
