@@ -93,6 +93,10 @@
                 android:scrollbarSize="20dip"
                 android:layout_weight="1" />
 
+            <dk.aau.cs.giraf.gui.GVerticalScrollViewSnapper
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
@@ -137,7 +141,10 @@
 
             </LinearLayout>
 
+            </dk.aau.cs.giraf.gui.GVerticalScrollViewSnapper>
+
         </LinearLayout>
+
 
     </LinearLayout>
 
