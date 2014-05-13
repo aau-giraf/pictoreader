@@ -35,7 +35,7 @@ import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.oasis.lib.models.PictogramCategory;
 import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 import dk.aau.cs.giraf.pictogram.Pictogram;
-import dk.aau.cs.giraf.pictogram.tts;
+import dk.aau.cs.giraf.pictogram.TextToSpeech;
 
 /**
  * @author PARROT spring 2012 and adapted by SW605f13
