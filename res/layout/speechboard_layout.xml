@@ -120,7 +120,7 @@
                     GComponent:Markable="true"
                     android:id="@+id/btnPictosearchLayout">
 
-                    <dk.aau.cs.giraf.gui.GButton
+                    <dk.aau.cs.giraf.gui.GButtonSearch
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:id="@+id/btnPictosearch"/>

@@ -272,7 +272,7 @@ public class SpeechBoardFragment extends Fragment
             }
         });
 
-        GButton btnPictosearch = (GButton) parrent.findViewById(R.id.btnPictosearch);
+        GButtonSearch btnPictosearch = (GButtonSearch) parrent.findViewById(R.id.btnPictosearch);
 
         btnPictosearch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
