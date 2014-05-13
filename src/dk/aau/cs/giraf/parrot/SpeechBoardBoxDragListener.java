@@ -115,7 +115,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 					{
                         if(SpeechBoardFragment.dragOwnerID == R.id.pictogramgrid)
                         {
-                        draggedPictogram = SpeechBoardFragment.speechboardPictograms.get(SpeechBoardFragment.draggedPictogramIndex);
+                            draggedPictogram = SpeechBoardFragment.speechboardPictograms.get(SpeechBoardFragment.draggedPictogramIndex);
                         }
                         else if(SpeechBoardFragment.dragOwnerID == R.id.supercategory || SpeechBoardFragment.dragOwnerID == R.id.subcategory)
                         {
@@ -228,7 +228,37 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                     }
 				}
 
+                else
+                {
+                    GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
+                    int x = (int)event.getX();
+                    int y = (int)event.getY();
+                    int index = pictogramGrid.pointToPosition(x, y);
+                    if(index >= 0)
+                    {
+                        if(index == SpeechBoardFragment.draggedPictogramIndex)
+                        {
+                            int i = 0;
+                            boolean placed = false;
+                            while(i < SpeechBoardFragment.pictogramList.size() && !placed)
+                            {
+                                if(SpeechBoardFragment.pictogramList.get(i) == null)
+                                {
+                                    placed = true;
+                                    draggedPictogram = SpeechBoardFragment.speechboardPictograms.get(SpeechBoardFragment.draggedPictogramIndex);
+                                    SpeechBoardFragment.pictogramList.set(i,draggedPictogram);
+                                    GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
+                                    speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
+                                    speech.invalidate();
+                                }
+                                i++;
+                            }
+                        }
+                    }
+                }
+
 			}
+
             SpeechBoardFragment.dragOwnerID = -1;
 		} else if (event.getAction() == DragEvent.ACTION_DRAG_ENDED){
 			insideOfMe = false;
@@ -244,6 +274,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                 SpeechBoardFragment.dragOwnerID = -1;
                 SpeechBoardFragment.draggedPictogramIndex = -1;
             }
+
 
 		}
 		return true;
