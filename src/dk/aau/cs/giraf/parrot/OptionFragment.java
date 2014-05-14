@@ -92,6 +92,7 @@ public class OptionFragment extends Fragment{
             	onSizePictogramChanged(v);
             }
         });
+        pictogramSize.refresh();
 
         CheckBox textChangeCheckBox = (CheckBox) parrent.findViewById(R.id.checkBoxShowText);
         textChangeCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -129,12 +130,13 @@ public class OptionFragment extends Fragment{
             {
                 switchPictogramSize.Toggle();
             }
+            switchPictogramSize.refresh();
 		}
 		else if(pictogramSize == PARROTProfile.PictogramSize.LARGE)
 		{
             GSwitch switchPictogramSize = (GSwitch) parrent.findViewById(R.id.swtPictogramSize);
             switchPictogramSize.setToggled(true);
-
+            switchPictogramSize.refresh();
 		}
 
 		
