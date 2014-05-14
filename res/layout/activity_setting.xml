@@ -8,9 +8,9 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <dk.aau.cs.giraf.gui.GButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <dk.aau.cs.giraf.gui.GCancelButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:text="Back"
         android:id="@+id/btnBack"
         android:layout_gravity="right" />
@@ -35,9 +35,9 @@
                     android:text="@string/PictoSize" />
 
                 <dk.aau.cs.giraf.gui.GSwitch
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="50dp"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
                     android:id="@+id/swtPictogramSize"
                     android:layout_weight="0.91"
                     GComponent:OnText="Stor"

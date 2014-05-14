@@ -1,11 +1,14 @@
 package dk.aau.cs.giraf.parrot;
 
+import dk.aau.cs.giraf.gui.GButton;
 import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GSwitch;
 import yuku.ambilwarna.AmbilWarnaDialog;
 import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -92,6 +95,7 @@ public class OptionFragment extends Fragment{
             	onSizePictogramChanged(v);
             }
         });
+        pictogramSize.refresh();
 
         CheckBox textChangeCheckBox = (CheckBox) parrent.findViewById(R.id.checkBoxShowText);
         textChangeCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -129,12 +133,13 @@ public class OptionFragment extends Fragment{
             {
                 switchPictogramSize.Toggle();
             }
+            switchPictogramSize.refresh();
 		}
 		else if(pictogramSize == PARROTProfile.PictogramSize.LARGE)
 		{
             GSwitch switchPictogramSize = (GSwitch) parrent.findViewById(R.id.swtPictogramSize);
             switchPictogramSize.setToggled(true);
-
+            switchPictogramSize.refresh();
 		}
 
 		
