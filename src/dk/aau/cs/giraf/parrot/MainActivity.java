@@ -7,10 +7,12 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 
+import dk.aau.cs.giraf.gui.GCancelButton;
 import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.oasis.lib.Helper;
@@ -73,7 +76,7 @@ public class MainActivity extends Activity {
         //GComponent.SetBaseColor(Color.rgb(255, 160, 0));
 
         Helper help = new Helper(this.getApplicationContext());
-
+        boolean outsideGIRAF = false;
         //help.CreateDummyData();
 
 
@@ -96,6 +99,8 @@ public class MainActivity extends Activity {
             {
                 ProfileController profileController = new ProfileController(this.getApplicationContext());
                 GToast toastMessage = GToast.makeText(this.getApplicationContext(), "Kunne ikke finde en brugerprofil.", 15);
+                toastMessage.show();
+                outsideGIRAF = true;
                 try
                 {
                     parrotUser = dataLoader.loadProfile((int)profileController.getProfilesByName("Offentlig bruger").get(0).getId(), app.getId());
@@ -134,10 +139,16 @@ public class MainActivity extends Activity {
         }
         else
         {
-            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-            alertDialog.setTitle("Fejl");
-            alertDialog.setMessage("Ikke åbnet gennem Launcher.");
-            alertDialog.show();
+            if (outsideGIRAF == true)
+            {
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                GCancelButton gCancelButton = new GCancelButton(this.getApplicationContext());
+
+                alertDialog.setTitle("Fejl");
+                alertDialog.setMessage("Ikke åbnet gennem Launcher.");
+                alertDialog.show();
+                outsideGIRAF = false;
+            }
         }
 
     }
