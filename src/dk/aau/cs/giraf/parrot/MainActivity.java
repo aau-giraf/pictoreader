@@ -26,6 +26,7 @@ import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.oasis.lib.Helper;
 import dk.aau.cs.giraf.oasis.lib.controllers.ApplicationController;
+import dk.aau.cs.giraf.oasis.lib.controllers.ProfileController;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
 
 /**
@@ -86,45 +87,59 @@ public class MainActivity extends Activity {
         app = applicationController.getApplicationByPackageName();
         //app = new Application(1, "myapp", "1.0", null, "hah", "Main", "mysecr", 1);
 
-        if(guardianID == -1 )
-        {
-            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-            alertDialog.setTitle("guardianID");
-            alertDialog.setMessage("Could not find guardian.");
-            alertDialog.show();
 
-        }
-        else
-        {
-            dataLoader = new PARROTDataLoader(this, true, this.getApplicationContext());
+        dataLoader = new PARROTDataLoader(this, true, this.getApplicationContext());
 
-            if (dataLoader != null)
+        if (dataLoader != null)
+        {
+            if(guardianID == -1 )
             {
-                parrotUser = dataLoader.loadProfile((int)childID, app.getId());
+                ProfileController profileController = new ProfileController(this.getApplicationContext());
+                GToast toastMessage = GToast.makeText(this.getApplicationContext(), "Kunne ikke finde en brugerprofil.", 15);
+                try
+                {
+                    parrotUser = dataLoader.loadProfile((int)profileController.getProfilesByName("Offentlig bruger").get(0).getId(), app.getId());
+                }
+                catch (Exception e)
+                {
+                    parrotUser = null;
+                }
             }
             else
             {
-                Log.v("dataLoader is Null","dataLoader is Null");
-            }
-
-            if(parrotUser != null)
-            {
-                Log.v("No in sentence", ""+ parrotUser.getNumberOfSentencePictograms());
-                Log.v("MessageParrot", "returned");
-						
-                // Create new fragment and transaction
-                Fragment newFragment = new SpeechBoardFragment(this.getApplicationContext());
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
-                transaction.add(R.id.main, newFragment);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();
+                parrotUser = dataLoader.loadProfile((int)childID, app.getId());
             }
         }
+        else
+        {
+            Log.v("dataLoader is Null","dataLoader is Null");
+        }
+
+        if(parrotUser != null)
+        {
+            Log.v("No in sentence", ""+ parrotUser.getNumberOfSentencePictograms());
+            Log.v("MessageParrot", "returned");
+
+            // Create new fragment and transaction
+            Fragment newFragment = new SpeechBoardFragment(this.getApplicationContext());
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack
+            transaction.add(R.id.main, newFragment);
+            transaction.addToBackStack(null);
+
+            // Commit the transaction
+            transaction.commit();
+        }
+        else
+        {
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Fejl");
+            alertDialog.setMessage("Ikke åbnet gennem Launcher.");
+            alertDialog.show();
+        }
+
     }
 
     /**
