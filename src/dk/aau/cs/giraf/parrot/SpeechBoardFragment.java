@@ -143,7 +143,7 @@ public class SpeechBoardFragment extends Fragment
 
             int colWidth = GComponent.DpToPixel(125, parrent.getApplicationContext());
             sentenceBoardGrid.setColumnWidth(colWidth);
-            noInSentence = width/(colWidth+GComponent.DpToPixel(5, parrent));
+            noInSentence = (width-GComponent.DpToPixel(100, parrent))/(colWidth);
 
             int pictogramgridWidth = width-GComponent.DpToPixel(150+150+100,parrent.getApplicationContext());
             if(backToNormalView)
