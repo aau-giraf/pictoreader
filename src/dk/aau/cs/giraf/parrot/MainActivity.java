@@ -86,20 +86,6 @@ public class MainActivity extends Activity {
         app = applicationController.getApplicationByPackageName();
         //app = new Application(1, "myapp", "1.0", null, "hah", "Main", "mysecr", 1);
 
-
-        if(guardianID == -1 )
-        {
-            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-            alertDialog.setTitle("Dette er til Test");
-            alertDialog.setMessage("Ikke åbnet gennem Launcher, slet nedenstående når færdig.\n"+"MainActivity line 90-100.");
-
-            /*don't delete this is for lisbeth and anders when running on our own device*/
-            guardianID = 1;
-            childID=11;
-            alertDialog.show();
-        }
-
-
         if(guardianID == -1 )
         {
             AlertDialog alertDialog = new AlertDialog.Builder(this).create();
