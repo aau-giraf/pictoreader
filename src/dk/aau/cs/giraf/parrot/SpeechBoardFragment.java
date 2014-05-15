@@ -143,19 +143,27 @@ public class SpeechBoardFragment extends Fragment
 
             int colWidth = GComponent.DpToPixel(125, parrent.getApplicationContext());
             sentenceBoardGrid.setColumnWidth(colWidth);
-            noInSentence = width/(colWidth+GComponent.DpToPixel(16, parrent));
+            noInSentence = width/(colWidth+GComponent.DpToPixel(5, parrent));
+
+            int pictogramgridWidth = width-GComponent.DpToPixel(150+150+100,parrent.getApplicationContext());
+            if(backToNormalView)
+            {
+                pictogramgridWidth = pictogramgridWidth + GComponent.DpToPixel(300-10,parrent.getApplicationContext());
+            }
+
 
             if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
-			{
-				pictogramGrid.setNumColumns(noInSentence+1);
-				pictogramGrid.setColumnWidth(160);
-
-			}
-			else
-			{
-				pictogramGrid.setNumColumns(noInSentence-1);
-				pictogramGrid.setColumnWidth(200);
-			}
+            {
+                pictogramGrid.setColumnWidth(160);
+                int piccolnumb = pictogramgridWidth/160;
+                pictogramGrid.setNumColumns(piccolnumb);
+            }
+            else
+            {
+                pictogramGrid.setColumnWidth(200);
+                int piccolnumb = pictogramgridWidth/200;
+                pictogramGrid.setNumColumns(piccolnumb);
+            }
 
 			
 			//Setup the view for the categories
