@@ -141,30 +141,29 @@ public class SpeechBoardFragment extends Fragment
             display.getSize(size);
             int width = size.x;
 
+            int buttonsWidth = 100;
             int colWidth = GComponent.DpToPixel(125, parrent.getApplicationContext());
             sentenceBoardGrid.setColumnWidth(colWidth);
-            noInSentence = (width-GComponent.DpToPixel(100, parrent))/(colWidth);
+            noInSentence = (width-GComponent.DpToPixel(buttonsWidth, parrent))/(colWidth);
+            sentenceBoardGrid.setNumColumns(noInSentence);
 
-            int pictogramgridWidth = width-GComponent.DpToPixel(150+150+100,parrent.getApplicationContext());
+
+            int categoryWidth = 2*150;
+            int scrollbarWidth = 10;
             if(backToNormalView)
             {
-                pictogramgridWidth = pictogramgridWidth + GComponent.DpToPixel(300-10,parrent.getApplicationContext());
+                categoryWidth = 0;
             }
+            int pictogramgridWidth = width-GComponent.DpToPixel(categoryWidth+buttonsWidth+scrollbarWidth,parrent.getApplicationContext());
 
-
+            int pictogramWidth = 200;
             if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
             {
-                pictogramGrid.setColumnWidth(160);
-                int piccolnumb = pictogramgridWidth/160;
-                pictogramGrid.setNumColumns(piccolnumb);
+                pictogramWidth = 160;
             }
-            else
-            {
-                pictogramGrid.setColumnWidth(200);
-                int piccolnumb = pictogramgridWidth/200;
-                pictogramGrid.setNumColumns(piccolnumb);
-            }
-
+            pictogramGrid.setColumnWidth(pictogramWidth);
+            int piccolnumb = pictogramgridWidth/pictogramWidth;
+            pictogramGrid.setNumColumns(piccolnumb);
 			
 			//Setup the view for the categories
             GGridView superCategoryGrid = (GGridView) parrent.findViewById(R.id.supercategory);
@@ -194,7 +193,7 @@ public class SpeechBoardFragment extends Fragment
                 }
             }
 
-            sentenceBoardGrid.setNumColumns(noInSentence);
+
 
             // Set sentence board width dependent on the screen size
             LinearLayout playButton = (LinearLayout) parrent.findViewById(R.id.playButtonLayout);
