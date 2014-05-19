@@ -31,15 +31,27 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
 public class PARROTCategoryAdapter extends BaseAdapter{
 
 	private List<Category> categories;
+    private List<Boolean> marked;
 	private Context context;
     private int ID;
     private Activity activity;
     PARROTProfile user;
 
 
-	public PARROTCategoryAdapter(List<Category> categories, Activity activity, int ID, PARROTProfile user)
+	public PARROTCategoryAdapter(List<Category> categories, Activity activity, int ID, PARROTProfile user, int marked)
 	{
 		this.categories = categories;
+        this.marked = new ArrayList<Boolean>();
+        for (int i = 0; i < categories.size(); i++)
+        {
+            if(i == marked)
+            {
+                this.marked.add(true);
+            } else
+            {
+                this.marked.add(false);
+            }
+        }
 		context = activity.getApplicationContext();
         this.ID = ID;
         this.activity = activity;
@@ -63,6 +75,12 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+    public void setMarked(boolean marked, int position)
+    {
+
+    }
+
 	/**
 	 * Create an image view for each icon of the categories in the list.
 	 */
@@ -73,6 +91,7 @@ public class PARROTCategoryAdapter extends BaseAdapter{
         Bitmap bitmap = categories.get(position).getImage();
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.categoryview, null);
+        ((GSelectableContent)view).SetSelected(marked.get(position));
 
        if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(context);

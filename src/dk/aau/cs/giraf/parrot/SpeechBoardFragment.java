@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.telephony.gsm.GsmCellLocation;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -54,6 +55,7 @@ public class SpeechBoardFragment extends Fragment
 	//Remembers the index of the pictogram that is currently being dragged.
 	public static int draggedPictogramIndex = -1;
 	public static int dragOwnerID =-1;
+
 	//Serves as the back-end storage for the visual speechboard
 	public static List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> speechboardPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
 	
@@ -63,6 +65,7 @@ public class SpeechBoardFragment extends Fragment
 	public static Category displayedCategory = null;
     public static Category displayedMainCategory = null;
     public static int displayedMainCategoryIndex = 0;
+    public static int displayedSubCategoryIndex = -1;
 	private PARROTProfile user = null;
 	private static Pictogram emptyPictogram = null;
     public static SpeechBoardBoxDragListener speechDragListener;
@@ -167,12 +170,12 @@ public class SpeechBoardFragment extends Fragment
 			
 			//Setup the view for the categories
             GGridView superCategoryGrid = (GGridView) parrent.findViewById(R.id.supercategory);
-			superCategoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parrent, R.id.supercategory, user));
+			superCategoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parrent, R.id.supercategory, user, displayedMainCategoryIndex));
             GGridView subCategoryGrid = (GGridView) parrent.findViewById(R.id.subcategory);
 
             CategoryController categoryController = new CategoryController(parrent);
 
-			subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent, R.id.subcategory, user));
+			subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent, R.id.subcategory, user, displayedSubCategoryIndex));
             speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
 		 	pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent, user));
 
@@ -322,8 +325,6 @@ public class SpeechBoardFragment extends Fragment
             }
         });
 
-        markSelectedCategory(0,-1,parrent);
-
         if(displayPictogramList != null && backToNormalView)
         {
             displayPictograms(displayPictogramList, this.getActivity());
@@ -385,23 +386,6 @@ public class SpeechBoardFragment extends Fragment
                 startActivity(intent);
             }
         });
-    }
-
-    public static void markSelectedCategory(int mainCategory, int subCategory, Activity activity)
-    {
-        GGridView mainCat = (GGridView) activity.findViewById(R.id.supercategory);
-        for (int i = 0; i < mainCat.getChildCount(); i++)
-        {
-            boolean mustSet = i == mainCategory;
-            ((GSelectableContent)mainCat.getChildAt(i)).SetSelected(mustSet);
-        }
-
-        GGridView subCat = (GGridView) activity.findViewById(R.id.subcategory);
-        for (int i = 0; i < subCat.getChildCount(); i++)
-        {
-            boolean mustSet = i == subCategory;
-            ((GSelectableContent)subCat.getChildAt(i)).SetSelected(mustSet);
-        }
     }
 
     /**
