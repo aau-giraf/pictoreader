@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 
+import java.util.List;
+
 import dk.aau.cs.giraf.gui.GCancelButton;
 import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GToast;
@@ -31,6 +33,7 @@ import dk.aau.cs.giraf.oasis.lib.Helper;
 import dk.aau.cs.giraf.oasis.lib.controllers.ApplicationController;
 import dk.aau.cs.giraf.oasis.lib.controllers.ProfileController;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
+import dk.aau.cs.giraf.oasis.lib.models.Profile;
 
 /**
  *
@@ -103,7 +106,7 @@ public class MainActivity extends Activity {
                 outsideGIRAF = true;
                 try
                 {
-                    parrotUser = dataLoader.loadProfile((int)profileController.getProfilesByName("Offentlig bruger").get(0).getId(), app.getId());
+                    parrotUser = dataLoader.loadProfile((int)profileController.getProfilesByName("Offentlig Bruger").get(0).getId(), app.getId());
                 }
                 catch (Exception e)
                 {
