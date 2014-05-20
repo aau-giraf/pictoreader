@@ -134,7 +134,7 @@ public class SpeechBoardFragment extends Fragment
 			//Setup the view for the sentences
             GGridView sentenceBoardGrid = (GGridView) parrent.findViewById(R.id.sentenceboard);
 			sentenceBoardGrid.setAdapter(new SentenceboardAdapter(pictogramList, parrent.getApplicationContext()));
-			int noInSentence = user.getNumberOfSentencePictograms();
+			int noInSentence=user.getNumberOfSentencePictograms();
 			sentenceBoardGrid.setNumColumns(noInSentence);
 
 			//setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
@@ -144,25 +144,25 @@ public class SpeechBoardFragment extends Fragment
             display.getSize(size);
             int width = size.x;
 
-            int buttonsWidth = GComponent.DpToPixel(100, parrent.getApplicationContext());
+            int buttonsWidth = 100;
             int colWidth = GComponent.DpToPixel(125, parrent.getApplicationContext());
             sentenceBoardGrid.setColumnWidth(colWidth);
             noInSentence = (width-GComponent.DpToPixel(buttonsWidth, parrent))/(colWidth);
             sentenceBoardGrid.setNumColumns(noInSentence);
 
 
-            int categoryWidth = GComponent.DpToPixel(75, parrent.getApplicationContext());
-            int scrollbarWidth = GComponent.DpToPixel(50, parrent.getApplicationContext());
+            int categoryWidth = 2*150;
+            int scrollbarWidth = 10;
             if(backToNormalView)
             {
                 categoryWidth = 0;
             }
             int pictogramgridWidth = width-GComponent.DpToPixel(categoryWidth+buttonsWidth+scrollbarWidth,parrent.getApplicationContext());
 
-            int pictogramWidth = GComponent.DpToPixel(100, parrent.getApplicationContext());
+            int pictogramWidth = 200;
             if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
             {
-                pictogramWidth = GComponent.DpToPixel(80, parrent.getApplicationContext());
+                pictogramWidth = 160;
             }
             pictogramGrid.setColumnWidth(pictogramWidth);
             int piccolnumb = pictogramgridWidth/pictogramWidth;
