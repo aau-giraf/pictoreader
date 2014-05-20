@@ -11,6 +11,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.telephony.gsm.GsmCellLocation;
 import android.util.DisplayMetrics;
@@ -56,13 +57,13 @@ public class SpeechBoardFragment extends Fragment
 	//Remembers the index of the pictogram that is currently being dragged.
 	public static int draggedPictogramIndex = -1;
 	public static int dragOwnerID =-1;
+    public static int MaxNumberOfAllowedPictogramsInCategory = 125;
 
-	//Serves as the back-end storage for the visual speechboard
+    //Serves as the back-end storage for the visual speechboard
 	public static List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> speechboardPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
 	
 	//This category contains the pictograms on the sentenceboard
 	public static ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictogramList = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
-    public static ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> viewedPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
 	//This category contains the pictograms displayed on the big board
 	public static Category displayedCategory = null;
     public static Category displayedMainCategory = null;
@@ -175,22 +176,38 @@ public class SpeechBoardFragment extends Fragment
             GGridView superCategoryGrid = (GGridView) parrent.findViewById(R.id.supercategory);
 			superCategoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parrent, R.id.supercategory, user, displayedMainCategoryIndex));
             GGridView subCategoryGrid = (GGridView) parrent.findViewById(R.id.subcategory);
-
             CategoryController categoryController = new CategoryController(parrent);
 
-			subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent, R.id.subcategory, user, displayedSubCategoryIndex));
-            speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
-
-            if (speechboardPictograms.size() > 200)
+            try
             {
-                viewedPictograms.addAll(speechboardPictograms.subList(0,199));
+			    subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent, R.id.subcategory, user, displayedSubCategoryIndex));
             }
-            else
+            catch (OutOfMemoryError e)
             {
-                viewedPictograms.addAll(speechboardPictograms);
+                e.getStackTrace();
+                return;
             }
 
-		 	pictogramGrid.setAdapter(new PictogramAdapter(viewedPictograms, parrent.getApplicationContext(),parrent, user));
+            try
+            {
+                SpeechBoardFragment.speechboardPictograms.clear();
+
+                if (pictogramController.getPictogramsByCategory(displayedCategory).size() > MaxNumberOfAllowedPictogramsInCategory)
+                {
+                    speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory).subList(0, MaxNumberOfAllowedPictogramsInCategory);
+                }
+                else
+                {
+                    speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+                }
+            }
+            catch (OutOfMemoryError e)
+            {
+                e.getStackTrace();
+                return;
+            }
+
+		 	pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent, user));
 
 			//setup drag listeners for the views
 			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
@@ -396,6 +413,7 @@ public class SpeechBoardFragment extends Fragment
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                intent.putExtra("currentChildID", user.getProfileID());
                 startActivity(intent);
             }
         });
