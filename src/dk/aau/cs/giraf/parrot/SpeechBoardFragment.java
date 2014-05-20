@@ -152,7 +152,7 @@ public class SpeechBoardFragment extends Fragment
 
 
             int categoryWidth = 2*150;
-            int scrollbarWidth = 10;
+            int scrollbarWidth = 50;
             if(backToNormalView)
             {
                 categoryWidth = 0;
