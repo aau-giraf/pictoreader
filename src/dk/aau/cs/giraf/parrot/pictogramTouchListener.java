@@ -9,6 +9,8 @@ import android.view.View.DragShadowBuilder;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import dk.aau.cs.giraf.gui.GGridView;
 import dk.aau.cs.giraf.gui.GSelectableContent;
@@ -48,12 +50,19 @@ public class pictogramTouchListener implements OnTouchListener {
                 GGridView pictogramGrid = (GGridView) activity.findViewById(R.id.pictogramgrid);
                 SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
                 pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
+
                 //Setup the view for the categories
                 SpeechBoardFragment.displayedSubCategoryIndex = -1;
                 GGridView subCategoryGrid = (GGridView) activity.findViewById(R.id.subcategory);
                 GGridView mainCategoryGrid = (GGridView) activity.findViewById(R.id.supercategory);
                 subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory), activity, R.id.subcategory, user,-1));
-                mainCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getCategoriesByProfileId(user.getProfileID()), activity, R.id.supercategory, user, SpeechBoardFragment.displayedMainCategoryIndex));
+
+                TextView selectedCategoryText = (TextView) activity.findViewById(R.id.textViewSelectedCategory);
+
+                selectedCategoryText.setText("Valgt kategori: " +  SpeechBoardFragment.displayedMainCategory.getName());
+
+
+                //mainCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getCategoriesByProfileId(user.getProfileID()), activity, R.id.supercategory, user, SpeechBoardFragment.displayedMainCategoryIndex));
             }
             else if (owner == R.id.subcategory)
             {
@@ -83,5 +92,4 @@ public class pictogramTouchListener implements OnTouchListener {
 			return false;
 		}
 	}
-
 }
