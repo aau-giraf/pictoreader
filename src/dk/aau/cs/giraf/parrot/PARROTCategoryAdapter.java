@@ -90,9 +90,14 @@ public class PARROTCategoryAdapter extends BaseAdapter{
         ImageView imageView;
         TextView textView;
         Bitmap bitmap = categories.get(position).getImage();
+
+
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.categoryview, null);
         //((GSelectableContent)view).SetSelected(marked.get(position));
+
+        TextView selectedCategoryText = (TextView) activity.findViewById(R.id.textViewSelectedCategory);
+        selectedCategoryText.setText("Valgt kategori: " +  categories.get(position).getName());
 
        if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(context);
