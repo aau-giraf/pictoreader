@@ -96,9 +96,6 @@ public class PARROTCategoryAdapter extends BaseAdapter{
         View view = layoutInflater.inflate(R.layout.categoryview, null);
         //((GSelectableContent)view).SetSelected(marked.get(position));
 
-        TextView selectedCategoryText = (TextView) activity.findViewById(R.id.textViewSelectedCategory);
-        selectedCategoryText.setText("Valgt kategori: " +  categories.get(position).getName());
-
        if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(context);
             imageView.setLayoutParams(new GridView.LayoutParams(GComponent.DpToPixel(150, this.context), GComponent.DpToPixel(150, this.context)));
