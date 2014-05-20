@@ -458,7 +458,24 @@ public class SpeechBoardFragment extends Fragment
 
             if(displayedCategory != null)
             {
-                speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+                try
+                {
+                    SpeechBoardFragment.speechboardPictograms.clear();
+
+                    if (pictogramController.getPictogramsByCategory(displayedCategory).size() > MaxNumberOfAllowedPictogramsInCategory)
+                    {
+                        speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory).subList(0, MaxNumberOfAllowedPictogramsInCategory);
+                    }
+                    else
+                    {
+                        speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+                    }
+                }
+                catch (OutOfMemoryError e)
+                {
+                    e.getStackTrace();
+                    return;
+                }
             }
 
             GGridView pictogramGrid = (GGridView) activity.findViewById(R.id.pictogramgrid);
