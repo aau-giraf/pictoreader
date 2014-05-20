@@ -399,7 +399,7 @@ public class SpeechBoardFragment extends Fragment
 
             try{
                 intent.setComponent(new ComponentName( "dk.aau.cs.giraf.pictosearch",  "dk.aau.cs.giraf.pictosearch.PictoAdminMain"));
-                intent.putExtra("currentGuardianID", user.getProfileID());
+                intent.putExtra("currentChildID", user.getProfileID());
                 intent.putExtra("purpose", "multi");
 
                 startActivityForResult(intent, parrent.RESULT_FIRST_USER);
@@ -419,7 +419,10 @@ public class SpeechBoardFragment extends Fragment
             LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
             pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
 
-            speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+            if(displayedCategory != null)
+            {
+                speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+            }
 
             GGridView pictogramGrid = (GGridView) activity.findViewById(R.id.pictogramgrid);
 
