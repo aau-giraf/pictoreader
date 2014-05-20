@@ -335,7 +335,7 @@ public class SpeechBoardFragment extends Fragment
 
         TextView selectedCategoryText = (TextView) parrent.findViewById(R.id.textViewSelectedCategory);
 
-        selectedCategoryText.setText("Valgt kategori: " +  displayedMainCategory.getName());
+        selectedCategoryText.setText("Valgt kategori: " + displayedMainCategory.getName());
 	}
 
 
@@ -363,7 +363,9 @@ public class SpeechBoardFragment extends Fragment
         activity.findViewById(R.id.psubcategory).setVisibility(View.GONE);
         activity.findViewById(R.id.psupercategory).setVisibility(View.GONE);
         activity.findViewById(R.id.btnSettings).setVisibility(View.GONE);
-
+        activity.findViewById(R.id.catButton).setVisibility(View.GONE);
+        activity.findViewById(R.id.crocButton).setVisibility(View.GONE);
+         
         LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
         pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
 
@@ -411,6 +413,8 @@ public class SpeechBoardFragment extends Fragment
             activity.findViewById(R.id.psubcategory).setVisibility(View.VISIBLE);
             activity.findViewById(R.id.psupercategory).setVisibility(View.VISIBLE);
             activity.findViewById(R.id.btnSettings).setVisibility(View.VISIBLE);
+            activity.findViewById(R.id.catButton).setVisibility(View.VISIBLE);
+            activity.findViewById(R.id.crocButton).setVisibility(View.VISIBLE);
 
             LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
             pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
