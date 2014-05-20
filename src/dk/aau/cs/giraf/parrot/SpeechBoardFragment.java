@@ -135,42 +135,20 @@ public class SpeechBoardFragment extends Fragment
 			//Setup the view for the listing of pictograms in pictogramgrid
 			final GGridView pictogramGrid = (GGridView) parrent.findViewById(R.id.pictogramgrid);
 
-			
-			//Setup the view for the sentences
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+
+            //Setup the view for the sentences
             GGridView sentenceBoardGrid = (GGridView) parrent.findViewById(R.id.sentenceboard);
 			sentenceBoardGrid.setAdapter(new SentenceboardAdapter(pictogramList, parrent.getApplicationContext()));
 			int noInSentence=user.getNumberOfSentencePictograms();
 			sentenceBoardGrid.setNumColumns(noInSentence);
 
 			//setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
+            setGridviewColNumb();
 
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-            int width = size.x;
-
-            int buttonsWidth = 100;
-            int colWidth = GComponent.DpToPixel(125, parrent.getApplicationContext());
-            sentenceBoardGrid.setColumnWidth(colWidth);
-            noInSentence = (width-GComponent.DpToPixel(buttonsWidth, parrent))/(colWidth);
-            sentenceBoardGrid.setNumColumns(noInSentence);
-
-            int categoryWidth = 2*150;
-            int scrollbarWidth = 50;
-            if(backToNormalView)
-            {
-                categoryWidth = 0;
-            }
-            int pictogramgridWidth = width-GComponent.DpToPixel(categoryWidth+buttonsWidth+scrollbarWidth,parrent.getApplicationContext());
-
-            int pictogramWidth = 200;
-            if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
-            {
-                pictogramWidth = 160;
-            }
-            pictogramGrid.setColumnWidth(pictogramWidth);
-            int piccolnumb = pictogramgridWidth/pictogramWidth;
-            pictogramGrid.setNumColumns(piccolnumb);
 			
 			//Setup the view for the categories
             GGridView superCategoryGrid = (GGridView) parrent.findViewById(R.id.supercategory);
@@ -360,7 +338,14 @@ public class SpeechBoardFragment extends Fragment
 
         TextView selectedCategoryText = (TextView) parrent.findViewById(R.id.textViewSelectedCategory);
 
-        selectedCategoryText.setText("Valgt kategori: " + displayedMainCategory.getName());
+        if(backToNormalView)
+        {
+            selectedCategoryText.setText("");
+        }
+        else
+        {
+            selectedCategoryText.setText("Valgt kategori: " + displayedMainCategory.getName());
+        }
 
 
         if(guadianID == -1 && childID == -1)
@@ -369,6 +354,42 @@ public class SpeechBoardFragment extends Fragment
             parrent.findViewById(R.id.crocButton).setVisibility(View.GONE);
         }
 	}
+
+    public void setGridviewColNumb()
+    {
+        GGridView pictogramGrid = (GGridView) parrent.findViewById(R.id.pictogramgrid);
+
+
+        //Setup the view for the sentences
+        GGridView sentenceBoardGrid = (GGridView) parrent.findViewById(R.id.sentenceboard);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+
+        int buttonsWidth = 100;
+        int colWidth = GComponent.DpToPixel(125, parrent.getApplicationContext());
+        sentenceBoardGrid.setColumnWidth(colWidth);
+        int noInSentence = (width-GComponent.DpToPixel(buttonsWidth, parrent))/(colWidth);
+        sentenceBoardGrid.setNumColumns(noInSentence);
+
+        int categoryWidth = 2*150;
+        int scrollbarWidth = 50;
+        if(backToNormalView)
+        {
+            categoryWidth = 0;
+        }
+        int pictogramgridWidth = width-GComponent.DpToPixel(categoryWidth+buttonsWidth+scrollbarWidth,parrent.getApplicationContext());
+
+        int pictogramWidth = 200;
+        if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
+        {
+            pictogramWidth = 160;
+        }
+        pictogramGrid.setColumnWidth(pictogramWidth);
+        int piccolnumb = pictogramgridWidth/pictogramWidth;
+        pictogramGrid.setNumColumns(piccolnumb);
+    }
 
 
 	/**
@@ -441,7 +462,9 @@ public class SpeechBoardFragment extends Fragment
         else
         {
             backToNormalView = false;
-
+            TextView selectedCategoryText = (TextView) parrent.findViewById(R.id.textViewSelectedCategory);
+            selectedCategoryText.setText("Valgt kategori: " + displayedMainCategory.getName());
+            setGridviewColNumb();
             Activity activity = this.getActivity();
             activity.findViewById(R.id.psubcategory).setVisibility(View.VISIBLE);
             activity.findViewById(R.id.psupercategory).setVisibility(View.VISIBLE);
@@ -458,7 +481,24 @@ public class SpeechBoardFragment extends Fragment
 
             if(displayedCategory != null)
             {
-                speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+                try
+                {
+                    SpeechBoardFragment.speechboardPictograms.clear();
+
+                    if (pictogramController.getPictogramsByCategory(displayedCategory).size() > MaxNumberOfAllowedPictogramsInCategory)
+                    {
+                        speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory).subList(0, MaxNumberOfAllowedPictogramsInCategory);
+                    }
+                    else
+                    {
+                        speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+                    }
+                }
+                catch (OutOfMemoryError e)
+                {
+                    e.getStackTrace();
+                    return;
+                }
             }
 
             GGridView pictogramGrid = (GGridView) activity.findViewById(R.id.pictogramgrid);
