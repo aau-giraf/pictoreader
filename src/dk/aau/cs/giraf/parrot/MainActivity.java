@@ -244,6 +244,11 @@ public class MainActivity extends Activity {
         return guardianID;
     }
 
+    public static int getChildID()
+    {
+        return childID;
+    }
+
     /**
      * @return an instance of Helper.
      */

@@ -45,10 +45,37 @@ public class pictogramTouchListener implements OnTouchListener {
             {
                 SpeechBoardFragment.displayedMainCategoryIndex = SpeechBoardFragment.draggedPictogramIndex;
                 CategoryController categoryController = new CategoryController(activity.getApplicationContext());
-                SpeechBoardFragment.displayedCategory = categoryController.getCategoriesByProfileId(user.getProfileID()).get(position);
+                try {
+                    SpeechBoardFragment.displayedCategory = categoryController.getCategoriesByProfileId(user.getProfileID()).get(position);
+                }
+                catch (OutOfMemoryError e)
+                {
+                    e.getStackTrace();
+                    return false;
+                }
                 SpeechBoardFragment.displayedMainCategory = SpeechBoardFragment.displayedCategory;
                 GGridView pictogramGrid = (GGridView) activity.findViewById(R.id.pictogramgrid);
-                SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
+
+                try
+                {
+                    SpeechBoardFragment.speechboardPictograms.clear();
+
+                    if (pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).size() > SpeechBoardFragment.MaxNumberOfAllowedPictogramsInCategory)
+                    {
+                        SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).subList(0, SpeechBoardFragment.MaxNumberOfAllowedPictogramsInCategory);
+                    }
+                    else
+                    {
+                        SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
+                    }
+                }
+                catch (OutOfMemoryError e)
+                {
+                    e.getStackTrace();
+                    return false;
+                }
+
+                //SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
                 pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
 
                 //Setup the view for the categories
@@ -70,10 +97,30 @@ public class pictogramTouchListener implements OnTouchListener {
                 //this check is neccessary if you click twice at a subcategory it will crash since subCategories does not contain any subCategory
                 if(!categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedMainCategory).isEmpty())
                 {
-                    SpeechBoardFragment.displayedCategory = categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedMainCategory).get(position);
+                    try
+                    {
+                        SpeechBoardFragment.displayedCategory = categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedMainCategory).get(position);
+                    }
+                    catch (OutOfMemoryError e)
+                    {
+                        e.getStackTrace();
+                        return false;
+                    }
+
                     GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
                     SpeechBoardFragment.displayedSubCategoryIndex = SpeechBoardFragment.draggedPictogramIndex;
-                    SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
+
+                    try
+                    {
+                        SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
+                    }
+                    catch (OutOfMemoryError e)
+                    {
+                        e.getStackTrace();
+                        SpeechBoardFragment.speechboardPictograms.clear();
+                        return false;
+                    }
+
                     pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(),activity, user));
                     GGridView subCategoryGrid = (GGridView) activity.findViewById(R.id.subcategory);
                     subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory), activity, R.id.subcategory, user,SpeechBoardFragment.displayedSubCategoryIndex));
