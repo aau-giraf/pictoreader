@@ -10,6 +10,7 @@ import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import dk.aau.cs.giraf.gui.GGridView;
 import dk.aau.cs.giraf.gui.GSelectableContent;
 import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
@@ -44,12 +45,15 @@ public class pictogramTouchListener implements OnTouchListener {
                 CategoryController categoryController = new CategoryController(activity.getApplicationContext());
                 SpeechBoardFragment.displayedCategory = categoryController.getCategoriesByProfileId(user.getProfileID()).get(position);
                 SpeechBoardFragment.displayedMainCategory = SpeechBoardFragment.displayedCategory;
-                GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
+                GGridView pictogramGrid = (GGridView) activity.findViewById(R.id.pictogramgrid);
                 SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
                 pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
                 //Setup the view for the categories
-                GridView subCategoryGrid = (GridView) activity.findViewById(R.id.subcategory);
-                subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory), activity, R.id.subcategory, user));
+                SpeechBoardFragment.displayedSubCategoryIndex = -1;
+                GGridView subCategoryGrid = (GGridView) activity.findViewById(R.id.subcategory);
+                GGridView mainCategoryGrid = (GGridView) activity.findViewById(R.id.supercategory);
+                subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory), activity, R.id.subcategory, user,-1));
+                mainCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getCategoriesByProfileId(user.getProfileID()), activity, R.id.supercategory, user, SpeechBoardFragment.displayedMainCategoryIndex));
             }
             else if (owner == R.id.subcategory)
             {
@@ -59,9 +63,11 @@ public class pictogramTouchListener implements OnTouchListener {
                 {
                     SpeechBoardFragment.displayedCategory = categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedMainCategory).get(position);
                     GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
+                    SpeechBoardFragment.displayedSubCategoryIndex = SpeechBoardFragment.draggedPictogramIndex;
                     SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
                     pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(),activity, user));
-
+                    GGridView subCategoryGrid = (GGridView) activity.findViewById(R.id.subcategory);
+                    subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory), activity, R.id.subcategory, user,SpeechBoardFragment.displayedSubCategoryIndex));
                 }
             }
 			
@@ -69,15 +75,6 @@ public class pictogramTouchListener implements OnTouchListener {
 
             PictogramDragShadow shadowBuilder = new PictogramDragShadow(view);
 	    	view.startDrag(data, shadowBuilder, view, 0);
-
-            if(SpeechBoardFragment.displayedMainCategory == SpeechBoardFragment.displayedCategory)
-            {
-                SpeechBoardFragment.markSelectedCategory(SpeechBoardFragment.draggedPictogramIndex, -1, activity);
-            }
-            else
-            {
-                SpeechBoardFragment.markSelectedCategory(SpeechBoardFragment.displayedMainCategoryIndex, SpeechBoardFragment.draggedPictogramIndex, activity);
-            }
 
 	    	return true;
 		}

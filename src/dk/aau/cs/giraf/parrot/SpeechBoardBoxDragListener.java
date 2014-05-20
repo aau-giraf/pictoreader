@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnDragListener;
 import android.widget.GridView;
 
+import dk.aau.cs.giraf.gui.GGridView;
 import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
@@ -101,7 +102,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 	//1
 				if( self.getId() == R.id.sentenceboard && SpeechBoardFragment.dragOwnerID != R.id.sentenceboard)	
 				{
-					GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
+					GGridView speech = (GGridView) parrent.findViewById(R.id.sentenceboard);
 					int x = (int)event.getX();
 					int y = (int)event.getY();
 					int index = speech.pointToPosition(x, y);
@@ -165,7 +166,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 				else if(self.getId() == R.id.sentenceboard && SpeechBoardFragment.dragOwnerID == R.id.sentenceboard) //We are rearanging the position of pictograms on the sentenceboard
 				{
 
-					GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
+					GGridView speech = (GGridView) parrent.findViewById(R.id.sentenceboard);
 					int x = (int)event.getX();
 					int y = (int)event.getY();
 					int index = speech.pointToPosition(x, y);
@@ -210,7 +211,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 		//3
 				else if(self.getId() != R.id.sentenceboard && SpeechBoardFragment.dragOwnerID == R.id.sentenceboard) //If we drag something from the sentenceboard to somewhere else
 				{
-                    GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
+                    GGridView speech = (GGridView) parrent.findViewById(R.id.sentenceboard);
                     int x = (int)event.getX();
                     int y = (int)event.getY();
                     int index = speech.pointToPosition(x, y);
@@ -228,43 +229,43 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                     }
 				}
 
-                else
+			}
+
+            /*
+            GGridView pictogramGrid = (GGridView) parrent.findViewById(R.id.pictogramgrid);
+
+            int x = (int)event.getX();
+            int y = (int)event.getY();
+
+            int index = pictogramGrid.pointToPosition(x, y);
+            if(index >= 0)
+            {
+                if(index == SpeechBoardFragment.draggedPictogramIndex)
                 {
-                    GridView pictogramGrid = (GridView) parrent.findViewById(R.id.pictogramgrid);
-                    int x = (int)event.getX();
-                    int y = (int)event.getY();
-                    int index = pictogramGrid.pointToPosition(x, y);
-                    if(index >= 0)
+                    int i = 0;
+                    boolean placed = false;
+                    while(i < SpeechBoardFragment.pictogramList.size() && !placed)
                     {
-                        if(index == SpeechBoardFragment.draggedPictogramIndex)
+                        if(SpeechBoardFragment.pictogramList.get(i) == null)
                         {
-                            int i = 0;
-                            boolean placed = false;
-                            while(i < SpeechBoardFragment.pictogramList.size() && !placed)
-                            {
-                                if(SpeechBoardFragment.pictogramList.get(i) == null)
-                                {
-                                    placed = true;
-                                    draggedPictogram = SpeechBoardFragment.speechboardPictograms.get(SpeechBoardFragment.draggedPictogramIndex);
-                                    SpeechBoardFragment.pictogramList.set(i,draggedPictogram);
-                                    GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
-                                    speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
-                                    speech.invalidate();
-                                }
-                                i++;
-                            }
+                            placed = true;
+                            draggedPictogram = SpeechBoardFragment.speechboardPictograms.get(SpeechBoardFragment.draggedPictogramIndex);
+                            SpeechBoardFragment.pictogramList.set(i,draggedPictogram);
+                            GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
+                            speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
+                            speech.invalidate();
                         }
+                        i++;
                     }
                 }
-
-			}
+            }*/
 
             SpeechBoardFragment.dragOwnerID = -1;
 		} else if (event.getAction() == DragEvent.ACTION_DRAG_ENDED){
 			insideOfMe = false;
             if(self.getId() != R.id.sentenceboard && SpeechBoardFragment.dragOwnerID == R.id.sentenceboard) //If we drag something from the sentenceboard to somewhere else
             {
-                GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
+                GGridView speech = (GGridView) parrent.findViewById(R.id.sentenceboard);
                 if(SpeechBoardFragment.draggedPictogramIndex >= 0)
                 {
                     SpeechBoardFragment.pictogramList.set(SpeechBoardFragment.draggedPictogramIndex, null);
