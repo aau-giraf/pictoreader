@@ -82,6 +82,9 @@ public class SpeechBoardFragment extends Fragment
 
     private boolean backToNormalView = false;
 
+    int guadianID = (int) MainActivity.getGuardianID();
+    int childID = MainActivity.getChildID();
+
     public SpeechBoardFragment(Context c)
     {
         context = c;
@@ -115,7 +118,6 @@ public class SpeechBoardFragment extends Fragment
 
 
         View v = LayoutInflater.from(parrent.getApplicationContext()).inflate(R.layout.speechboard_layout, null);
-
         //Set the background
         v.setBackgroundColor(GComponent.GetBackgroundColor());
 
@@ -151,7 +153,6 @@ public class SpeechBoardFragment extends Fragment
             sentenceBoardGrid.setColumnWidth(colWidth);
             noInSentence = (width-GComponent.DpToPixel(buttonsWidth, parrent))/(colWidth);
             sentenceBoardGrid.setNumColumns(noInSentence);
-
 
             int categoryWidth = 2*150;
             int scrollbarWidth = 50;
@@ -231,6 +232,10 @@ public class SpeechBoardFragment extends Fragment
                 if (appInfo.packageName.toString().equalsIgnoreCase(catName))
                 {
                     catIntent = packMan.getLaunchIntentForPackage(catName);
+
+                    catIntent.putExtra("currentGuardianID", guadianID);
+                    catIntent.putExtra("currentChildID", childID);
+
                     if (catIntent != null)
                     {
                         catButton.setVisibility(this.getView().VISIBLE);
@@ -241,6 +246,9 @@ public class SpeechBoardFragment extends Fragment
                 else if (appInfo.packageName.toString().equalsIgnoreCase(crocName))
                 {
                     crocIntent = packMan.getLaunchIntentForPackage(crocName);
+
+                    crocIntent.putExtra("currentGuardianID", guadianID);
+                    crocIntent.putExtra("currentChildID", childID);
                     if (crocIntent != null)
                     {
                         crocButton.setVisibility(this.getView().VISIBLE);
@@ -336,6 +344,13 @@ public class SpeechBoardFragment extends Fragment
         TextView selectedCategoryText = (TextView) parrent.findViewById(R.id.textViewSelectedCategory);
 
         selectedCategoryText.setText("Valgt kategori: " + displayedMainCategory.getName());
+
+
+        if(guadianID == -1 && childID == -1)
+        {
+            parrent.findViewById(R.id.catButton).setVisibility(View.GONE);
+            parrent.findViewById(R.id.crocButton).setVisibility(View.GONE);
+        }
 	}
 
 
@@ -413,8 +428,12 @@ public class SpeechBoardFragment extends Fragment
             activity.findViewById(R.id.psubcategory).setVisibility(View.VISIBLE);
             activity.findViewById(R.id.psupercategory).setVisibility(View.VISIBLE);
             activity.findViewById(R.id.btnSettings).setVisibility(View.VISIBLE);
-            activity.findViewById(R.id.catButton).setVisibility(View.VISIBLE);
-            activity.findViewById(R.id.crocButton).setVisibility(View.VISIBLE);
+            if(guadianID != -1 || childID != -1)
+            {
+                activity.findViewById(R.id.catButton).setVisibility(View.VISIBLE);
+                activity.findViewById(R.id.crocButton).setVisibility(View.VISIBLE);
+            }
+
 
             LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
             pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
