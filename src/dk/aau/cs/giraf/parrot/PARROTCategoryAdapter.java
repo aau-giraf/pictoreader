@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GSelectableContent;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
@@ -95,8 +96,8 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 
        if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(context);
-            imageView.setLayoutParams(new GridView.LayoutParams(75, 75));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setLayoutParams(new GridView.LayoutParams(GComponent.DpToPixel(150, this.context), GComponent.DpToPixel(150, this.context)));
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setPadding(8, 8, 8, 8);
             imageView.setBackgroundColor(10);
 
@@ -105,6 +106,9 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 
         else {
             imageView = (ImageView) view.findViewById(R.id.categorybitmap);
+            imageView.getLayoutParams().width = GComponent.DpToPixel(135, this.context);
+            imageView.getLayoutParams().height = GComponent.DpToPixel(135, this.context);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             textView = (TextView) view.findViewById(R.id.categorytext);
         }
 
@@ -122,6 +126,8 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 
         //we then set the imageview to the icon of the category
         imageView.setImageBitmap(bitmap);
+        imageView.setMaxHeight(5);
+        imageView.setMaxWidth(5);
 
         imageView.setOnTouchListener(new pictogramTouchListener(position, ID, activity, user));
 
