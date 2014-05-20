@@ -27,6 +27,7 @@ import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.content.pm.PackageManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -331,6 +332,10 @@ public class SpeechBoardFragment extends Fragment
             GLayout btnSearch = (GLayout)parrent.findViewById(R.id.btnPictosearchLayout);
             btnSearch.SetMarked(false);
         }
+
+        TextView selectedCategoryText = (TextView) parrent.findViewById(R.id.textViewSelectedCategory);
+
+        selectedCategoryText.setText("Valgt kategori: " +  displayedMainCategory.getName());
 	}
 
 
