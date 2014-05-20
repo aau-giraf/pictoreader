@@ -32,7 +32,7 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
 public class PARROTCategoryAdapter extends BaseAdapter{
 
 	private List<Category> categories;
-    private List<Boolean> marked;
+    public List<Boolean> marked;
 	private Context context;
     private int ID;
     private Activity activity;
@@ -92,7 +92,7 @@ public class PARROTCategoryAdapter extends BaseAdapter{
         Bitmap bitmap = categories.get(position).getImage();
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.categoryview, null);
-        ((GSelectableContent)view).SetSelected(marked.get(position));
+        //((GSelectableContent)view).SetSelected(marked.get(position));
 
        if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(context);
