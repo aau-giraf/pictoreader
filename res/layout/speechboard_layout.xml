@@ -90,7 +90,7 @@
                 android:scrollbarAlwaysDrawVerticalTrack="true"
                 android:scrollbarTrackVertical="@drawable/scrollbar_vertical_track"
                 android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"
-                android:scrollbarSize="20dip"
+                android:scrollbarSize="50dip"
                 android:layout_weight="1" />
 
             <dk.aau.cs.giraf.gui.GVerticalScrollViewSnapper
