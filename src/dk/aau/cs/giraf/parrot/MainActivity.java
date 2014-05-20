@@ -115,7 +115,14 @@ public class MainActivity extends Activity {
             }
             else
             {
-                parrotUser = dataLoader.loadProfile((int)childID, app.getId());
+                if (childID != -1)
+                {
+                    parrotUser = dataLoader.loadProfile((int)childID, app.getId());
+                }
+                else
+                {
+                    parrotUser = dataLoader.loadProfile((int) guardianID, app.getId());
+                }
             }
         }
         else
