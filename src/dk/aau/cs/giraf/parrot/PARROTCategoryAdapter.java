@@ -90,6 +90,8 @@ public class PARROTCategoryAdapter extends BaseAdapter{
         ImageView imageView;
         TextView textView;
         Bitmap bitmap = categories.get(position).getImage();
+
+
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.categoryview, null);
         //((GSelectableContent)view).SetSelected(marked.get(position));

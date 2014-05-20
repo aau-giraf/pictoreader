@@ -212,7 +212,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 				else if(self.getId() != R.id.sentenceboard && SpeechBoardFragment.dragOwnerID == R.id.sentenceboard) //If we drag something from the sentenceboard to somewhere else
 				{
                     GGridView speech = (GGridView) parrent.findViewById(R.id.sentenceboard);
-                    int x = (int)event.getX();
+                    /*int x = (int)event.getX();
                     int y = (int)event.getY();
                     int index = speech.pointToPosition(x, y);
                     if(index <0)//if the pictogram is dropped at an illegal position
@@ -222,11 +222,11 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 
                     }
                     else
-                    {
-                    SpeechBoardFragment.pictogramList.set(index, null);
+                    {*/
+                    SpeechBoardFragment.pictogramList.set(SpeechBoardFragment.draggedPictogramIndex, null);
 					speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
 					speech.invalidate();
-                    }
+                    //}
 				}
 
 			}

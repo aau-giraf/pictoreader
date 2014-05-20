@@ -81,7 +81,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Valgt kategori: "
                 android:id="@+id/textViewSelectedCategory"
                 android:gravity="left"
                 android:autoText="false"
