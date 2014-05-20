@@ -61,6 +61,7 @@ public class SpeechBoardFragment extends Fragment
 	
 	//This category contains the pictograms on the sentenceboard
 	public static ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictogramList = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
+    public static ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> viewedPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
 	//This category contains the pictograms displayed on the big board
 	public static Category displayedCategory = null;
     public static Category displayedMainCategory = null;
@@ -177,7 +178,17 @@ public class SpeechBoardFragment extends Fragment
 
 			subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent, R.id.subcategory, user, displayedSubCategoryIndex));
             speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
-		 	pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent, user));
+
+            if (speechboardPictograms.size() > 200)
+            {
+                viewedPictograms.addAll(speechboardPictograms.subList(0,199));
+            }
+            else
+            {
+                viewedPictograms.addAll(speechboardPictograms);
+            }
+
+		 	pictogramGrid.setAdapter(new PictogramAdapter(viewedPictograms, parrent.getApplicationContext(),parrent, user));
 
 			//setup drag listeners for the views
 			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
