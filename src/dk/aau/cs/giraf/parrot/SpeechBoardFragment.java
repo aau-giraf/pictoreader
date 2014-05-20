@@ -152,7 +152,7 @@ public class SpeechBoardFragment extends Fragment
 
 
             int categoryWidth = 2*150;
-            int scrollbarWidth = 10;
+            int scrollbarWidth = 50;
             if(backToNormalView)
             {
                 categoryWidth = 0;
@@ -185,9 +185,6 @@ public class SpeechBoardFragment extends Fragment
 
 			parrent.findViewById(R.id.sentenceboard).setOnDragListener(speechDragListener);
 
-
-
-
             if(pictogramList.size() == 0)
             {
                 for (int i = 0; i < noInSentence; i++)
@@ -195,8 +192,6 @@ public class SpeechBoardFragment extends Fragment
                     pictogramList.add(null);
                 }
             }
-
-
 
             // Set sentence board width dependent on the screen size
             LinearLayout playButton = (LinearLayout) parrent.findViewById(R.id.playButtonLayout);
@@ -242,21 +237,6 @@ public class SpeechBoardFragment extends Fragment
                     createOnClickListener(crocButton, crocIntent);
                 }
             }
-
-			//Play sound, when click on a pictogram in the sentence board
-			sentenceBoardGrid.setOnItemClickListener(new OnItemClickListener() {
-                PictogramController pictogramController = new PictogramController(getActivity());
-
-                @Override
-                public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-
-                    dk.aau.cs.giraf.oasis.lib.models.Pictogram p = pictogramList.get(position);
-                    if (!(p.getId() == -1)) {
-                        //PLAY AUDIO HERE
-                        //p.playAudio();
-                    }
-                }
-            });
 
             final GButtonTrash button = (GButtonTrash) parrent.findViewById(R.id.btnClear);
             button.setOnClickListener(new View.OnClickListener() {
@@ -399,7 +379,7 @@ public class SpeechBoardFragment extends Fragment
 
             try{
                 intent.setComponent(new ComponentName( "dk.aau.cs.giraf.pictosearch",  "dk.aau.cs.giraf.pictosearch.PictoAdminMain"));
-                intent.putExtra("currentGuardianID", user.getProfileID());
+                intent.putExtra("currentChildID", user.getProfileID());
                 intent.putExtra("purpose", "multi");
 
                 startActivityForResult(intent, parrent.RESULT_FIRST_USER);
@@ -419,7 +399,10 @@ public class SpeechBoardFragment extends Fragment
             LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
             pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
 
-            speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+            if(displayedCategory != null)
+            {
+                speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+            }
 
             GGridView pictogramGrid = (GGridView) activity.findViewById(R.id.pictogramgrid);
 

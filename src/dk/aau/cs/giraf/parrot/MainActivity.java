@@ -115,7 +115,14 @@ public class MainActivity extends Activity {
             }
             else
             {
-                parrotUser = dataLoader.loadProfile((int)childID, app.getId());
+                if (childID != -1)
+                {
+                    parrotUser = dataLoader.loadProfile((int)childID, app.getId());
+                }
+                else
+                {
+                    parrotUser = dataLoader.loadProfile((int) guardianID, app.getId());
+                }
             }
         }
         else
@@ -144,12 +151,22 @@ public class MainActivity extends Activity {
         {
             if (outsideGIRAF == true)
             {
-                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-                GCancelButton gCancelButton = new GCancelButton(this.getApplicationContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-                alertDialog.setTitle("Fejl");
-                alertDialog.setMessage("Ikke åbnet gennem Launcher.");
-                alertDialog.show();
+                builder.setMessage("Bruger ikke fundet.")
+                        .setTitle("Fejl")
+                        .setNegativeButton(R.string.returnItem, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User clicked OK, so save the mSelectedItems results somewhere
+                                // or return them to the component that opened the dialog
+                                finish();
+                            }
+                        });
+                // 3. Get the AlertDialog from create()
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
                 outsideGIRAF = false;
             }
         }

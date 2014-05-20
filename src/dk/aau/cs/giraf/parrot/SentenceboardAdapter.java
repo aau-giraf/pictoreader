@@ -136,7 +136,6 @@ public class SentenceboardAdapter extends BaseAdapter {
 
             try {
                 imageView.setLayoutParams(imageLayoutParams);
-
             }
             catch (Exception e)
             {
