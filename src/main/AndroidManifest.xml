@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:largeHeap="true"
-        android:icon="@drawable/ic_launcher_parrot"
+        android:icon="@drawable/picto_reader"
         android:label="@string/app_name"
 		android:theme="@android:style/Theme.Holo"
 	    tools:replace="icon,theme">
