@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
         View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main, null);
 
         //Set the background
-        v.setBackgroundColor(GComponent.GetBackgroundColor());
+        v.setBackgroundColor(GComponent.GetBackgroundColor()));
 
         setContentView(v);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -170,7 +170,6 @@ public class MainActivity extends Activity {
                 outsideGIRAF = false;
             }
         }
-
     }
 
     /**
