@@ -261,13 +261,11 @@ public class SpeechBoardFragment extends Fragment
             });
 		}
 
-        GButtonSettings btnOptions = (GButtonSettings) parrent.findViewById(R.id.btnSettings);
+        final GButtonSettings btnOptions = (GButtonSettings) parrent.findViewById(R.id.btnSettings);
 
         btnOptions.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Create new fragment and transaction
-
-
                 Fragment newFragment = new OptionFragment();
 
                 getFragmentManager().beginTransaction()
@@ -278,7 +276,7 @@ public class SpeechBoardFragment extends Fragment
             }
         });
 
-        GButtonSearch btnPictosearch = (GButtonSearch) parrent.findViewById(R.id.btnPictosearch);
+        final GButtonSearch btnPictosearch = (GButtonSearch) parrent.findViewById(R.id.btnPictosearch);
 
         btnPictosearch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -287,12 +285,19 @@ public class SpeechBoardFragment extends Fragment
             }
         });
 
-        GButtonPlay btnPlay = (GButtonPlay) parrent.findViewById(R.id.btnPlay);
+        final GButtonPlay btnPlay = (GButtonPlay) parrent.findViewById(R.id.btnPlay);
 
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 boolean change;
+
+                if (btnPlay.isPlaying)
+                {
+                    btnPlay.setPlayIcon();
+                    pictoMediaPlayer.stopSound();
+                    return;
+                }
+
                 for(int i = 0; i < pictogramList.size(); i++)
                 {
                     change = true;
@@ -310,13 +315,12 @@ public class SpeechBoardFragment extends Fragment
                         }
                     }
                 }
+
                 GridView sentence = (GridView) parrent.findViewById(R.id.sentenceboard);
                 sentence.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
                 sentence.invalidate();
 
-
-
-                pictoMediaPlayer.playListOfPictograms(pictogramList);
+                pictoMediaPlayer.playListOfPictograms(pictogramList, btnPlay);
             }
         });
 
@@ -390,7 +394,6 @@ public class SpeechBoardFragment extends Fragment
         int piccolnumb = pictogramgridWidth/pictogramWidth;
         pictogramGrid.setNumColumns(piccolnumb);
     }
-
 
 	/**
 	 * fill the sentenceboard with empty pictograms
