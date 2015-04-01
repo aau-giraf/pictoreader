@@ -1,14 +1,1 @@
-include ':metadata'
-include ':pictogram-lib'
-include ':CategoryLib'
-include ':Ambilwarna'
-include ':GIRAF_Components'
 include ':PARROT'
-
-include ':OasisLib'
-include ':local-db'
-project(':local-db').projectDir = new File('OasisLib/local-db')
-include ':metadata'
-project(':metadata').projectDir = new File('OasisLib/metadata')
-include ':metadata_local'
-project(':metadata_local').projectDir = new File('OasisLib/local-db/metadata_local')
