@@ -1,39 +1,21 @@
 package dk.aau.cs.giraf.parrot;
 
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.ClipData;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.telephony.gsm.GsmCellLocation;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.DragShadowBuilder;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.content.pm.PackageManager;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.IOException;
-import java.io.NotActiveException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,10 +24,8 @@ import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
-import dk.aau.cs.giraf.oasis.lib.models.PictogramCategory;
 import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 import dk.aau.cs.giraf.pictogram.Pictogram;
-import dk.aau.cs.giraf.pictogram.TextToSpeech;
 
 /**
  * @author PARROT spring 2012 and adapted by SW605f13
