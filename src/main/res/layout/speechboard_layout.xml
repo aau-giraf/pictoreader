@@ -88,19 +88,6 @@
                             android:id="@+id/btnPictosearch"/>
                     </dk.aau.cs.giraf.gui.GLayout>
 
-                    <dk.aau.cs.giraf.gui.GButton
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:id="@+id/catButton"
-                        android:layout_marginTop="25dp"
-                        android:visibility="invisible" />
-
-                    <dk.aau.cs.giraf.gui.GButton
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:id="@+id/crocButton"
-                        android:visibility="invisible" />
-
                 </LinearLayout>
 
                 </dk.aau.cs.giraf.gui.GVerticalScrollViewSnapper>
