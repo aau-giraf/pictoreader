@@ -26,6 +26,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 
 import java.util.List;
 
+import dk.aau.cs.giraf.activity.GirafActivity;
 import dk.aau.cs.giraf.gui.GCancelButton;
 import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GToast;
@@ -40,7 +41,7 @@ import dk.aau.cs.giraf.oasis.lib.models.Profile;
  * @author SW605f13-PARROT and PARROT spring 2012.
  *	This is the main Activity Class in Parrot.
  */
-public class MainActivity extends Activity {
+public class MainActivity extends GirafActivity {
 
     private static PARROTProfile parrotUser;
     private static int guardianID;
@@ -67,7 +68,7 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main, null);
 
         //Set the background
