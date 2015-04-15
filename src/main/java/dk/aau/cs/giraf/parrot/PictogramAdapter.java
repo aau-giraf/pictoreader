@@ -3,6 +3,7 @@ package dk.aau.cs.giraf.parrot;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,8 +83,10 @@ public class PictogramAdapter extends BaseAdapter {
 
 		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		view = layoutInflater.inflate(R.layout.pictogramview, null);
-		view.setOnDragListener(new SpeechBoardBoxDragListener(activity, context, user));
-		view.setOnTouchListener(new pictogramTouchListener( position, R.id.pictogramgrid, activity, user) );
+
+        view.setOnDragListener(new SpeechBoardBoxDragListener(activity, context, user));
+        view.setOnClickListener(new pictogramClickListener( position, R.id.pictogramgrid, activity, user) );
+        view.setOnTouchListener(new pictogramTouchListener( position, R.id.pictogramgrid, activity, user) );
 
 		//setup views
 		imageView = (ImageView) view.findViewById(R.id.pictogrambitmap); 

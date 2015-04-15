@@ -4,6 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:onClick="onClick"
 
 
     >
@@ -12,7 +13,9 @@
         android:id="@+id/pictogrambitmap"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:layout_marginBottom="3dp"/>
+        android:layout_marginBottom="3dp"
+        android:clickable="true" />
+
 
 
     <TextView

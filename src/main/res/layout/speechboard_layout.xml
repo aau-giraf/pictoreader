@@ -47,6 +47,7 @@
                     android:layout_width="1002dp"
                     android:layout_height="match_parent"
                     android:stretchMode="none"
+                    android:clickable="true"
                     android:scrollbars="vertical"
                     android:fadeScrollbars="false"
                     android:scrollbarAlwaysDrawVerticalTrack="true"

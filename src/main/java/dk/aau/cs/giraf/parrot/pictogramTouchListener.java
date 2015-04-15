@@ -2,20 +2,12 @@ package dk.aau.cs.giraf.parrot;
 
 import android.app.Activity;
 import android.content.ClipData;
-import android.content.Context;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.DragShadowBuilder;
 import android.view.View.OnTouchListener;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.ListAdapter;
-import android.widget.TextView;
-
 import dk.aau.cs.giraf.gui.GGridView;
-import dk.aau.cs.giraf.gui.GSelectableContent;
 import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
-import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 
 public class pictogramTouchListener implements OnTouchListener {
@@ -35,8 +27,11 @@ public class pictogramTouchListener implements OnTouchListener {
         pictogramController = new PictogramController(activity.getApplicationContext());
 
 	}
+    public boolean onTouch(View view, MotionEvent event) {return true;}
+	/*
 	@Override
 	public boolean onTouch(View view, MotionEvent event) {
+        Log.i("Giraf", "EVENT KIG HER: " + event.getAction());
 		if (event.getAction() == MotionEvent.ACTION_DOWN)
         {
 			SpeechBoardFragment.draggedPictogramIndex = position;
@@ -96,5 +91,5 @@ public class pictogramTouchListener implements OnTouchListener {
 		{
 			return false;
 		}
-	}
+	} */
 }
