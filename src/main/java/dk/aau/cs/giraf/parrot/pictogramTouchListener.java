@@ -81,10 +81,6 @@ public class pictogramTouchListener implements OnTouchListener {
                 //Setup the view for the categories
                 GGridView mainCategoryGrid = (GGridView) activity.findViewById(R.id.supercategory);
 
-                TextView selectedCategoryText = (TextView) activity.findViewById(R.id.textViewSelectedCategory);
-
-                selectedCategoryText.setText("Valgt kategori: " +  SpeechBoardFragment.displayedMainCategory.getName());
-
 
                 //mainCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getCategoriesByProfileId(user.getProfileID()), activity, R.id.supercategory, user, SpeechBoardFragment.displayedMainCategoryIndex));
             }

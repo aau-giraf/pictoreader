@@ -21,17 +21,6 @@
             android:orientation="vertical"
             android:layout_gravity="bottom">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Hovedkategori"
-                android:id="@+id/textViewHovedkateori"
-                android:gravity="center"
-                android:autoText="false"
-                android:layout_gravity="center"
-                android:textColor="#000000" />
-
             <dk.aau.cs.giraf.gui.GGridView
                 android:id="@+id/supercategory"
                 android:layout_width="match_parent"
@@ -46,16 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/textViewSelectedCategory"
-                android:gravity="left"
-                android:autoText="false"
-                android:layout_gravity="center"
-                android:textColor="#000000" />
 
             <LinearLayout
                 android:orientation="horizontal"

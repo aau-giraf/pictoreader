@@ -1,6 +1,7 @@
 package dk.aau.cs.giraf.parrot;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.ClipData;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.NotActiveException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,11 +51,12 @@ import dk.aau.cs.giraf.pictogram.TextToSpeech;
  * @author PARROT spring 2012 and adapted by SW605f13
  * This class handles the views and actions of the speechLearning "Tale" function
  */
+
+@SuppressLint("ValidFragment") //Avoid default constructor
 public class SpeechBoardFragment extends Fragment
 {
-
 	private Activity parrent;
-	
+
 	//Remembers the index of the pictogram that is currently being dragged.
 	public static int draggedPictogramIndex = -1;
 	public static int dragOwnerID =-1;
@@ -328,18 +331,6 @@ public class SpeechBoardFragment extends Fragment
             btnSearch.SetMarked(false);
         }
 
-        TextView selectedCategoryText = (TextView) parrent.findViewById(R.id.textViewSelectedCategory);
-
-        if(backToNormalView)
-        {
-            selectedCategoryText.setText("");
-        }
-        else
-        {
-            selectedCategoryText.setText("Valgt kategori: " + displayedMainCategory.getName());
-        }
-
-
         if(guadianID == -1 && childID == -1)
         {
             parrent.findViewById(R.id.catButton).setVisibility(View.GONE);
@@ -452,8 +443,6 @@ public class SpeechBoardFragment extends Fragment
         else
         {
             backToNormalView = false;
-            TextView selectedCategoryText = (TextView) parrent.findViewById(R.id.textViewSelectedCategory);
-            selectedCategoryText.setText("Valgt kategori: " + displayedMainCategory.getName());
             setGridviewColNumb();
             Activity activity = this.getActivity();
             activity.findViewById(R.id.psupercategory).setVisibility(View.VISIBLE);
