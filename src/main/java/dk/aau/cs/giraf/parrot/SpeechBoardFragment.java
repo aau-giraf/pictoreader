@@ -291,9 +291,9 @@ public class SpeechBoardFragment extends Fragment
             public void onClick(View v) {
                 boolean change;
 
-                if (btnPlay.isPlaying)
+                if (pictoMediaPlayer.isPlaying())
                 {
-                    btnPlay.setPlayIcon();
+                    //pictoMediaPlayer.setPlayIcon();
                     pictoMediaPlayer.stopSound();
                     return;
                 }
@@ -320,7 +320,7 @@ public class SpeechBoardFragment extends Fragment
                 sentence.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
                 sentence.invalidate();
 
-                pictoMediaPlayer.playListOfPictograms(pictogramList, btnPlay);
+                pictoMediaPlayer.playListOfPictograms(pictogramList);
             }
         });
 
