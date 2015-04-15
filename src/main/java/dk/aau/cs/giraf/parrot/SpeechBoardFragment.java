@@ -180,16 +180,8 @@ public class SpeechBoardFragment extends Fragment
             LinearLayout.LayoutParams sBParams = new LinearLayout.LayoutParams(width - playButtonLayout.width, GComponent.DpToPixel(150, parrent));
 
             sentenceBoard.setLayoutParams(sBParams);
-
-            // Initialise cat and croc buttons
-            String catName = "dk.aau.cs.giraf.pictoadmin";
-            String crocName = "dk.aau.cs.giraf.pictocreator";
-            Intent catIntent = null;
-            Intent crocIntent = null;
-            GButton catButton = (GButton) parrent.findViewById(R.id.catButton);
-            GButton crocButton = (GButton) parrent.findViewById(R.id.crocButton);
-
-
+            //Delete this? 15/04-2015
+            /*
             final PackageManager packMan = parrent.getPackageManager();
             List<ApplicationInfo> apps = packMan.getInstalledApplications(PackageManager.GET_META_DATA);
 
@@ -223,7 +215,7 @@ public class SpeechBoardFragment extends Fragment
                     createOnClickListener(crocButton, crocIntent);
                 }
             }
-
+            */
             final GButtonTrash button = (GButtonTrash) parrent.findViewById(R.id.btnClear);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -311,11 +303,13 @@ public class SpeechBoardFragment extends Fragment
             btnSearch.SetMarked(false);
         }
 
+        /*
         if(guadianID == -1 && childID == -1)
         {
             parrent.findViewById(R.id.catButton).setVisibility(View.GONE);
             parrent.findViewById(R.id.crocButton).setVisibility(View.GONE);
         }
+        */
 	}
 
     public void setGridviewColNumb()
@@ -377,9 +371,10 @@ public class SpeechBoardFragment extends Fragment
 
         activity.findViewById(R.id.psupercategory).setVisibility(View.GONE);
         activity.findViewById(R.id.btnSettings).setVisibility(View.GONE);
+        /*
         activity.findViewById(R.id.catButton).setVisibility(View.GONE);
         activity.findViewById(R.id.crocButton).setVisibility(View.GONE);
-         
+        */
         LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
         pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
 
@@ -427,12 +422,14 @@ public class SpeechBoardFragment extends Fragment
             Activity activity = this.getActivity();
             activity.findViewById(R.id.psupercategory).setVisibility(View.VISIBLE);
             activity.findViewById(R.id.btnSettings).setVisibility(View.VISIBLE);
+
+            /*
             if(guadianID != -1 || childID != -1)
             {
                 activity.findViewById(R.id.catButton).setVisibility(View.VISIBLE);
                 activity.findViewById(R.id.crocButton).setVisibility(View.VISIBLE);
             }
-
+            */
 
             LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
             pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
