@@ -153,9 +153,10 @@ public class SpeechBoardFragment extends Fragment
 			//Setup the view for the categories
             GGridView superCategoryGrid = (GGridView) parrent.findViewById(R.id.supercategory);
 			superCategoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parrent, R.id.supercategory, user, displayedMainCategoryIndex));
-            GGridView subCategoryGrid = (GGridView) parrent.findViewById(R.id.subcategory);
+            //GGridView subCategoryGrid = (GGridView) parrent.findViewById(R.id.subcategory); // Lasse
             CategoryController categoryController = new CategoryController(parrent);
 
+            /*
             try
             {
 			    subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(displayedCategory), parrent, R.id.subcategory, user, displayedSubCategoryIndex));
@@ -165,7 +166,7 @@ public class SpeechBoardFragment extends Fragment
                 e.getStackTrace();
                 return;
             }
-
+            */
             try
             {
                 SpeechBoardFragment.speechboardPictograms.clear();
@@ -416,7 +417,7 @@ public class SpeechBoardFragment extends Fragment
 
         speechboardPictograms = (ArrayList) pictograms;
 
-        activity.findViewById(R.id.psubcategory).setVisibility(View.GONE);
+        //activity.findViewById(R.id.psubcategory).setVisibility(View.GONE);
         activity.findViewById(R.id.psupercategory).setVisibility(View.GONE);
         activity.findViewById(R.id.btnSettings).setVisibility(View.GONE);
         activity.findViewById(R.id.catButton).setVisibility(View.GONE);
@@ -469,7 +470,7 @@ public class SpeechBoardFragment extends Fragment
             selectedCategoryText.setText("Valgt kategori: " + displayedMainCategory.getName());
             setGridviewColNumb();
             Activity activity = this.getActivity();
-            activity.findViewById(R.id.psubcategory).setVisibility(View.VISIBLE);
+            //activity.findViewById(R.id.psubcategory).setVisibility(View.VISIBLE);
             activity.findViewById(R.id.psupercategory).setVisibility(View.VISIBLE);
             activity.findViewById(R.id.btnSettings).setVisibility(View.VISIBLE);
             if(guadianID != -1 || childID != -1)

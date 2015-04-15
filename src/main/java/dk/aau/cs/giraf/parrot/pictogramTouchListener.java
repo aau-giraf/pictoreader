@@ -80,9 +80,9 @@ public class pictogramTouchListener implements OnTouchListener {
 
                 //Setup the view for the categories
                 SpeechBoardFragment.displayedSubCategoryIndex = -1;
-                GGridView subCategoryGrid = (GGridView) activity.findViewById(R.id.subcategory);
+                //GGridView subCategoryGrid = (GGridView) activity.findViewById(R.id.subcategory); // Lasse
                 GGridView mainCategoryGrid = (GGridView) activity.findViewById(R.id.supercategory);
-                subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory), activity, R.id.subcategory, user,-1));
+                //subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory), activity, R.id.subcategory, user,-1)); //Lasse
 
                 TextView selectedCategoryText = (TextView) activity.findViewById(R.id.textViewSelectedCategory);
 
@@ -91,6 +91,7 @@ public class pictogramTouchListener implements OnTouchListener {
 
                 //mainCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getCategoriesByProfileId(user.getProfileID()), activity, R.id.supercategory, user, SpeechBoardFragment.displayedMainCategoryIndex));
             }
+            /*
             else if (owner == R.id.subcategory)
             {
                 CategoryController categoryController = new CategoryController(activity.getBaseContext());
@@ -126,7 +127,7 @@ public class pictogramTouchListener implements OnTouchListener {
                     subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory), activity, R.id.subcategory, user,SpeechBoardFragment.displayedSubCategoryIndex));
                 }
             }
-			
+			*/
 			ClipData data = ClipData.newPlainText("label", "text"); 
 
             PictogramDragShadow shadowBuilder = new PictogramDragShadow(view);
