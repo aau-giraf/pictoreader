@@ -1,40 +1,23 @@
 package dk.aau.cs.giraf.parrot;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
-
-
 import com.google.analytics.tracking.android.EasyTracker;
-
-import java.util.List;
-
 import dk.aau.cs.giraf.activity.GirafActivity;
-import dk.aau.cs.giraf.gui.GCancelButton;
 import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.oasis.lib.Helper;
 import dk.aau.cs.giraf.oasis.lib.controllers.ApplicationController;
 import dk.aau.cs.giraf.oasis.lib.controllers.ProfileController;
 import dk.aau.cs.giraf.oasis.lib.models.Application;
-import dk.aau.cs.giraf.oasis.lib.models.Profile;
 
 /**
  *
@@ -68,7 +51,6 @@ public class MainActivity extends GirafActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main, null);
 
         //Set the background
@@ -77,12 +59,7 @@ public class MainActivity extends GirafActivity {
         setContentView(v);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //GComponent.SetBaseColor(Color.rgb(255, 160, 0));
-
-        Helper help = new Helper(this.getApplicationContext());
         boolean outsideGIRAF = false;
-        //help.CreateDummyData();
-
 
         //These lines get the intent from the launcher //TODO use us when testing with the launcher.
         girafIntent = getIntent();
@@ -92,8 +69,6 @@ public class MainActivity extends GirafActivity {
         ApplicationController applicationController = new ApplicationController(getApplicationContext());
 
         app = applicationController.getApplicationByPackageName();
-        //app = new Application(1, "myapp", "1.0", null, "hah", "Main", "mysecr", 1);
-
 
         dataLoader = new PARROTDataLoader(this, true, this.getApplicationContext());
 
@@ -192,9 +167,6 @@ public class MainActivity extends GirafActivity {
 
     }
 
-
-
-
     @Override
     public void onBackPressed()
     {
@@ -216,11 +188,6 @@ public class MainActivity extends GirafActivity {
         {
             finish();
         }
-
-        //super.onBackPressed();
-
-        //getFragmentManager().popBackStack();
-        //getFragmentManager().beginTransaction().add(new SpeechBoardFragment(this.getApplicationContext()), "1").commit();
     }
 
     /**
