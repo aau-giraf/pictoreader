@@ -79,10 +79,7 @@ public class pictogramTouchListener implements OnTouchListener {
                 pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
 
                 //Setup the view for the categories
-                SpeechBoardFragment.displayedSubCategoryIndex = -1;
-                //GGridView subCategoryGrid = (GGridView) activity.findViewById(R.id.subcategory); // Lasse
                 GGridView mainCategoryGrid = (GGridView) activity.findViewById(R.id.supercategory);
-                //subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory), activity, R.id.subcategory, user,-1)); //Lasse
 
                 TextView selectedCategoryText = (TextView) activity.findViewById(R.id.textViewSelectedCategory);
 
@@ -91,43 +88,7 @@ public class pictogramTouchListener implements OnTouchListener {
 
                 //mainCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getCategoriesByProfileId(user.getProfileID()), activity, R.id.supercategory, user, SpeechBoardFragment.displayedMainCategoryIndex));
             }
-            /*
-            else if (owner == R.id.subcategory)
-            {
-                CategoryController categoryController = new CategoryController(activity.getBaseContext());
-                //this check is neccessary if you click twice at a subcategory it will crash since subCategories does not contain any subCategory
-                if(!categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedMainCategory).isEmpty())
-                {
-                    try
-                    {
-                        SpeechBoardFragment.displayedCategory = categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedMainCategory).get(position);
-                    }
-                    catch (OutOfMemoryError e)
-                    {
-                        e.getStackTrace();
-                        return false;
-                    }
 
-                    GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
-                    SpeechBoardFragment.displayedSubCategoryIndex = SpeechBoardFragment.draggedPictogramIndex;
-
-                    try
-                    {
-                        SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
-                    }
-                    catch (OutOfMemoryError e)
-                    {
-                        e.getStackTrace();
-                        SpeechBoardFragment.speechboardPictograms.clear();
-                        return false;
-                    }
-
-                    pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(),activity, user));
-                    GGridView subCategoryGrid = (GGridView) activity.findViewById(R.id.subcategory);
-                    subCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getSubcategoriesByCategory(SpeechBoardFragment.displayedCategory), activity, R.id.subcategory, user,SpeechBoardFragment.displayedSubCategoryIndex));
-                }
-            }
-			*/
 			ClipData data = ClipData.newPlainText("label", "text"); 
 
             PictogramDragShadow shadowBuilder = new PictogramDragShadow(view);

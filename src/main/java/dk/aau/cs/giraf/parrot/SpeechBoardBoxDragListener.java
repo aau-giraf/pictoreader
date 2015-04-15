@@ -118,7 +118,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                         {
                             draggedPictogram = SpeechBoardFragment.speechboardPictograms.get(SpeechBoardFragment.draggedPictogramIndex);
                         }
-                        else if(SpeechBoardFragment.dragOwnerID == R.id.supercategory ) //|| SpeechBoardFragment.dragOwnerID == R.id.subcategory
+                        else if(SpeechBoardFragment.dragOwnerID == R.id.supercategory )
                         {
                             Category cat = SpeechBoardFragment.displayedCategory;
                             draggedPictogram = new Pictogram();
