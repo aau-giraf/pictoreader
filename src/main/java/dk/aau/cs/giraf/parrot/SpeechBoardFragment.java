@@ -291,12 +291,12 @@ public class SpeechBoardFragment extends Fragment
             public void onClick(View v) {
                 boolean change;
 
-                if (btnPlay.isPlaying)
+/*                if (btnPlay.isPlaying)
                 {
                     btnPlay.setPlayIcon();
                     pictoMediaPlayer.stopSound();
                     return;
-                }
+                }*/
 
                 for(int i = 0; i < pictogramList.size(); i++)
                 {
@@ -320,7 +320,7 @@ public class SpeechBoardFragment extends Fragment
                 sentence.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
                 sentence.invalidate();
 
-                pictoMediaPlayer.playListOfPictograms(pictogramList, btnPlay);
+                pictoMediaPlayer.playListOfPictograms(pictogramList);
             }
         });
 
