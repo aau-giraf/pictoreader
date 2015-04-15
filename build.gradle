@@ -32,7 +32,7 @@ dependencies {
     compile(group: 'dk.aau.cs.giraf', name: 'categoryLib', version: '1.0', ext: 'aar')
     compile(group: 'dk.aau.cs.giraf', name: 'ambilwarna', version: '1.0', ext: 'aar')
     compile(group: 'dk.aau.cs.giraf', name: 'pictogramLib', version: '1.0', ext: 'aar')
-    compile(group: 'dk.aau.cs.giraf', name: 'girafComponent', version: '1.0', ext: 'aar')
+    compile(group: 'dk.aau.cs.giraf', name: 'girafComponent', version: '1.10', ext: 'aar')
     compile files('libraries/libGoogleAnalyticsServices.jar')
 }
 
