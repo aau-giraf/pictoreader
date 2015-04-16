@@ -253,7 +253,6 @@ public class SpeechBoardFragment extends Fragment
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 boolean change;
-
                 if (pictoMediaPlayer.isPlaying())
                 {
                     //pictoMediaPlayer.setPlayIcon();
