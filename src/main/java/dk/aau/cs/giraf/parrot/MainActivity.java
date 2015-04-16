@@ -239,6 +239,4 @@ public class MainActivity extends GirafActivity {
     public static Intent getGirafIntent() {
         return girafIntent;
     }
-
-
 }

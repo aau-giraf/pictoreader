@@ -27,8 +27,8 @@ public class pictogramTouchListener implements OnTouchListener {
         pictogramController = new PictogramController(activity.getApplicationContext());
 
 	}
-    public boolean onTouch(View view, MotionEvent event) {return true;}
-	/*
+    //public boolean onTouch(View view, MotionEvent event) {return true;}
+
 	@Override
 	public boolean onTouch(View view, MotionEvent event) {
         Log.i("Giraf", "EVENT KIG HER: " + event.getAction());
@@ -91,5 +91,5 @@ public class pictogramTouchListener implements OnTouchListener {
 		{
 			return false;
 		}
-	} */
+	}
 }

@@ -86,7 +86,7 @@ public class PictogramAdapter extends BaseAdapter {
 
         view.setOnDragListener(new SpeechBoardBoxDragListener(activity, context, user));
         view.setOnClickListener(new pictogramClickListener( position, R.id.pictogramgrid, activity, user) );
-        view.setOnTouchListener(new pictogramTouchListener( position, R.id.pictogramgrid, activity, user) );
+        //view.setOnTouchListener(new pictogramTouchListener( position, R.id.pictogramgrid, activity, user) );
 
 		//setup views
 		imageView = (ImageView) view.findViewById(R.id.pictogrambitmap); 

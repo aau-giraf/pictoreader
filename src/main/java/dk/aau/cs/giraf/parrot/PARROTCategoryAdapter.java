@@ -131,7 +131,8 @@ public class PARROTCategoryAdapter extends BaseAdapter{
         imageView.setMaxHeight(5);
         imageView.setMaxWidth(5);
 
-        imageView.setOnTouchListener(new pictogramTouchListener(position, ID, activity, user));
+        //imageView.setOnTouchListener(new pictogramTouchListener(position, ID, activity, user));
+        imageView.setOnClickListener(new pictogramClickListener(position,ID,activity,user)); //
 
         return view;
 	}

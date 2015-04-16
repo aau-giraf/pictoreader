@@ -21,6 +21,7 @@
             android:orientation="vertical"
             android:layout_gravity="bottom">
 
+
             <dk.aau.cs.giraf.gui.GGridView
                 android:id="@+id/supercategory"
                 android:layout_width="match_parent"
@@ -30,6 +31,7 @@
                 android:layout_gravity="bottom" />
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +49,6 @@
                     android:layout_width="1002dp"
                     android:layout_height="match_parent"
                     android:stretchMode="none"
-                    android:clickable="true"
                     android:scrollbars="vertical"
                     android:fadeScrollbars="false"
                     android:scrollbarAlwaysDrawVerticalTrack="true"
@@ -60,36 +61,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="right"
-                    >
-
-                    <dk.aau.cs.giraf.gui.GButtonSettings
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:id="@+id/btnSettings"/>
-
-                    <dk.aau.cs.giraf.gui.GButtonTrash
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:id="@+id/btnClear"/>
-
-                    <dk.aau.cs.giraf.gui.GLayout
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        GComponent:Markable="true"
-                        android:id="@+id/btnPictosearchLayout">
+                        android:layout_height="match_parent"
+                        android:gravity="right"
+                        >
 
-                        <dk.aau.cs.giraf.gui.GButtonSearch
+                        <dk.aau.cs.giraf.gui.GButtonSettings
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:id="@+id/btnPictosearch"/>
-                    </dk.aau.cs.giraf.gui.GLayout>
+                            android:id="@+id/btnSettings"/>
 
-                </LinearLayout>
+                        <dk.aau.cs.giraf.gui.GButtonTrash
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:id="@+id/btnClear"/>
+
+                        <dk.aau.cs.giraf.gui.GLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            GComponent:Markable="true"
+                            android:id="@+id/btnPictosearchLayout">
+
+                            <dk.aau.cs.giraf.gui.GButtonSearch
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:id="@+id/btnPictosearch"/>
+                        </dk.aau.cs.giraf.gui.GLayout>
+
+                    </LinearLayout>
 
                 </dk.aau.cs.giraf.gui.GVerticalScrollViewSnapper>
 
