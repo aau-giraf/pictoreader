@@ -95,8 +95,8 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="150dp"
         android:orientation="horizontal"
         android:gravity="right">
@@ -138,10 +138,9 @@
         <dk.aau.cs.giraf.gui.GButtonTrash
             android:orientation="horizontal"
             android:id="@+id/btnClear"
-            android:layout_width="100dp"
+            android:layout_width="156dp"
             android:layout_alignParentLeft="true"
             android:layout_height="fill_parent"
             />
-
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
