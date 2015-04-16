@@ -31,9 +31,8 @@ public class MainActivity extends GirafActivity {
     private static PARROTProfile parrotUser;
     private static int guardianID;
     private static int childID;
-    private PARROTDataLoader dataLoader;
     private static Application app;
-    private static Helper help;
+    // --Commented out by Inspection (16/04/15 12:25):private static Helper help;
     private static Intent girafIntent;
 
     @Override
@@ -72,40 +71,33 @@ public class MainActivity extends GirafActivity {
 
         app = applicationController.getApplicationByPackageName();
 
-        dataLoader = new PARROTDataLoader(this, true, this.getApplicationContext());
+        PARROTDataLoader dataLoader = new PARROTDataLoader(this, true, this.getApplicationContext());
 
-        if (dataLoader != null)
+        if(guardianID == -1 )
         {
-            if(guardianID == -1 )
+            ProfileController profileController = new ProfileController(this.getApplicationContext());
+            GToast toastMessage = GToast.makeText(this.getApplicationContext(), "Kunne ikke finde en brugerprofil.", 15);
+            toastMessage.show();
+            outsideGIRAF = true;
+            try
             {
-                ProfileController profileController = new ProfileController(this.getApplicationContext());
-                GToast toastMessage = GToast.makeText(this.getApplicationContext(), "Kunne ikke finde en brugerprofil.", 15);
-                toastMessage.show();
-                outsideGIRAF = true;
-                try
-                {
-                    parrotUser = dataLoader.loadProfile((int)profileController.getProfilesByName("Offentlig Bruger").get(0).getId(), app.getId());
-                }
-                catch (Exception e)
-                {
-                    parrotUser = null;
-                }
+                parrotUser = dataLoader.loadProfile((int) profileController.getProfilesByName("Offentlig Bruger").get(0).getId(), app.getId());
             }
-            else
+            catch (Exception e)
             {
-                if (childID != -1)
-                {
-                    parrotUser = dataLoader.loadProfile((int)childID, app.getId());
-                }
-                else
-                {
-                    parrotUser = dataLoader.loadProfile((int) guardianID, app.getId());
-                }
+                parrotUser = null;
             }
         }
         else
         {
-            Log.v("dataLoader is Null","dataLoader is Null");
+            if (childID != -1)
+            {
+                parrotUser = dataLoader.loadProfile((int) childID, app.getId());
+            }
+            else
+            {
+                parrotUser = dataLoader.loadProfile((int) guardianID, app.getId());
+            }
         }
 
         if(parrotUser != null)
@@ -127,7 +119,7 @@ public class MainActivity extends GirafActivity {
         }
         else
         {
-            if (outsideGIRAF == true)
+            if (outsideGIRAF)
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -148,25 +140,6 @@ public class MainActivity extends GirafActivity {
                 outsideGIRAF = false;
             }
         }
-    }
-
-    /**
-     * This is called when exitting the activity
-     */
-    @Override
-    protected void onPause() {
-        //AudioPlayer.close();
-        super.onPause();
-    }
-
-    /**
-     * This is called when upon returning to the activity or after onCreate
-     */
-    @Override
-    protected void onResume() {
-        //AudioPlayer.open();
-        super.onResume();
-
     }
 
     @Override
@@ -218,12 +191,14 @@ public class MainActivity extends GirafActivity {
         return childID;
     }
 
-    /**
-     * @return an instance of Helper.
-     */
-    public static Helper getHelp() {
-        return help;
-    }
+// --Commented out by Inspection START (16/04/15 12:25):
+//    /**
+//     * @return an instance of Helper.
+//     */
+//    public static Helper getHelp() {
+//        return help;
+//    }
+// --Commented out by Inspection STOP (16/04/15 12:25)
     /**
      *
      * @return instance of App with this apps data
@@ -233,10 +208,12 @@ public class MainActivity extends GirafActivity {
         return app;
     }
 
-    /**
-     * @return The Intent received from the Launcher
-     */
-    public static Intent getGirafIntent() {
-        return girafIntent;
-    }
+// --Commented out by Inspection START (16/04/15 12:25):
+//    /**
+//     * @return The Intent received from the Launcher
+//     */
+//    public static Intent getGirafIntent() {
+//        return girafIntent;
+//    }
+// --Commented out by Inspection STOP (16/04/15 12:25)
 }

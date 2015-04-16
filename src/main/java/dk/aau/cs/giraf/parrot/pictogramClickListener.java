@@ -57,14 +57,8 @@ class pictogramClickListener implements OnClickListener {
             }
 
             SpeechBoardFragment.dragOwnerID = owner;
-
             GridView sentence = (GridView) activity.findViewById(R.id.sentenceboard);
             sentence.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, activity));
-            //SpeechBoardFragment.UpdateSpeechBoardView();
-
-            //SpeechBoardFragment.displayPictograms(SpeechBoardFragment.pictogramList,activity);
-
-            //SpeechBoardFragment.speechDragListener.draggedPictogram = ;
         }
         else{
             SpeechBoardFragment.displayedMainCategoryIndex = SpeechBoardFragment.draggedPictogramIndex;
@@ -99,14 +93,10 @@ class pictogramClickListener implements OnClickListener {
                 return;
             }
 
-            //SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
             pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
 
             //Setup the view for the categories
             GGridView mainCategoryGrid = (GGridView) activity.findViewById(R.id.supercategory);
-
-
-            //mainCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getCategoriesByProfileId(user.getProfileID()), activity, R.id.supercategory, user, SpeechBoardFragment.displayedMainCategoryIndex));
         }
 
     }

@@ -94,7 +94,6 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.categoryview, null);
-        //((GSelectableContent)view).SetSelected(marked.get(position));
 
        if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(context);
