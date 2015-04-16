@@ -74,11 +74,6 @@
                             android:layout_height="100dp"
                             android:id="@+id/btnSettings"/>
 
-                        <dk.aau.cs.giraf.gui.GButtonTrash
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:id="@+id/btnClear"/>
-
                         <dk.aau.cs.giraf.gui.GLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -100,25 +95,18 @@
         </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="150dp"
         android:orientation="horizontal"
         android:gravity="right">
-        <dk.aau.cs.giraf.gui.GButtonTrash
-            android:orientation="horizontal"
-            android:id="@+id/btnClearr"
-            android:layout_width="100dp"
-            android:layout_alignParentLeft="true"
-            android:layout_height="fill_parent"
-            />
 
         <LinearLayout
             android:id="@+id/sentenceBoardLayout"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
             android:orientation="horizontal"
-            android:layout_centerInParent="true">
+            >
             <dk.aau.cs.giraf.gui.GGridView
                 android:id="@+id/sentenceboard"
                 android:layout_width="fill_parent"
@@ -130,6 +118,7 @@
                 android:stretchMode="none"
                 android:horizontalSpacing="0dp"
                 android:verticalSpacing="5dp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -146,6 +135,13 @@
                 android:layout_weight="1"
                 android:id="@+id/btnPlay" />
         </LinearLayout>
+        <dk.aau.cs.giraf.gui.GButtonTrash
+            android:orientation="horizontal"
+            android:id="@+id/btnClear"
+            android:layout_width="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_height="fill_parent"
+            />
 
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
