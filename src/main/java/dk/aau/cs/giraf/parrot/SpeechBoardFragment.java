@@ -23,10 +23,9 @@ import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
 import dk.aau.cs.giraf.oasis.lib.models.Category;
 import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
-import dk.aau.cs.giraf.pictogram.Pictogram;
 
 /**
- * @author PARROT spring 2012 and adapted by SW605f13
+ * @author PARROT spring 2012 and adapted by SW605f13 and sw608f15
  * This class handles the views and actions of the speechLearning "Tale" function
  */
 
@@ -38,7 +37,7 @@ public class SpeechBoardFragment extends Fragment
     //Skal dette slettes 17-04-2015?
 	//Remembers the index of the pictogram that is currently being dragged.
 	public static int draggedPictogramIndex = -1;
-	public static int dragOwnerID =-1;
+	public static int dragOwnerID = -1;
     //HVORFOR SÆTTER VI ET MAKS?! - SØREN COMMENT
     public static int MaxNumberOfAllowedPictogramsInCategory = 125;
 
@@ -52,7 +51,6 @@ public class SpeechBoardFragment extends Fragment
     public static Category displayedMainCategory = null;
     public static int displayedMainCategoryIndex = 0;
 	private PARROTProfile user = null;
-	//private static Pictogram emptyPictogram = null;
     public static SpeechBoardBoxDragListener speechDragListener;
 
     private PictogramController pictogramController;
@@ -91,7 +89,6 @@ public class SpeechBoardFragment extends Fragment
 
 	}
 
-
 	/**
 	 * Most is done in this. eg setup the gridviews get data shown in the gridviews.
 	 */
@@ -100,8 +97,14 @@ public class SpeechBoardFragment extends Fragment
 		super.onResume();
 		parent.invalidateOptionsMenu();
 
-
         View v = LayoutInflater.from(parent.getApplicationContext()).inflate(R.layout.speechboard_layout, null);
+
+        /*
+        Intent intent = parent.getIntent();
+        parent.finish();
+        startActivity(intent);
+        */
+
         //Set the background
         v.setBackgroundColor(GComponent.GetBackgroundColor());
 
