@@ -95,15 +95,15 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:orientation="horizontal"
-        android:gravity="right">
+        android:orientation="horizontal">
 
         <RelativeLayout
             android:id="@+id/sentenceBoardLayout"
             android:layout_width="10dp"
+            android:layout_alignParentRight="true"
             android:layout_height="fill_parent"
             android:orientation="horizontal"
             >
@@ -111,9 +111,7 @@
                 android:id="@+id/sentenceboard"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-
                 android:scrollbars="horizontal"
-                android:columnWidth="205dp"
                 android:numColumns="7"
                 android:stretchMode="none"
                 android:horizontalSpacing="0dp"
@@ -130,7 +128,7 @@
             android:layout_alignParentRight="true">
 
             <dk.aau.cs.giraf.gui.GButtonPlay
-                android:layout_width="0dp"
+                android:layout_width="@dimen/buttonPlayWidth"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:id="@+id/btnPlay" />
@@ -138,10 +136,9 @@
         <dk.aau.cs.giraf.gui.GButtonTrash
             android:orientation="horizontal"
             android:id="@+id/btnClear"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/buttonTrashWidth"
             android:layout_alignParentLeft="true"
             android:layout_height="fill_parent"
             />
-
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
