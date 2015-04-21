@@ -396,7 +396,7 @@ public class SpeechBoardFragment extends Fragment
     }
 
     /**
-     * Opens pictosearch application, so pictograms can be loaded into pictocreator.
+     * Opens pictosearch application, so pictograms can be loaded into pictocreator. //TODO Pictosearch will be renamed some day
      */
     private void callPictosearch(){
         if(!backToNormalView)
