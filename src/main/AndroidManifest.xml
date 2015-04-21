@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dk.aau.cs.giraf.parrot"
+    package="dk.aau.cs.giraf.pictoreader"
 	xmlns:tools="http://schemas.android.com/tools"
     android:versionCode="1"
     android:versionName="1.0" >
@@ -19,7 +19,7 @@
 		android:theme="@android:style/Theme.Holo"
 	    tools:replace="icon,theme">
         <activity
-            android:name="dk.aau.cs.giraf.parrot.MainActivity"
+            android:name="dk.aau.cs.giraf.pictoreader.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -30,7 +30,7 @@
 
       <!--
         Dont ever specify fragments in AndroidManifest.xml
-      <activity android:name="dk.aau.cs.giraf.parrot.SpeechBoardFragment" />
+      <activity android:name="dk.aau.cs.giraf.pictoreader.SpeechBoardFragment" />
       -->
     </application>
 	

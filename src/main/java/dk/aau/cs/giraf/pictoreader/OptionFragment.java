@@ -1,4 +1,4 @@
-package dk.aau.cs.giraf.parrot;
+package dk.aau.cs.giraf.pictoreader;
 
 import dk.aau.cs.giraf.gui.GButton;
 import dk.aau.cs.giraf.gui.GComponent;
@@ -32,7 +32,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-import dk.aau.cs.giraf.parrot.PARROTProfile.PictogramSize;
+import dk.aau.cs.giraf.pictoreader.PARROTProfile.PictogramSize;
 
 public class OptionFragment extends Fragment{
 

@@ -1,4 +1,4 @@
-package dk.aau.cs.giraf.parrot;
+package dk.aau.cs.giraf.pictoreader;
 
 import android.content.Context;
 import android.graphics.Bitmap;

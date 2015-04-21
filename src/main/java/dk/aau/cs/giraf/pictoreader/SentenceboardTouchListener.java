@@ -1,4 +1,4 @@
-package dk.aau.cs.giraf.parrot;
+package dk.aau.cs.giraf.pictoreader;
 
 import android.content.ClipData;
 import android.view.MotionEvent;

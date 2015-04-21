@@ -1,4 +1,4 @@
-package dk.aau.cs.giraf.parrot.test;
+package dk.aau.cs.giraf.pictoreader.test;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
