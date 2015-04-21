@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,27 +36,30 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
 @SuppressLint("ValidFragment") //Avoid default constructor
 public class SpeechBoardFragment extends Fragment
 {
-	private Activity parrent;
+    private Activity parrent;
 
-	//Remembers the index of the pictogram that is currently being dragged.
-	public static int draggedPictogramIndex = -1;
-	public static int dragOwnerID =-1;
+    //Skal dette slettes 17-04-2015?
+    //Remembers the index of the pictogram that is currently being dragged.
+    public static int draggedPictogramIndex = -1;
+    public static int dragOwnerID =-1;
+    //HVORFOR SÆTTER VI ET MAKS?! - SØREN COMMENT
     public static int MaxNumberOfAllowedPictogramsInCategory = 125;
 
     //Serves as the back-end storage for the visual speechboard
-	public static List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> speechboardPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
-	
-	//This category contains the pictograms on the sentenceboard
-	public static ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictogramList = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
-	//This category contains the pictograms displayed on the big board
-	public static Category displayedCategory = null;
+    public static List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> speechboardPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
+
+    //This category contains the pictograms on the sentenceboard
+    public static ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictogramList = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
+    //This category contains the pictograms displayed on the big board
+    public static Category displayedCategory = null;
     public static Category displayedMainCategory = null;
     public static int displayedMainCategoryIndex = 0;
-	private PARROTProfile user = null;
-	private static Pictogram emptyPictogram = null;
+    private PARROTProfile user = null;
+    //private static Pictogram emptyPictogram = null;
     public static SpeechBoardBoxDragListener speechDragListener;
 
     private PictogramController pictogramController;
+    //This variable is used! Android studio is a liar
     private PictogramCategoryController pictogramCategoryController;
 
     private Context context;
@@ -65,8 +69,8 @@ public class SpeechBoardFragment extends Fragment
 
     private boolean backToNormalView = false;
 
-    int guadianID = (int) MainActivity.getGuardianID();
-    int childID = MainActivity.getChildID();
+    //int guadianID = (int) MainActivity.getGuardianID();
+    //int childID = MainActivity.getChildID();
 
     public SpeechBoardFragment(Context c)
     {
@@ -74,30 +78,30 @@ public class SpeechBoardFragment extends Fragment
         pictoMediaPlayer =  new PictoMediaPlayer(context);
     }
 
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		this.parrent = activity;
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.parrent = activity;
         pictogramController = new PictogramController(activity.getApplicationContext());
         pictogramCategoryController = new PictogramCategoryController(activity.getApplicationContext());
-	}
-	
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setHasOptionsMenu(true);
-
-	}
+    }
 
 
-	/**
-	 * Most is done in this. eg setup the gridviews get data shown in the gridviews.
-	 */
-	@Override
-	public void onResume() {
-		super.onResume();
-		parrent.invalidateOptionsMenu();
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+    }
+
+
+    /**
+     * Most is done in this. eg setup the gridviews get data shown in the gridviews.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        parrent.invalidateOptionsMenu();
 
 
         View v = LayoutInflater.from(parrent.getApplicationContext()).inflate(R.layout.speechboard_layout, null);
@@ -106,16 +110,16 @@ public class SpeechBoardFragment extends Fragment
 
         parrent.setContentView(v);
 
-		user=MainActivity.getUser();
-		
-		//check whether there are categories
-		if(user.getCategoryAt(0)!=null)
-		{
-			displayedCategory = user.getCategoryAt(0);
+        user=MainActivity.getUser();
+
+        //check whether there are categories
+        if(user.getCategoryAt(0)!=null)
+        {
+            displayedCategory = user.getCategoryAt(0);
             displayedMainCategory = displayedCategory;
 
-			//Setup the view for the listing of pictograms in pictogramgrid
-			final GGridView pictogramGrid = (GGridView) parrent.findViewById(R.id.pictogramgrid);
+            //Setup the view for the listing of pictograms in pictogramgrid
+            final GGridView pictogramGrid = (GGridView) parrent.findViewById(R.id.pictogramgrid);
 
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             Point size = new Point();
@@ -124,17 +128,17 @@ public class SpeechBoardFragment extends Fragment
 
             //Setup the view for the sentences
             GGridView sentenceBoardGrid = (GGridView) parrent.findViewById(R.id.sentenceboard);
-			sentenceBoardGrid.setAdapter(new SentenceboardAdapter(pictogramList, parrent.getApplicationContext()));
-			int noInSentence=user.getNumberOfSentencePictograms();
-			sentenceBoardGrid.setNumColumns(noInSentence);
+            sentenceBoardGrid.setAdapter(new SentenceboardAdapter(pictogramList, parrent.getApplicationContext()));
+            int noInSentence=user.getNumberOfSentencePictograms();
+            sentenceBoardGrid.setNumColumns(noInSentence);
 
-			//setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
+            //setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
             setGridviewColNumb();
 
-			
-			//Setup the view for the categories
+
+            //Setup the view for the categories
             GGridView superCategoryGrid = (GGridView) parrent.findViewById(R.id.supercategory);
-			superCategoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parrent, R.id.supercategory, user, displayedMainCategoryIndex));
+            superCategoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parrent, R.id.supercategory, user, displayedMainCategoryIndex));
             CategoryController categoryController = new CategoryController(parrent);
 
             try
@@ -156,13 +160,13 @@ public class SpeechBoardFragment extends Fragment
                 return;
             }
 
-		 	pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent, user));
+            pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parrent.getApplicationContext(),parrent, user));
 
-			//setup drag listeners for the views
-			//parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
+            //setup drag listeners for the views
+            //parrent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parrent));
             speechDragListener = new SpeechBoardBoxDragListener(parrent, parrent.getApplicationContext(), user);
 
-			parrent.findViewById(R.id.sentenceboard).setOnDragListener(speechDragListener);
+            parrent.findViewById(R.id.sentenceboard).setOnDragListener(speechDragListener);
 
             if(pictogramList.size() == 0)
             {
@@ -173,11 +177,15 @@ public class SpeechBoardFragment extends Fragment
             }
 
             // Set sentence board width dependent on the screen size
-            LinearLayout playButton = (LinearLayout) parrent.findViewById(R.id.playButtonLayout);
-            LinearLayout.LayoutParams playButtonLayout = new LinearLayout.LayoutParams(playButton.getLayoutParams());
+            RelativeLayout playButton = (RelativeLayout) parrent.findViewById(R.id.playButtonLayout);
+            RelativeLayout.LayoutParams playButtonLayout = new RelativeLayout.LayoutParams(playButton.getLayoutParams());
 
-            LinearLayout sentenceBoard = (LinearLayout) parrent.findViewById(R.id.sentenceBoardLayout);
-            LinearLayout.LayoutParams sBParams = new LinearLayout.LayoutParams(width - playButtonLayout.width, GComponent.DpToPixel(150, parrent));
+            RelativeLayout sentenceBoard = (RelativeLayout) parrent.findViewById(R.id.sentenceBoardLayout);
+
+            int trashButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonTrashWidth), parrent.getApplicationContext());
+            int playButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonPlayWidth), parrent.getApplicationContext());
+            RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams(width - playButtonWidth - trashButtonWidth, GComponent.DpToPixel(150, parrent));
+            sBParams.leftMargin = trashButtonWidth;
 
             sentenceBoard.setLayoutParams(sBParams);
             //Delete this? 15/04-2015
@@ -222,7 +230,7 @@ public class SpeechBoardFragment extends Fragment
                     clearSentenceboard();
                 }
             });
-		}
+        }
 
         final GButtonSettings btnOptions = (GButtonSettings) parrent.findViewById(R.id.btnSettings);
 
@@ -233,7 +241,7 @@ public class SpeechBoardFragment extends Fragment
 
                 getFragmentManager().beginTransaction()
                         .add(newFragment, "options")
-                        // Add this transaction to the back stack
+                                // Add this transaction to the back stack
                         .addToBackStack("options")
                         .commit();
             }
@@ -309,7 +317,7 @@ public class SpeechBoardFragment extends Fragment
             parrent.findViewById(R.id.crocButton).setVisibility(View.GONE);
         }
         */
-	}
+    }
 
     public void setGridviewColNumb()
     {
@@ -347,11 +355,11 @@ public class SpeechBoardFragment extends Fragment
         pictogramGrid.setNumColumns(piccolnumb);
     }
 
-	/**
-	 * fill the sentenceboard with empty pictograms
-	 */
-	public void clearSentenceboard()
-	{
+    /**
+     * fill the sentenceboard with empty pictograms
+     */
+    public void clearSentenceboard()
+    {
         for(int i= 0; i <= pictogramList.size()-1; i++)
         {
             pictogramList.set(i, null);
@@ -361,7 +369,7 @@ public class SpeechBoardFragment extends Fragment
 
         speech.setAdapter(new SentenceboardAdapter(pictogramList, parrent));
         speech.invalidate();
-	}
+    }
 
     public void displayPictograms(List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictograms, Activity activity)
     {
@@ -481,20 +489,19 @@ public class SpeechBoardFragment extends Fragment
     }
 
     private void loadPictogram(Intent data){
-            int[] pictogramIDs = {};
-            try{
-                pictogramIDs = data.getExtras().getIntArray("checkoutIds");
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
+        int[] pictogramIDs = {};
+        try{
+            pictogramIDs = data.getExtras().getIntArray("checkoutIds");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
-            List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
-            for (int i = 0; i < pictogramIDs.length; i++)
-            {
-                selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
-            }
-            displayPictogramList = selectedPictograms;
+        List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
+        for (int i = 0; i < pictogramIDs.length; i++)
+        {
+            selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
+        }
+        displayPictogramList = selectedPictograms;
     }
 }
-

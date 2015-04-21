@@ -101,7 +101,7 @@
         android:orientation="horizontal"
         android:gravity="right">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/sentenceBoardLayout"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
@@ -119,9 +119,9 @@
                 android:horizontalSpacing="0dp"
                 android:verticalSpacing="5dp" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/playButtonLayout"
             android:layout_width="100dp"
             android:layout_height="150dp"
@@ -134,7 +134,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:id="@+id/btnPlay" />
-        </LinearLayout>
+        </RelativeLayout>
         <dk.aau.cs.giraf.gui.GButtonTrash
             android:orientation="horizontal"
             android:id="@+id/btnClear"
