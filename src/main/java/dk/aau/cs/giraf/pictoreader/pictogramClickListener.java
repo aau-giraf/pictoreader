@@ -72,7 +72,7 @@ class pictogramClickListener implements OnClickListener {
                 return ;
             }
             SpeechBoardFragment.displayedMainCategory = SpeechBoardFragment.displayedCategory;
-            GGridView pictogramGrid = (GGridView) activity.findViewById(R.id.pictogramgrid);
+            GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
 
             try
             {
@@ -96,7 +96,7 @@ class pictogramClickListener implements OnClickListener {
             pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
 
             //Setup the view for the categories
-            GGridView mainCategoryGrid = (GGridView) activity.findViewById(R.id.supercategory);
+            GridView mainCategoryGrid = (GridView) activity.findViewById(R.id.supercategory);
         }
 
     }

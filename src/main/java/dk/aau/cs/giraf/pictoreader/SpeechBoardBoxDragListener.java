@@ -6,8 +6,6 @@ import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
 import android.widget.GridView;
-
-import dk.aau.cs.giraf.gui.GGridView;
 import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
@@ -102,7 +100,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 	//1
 				if( self.getId() == R.id.sentenceboard && SpeechBoardFragment.dragOwnerID != R.id.sentenceboard)	
 				{
-					GGridView speech = (GGridView) parrent.findViewById(R.id.sentenceboard);
+					GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
 					int x = (int)event.getX();
 					int y = (int)event.getY();
 					int index = speech.pointToPosition(x, y);
@@ -166,7 +164,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 				else if(self.getId() == R.id.sentenceboard && SpeechBoardFragment.dragOwnerID == R.id.sentenceboard) //We are rearanging the position of pictograms on the sentenceboard
 				{
 
-					GGridView speech = (GGridView) parrent.findViewById(R.id.sentenceboard);
+					GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
 					int x = (int)event.getX();
 					int y = (int)event.getY();
 					int index = speech.pointToPosition(x, y);
@@ -211,7 +209,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 		//3
 				else if(self.getId() != R.id.sentenceboard && SpeechBoardFragment.dragOwnerID == R.id.sentenceboard) //If we drag something from the sentenceboard to somewhere else
 				{
-                    GGridView speech = (GGridView) parrent.findViewById(R.id.sentenceboard);
+                    GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
                     /*int x = (int)event.getX();
                     int y = (int)event.getY();
                     int index = speech.pointToPosition(x, y);
@@ -265,7 +263,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 			insideOfMe = false;
             if(self.getId() != R.id.sentenceboard && SpeechBoardFragment.dragOwnerID == R.id.sentenceboard) //If we drag something from the sentenceboard to somewhere else
             {
-                GGridView speech = (GGridView) parrent.findViewById(R.id.sentenceboard);
+                GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
                 if(SpeechBoardFragment.draggedPictogramIndex >= 0)
                 {
                     SpeechBoardFragment.pictogramList.set(SpeechBoardFragment.draggedPictogramIndex, null);

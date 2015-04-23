@@ -16,6 +16,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import dk.aau.cs.giraf.activity.GirafActivity;
 import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GToast;
+import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.oasis.lib.Helper;
 import dk.aau.cs.giraf.oasis.lib.controllers.ApplicationController;
 import dk.aau.cs.giraf.oasis.lib.controllers.ProfileController;
@@ -34,6 +35,7 @@ public class MainActivity extends GirafActivity {
     private static Application app;
     // --Commented out by Inspection (16/04/15 12:25):private static Helper help;
     private static Intent girafIntent;
+    private GirafButton btnOptions;
 
     @Override
     public void onStart() {
@@ -53,6 +55,8 @@ public class MainActivity extends GirafActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main, null);
+
+        createOptionsButton();
 
         //Set the background
         v.setBackgroundColor(GComponent.GetBackgroundColor());
@@ -142,6 +146,24 @@ public class MainActivity extends GirafActivity {
         }
     }
 
+    private void createOptionsButton() {
+        btnOptions = new GirafButton(this,getResources().getDrawable(R.drawable.icon_settings));
+        btnOptions.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Create new fragment and transaction
+                Fragment newFragment = new OptionFragment();
+
+                getFragmentManager().beginTransaction()
+                        .add(newFragment, "options")
+                                // Add this transaction to the back stack
+                        .addToBackStack("options")
+                        .commit();
+            }
+        });
+
+        addGirafButtonToActionBar(btnOptions,LEFT);
+    }
+
     @Override
     public void onBackPressed()
     {
@@ -190,15 +212,6 @@ public class MainActivity extends GirafActivity {
     {
         return childID;
     }
-
-// --Commented out by Inspection START (16/04/15 12:25):
-//    /**
-//     * @return an instance of Helper.
-//     */
-//    public static Helper getHelp() {
-//        return help;
-//    }
-// --Commented out by Inspection STOP (16/04/15 12:25)
     /**
      *
      * @return instance of App with this apps data
@@ -207,13 +220,4 @@ public class MainActivity extends GirafActivity {
     {
         return app;
     }
-
-// --Commented out by Inspection START (16/04/15 12:25):
-//    /**
-//     * @return The Intent received from the Launcher
-//     */
-//    public static Intent getGirafIntent() {
-//        return girafIntent;
-//    }
-// --Commented out by Inspection STOP (16/04/15 12:25)
 }
