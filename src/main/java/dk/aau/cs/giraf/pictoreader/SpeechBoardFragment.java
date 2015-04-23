@@ -6,8 +6,10 @@ import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,7 +90,11 @@ public class SpeechBoardFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
 
@@ -99,8 +105,10 @@ public class SpeechBoardFragment extends Fragment
     public void onResume() {
         super.onResume();
         parent.invalidateOptionsMenu();
+        GODMETHOD();
+    }
 
-
+    private void GODMETHOD() {
         View v = LayoutInflater.from(parent.getApplicationContext()).inflate(R.layout.speechboard_layout, null);
         //Set the background
         v.setBackgroundColor(GComponent.GetBackgroundColor());
