@@ -94,9 +94,6 @@ class pictogramClickListener implements OnClickListener {
             }
 
             pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
-
-            //Setup the view for the categories
-            GridView mainCategoryGrid = (GridView) activity.findViewById(R.id.supercategory);
         }
 
     }
