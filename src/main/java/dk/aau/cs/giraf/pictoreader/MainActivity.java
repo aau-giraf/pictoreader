@@ -1,5 +1,6 @@
 package dk.aau.cs.giraf.pictoreader;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -25,7 +26,7 @@ import dk.aau.cs.giraf.oasis.lib.models.Application;
 /**
  *
  * @author SW605f13-PARROT and PARROT spring 2012.
- *	This is the main Activity Class in Parrot.
+ *  This is the main Activity Class in Parrot.
  */
 public class MainActivity extends GirafActivity {
 
@@ -66,16 +67,23 @@ public class MainActivity extends GirafActivity {
 
         boolean outsideGIRAF = false;
 
-        //These lines get the intent from the launcher //TODO use us when testing with the launcher.
-        girafIntent = getIntent();
-        guardianID = girafIntent.getIntExtra("currentGuardianID", -1);
-        childID = girafIntent.getIntExtra("currentChildID", -1);
+        if (ActivityManager.isUserAMonkey()) {
+            Helper h = new Helper(this);
+
+            guardianID = h.profilesHelper.getGuardians().get(0).getId();
+            childID = h.profilesHelper.getChildren().get(0).getId();
+        }
+        else {
+            girafIntent = getIntent();
+            guardianID = girafIntent.getIntExtra("currentGuardianID", -1);
+            childID = girafIntent.getIntExtra("currentChildID", -1);
+        }
 
         ApplicationController applicationController = new ApplicationController(getApplicationContext());
 
         app = applicationController.getApplicationByPackageName();
 
-        PARROTDataLoader dataLoader = new PARROTDataLoader(this, true, this.getApplicationContext());
+        PARROTDataLoader dataLoader = new PARROTDataLoader(this, true, this.getApplicationContext(), app.getId());
 
         if(guardianID == -1 )
         {
