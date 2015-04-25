@@ -83,7 +83,7 @@ public class MainActivity extends GirafActivity {
 
         app = applicationController.getApplicationByPackageName();
 
-        PARROTDataLoader dataLoader = new PARROTDataLoader(this, true, this.getApplicationContext(), app.getId());
+        PARROTDataLoader dataLoader = new PARROTDataLoader(this, true, this.getApplicationContext());
 
         if(guardianID == -1 )
         {
