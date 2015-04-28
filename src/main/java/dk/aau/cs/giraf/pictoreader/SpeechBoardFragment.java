@@ -112,7 +112,6 @@ public class SpeechBoardFragment extends Fragment
         View v = LayoutInflater.from(parent.getApplicationContext()).inflate(R.layout.speechboard_layout, null);
         //Set the background
         v.setBackgroundColor(GComponent.GetBackgroundColor());
-
         parent.setContentView(v);
 
         user=MainActivity.getUser();
@@ -245,12 +244,13 @@ public class SpeechBoardFragment extends Fragment
         });
 
         final GirafButton btnPlay = (GirafButton) parent.findViewById(R.id.btnPlay);
+        //btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 boolean change;
                 if (pictoMediaPlayer.isPlaying())
                 {
-                    btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_stop));
+                    //btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_stop));
                     pictoMediaPlayer.stopSound();
                     return;
                 }
