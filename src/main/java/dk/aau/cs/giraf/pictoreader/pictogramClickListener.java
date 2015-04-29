@@ -10,8 +10,8 @@ import android.widget.GridView;
 import java.util.ArrayList;
 
 import dk.aau.cs.giraf.gui.GGridView;
-import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
-import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
+import dk.aau.cs.giraf.dblib.controllers.CategoryController;
+import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 
 /**
  * Created by lasse on 15/04/15.
@@ -41,7 +41,7 @@ class pictogramClickListener implements OnClickListener {
         if(owner != R.id.category)
         {
             int count = 0;
-            for(dk.aau.cs.giraf.oasis.lib.models.Pictogram p: SpeechBoardFragment.pictogramList)
+            for(dk.aau.cs.giraf.dblib.models.Pictogram p: SpeechBoardFragment.pictogramList)
             {
                 if (p == null)
                 {

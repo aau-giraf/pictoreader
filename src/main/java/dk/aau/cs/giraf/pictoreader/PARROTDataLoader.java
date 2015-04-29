@@ -16,16 +16,16 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.util.Log;
 import dk.aau.cs.giraf.categorylib.CatLibHelper;
-import dk.aau.cs.giraf.oasis.lib.Helper;
-import dk.aau.cs.giraf.oasis.lib.controllers.ApplicationController;
-import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
-import dk.aau.cs.giraf.oasis.lib.controllers.ProfileApplicationController;
-import dk.aau.cs.giraf.oasis.lib.controllers.ProfileController;
-import dk.aau.cs.giraf.oasis.lib.models.Application;
-import dk.aau.cs.giraf.oasis.lib.models.Category;
-import dk.aau.cs.giraf.oasis.lib.models.Profile;
-import dk.aau.cs.giraf.oasis.lib.models.ProfileApplication;
-import dk.aau.cs.giraf.oasis.lib.models.Setting;
+import dk.aau.cs.giraf.dblib.Helper;
+import dk.aau.cs.giraf.dblib.controllers.ApplicationController;
+import dk.aau.cs.giraf.dblib.controllers.CategoryController;
+import dk.aau.cs.giraf.dblib.controllers.ProfileApplicationController;
+import dk.aau.cs.giraf.dblib.controllers.ProfileController;
+import dk.aau.cs.giraf.dblib.models.Application;
+import dk.aau.cs.giraf.dblib.models.Category;
+import dk.aau.cs.giraf.dblib.models.Profile;
+import dk.aau.cs.giraf.dblib.models.ProfileApplication;
+import dk.aau.cs.giraf.dblib.models.Setting;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
 
@@ -44,7 +44,7 @@ public class PARROTDataLoader {
 	private Helper help;
 	private Application app;
     private ProfileApplication proApp;
-	private CatLibHelper categoryHelper= null;
+
     private Helper oasisHelper = null;
     private Context _context;
 
@@ -64,13 +64,10 @@ public class PARROTDataLoader {
             Log.v("Exception", e.getMessage());
         }
         ApplicationController applicationController = new ApplicationController(context);
-        app = applicationController.getApplicationById(MainActivity.getApp().getId());
+        app = applicationController.getById(MainActivity.getApp().getId()); // Lasse
 
         _context = context;
-		if(categories)
-		{
-			categoryHelper= new CatLibHelper(parent);
-		}
+
 
 	}
 
@@ -78,7 +75,7 @@ public class PARROTDataLoader {
 	/**
 	 * TODO This is not used in PARROT, should it be deleted.
 	 * gets all the children from guardian
-	 * @param An profile id of a guardian.
+	 * @param guardianID profile id of a guardian.
 	 * @return An ArrayList of all the children asociated with the guardian who is currently using the system.
 	 */
 	public ArrayList<PARROTProfile> getChildrenFromGuardian(int guardianID)
@@ -98,11 +95,12 @@ public class PARROTDataLoader {
 	/**
 	 * This method loads a specific PARROTProfile, which are to be shown in PARROT
 	 * 
-	 * @param childId, The ID of the child using the app.
-	 * @param appId,  The ID of the app.
-	 * @return PARROTProfile or null.
+	 *
+     * @param childId
+     * @param appId
+     * @return PARROTProfile or null.
 	 */
-	public PARROTProfile loadProfile(int childId,int appId)
+	public PARROTProfile loadProfile(long childId, long appId)
 	{
 		Profile prof =null;
 		List<Category> categories = null;
@@ -142,7 +140,9 @@ public class PARROTDataLoader {
 
 
 			//Get the child's categories. This return null if the child does not exist.
-			categories = categoryHelper.getCategoriesFromProfile(prof);
+			//categories = categoryHelper.getCategoriesFromProfile(prof);
+            //categories = categoryHelper.getCategoriesFromProfile(prof);
+            categories = help.categoryHelper.getCategoriesByProfileId(prof.getId());
 
 
 
@@ -183,7 +183,6 @@ public class PARROTDataLoader {
 	/**
 	 * loads the specific settings from the database into a PARROTProfile,  
 	 * @param PARROTProfile parrotUser
-	 * @param Setting<String, String, String> profileSettings
 	 * @return PARROTProfile, an updated PARROTProfile of parrotUser.
 	 */
 	private PARROTProfile loadSettings(PARROTProfile parrotUser, Setting<String, String, String> profileSettings) {

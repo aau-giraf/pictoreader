@@ -22,7 +22,7 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
 		private final WeakReference<ImageView> imageView;
         private Context context;
         private final WeakReference<TextView> textView;
-        private dk.aau.cs.giraf.oasis.lib.models.Pictogram pictogram;
+        private dk.aau.cs.giraf.dblib.models.Pictogram pictogram;
 
         /**
          * 
@@ -45,7 +45,7 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
     @Override
     protected Bitmap doInBackground(Object... params) {
     	//Log.v("LoadImage;Message","begin doInBackground");
-    	pictogram = (dk.aau.cs.giraf.oasis.lib.models.Pictogram) params[0];
+    	pictogram = (dk.aau.cs.giraf.dblib.models.Pictogram) params[0];
         Bitmap bitmap = null;
         
         //decode the into bitmap that there is to be shown

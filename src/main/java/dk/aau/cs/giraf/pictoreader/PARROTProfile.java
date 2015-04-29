@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import android.graphics.Color;
 
-import dk.aau.cs.giraf.oasis.lib.models.Category;
+import dk.aau.cs.giraf.dblib.models.Category;
+import dk.aau.cs.giraf.dblib.models.Category;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
 
@@ -19,13 +20,15 @@ public class PARROTProfile {
 	private String name;
 	private Pictogram icon;
 	private ArrayList<Category> categories = new ArrayList<Category>();
-	private int profileID =-1;
+	private long profileID =-1;
 	private int noOfboxesInSentenceboard = 25;
 	private int sentenceBoardColor = Color.WHITE;
 	private PictogramSize pictogramSize = PictogramSize.MEDIUM; 
 	private boolean showText = true;
-			
-	//TODO add all applicable settings here.
+
+
+
+    //TODO add all applicable settings here.
 	public static enum PictogramSize{MEDIUM, LARGE}
 	
 	/**
@@ -125,7 +128,7 @@ public class PARROTProfile {
 	 * get ProfileID
 	 * @return profileID
 	 */
-	public int getProfileID() {
+	public long getProfileID() {
 		return profileID;
 	}
 	
@@ -133,7 +136,7 @@ public class PARROTProfile {
 	 * set ProfileID
 	 * @param id, profileID
 	 */
-	public void setProfileID(int id) {
+	public void setProfileID(long id) {
 		this.profileID = id;
 	}
 
