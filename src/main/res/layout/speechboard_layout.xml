@@ -125,8 +125,7 @@
             <dk.aau.cs.giraf.gui.GirafButton
                 android:layout_width="@dimen/buttonPlayWidth"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
-                app:icon="@drawable/icon_play"
+                app:icon="@drawable/icon_microphone"
                 android:id="@+id/btnPlay" />
         </RelativeLayout>
         <dk.aau.cs.giraf.gui.GirafButton
