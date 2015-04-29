@@ -34,7 +34,6 @@ public class MainActivity extends GirafActivity {
     private static int guardianID;
     private static int childID;
     private static Application app;
-    // --Commented out by Inspection (16/04/15 12:25):private static Helper help;
     private static Intent girafIntent;
     private GirafButton btnOptions;
 

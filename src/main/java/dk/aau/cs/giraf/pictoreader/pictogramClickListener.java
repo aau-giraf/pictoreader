@@ -38,7 +38,7 @@ class pictogramClickListener implements OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if(owner != R.id.supercategory)
+        if(owner != R.id.category)
         {
             int count = 0;
             for(dk.aau.cs.giraf.oasis.lib.models.Pictogram p: SpeechBoardFragment.pictogramList)

@@ -31,12 +31,11 @@ public class pictogramTouchListener implements OnTouchListener {
 
 	@Override
 	public boolean onTouch(View view, MotionEvent event) {
-        Log.i("Giraf", "EVENT KIG HER: " + event.getAction());
 		if (event.getAction() == MotionEvent.ACTION_DOWN)
         {
 			SpeechBoardFragment.draggedPictogramIndex = position;
             SpeechBoardFragment.dragOwnerID = owner;
-            if(owner == R.id.supercategory)
+            if(owner == R.id.category)
             {
                 SpeechBoardFragment.displayedMainCategoryIndex = SpeechBoardFragment.draggedPictogramIndex;
                 CategoryController categoryController = new CategoryController(activity.getApplicationContext());
@@ -74,7 +73,7 @@ public class pictogramTouchListener implements OnTouchListener {
                 pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
 
                 //Setup the view for the categories
-                GGridView mainCategoryGrid = (GGridView) activity.findViewById(R.id.supercategory);
+                GGridView mainCategoryGrid = (GGridView) activity.findViewById(R.id.category);
 
 
                 //mainCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getCategoriesByProfileId(user.getProfileID()), activity, R.id.supercategory, user, SpeechBoardFragment.displayedMainCategoryIndex));

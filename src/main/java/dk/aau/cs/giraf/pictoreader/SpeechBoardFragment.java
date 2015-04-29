@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 /**
  * @author PARROT spring 2012 and adapted by SW605f13
  * This class handles the views and actions of the speechLearning "Tale" function
+ * Updated last by: sw608f15
  */
 
 @SuppressLint("ValidFragment") //Avoid default constructor
@@ -37,11 +39,11 @@ public class SpeechBoardFragment extends Fragment
 {
     private Activity parent;
 
-    //Skal dette slettes 17-04-2015?
     //Remembers the index of the pictogram that is currently being dragged.
     public static int draggedPictogramIndex = -1;
     public static int dragOwnerID =-1;
-    //HVORFOR SAETTER VI ET MAKS?! - SOEREN COMMENT
+    //We need to set a max on the number of loaded pictograms, since too many would crash
+    //the application because of insufficient heap space
     public static int MaxNumberOfAllowedPictogramsInCategory = 125;
 
     //Serves as the back-end storage for the visual speechboard
@@ -49,15 +51,15 @@ public class SpeechBoardFragment extends Fragment
 
     //This category contains the pictograms on the sentenceboard
     public static ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictogramList = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
-    //This category contains the pictograms displayed on the big board
+
+    //This categoryp contains the pictograms dislayed on the big board
     public static Category displayedCategory = null;
     public static Category displayedMainCategory = null;
     public static int displayedMainCategoryIndex = 0;
     private PARROTProfile user = null;
-    //private static Pictogram emptyPictogram = null;
     public static SpeechBoardBoxDragListener speechDragListener;
-
     private PictogramController pictogramController;
+
     //This variable is used! Android studio is a liar
     private PictogramCategoryController pictogramCategoryController;
 
@@ -68,6 +70,7 @@ public class SpeechBoardFragment extends Fragment
 
     private boolean backToNormalView = false;
 
+    //TODO: DELETE THESE?
     //int guadianID = (int) MainActivity.getGuardianID();
     //int childID = MainActivity.getChildID();
 
@@ -109,9 +112,8 @@ public class SpeechBoardFragment extends Fragment
     }
 
     private void GODMETHOD() {
+
         View v = LayoutInflater.from(parent.getApplicationContext()).inflate(R.layout.speechboard_layout, null);
-        //Set the background
-        v.setBackgroundColor(GComponent.GetBackgroundColor());
         parent.setContentView(v);
 
         user=MainActivity.getUser();
@@ -125,6 +127,7 @@ public class SpeechBoardFragment extends Fragment
             //Setup the view for the listing of pictograms in pictogramgrid
             final GridView pictogramGrid = (GridView) parent.findViewById(R.id.pictogramgrid);
 
+            //Get the size of the screen
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             Point size = new Point();
             display.getSize(size);
@@ -139,10 +142,9 @@ public class SpeechBoardFragment extends Fragment
             //setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
             setGridviewColNumb();
 
-
             //Setup the view for the categories
-            GridView superCategoryGrid = (GridView) parent.findViewById(R.id.supercategory);
-            superCategoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parent, R.id.supercategory, user, displayedMainCategoryIndex));
+            GridView categoryGrid = (GridView) parent.findViewById(R.id.category);
+            categoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parent, R.id.category, user, displayedMainCategoryIndex));
             CategoryController categoryController = new CategoryController(parent);
 
             try
@@ -244,17 +246,19 @@ public class SpeechBoardFragment extends Fragment
         });
 
         final GirafButton btnPlay = (GirafButton) parent.findViewById(R.id.btnPlay);
-        //btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 boolean change;
+                btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_stop));
                 if (pictoMediaPlayer.isPlaying())
                 {
-                    //btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_stop));
+                    btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
                     pictoMediaPlayer.stopSound();
                     return;
                 }
 
+                //Used for removing empty pictograms in the sentence board, and repositioning
+                //the pictograms after the empty ones.
                 for(int i = 0; i < pictogramList.size(); i++)
                 {
                     change = true;
@@ -296,20 +300,11 @@ public class SpeechBoardFragment extends Fragment
             GLayout btnSearch = (GLayout) parent.findViewById(R.id.btnPictosearchLayout);
             btnSearch.SetMarked(false);
         }
-
-        /*
-        if(guadianID == -1 && childID == -1)
-        {
-            parent.findViewById(R.id.catButton).setVisibility(View.GONE);
-            parent.findViewById(R.id.crocButton).setVisibility(View.GONE);
-        }
-        */
     }
 
 public void setGridviewColNumb()
     {
         GridView pictogramGrid = (GridView) parent.findViewById(R.id.pictogramgrid);
-
 
         //Setup the view for the sentences
         GridView sentenceBoardGrid = (GridView) parent.findViewById(R.id.sentenceboard);
@@ -368,7 +363,7 @@ public void setGridviewColNumb()
 
         speechboardPictograms = (ArrayList) pictograms;
 
-        activity.findViewById(R.id.psupercategory).setVisibility(View.GONE);
+        activity.findViewById(R.id.pcategory).setVisibility(View.GONE);
         //activity.findViewById(R.id.btnSettings).setVisibility(View.GONE);
         /*
         activity.findViewById(R.id.catButton).setVisibility(View.GONE);
@@ -419,7 +414,7 @@ public void setGridviewColNumb()
             backToNormalView = false;
             setGridviewColNumb();
             Activity activity = this.getActivity();
-            activity.findViewById(R.id.psupercategory).setVisibility(View.VISIBLE);
+            activity.findViewById(R.id.pcategory).setVisibility(View.VISIBLE);
             //activity.findViewById(R.id.btnSettings).setVisibility(View.VISIBLE);
 
             /*
