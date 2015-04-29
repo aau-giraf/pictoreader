@@ -19,9 +19,9 @@ import java.util.List;
 
 import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GGridView;
-import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
-import dk.aau.cs.giraf.oasis.lib.models.Category;
-import dk.aau.cs.giraf.oasis.lib.models.Pictogram;
+import dk.aau.cs.giraf.dblib.controllers.PictogramController;
+import dk.aau.cs.giraf.dblib.models.Category;
+import dk.aau.cs.giraf.dblib.models.Pictogram;
 
 
     /**
@@ -36,14 +36,14 @@ public class SentenceboardAdapter extends BaseAdapter {
 
     private PictogramController pictogramController;
     private Pictogram pictogram;
-	private ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictogramList;
+	private ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram> pictogramList;
 	private Context context;
 	
 	/**
 	 * @param cat, a PARROTCategory
 	 * @param c, the applications context
 	 */
-	public SentenceboardAdapter(ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> cat, Context c)
+	public SentenceboardAdapter(ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram> cat, Context c)
 	{
 		super();
 		this.pictogramList=cat;

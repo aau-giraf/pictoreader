@@ -6,12 +6,12 @@ import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
 import android.widget.GridView;
-import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
-import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
-import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
-import dk.aau.cs.giraf.oasis.lib.models.Category;
-import dk.aau.cs.giraf.oasis.lib.models.Pictogram;
-import dk.aau.cs.giraf.oasis.lib.models.PictogramCategory;
+import dk.aau.cs.giraf.dblib.controllers.CategoryController;
+import dk.aau.cs.giraf.dblib.controllers.PictogramCategoryController;
+import dk.aau.cs.giraf.dblib.controllers.PictogramController;
+import dk.aau.cs.giraf.dblib.models.Category;
+import dk.aau.cs.giraf.dblib.models.Pictogram;
+import dk.aau.cs.giraf.dblib.models.PictogramCategory;
 
  /**
  * 
@@ -23,7 +23,7 @@ import dk.aau.cs.giraf.oasis.lib.models.PictogramCategory;
 public class SpeechBoardBoxDragListener implements OnDragListener 
 {
 	private Activity parrent;
-	public dk.aau.cs.giraf.oasis.lib.models.Pictogram draggedPictogram = null;
+	public dk.aau.cs.giraf.dblib.models.Pictogram draggedPictogram = null;
 	private PARROTProfile profile = MainActivity.getUser();
 	int numberOfSentencePictograms = profile.getNumberOfSentencePictograms();
 	boolean insideOfMe = false;

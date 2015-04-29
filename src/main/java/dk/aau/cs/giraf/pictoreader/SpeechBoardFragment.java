@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.aau.cs.giraf.gui.*;
-import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
-import dk.aau.cs.giraf.oasis.lib.controllers.PictogramCategoryController;
-import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
-import dk.aau.cs.giraf.oasis.lib.models.Category;
+import dk.aau.cs.giraf.dblib.controllers.CategoryController;
+import dk.aau.cs.giraf.dblib.controllers.PictogramCategoryController;
+import dk.aau.cs.giraf.dblib.controllers.PictogramController;
+import dk.aau.cs.giraf.dblib.models.Category;
 import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 
 /**
@@ -45,10 +45,10 @@ public class SpeechBoardFragment extends Fragment
     public static int MaxNumberOfAllowedPictogramsInCategory = 125;
 
     //Serves as the back-end storage for the visual speechboard
-    public static List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> speechboardPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
+    public static List<dk.aau.cs.giraf.dblib.models.Pictogram> speechboardPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
 
     //This category contains the pictograms on the sentenceboard
-    public static ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictogramList = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
+    public static ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram> pictogramList = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
     //This category contains the pictograms displayed on the big board
     public static Category displayedCategory = null;
     public static Category displayedMainCategory = null;
@@ -64,7 +64,7 @@ public class SpeechBoardFragment extends Fragment
     private Context context;
 
     private PictoMediaPlayer pictoMediaPlayer;
-    private List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> displayPictogramList = null;
+    private List<dk.aau.cs.giraf.dblib.models.Pictogram> displayPictogramList = null;
 
     private boolean backToNormalView = false;
 
@@ -363,7 +363,7 @@ public void setGridviewColNumb()
         speech.invalidate();
     }
 
-    public void displayPictograms(List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pictograms, Activity activity)
+    public void displayPictograms(List<dk.aau.cs.giraf.dblib.models.Pictogram> pictograms, Activity activity)
     {
 
         speechboardPictograms = (ArrayList) pictograms;
@@ -489,7 +489,7 @@ public void setGridviewColNumb()
             e.printStackTrace();
         }
 
-        List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.oasis.lib.models.Pictogram>();
+        List<dk.aau.cs.giraf.dblib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
         for (int i = 0; i < pictogramIDs.length; i++)
         {
             selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));

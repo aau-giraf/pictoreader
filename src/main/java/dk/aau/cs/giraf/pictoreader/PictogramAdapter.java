@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.aau.cs.giraf.gui.GComponent;
-import dk.aau.cs.giraf.oasis.lib.controllers.CategoryController;
-import dk.aau.cs.giraf.oasis.lib.controllers.PictogramController;
-import dk.aau.cs.giraf.oasis.lib.models.Category;
+import dk.aau.cs.giraf.dblib.controllers.CategoryController;
+import dk.aau.cs.giraf.dblib.controllers.PictogramController;
+import dk.aau.cs.giraf.dblib.models.Category;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
 /**
@@ -33,11 +33,11 @@ public class PictogramAdapter extends BaseAdapter {
 	private Activity activity;
     private PictogramController catController;
     PictogramController pictogramController;
-    private List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pics;
+    private List<dk.aau.cs.giraf.dblib.models.Pictogram> pics;
     private PARROTProfile user;
 	
 
-	public PictogramAdapter(List<dk.aau.cs.giraf.oasis.lib.models.Pictogram> pics, Context c, Activity act, PARROTProfile user)
+	public PictogramAdapter(List<dk.aau.cs.giraf.dblib.models.Pictogram> pics, Context c, Activity act, PARROTProfile user)
 	{
 		super();
 		this.pics=pics;
@@ -79,7 +79,7 @@ public class PictogramAdapter extends BaseAdapter {
         int sizeSmall = GComponent.DpToPixel(145, context);
 
 
-        dk.aau.cs.giraf.oasis.lib.models.Pictogram pct = pics.get(position);
+        dk.aau.cs.giraf.dblib.models.Pictogram pct = pics.get(position);
 
 		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		view = layoutInflater.inflate(R.layout.pictogramview, null);

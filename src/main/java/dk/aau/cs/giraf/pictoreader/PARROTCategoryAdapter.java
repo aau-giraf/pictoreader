@@ -18,8 +18,8 @@ import java.util.List;
 
 import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GSelectableContent;
-import dk.aau.cs.giraf.oasis.lib.models.Application;
-import dk.aau.cs.giraf.oasis.lib.models.Category;
+import dk.aau.cs.giraf.dblib.models.Application;
+import dk.aau.cs.giraf.dblib.models.Category;
 import dk.aau.cs.giraf.pictogram.Pictogram;
 
 /**

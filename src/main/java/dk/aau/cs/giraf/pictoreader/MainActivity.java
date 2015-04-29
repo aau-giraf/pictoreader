@@ -18,10 +18,10 @@ import dk.aau.cs.giraf.activity.GirafActivity;
 import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.gui.GirafButton;
-import dk.aau.cs.giraf.oasis.lib.Helper;
-import dk.aau.cs.giraf.oasis.lib.controllers.ApplicationController;
-import dk.aau.cs.giraf.oasis.lib.controllers.ProfileController;
-import dk.aau.cs.giraf.oasis.lib.models.Application;
+import dk.aau.cs.giraf.dblib.Helper;
+import dk.aau.cs.giraf.dblib.controllers.ApplicationController;
+import dk.aau.cs.giraf.dblib.controllers.ProfileController;
+import dk.aau.cs.giraf.dblib.models.Application;
 
 /**
  *
@@ -31,8 +31,8 @@ import dk.aau.cs.giraf.oasis.lib.models.Application;
 public class MainActivity extends GirafActivity {
 
     private static PARROTProfile parrotUser;
-    private static int guardianID;
-    private static int childID;
+    private static long guardianID;
+    private static long childID;
     private static Application app;
     // --Commented out by Inspection (16/04/15 12:25):private static Helper help;
     private static Intent girafIntent;
@@ -75,14 +75,14 @@ public class MainActivity extends GirafActivity {
         }
         else {
             girafIntent = getIntent();
-            guardianID = girafIntent.getIntExtra("currentGuardianID", -1);
-            childID = girafIntent.getIntExtra("currentChildID", -1);
+            guardianID = girafIntent.getExtras().getLong("currentGuardianID", -1);
+            childID = girafIntent.getExtras().getLong("currentChildID", -1);
         }
 
-        ApplicationController applicationController = new ApplicationController(getApplicationContext());
+        ApplicationController applicationController = new ApplicationController(getApplicationContext()); //mcontext
 
         app = applicationController.getApplicationByPackageName();
-
+        int i = 0;
         PARROTDataLoader dataLoader = new PARROTDataLoader(this, true, this.getApplicationContext());
 
         if(guardianID == -1 )
@@ -93,7 +93,7 @@ public class MainActivity extends GirafActivity {
             outsideGIRAF = true;
             try
             {
-                parrotUser = dataLoader.loadProfile((int) profileController.getProfilesByName("Offentlig Bruger").get(0).getId(), app.getId());
+                parrotUser = dataLoader.loadProfile(profileController.getProfilesByName("Offentlig Bruger").get(0).getId(), app.getId());
             }
             catch (Exception e)
             {
@@ -104,11 +104,11 @@ public class MainActivity extends GirafActivity {
         {
             if (childID != -1)
             {
-                parrotUser = dataLoader.loadProfile((int) childID, app.getId());
+                parrotUser = dataLoader.loadProfile(childID, app.getId());
             }
             else
             {
-                parrotUser = dataLoader.loadProfile((int) guardianID, app.getId());
+                parrotUser = dataLoader.loadProfile( guardianID, app.getId());
             }
         }
 
@@ -216,7 +216,7 @@ public class MainActivity extends GirafActivity {
         return guardianID;
     }
 
-    public static int getChildID()
+    public static long getChildID()
     {
         return childID;
     }
