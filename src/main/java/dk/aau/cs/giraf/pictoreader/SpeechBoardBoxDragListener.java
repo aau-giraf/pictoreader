@@ -11,7 +11,6 @@ import dk.aau.cs.giraf.dblib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 import dk.aau.cs.giraf.dblib.models.Category;
 import dk.aau.cs.giraf.dblib.models.Pictogram;
-import dk.aau.cs.giraf.dblib.models.PictogramCategory;
 
  /**
  * 
@@ -59,7 +58,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 			//When pictogram is dragged from sentenceboard
 			if(self.getId() == R.id.sentenceboard && SpeechBoardFragment.dragOwnerID == R.id.sentenceboard)
 			{
-                draggedPictogram = SpeechBoardFragment.pictogramList.get(SpeechBoardFragment.draggedPictogramIndex);
+                draggedPictogram = SpeechBoardFragment.sentencePictogramList.get(SpeechBoardFragment.draggedPictogramIndex);
 				//Do not allow dragging empty pictograms, show do nothing
 				/*if(draggedPictogram != null)
                 {
@@ -84,7 +83,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                         PictogramCategory newCat = new PictogramCategory(p.getId(), -1);
                         categoryController.insertPictogramCategory(newCat);
 
-                        speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
+                        speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.sentencePictogramList, parrent));
                     }
                 }*/
 			}
@@ -131,24 +130,24 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                         }
 
 
-                        if(SpeechBoardFragment.pictogramList.size() <= index)
+                        if(SpeechBoardFragment.sentencePictogramList.size() <= index)
                         {
                             try
                             {
                                 //Adds the dragged pictogram if it is released in the end of the sentence.
-                                SpeechBoardFragment.pictogramList.add(draggedPictogram);
+                                SpeechBoardFragment.sentencePictogramList.add(draggedPictogram);
                             }
                             catch (Exception e)
                             {
                                 e.getStackTrace();
                             }
                         }
-                        else if (SpeechBoardFragment.pictogramList.size() > index)
+                        else if (SpeechBoardFragment.sentencePictogramList.size() > index)
                         {
                             try
                             {
                                 //Replaces a pictogram if the dragged pictogram is released untop.
-                                SpeechBoardFragment.pictogramList.set(index, draggedPictogram);
+                                SpeechBoardFragment.sentencePictogramList.set(index, draggedPictogram);
                             }
                             catch (Exception e)
                             {
@@ -156,7 +155,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                             }
                         }
 
-						speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
+						speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.sentencePictogramList, parrent));
 						speech.invalidate();
 					}
 				}
@@ -189,20 +188,20 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                             {
                                 j = i -1;
                             }
-                            SpeechBoardFragment.pictogramList.set(i, SpeechBoardFragment.pictogramList.get(j));
+                            SpeechBoardFragment.sentencePictogramList.set(i, SpeechBoardFragment.sentencePictogramList.get(j));
                             i = j;
                         }
-                        SpeechBoardFragment.pictogramList.set(index, draggedPictogram);
+                        SpeechBoardFragment.sentencePictogramList.set(index, draggedPictogram);
 
 
-						speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
+						speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.sentencePictogramList, parrent));
 						speech.invalidate();
 						draggedPictogram = null;
 					}
 
-					/*while(SpeechBoardFragment.pictogramList.size() > profile.getNumberOfSentencePictograms())
+					/*while(SpeechBoardFragment.sentencePictogramList.size() > profile.getNumberOfSentencePictograms())
 					{
-                        categoryController.removePictogramCategory(-1, SpeechBoardFragment.pictogramList.size()-1);
+                        categoryController.removePictogramCategory(-1, SpeechBoardFragment.sentencePictogramList.size()-1);
 					}*/
 
 				}
@@ -221,8 +220,8 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                     }
                     else
                     {*/
-                    SpeechBoardFragment.pictogramList.set(SpeechBoardFragment.draggedPictogramIndex, null);
-					speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
+                    SpeechBoardFragment.sentencePictogramList.set(SpeechBoardFragment.draggedPictogramIndex, null);
+					speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.sentencePictogramList, parrent));
 					speech.invalidate();
                     //}
 				}
@@ -242,15 +241,15 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                 {
                     int i = 0;
                     boolean placed = false;
-                    while(i < SpeechBoardFragment.pictogramList.size() && !placed)
+                    while(i < SpeechBoardFragment.sentencePictogramList.size() && !placed)
                     {
-                        if(SpeechBoardFragment.pictogramList.get(i) == null)
+                        if(SpeechBoardFragment.sentencePictogramList.get(i) == null)
                         {
                             placed = true;
                             draggedPictogram = SpeechBoardFragment.speechboardPictograms.get(SpeechBoardFragment.draggedPictogramIndex);
-                            SpeechBoardFragment.pictogramList.set(i,draggedPictogram);
+                            SpeechBoardFragment.sentencePictogramList.set(i,draggedPictogram);
                             GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
-                            speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
+                            speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.sentencePictogramList, parrent));
                             speech.invalidate();
                         }
                         i++;
@@ -266,8 +265,8 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                 GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
                 if(SpeechBoardFragment.draggedPictogramIndex >= 0)
                 {
-                    SpeechBoardFragment.pictogramList.set(SpeechBoardFragment.draggedPictogramIndex, null);
-                    speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, parrent));
+                    SpeechBoardFragment.sentencePictogramList.set(SpeechBoardFragment.draggedPictogramIndex, null);
+                    speech.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.sentencePictogramList, parrent));
                     speech.invalidate();
                 }
                 SpeechBoardFragment.dragOwnerID = -1;

@@ -6,11 +6,8 @@ import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +47,7 @@ public class SpeechBoardFragment extends Fragment
     public static List<dk.aau.cs.giraf.dblib.models.Pictogram> speechboardPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
 
     //This category contains the pictograms on the sentenceboard
-    public static ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram> pictogramList = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
+    public static ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram> sentencePictogramList = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
 
     public static Category displayedCategory = null;
     public static Category displayedMainCategory = null;
@@ -134,7 +131,7 @@ public class SpeechBoardFragment extends Fragment
 
             //Setup the view for the sentences
             GridView sentenceBoardGrid = (GridView) parent.findViewById(R.id.sentenceboard);
-            sentenceBoardGrid.setAdapter(new SentenceboardAdapter(pictogramList, parent.getApplicationContext()));
+            sentenceBoardGrid.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent.getApplicationContext()));
             int noInSentence=user.getNumberOfSentencePictograms();
             sentenceBoardGrid.setNumColumns(noInSentence);
 
@@ -144,7 +141,6 @@ public class SpeechBoardFragment extends Fragment
             //Setup the view for the categories
             GridView categoryGrid = (GridView) parent.findViewById(R.id.category);
             categoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parent, R.id.category, user, displayedMainCategoryIndex));
-            CategoryController categoryController = new CategoryController(parent);
 
             try
             {
@@ -173,11 +169,11 @@ public class SpeechBoardFragment extends Fragment
 
             parent.findViewById(R.id.sentenceboard).setOnDragListener(speechDragListener);
 
-            if(pictogramList.size() == 0)
+            if(sentencePictogramList.size() == 0)
             {
                 for (int i = 0; i < noInSentence; i++)
                 {
-                    pictogramList.add(null);
+                    sentencePictogramList.add(null);
                 }
             }
             final GirafButton trashCanButton = (GirafButton) parent.findViewById(R.id.btnClear);
@@ -258,18 +254,18 @@ public class SpeechBoardFragment extends Fragment
 
                 //Used for removing empty pictograms in the sentence board, and repositioning
                 //the pictograms after the empty ones.
-                for(int i = 0; i < pictogramList.size(); i++)
+                for(int i = 0; i < sentencePictogramList.size(); i++)
                 {
                     change = true;
-                    while(change && pictogramList.get(i) == null)
+                    while(change && sentencePictogramList.get(i) == null)
                     {
                         change = false;
-                        for (int j = i + 1; j < pictogramList.size(); j++)
+                        for (int j = i + 1; j < sentencePictogramList.size(); j++)
                         {
-                            if(pictogramList.get(j) != null)
+                            if(sentencePictogramList.get(j) != null)
                             {
-                                pictogramList.set(j-1,pictogramList.get(j));
-                                pictogramList.set(j,null);
+                                sentencePictogramList.set(j-1, sentencePictogramList.get(j));
+                                sentencePictogramList.set(j,null);
                                 change = true;
                             }
                         }
@@ -277,10 +273,10 @@ public class SpeechBoardFragment extends Fragment
                 }
 
                 GridView sentence = (GridView) parent.findViewById(R.id.sentenceboard);
-                sentence.setAdapter(new SentenceboardAdapter(pictogramList, parent));
+                sentence.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
                 sentence.invalidate();
 
-                pictoMediaPlayer.playListOfPictograms(pictogramList);
+                pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
             }
         });
 
@@ -289,14 +285,14 @@ public class SpeechBoardFragment extends Fragment
             displayPictograms(displayPictogramList, this.getActivity());
         }
 
+        GLayout btnSearch = (GLayout) parent.findViewById(R.id.btnPictosearchLayout);
+
         if(backToNormalView)
         {
-            GLayout btnSearch = (GLayout) parent.findViewById(R.id.btnPictosearchLayout);
             btnSearch.SetMarked(true);
         }
         else
         {
-            GLayout btnSearch = (GLayout) parent.findViewById(R.id.btnPictosearchLayout);
             btnSearch.SetMarked(false);
         }
     }
@@ -323,13 +319,19 @@ public void setGridviewColNumb()
 
         sentenceBoardGrid.setNumColumns(noInSentence);
 
-        int categoryWidth = 2*150;
-        int scrollbarWidth = 50;
+        //This size is determined out from whether we are in normal view or not
+        int pictogramgridWidth = 0;
+
         if(backToNormalView)
         {
-            categoryWidth = 0;
+            pictogramgridWidth = sentenceWidth + trashButtonWidth;
         }
-        int pictogramgridWidth = width-GComponent.DpToPixel(categoryWidth+scrollbarWidth, parent.getApplicationContext()) + playButtonWidth;
+
+        else
+        {
+            pictogramgridWidth = sentenceWidth;
+        }
+
 
         int pictogramWidth = 200;
         if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
@@ -346,15 +348,15 @@ public void setGridviewColNumb()
      */
     public void clearSentenceboard()
     {
-        for(int i= 0; i <= pictogramList.size()-1; i++)
+        for(int i= 0; i <= sentencePictogramList.size()-1; i++)
         {
-            pictogramList.set(i, null);
+            sentencePictogramList.set(i, null);
         }
 
-        GridView speech = (GridView) parent.findViewById(R.id.sentenceboard);
+        GridView sentenceBoard = (GridView) parent.findViewById(R.id.sentenceboard);
 
-        speech.setAdapter(new SentenceboardAdapter(pictogramList, parent));
-        speech.invalidate();
+        sentenceBoard.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
+        sentenceBoard.invalidate();
     }
 
     public void displayPictograms(List<dk.aau.cs.giraf.dblib.models.Pictogram> pictograms, Activity activity)
@@ -377,20 +379,8 @@ public void setGridviewColNumb()
         pictogramGrid.invalidate();
     }
 
-    // Create onclicklistener for GButton
-    private void createOnClickListener(GButton button, final Intent intent)
-    {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("currentChildID", user.getProfileID());
-                startActivity(intent);
-            }
-        });
-    }
-
     /**
-     * Opens pictosearch application, so pictograms can be loaded into pictocreator. //TODO Pictosearch will be renamed some day
+     * Opens pictosearch application, so pictograms can be loaded into pictocreator.
      */
     private void callPictosearch(){
         if(!backToNormalView)

@@ -21,7 +21,7 @@ public class SentenceboardTouchListener implements View.OnTouchListener {
 
             SpeechBoardFragment.draggedPictogramIndex = position;
             SpeechBoardFragment.dragOwnerID = R.id.sentenceboard;
-            SpeechBoardFragment.speechDragListener.draggedPictogram = SpeechBoardFragment.pictogramList.get(position);
+            SpeechBoardFragment.speechDragListener.draggedPictogram = SpeechBoardFragment.sentencePictogramList.get(position);
 
             ClipData data = ClipData.newPlainText("label", "text");
             PictogramDragShadow shadowBuilder = new PictogramDragShadow(view);
