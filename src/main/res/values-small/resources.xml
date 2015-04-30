@@ -2,5 +2,5 @@
 <resources>
     <dimen  name="buttonTrashWidth">150dp</dimen >
     <dimen  name="buttonPlayWidth">100dp</dimen >
-
+    <dimen  name="categoryWidth">150dp</dimen >
 </resources>

@@ -1,15 +1,10 @@
 package dk.aau.cs.giraf.pictoreader;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
 
-import java.util.ArrayList;
-
-import dk.aau.cs.giraf.gui.GGridView;
 import dk.aau.cs.giraf.dblib.controllers.CategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 
@@ -38,15 +33,15 @@ class pictogramClickListener implements OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if(owner != R.id.supercategory)
+        if(owner != R.id.category)
         {
             int count = 0;
-            for(dk.aau.cs.giraf.dblib.models.Pictogram p: SpeechBoardFragment.pictogramList)
+            for(dk.aau.cs.giraf.dblib.models.Pictogram p: SpeechBoardFragment.sentencePictogramList)
             {
                 if (p == null)
                 {
 
-                    SpeechBoardFragment.pictogramList.set(count,SpeechBoardFragment.speechboardPictograms.get(position));
+                    SpeechBoardFragment.sentencePictogramList.set(count,SpeechBoardFragment.speechboardPictograms.get(position));
                     break;
                 }
                 else{
@@ -58,7 +53,7 @@ class pictogramClickListener implements OnClickListener {
 
             SpeechBoardFragment.dragOwnerID = owner;
             GridView sentence = (GridView) activity.findViewById(R.id.sentenceboard);
-            sentence.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.pictogramList, activity));
+            sentence.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.sentencePictogramList, activity));
         }
         else{
             SpeechBoardFragment.displayedMainCategoryIndex = SpeechBoardFragment.draggedPictogramIndex;

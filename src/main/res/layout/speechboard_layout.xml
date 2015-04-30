@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:GComponent="http://schemas.android.com/apk/res-auto"
-    xmlns:andorid="http://schemas.android.com/tools"
     android:id="@+id/SpeechBoard"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#FCD744"
     android:keepScreenOn="true"
     android:orientation="vertical"
     tools:context="dk.aau.cs.giraf.pictoreader.SpeechBoardFragment">
@@ -21,7 +21,7 @@
 
         <!-- Screen Design for Photos -->
         <LinearLayout
-            android:id="@+id/psupercategory"
+            android:id="@+id/pcategory"
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -29,7 +29,7 @@
 
             <!--<include layout="@layout/giraf_sidebar_layout"/>-->
             <GridView
-                android:id="@+id/supercategory"
+                android:id="@+id/category"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:numColumns="1"
@@ -53,7 +53,7 @@
 
                 <GridView
                     android:id="@+id/pictogramgrid"
-                    android:layout_width="1002dp"
+                    android:layout_width="0dp"
                     android:background="@color/giraf_background"
                     android:layout_height="match_parent"
                     android:fadeScrollbars="false"
@@ -117,7 +117,7 @@
 
         <RelativeLayout
             android:id="@+id/playButtonLayout"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/buttonPlayWidth"
             android:layout_height="150dp"
             android:orientation="horizontal"
             android:layout_gravity="right"
@@ -126,7 +126,7 @@
             <dk.aau.cs.giraf.gui.GirafButton
                 android:layout_width="@dimen/buttonPlayWidth"
                 android:layout_height="fill_parent"
-                app:icon="@drawable/icon_microphone"
+                app:icon="@drawable/icon_play"
                 android:id="@+id/btnPlay" />
         </RelativeLayout>
         <dk.aau.cs.giraf.gui.GirafButton

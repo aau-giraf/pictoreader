@@ -8,13 +8,6 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <dk.aau.cs.giraf.gui.GCancelButton
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="Back"
-        android:id="@+id/btnBack"
-        android:layout_gravity="right" />
-
     <dk.aau.cs.giraf.gui.GTextView
             android:id="@+id/pictogramSetting"
             android:textSize="40sp"
