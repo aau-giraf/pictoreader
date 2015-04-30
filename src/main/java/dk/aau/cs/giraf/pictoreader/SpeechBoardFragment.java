@@ -389,14 +389,23 @@ public void setGridviewColNumb()
             Intent intent = new Intent();
 
             try{
-                intent.setComponent(new ComponentName( "dk.aau.cs.giraf.pictosearch",  "dk.aau.cs.giraf.pictosearch.PictoAdminMain"));
-                intent.putExtra("currentChildID", user.getProfileID());
-                intent.putExtra("purpose", "multi");
+                intent.setComponent(new ComponentName("dk.aau.cs.giraf.pictosearch", "dk.aau.cs.giraf.pictosearch.PictoAdminMain"));
+                intent.putExtra("purpose", "single");
 
-                startActivityForResult(intent, parent.RESULT_FIRST_USER);
+                if (intent.getExtras().getLong("currentChildId", -1) != -1) {
+                    intent.putExtra(getString(R.string.current_child_id), intent.getExtras().getLong("currentChildId", -1));
+                } else {
+                    intent.putExtra(getString(R.string.current_child_id), (long) -1);
+                }
+
+                intent.putExtra(getString(R.string.current_guardian_id), intent.getExtras().getLong("currentGuardianId", -1));
+
+
+                startActivityForResult(intent, 103);
             } catch (Exception e){
                 Toast.makeText(parent, "Pictosearch er ikke installeret.", Toast.LENGTH_LONG).show();
             }
+
         }
         else
         {
@@ -465,9 +474,9 @@ public void setGridviewColNumb()
     }
 
     private void loadPictogram(Intent data){
-        int[] pictogramIDs = {};
+        long[] pictogramIDs = {};
         try{
-            pictogramIDs = data.getExtras().getIntArray("checkoutIds");
+            pictogramIDs = data.getExtras().getLongArray("checkoutIds");
         }
         catch (Exception e){
             e.printStackTrace();
