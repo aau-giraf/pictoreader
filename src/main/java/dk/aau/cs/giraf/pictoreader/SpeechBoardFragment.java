@@ -403,7 +403,7 @@ public void setGridviewColNumb()
 
             try{
                 intent.setComponent(new ComponentName("dk.aau.cs.giraf.pictosearch", "dk.aau.cs.giraf.pictosearch.PictoAdminMain"));
-                intent.putExtra("purpose", "single");
+                intent.putExtra("purpose", "multi");
 
                 if (intent.getExtras().getLong("currentChildId", -1) != -1) {
                     intent.putExtra(getString(R.string.current_child_id), intent.getExtras().getLong("currentChildId", -1));
