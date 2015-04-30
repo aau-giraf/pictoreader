@@ -1,36 +1,12 @@
 package dk.aau.cs.giraf.pictoreader;
 
-import dk.aau.cs.giraf.gui.GButton;
-import dk.aau.cs.giraf.gui.GComponent;
-import dk.aau.cs.giraf.gui.GSwitch;
-import yuku.ambilwarna.AmbilWarnaDialog;
-import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.SeekBar;
-import android.widget.Spinner;
+import android.widget.CheckBox;;
 import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import dk.aau.cs.giraf.pictoreader.PARROTProfile.PictogramSize;
 
@@ -76,7 +52,7 @@ public class OptionFragment extends Fragment{
         View v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.activity_setting, null);
 
         //Set the background
-        v.setBackgroundDrawable(GComponent.GetBackground(GComponent.Background.GRADIENT));
+        v.setBackgroundColor(getResources().getColor(R.color.giraf_background));
 
         parrent.setContentView(v);
 		parrent.invalidateOptionsMenu();
@@ -88,14 +64,14 @@ public class OptionFragment extends Fragment{
 		//get the current Settings
         readTheCurrentData();
 
-        GSwitch pictogramSize = (GSwitch) parrent.findViewById(R.id.swtPictogramSize);
+        Switch pictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
         pictogramSize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             	onSizePictogramChanged(v);
             }
         });
-        pictogramSize.refresh();
+        //pictogramSize.refresh();
 
         CheckBox textChangeCheckBox = (CheckBox) parrent.findViewById(R.id.checkBoxShowText);
         textChangeCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -128,18 +104,18 @@ public class OptionFragment extends Fragment{
 		
 		if(pictogramSize == PARROTProfile.PictogramSize.MEDIUM)
 		{
-			GSwitch switchPictogramSize = (GSwitch) parrent.findViewById(R.id.swtPictogramSize);
-            if(switchPictogramSize.isToggled())
+			Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
+            if(switchPictogramSize.isChecked());
             {
-                switchPictogramSize.Toggle();
+                //switchPictogramSize.Toggle();
+                switchPictogramSize.setChecked(true);
             }
-            switchPictogramSize.refresh();
+            switchPictogramSize.toggle();
 		}
 		else if(pictogramSize == PARROTProfile.PictogramSize.LARGE)
 		{
-            GSwitch switchPictogramSize = (GSwitch) parrent.findViewById(R.id.swtPictogramSize);
-            switchPictogramSize.setToggled(true);
-            switchPictogramSize.refresh();
+            Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
+            switchPictogramSize.setChecked(true);
 		}
 
 		
@@ -163,7 +139,7 @@ public class OptionFragment extends Fragment{
 	 */
 	public void onSizePictogramChanged(View view)
 	{
-	    boolean checked = ((GSwitch) view).isToggled();
+	    boolean checked = ((Switch) view).isChecked();
 
         if(checked)
         {

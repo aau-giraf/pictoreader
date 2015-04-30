@@ -4,13 +4,13 @@
     android:id="@+id/options_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/optionsbackground"
     android:orientation="vertical"
     android:weightSum="1">
 
-    <dk.aau.cs.giraf.gui.GTextView
+    <TextView
+            android:textColor="#000000"
             android:id="@+id/pictogramSetting"
-            android:textSize="40sp"
+            android:textSize="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
        		android:layout_marginLeft="50dp"
@@ -18,33 +18,31 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-
-                <dk.aau.cs.giraf.gui.GTextView
-                    android:id="@+id/pictogramSetting"
+                <TextView
+                    android:textColor="#000000"
+                    android:id="@+id/pictogramSettings"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
                     android:text="@string/PictoSize" />
-
-                <dk.aau.cs.giraf.gui.GSwitch
+                <Switch
                     android:layout_width="150dp"
                     android:layout_height="60dp"
                     android:layout_marginLeft="10dp"
                     android:id="@+id/swtPictogramSize"
-                    android:layout_weight="0.91"
-                    GComponent:OnText="Stor"
-                    GComponent:OffText="Lille" />
+                    android:textColor="#000000"
+                    android:textOn="Stor"
+                    android:textOff="Lille" />
                 </LinearLayout>
-
-    <dk.aau.cs.giraf.gui.GCheckBox
-            android:id="@+id/checkBoxShowText"         
-    	   	android:layout_marginLeft="50dp"    
+    <CheckBox
+            android:id="@+id/checkBoxShowText"
+            android:textColor="#000000"
+    	   	android:layout_marginLeft="50dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="onShowTextChanged"
             android:text="@string/textToPic"
-            android:textSize="20sp" />
-
-    
+            android:textSize="20sp"
+            />
 </LinearLayout>
