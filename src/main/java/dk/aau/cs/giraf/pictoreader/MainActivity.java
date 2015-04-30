@@ -55,7 +55,6 @@ public class MainActivity extends GirafActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main, null);
-
         createOptionsButton();
 
         //Set the background

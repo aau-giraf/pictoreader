@@ -18,6 +18,7 @@
         android:layout_weight="4"
         android:orientation="horizontal" >
 
+
         <!-- Screen Design for Photos -->
         <LinearLayout
             android:id="@+id/pcategory"
