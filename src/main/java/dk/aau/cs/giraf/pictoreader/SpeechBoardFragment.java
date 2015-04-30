@@ -241,6 +241,7 @@ public class SpeechBoardFragment extends Fragment
         });
 
         final GirafButton btnPlay = (GirafButton) parent.findViewById(R.id.btnPlay);
+        btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 boolean change;
