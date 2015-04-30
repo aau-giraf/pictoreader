@@ -277,6 +277,19 @@ public class SpeechBoardFragment extends Fragment
                 sentence.invalidate();
 
                 pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while(pictoMediaPlayer.isPlaying() == true) {}
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
+                            }
+                        });
+                    }
+                }).start();
             }
         });
 
