@@ -158,7 +158,7 @@ public class MainActivity extends GirafActivity {
             public void onClick(View v) {
                 // Create new fragment and transaction
                 Fragment newFragment = new OptionFragment();
-
+                btnOptions.setVisibility(View.INVISIBLE);
                 getFragmentManager().beginTransaction()
                         .add(newFragment, "options")
                                 // Add this transaction to the back stack
@@ -173,6 +173,7 @@ public class MainActivity extends GirafActivity {
     @Override
     public void onBackPressed()
     {
+        btnOptions.setVisibility(View.VISIBLE);
         try
         {
             OptionFragment optionFragment = (OptionFragment) getFragmentManager().findFragmentByTag("options");

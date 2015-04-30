@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;;
 import android.widget.Switch;
 
+import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.pictoreader.PARROTProfile.PictogramSize;
 
 public class OptionFragment extends Fragment{

@@ -375,11 +375,10 @@ public void setGridviewColNumb()
 
     public void displayPictograms(List<dk.aau.cs.giraf.dblib.models.Pictogram> pictograms, Activity activity)
     {
-
         speechboardPictograms = (ArrayList) pictograms;
 
         activity.findViewById(R.id.pcategory).setVisibility(View.GONE);
-        //activity.findViewById(R.id.btnSettings).setVisibility(View.GONE);
+        activity.findViewById(R.id.btnClear).setVisibility(View.GONE);
         /*
         activity.findViewById(R.id.catButton).setVisibility(View.GONE);
         activity.findViewById(R.id.crocButton).setVisibility(View.GONE);
