@@ -278,7 +278,8 @@ public class SpeechBoardFragment extends Fragment
                 sentence.invalidate();
 
                 pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
-
+                //Fungerer ikke, laver exception
+                /*
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -290,7 +291,7 @@ public class SpeechBoardFragment extends Fragment
                             }
                         });
                     }
-                }).start();
+                }).start();*/
             }
         });
 
@@ -299,15 +300,14 @@ public class SpeechBoardFragment extends Fragment
             displayPictograms(displayPictogramList, this.getActivity());
         }
 
-        GLayout btnSearch = (GLayout) parent.findViewById(R.id.btnPictosearchLayout);
-
         if(backToNormalView)
         {
-            btnSearch.SetMarked(true);
+            ((GirafButton) parent.findViewById(R.id.btnPictosearch)).setIcon(getResources().getDrawable(R.drawable.exit));
+            parent.findViewById(R.id.btnClear).setVisibility(View.VISIBLE);
         }
         else
         {
-            btnSearch.SetMarked(false);
+            ((GirafButton) parent.findViewById(R.id.btnPictosearch)).setIcon(getResources().getDrawable(R.drawable.icon_search));
         }
     }
 
@@ -426,6 +426,7 @@ public void setGridviewColNumb()
             setGridviewColNumb();
             Activity activity = this.getActivity();
             activity.findViewById(R.id.pcategory).setVisibility(View.VISIBLE);
+            activity.findViewById(R.id.btnClear).setVisibility(View.VISIBLE);
             //activity.findViewById(R.id.btnSettings).setVisibility(View.VISIBLE);
 
             /*
@@ -466,8 +467,8 @@ public void setGridviewColNumb()
             pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, activity.getApplicationContext(), activity, user));
             pictogramGrid.invalidate();
 
-            GLayout btnSearch = (GLayout) parent.findViewById(R.id.btnPictosearchLayout);
-            btnSearch.SetMarked(false);
+            GirafButton btnSearch = (GirafButton) parent.findViewById(R.id.btnPictosearch);
+            btnSearch.setIcon(getResources().getDrawable(R.drawable.icon_search));
         }
     }
 

@@ -69,10 +69,9 @@
                         android:layout_height="match_parent"
                         android:gravity="right"
                         >
-                        <dk.aau.cs.giraf.gui.GLayout
+                        <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            GComponent:Markable="true"
                             android:id="@+id/btnPictosearchLayout">
 
                             <dk.aau.cs.giraf.gui.GirafButton
@@ -80,7 +79,7 @@
                                 android:layout_height="100dp"
                                 app:icon="@drawable/icon_search"
                                 android:id="@+id/btnPictosearch"/>
-                        </dk.aau.cs.giraf.gui.GLayout>
+                        </RelativeLayout>
 
                     </LinearLayout>
 
