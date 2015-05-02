@@ -166,8 +166,8 @@ public class MainActivity extends GirafActivity {
                         .commit();
             }
         });
-
-        addGirafButtonToActionBar(btnOptions,LEFT);
+        //TODO if guardian add else nothing
+        addGirafButtonToActionBar(btnOptions, LEFT);
     }
 
     @Override
