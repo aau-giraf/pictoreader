@@ -276,8 +276,9 @@ public class SpeechBoardFragment extends Fragment
                 GridView sentence = (GridView) parent.findViewById(R.id.sentenceboard);
                 sentence.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
                 sentence.invalidate();
+                if (sentencePictogramList != null)
+                    pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
 
-                pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
                 //Fungerer ikke, laver exception
                 /*
                 new Thread(new Runnable() {

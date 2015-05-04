@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -121,7 +122,7 @@ public class SentenceboardAdapter extends BaseAdapter {
             }
 
 			//setup layout for imageView
-            GGridView sentenceBoard = (GGridView) view.findViewById(R.id.sentenceboard); // SKAL SKRIVES TIL AT TILPASSE HØJDE
+            GridView sentenceBoard = (GridView) view.findViewById(R.id.sentenceboard); // SKAL SKRIVES TIL AT TILPASSE HØJDE
 			LinearLayout.LayoutParams imageLayoutParams;
             LinearLayout.LayoutParams picLayoutParams;
 

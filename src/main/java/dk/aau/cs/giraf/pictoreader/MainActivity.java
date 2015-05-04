@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import dk.aau.cs.giraf.activity.GirafActivity;
+import dk.aau.cs.giraf.dblib.models.Profile;
 import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.gui.GirafButton;
@@ -36,6 +37,12 @@ public class MainActivity extends GirafActivity {
     private static Application app;
     private static Intent girafIntent;
     private GirafButton btnOptions;
+    // Helper that will be used to fetch profiles
+    private final Helper helper = new Helper(this);
+
+    // Profiles of which the categories will be loaded from
+    private Profile childProfile;
+    private Profile guardianProfile;
 
     @Override
     public void onStart() {
@@ -167,7 +174,9 @@ public class MainActivity extends GirafActivity {
             }
         });
         //TODO if guardian add else nothing
-        addGirafButtonToActionBar(btnOptions, LEFT);
+        if (getIntent().getExtras().getLong(getString(R.string.current_child_id)) == -1) {
+            addGirafButtonToActionBar(btnOptions, LEFT);
+        }
     }
 
     @Override
