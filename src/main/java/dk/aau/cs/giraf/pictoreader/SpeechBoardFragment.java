@@ -73,7 +73,7 @@ public class SpeechBoardFragment extends Fragment
     public SpeechBoardFragment(Context c)
     {
         context = c;
-        pictoMediaPlayer =  new PictoMediaPlayer(context);
+        pictoMediaPlayer =  new PictoMediaPlayer(c);
     }
 
     @Override
@@ -245,11 +245,12 @@ public class SpeechBoardFragment extends Fragment
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 boolean change;
+                final PictoMediaPlayer pmp = new PictoMediaPlayer(parent.getApplicationContext());
                 btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_stop));
-                if (pictoMediaPlayer.isPlaying())
+                if (pmp.isPlaying())
                 {
                     btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
-                    pictoMediaPlayer.stopSound();
+                    pmp.stopSound();
                     return;
                 }
 
@@ -277,14 +278,14 @@ public class SpeechBoardFragment extends Fragment
                 sentence.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
                 sentence.invalidate();
                 if (sentencePictogramList != null)
-                    pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
+                    pmp.playListOfPictograms(sentencePictogramList);
 
                 //Fungerer ikke, laver exception
-                /*
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        while(pictoMediaPlayer.isPlaying() == true) {}
+                        while(pmp.isPlaying() == true) {}
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -292,7 +293,7 @@ public class SpeechBoardFragment extends Fragment
                             }
                         });
                     }
-                }).start();*/
+                }).start();
             }
         });
 
