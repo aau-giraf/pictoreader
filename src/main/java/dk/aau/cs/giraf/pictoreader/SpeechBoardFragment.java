@@ -234,12 +234,11 @@ public class SpeechBoardFragment extends Fragment
         btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final PictoMediaPlayer pmp = new PictoMediaPlayer(parent.getApplicationContext());
                 btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_stop));
-                if (pmp.isPlaying())
+                if (pictoMediaPlayer.isPlaying())
                 {
                     btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
-                    pmp.stopSound();
+                    pictoMediaPlayer.stopSound();
                     return;
                 }
 
@@ -251,12 +250,12 @@ public class SpeechBoardFragment extends Fragment
                 sentence.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
                 sentence.invalidate();
                 if (sentencePictogramList != null)
-                    pmp.playListOfPictograms(sentencePictogramList);
+                    pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
 
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        while(pmp.isPlaying() == true) {}
+                        while(pictoMediaPlayer.isPlaying() == true) {}
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
