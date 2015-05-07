@@ -119,6 +119,7 @@ public class SpeechBoardFragment extends Fragment
         {
             setupCategoryGrid();
             setupPictogramGrid();
+            setupSentenceBoard();
         }
 
         setupButtons();
@@ -167,12 +168,11 @@ public class SpeechBoardFragment extends Fragment
         }
 
         pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parent.getApplicationContext(), parent, user));
-        setupSentenceBoard();
     }
 
     private void setupSentenceBoard()
     {
-        //setup drag listeners for the views
+        //Setup drag listeners for the sentence board
         speechDragListener = new SpeechBoardBoxDragListener(parent, parent.getApplicationContext(), user);
         parent.findViewById(R.id.sentenceboard).setOnDragListener(speechDragListener);
 
@@ -182,6 +182,7 @@ public class SpeechBoardFragment extends Fragment
         int noInSentence=user.getNumberOfSentencePictograms();
         sentenceBoardGrid.setNumColumns(noInSentence);
 
+        //Add empty pictograms to the list, so it is possible to drag a pictogram to an empty location
         if(sentencePictogramList.size() == 0)
         {
             for (int i = 0; i < noInSentence; i++)
@@ -190,12 +191,10 @@ public class SpeechBoardFragment extends Fragment
             }
         }
 
-        // Set sentence board width dependent on the screen size - overvej om dette kan slettes
-        RelativeLayout playButton = (RelativeLayout) parent.findViewById(R.id.playButtonLayout);
-        RelativeLayout.LayoutParams playButtonLayout = new RelativeLayout.LayoutParams(playButton.getLayoutParams());
-
         RelativeLayout sentenceBoard = (RelativeLayout) parent.findViewById(R.id.sentenceBoardLayout);
 
+        //Find the width that is needed for the sentence board, and the left margin needed because of
+        //the trash button.
         int trashButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonTrashWidth), parent.getApplicationContext());
         int playButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonPlayWidth), parent.getApplicationContext());
         RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams(getScreenSize() - playButtonWidth - trashButtonWidth, GComponent.DpToPixel(150, parent));
@@ -233,7 +232,6 @@ public class SpeechBoardFragment extends Fragment
         btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                boolean change;
                 final PictoMediaPlayer pmp = new PictoMediaPlayer(parent.getApplicationContext());
                 btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_stop));
                 if (pmp.isPlaying())
@@ -245,31 +243,13 @@ public class SpeechBoardFragment extends Fragment
 
                 //Used for removing empty pictograms in the sentence board, and repositioning
                 //the pictograms after the empty ones.
-                for(int i = 0; i < sentencePictogramList.size(); i++)
-                {
-                    change = true;
-                    while(change && sentencePictogramList.get(i) == null)
-                    {
-                        change = false;
-                        for (int j = i + 1; j < sentencePictogramList.size(); j++)
-                        {
-                            if(sentencePictogramList.get(j) != null)
-                            {
-                                sentencePictogramList.set(j-1, sentencePictogramList.get(j));
-                                sentencePictogramList.set(j,null);
-                                change = true;
-                            }
-                        }
-                    }
-                }
+                removeEmptyPictograms();
 
                 GridView sentence = (GridView) parent.findViewById(R.id.sentenceboard);
                 sentence.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
                 sentence.invalidate();
                 if (sentencePictogramList != null)
                     pmp.playListOfPictograms(sentencePictogramList);
-
-                //Fungerer ikke, laver exception
 
                 new Thread(new Runnable() {
                     @Override
@@ -287,6 +267,29 @@ public class SpeechBoardFragment extends Fragment
         });
 
         ((GirafButton) parent.findViewById(R.id.btnPictosearch)).setIcon(getResources().getDrawable(R.drawable.icon_search));
+    }
+
+    private void removeEmptyPictograms()
+    {
+        boolean change;
+
+        for(int i = 0; i < sentencePictogramList.size(); i++)
+        {
+            change = true;
+            while(change && sentencePictogramList.get(i) == null)
+            {
+                change = false;
+                for (int j = i + 1; j < sentencePictogramList.size(); j++)
+                {
+                    if(sentencePictogramList.get(j) != null)
+                    {
+                        sentencePictogramList.set(j-1, sentencePictogramList.get(j));
+                        sentencePictogramList.set(j,null);
+                        change = true;
+                    }
+                }
+            }
+        }
     }
 
 public void setGridviewColNumb()
