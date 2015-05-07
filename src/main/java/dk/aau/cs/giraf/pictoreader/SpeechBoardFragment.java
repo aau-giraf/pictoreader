@@ -104,10 +104,10 @@ public class SpeechBoardFragment extends Fragment
     public void onResume() {
         super.onResume();
         parent.invalidateOptionsMenu();
-        GODMETHOD();
+        setupEverything();
     }
 
-    private void GODMETHOD() {
+    private void setupEverything() {
 
         View v = LayoutInflater.from(parent.getApplicationContext()).inflate(R.layout.speechboard_layout, null);
         parent.setContentView(v);
@@ -117,120 +117,109 @@ public class SpeechBoardFragment extends Fragment
         //check whether there are categories
         if(user.getCategoryAt(0)!=null)
         {
-            displayedCategory = user.getCategoryAt(0);
-            displayedMainCategory = displayedCategory;
-
-            //Setup the view for the listing of pictograms in pictogramgrid
-            final GridView pictogramGrid = (GridView) parent.findViewById(R.id.pictogramgrid);
-
-            //Get the size of the screen
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-            int width = size.x;
-
-            //Setup the view for the sentences
-            GridView sentenceBoardGrid = (GridView) parent.findViewById(R.id.sentenceboard);
-            sentenceBoardGrid.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent.getApplicationContext()));
-            int noInSentence=user.getNumberOfSentencePictograms();
-            sentenceBoardGrid.setNumColumns(noInSentence);
-
-            //setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
-            setGridviewColNumb();
-
-            //Setup the view for the categories
-            GridView categoryGrid = (GridView) parent.findViewById(R.id.category);
-            categoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parent, R.id.category, user, displayedMainCategoryIndex));
-
-            try
-            {
-                SpeechBoardFragment.speechboardPictograms.clear();
-
-                if (pictogramController.getPictogramsByCategory(displayedCategory).size() > MaxNumberOfAllowedPictogramsInCategory)
-                {
-                    speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory).subList(0, MaxNumberOfAllowedPictogramsInCategory);
-                }
-                else
-                {
-                    speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
-                }
-            }
-            catch (OutOfMemoryError e)
-            {
-                e.getStackTrace();
-                return;
-            }
-
-            pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parent.getApplicationContext(), parent, user));
-
-            //setup drag listeners for the views
-            //parent.findViewById(R.id.pictogramgrid).setOnDragListener(new SpeechBoardBoxDragListener(parent));
-            speechDragListener = new SpeechBoardBoxDragListener(parent, parent.getApplicationContext(), user);
-
-            parent.findViewById(R.id.sentenceboard).setOnDragListener(speechDragListener);
-
-            if(sentencePictogramList.size() == 0)
-            {
-                for (int i = 0; i < noInSentence; i++)
-                {
-                    sentencePictogramList.add(null);
-                }
-            }
-            final GirafButton trashCanButton = (GirafButton) parent.findViewById(R.id.btnClear);
-            trashCanButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    clearSentenceboard();
-                }
-            });
-
-            // Set sentence board width dependent on the screen size
-            RelativeLayout playButton = (RelativeLayout) parent.findViewById(R.id.playButtonLayout);
-            RelativeLayout.LayoutParams playButtonLayout = new RelativeLayout.LayoutParams(playButton.getLayoutParams());
-
-            RelativeLayout sentenceBoard = (RelativeLayout) parent.findViewById(R.id.sentenceBoardLayout);
-
-            int trashButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonTrashWidth), parent.getApplicationContext());
-            int playButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonPlayWidth), parent.getApplicationContext());
-            RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams(width - playButtonWidth - trashButtonWidth, GComponent.DpToPixel(150, parent));
-            sBParams.leftMargin = trashButtonWidth;
-            sentenceBoard.setLayoutParams(sBParams);
-            //Delete this? 15/04-2015
-            /*
-            final PackageManager packMan = parent.getPackageManager();
-            List<ApplicationInfo> apps = packMan.getInstalledApplications(PackageManager.GET_META_DATA);
-
-            for (ApplicationInfo appInfo : apps)
-            {
-                if (appInfo.packageName.toString().equalsIgnoreCase(catName))
-                {
-                    catIntent = packMan.getLaunchIntentForPackage(catName);
-
-                    catIntent.putExtra("currentGuardianID", guadianID);
-                    catIntent.putExtra("currentChildID", childID);
-
-                    if (catIntent != null)
-                    {
-                        catButton.setVisibility(this.getView().VISIBLE);
-                        catButton.SetImage(appInfo.loadIcon(packMan));
-                    }
-                    createOnClickListener(catButton, catIntent);
-                }
-                else if (appInfo.packageName.toString().equalsIgnoreCase(crocName))
-                {
-                    crocIntent = packMan.getLaunchIntentForPackage(crocName);
-
-                    crocIntent.putExtra("currentGuardianID", guadianID);
-                    crocIntent.putExtra("currentChildID", childID);
-                    if (crocIntent != null)
-                    {
-                        crocButton.setVisibility(this.getView().VISIBLE);
-                        crocButton.SetImage(appInfo.loadIcon(packMan));
-                    }
-                    createOnClickListener(crocButton, crocIntent);
-                }
-            }
-            */
+            setupCategoryGrid();
+            setupPictogramGrid();
         }
+
+        setupButtons();
+
+        if(displayPictogramList != null && backToNormalView)
+        {
+            displayPictograms(displayPictogramList, this.getActivity());
+        }
+    }
+
+    private void setupCategoryGrid()
+    {
+        displayedCategory = user.getCategoryAt(0);
+        displayedMainCategory = displayedCategory;
+
+        //Setup the view for the categories
+        GridView categoryGrid = (GridView) parent.findViewById(R.id.category);
+        categoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parent, R.id.category, user, displayedMainCategoryIndex));
+    }
+
+    private void setupPictogramGrid()
+    {
+        //Setup the view for the listing of pictograms in pictogramgrid
+        final GridView pictogramGrid = (GridView) parent.findViewById(R.id.pictogramgrid);
+
+        //setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
+        setGridviewColNumb();
+
+        try
+        {
+            SpeechBoardFragment.speechboardPictograms.clear();
+
+            if (pictogramController.getPictogramsByCategory(displayedCategory).size() > MaxNumberOfAllowedPictogramsInCategory)
+            {
+                speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory).subList(0, MaxNumberOfAllowedPictogramsInCategory);
+            }
+            else
+            {
+                speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+            }
+        }
+        catch (OutOfMemoryError e)
+        {
+            e.getStackTrace();
+            return;
+        }
+
+        pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parent.getApplicationContext(), parent, user));
+        setupSentenceBoard();
+    }
+
+    private void setupSentenceBoard()
+    {
+        //setup drag listeners for the views
+        speechDragListener = new SpeechBoardBoxDragListener(parent, parent.getApplicationContext(), user);
+        parent.findViewById(R.id.sentenceboard).setOnDragListener(speechDragListener);
+
+        //Setup the view for the sentences
+        GridView sentenceBoardGrid = (GridView) parent.findViewById(R.id.sentenceboard);
+        sentenceBoardGrid.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent.getApplicationContext()));
+        int noInSentence=user.getNumberOfSentencePictograms();
+        sentenceBoardGrid.setNumColumns(noInSentence);
+
+        if(sentencePictogramList.size() == 0)
+        {
+            for (int i = 0; i < noInSentence; i++)
+            {
+                sentencePictogramList.add(null);
+            }
+        }
+
+        // Set sentence board width dependent on the screen size - overvej om dette kan slettes
+        RelativeLayout playButton = (RelativeLayout) parent.findViewById(R.id.playButtonLayout);
+        RelativeLayout.LayoutParams playButtonLayout = new RelativeLayout.LayoutParams(playButton.getLayoutParams());
+
+        RelativeLayout sentenceBoard = (RelativeLayout) parent.findViewById(R.id.sentenceBoardLayout);
+
+        int trashButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonTrashWidth), parent.getApplicationContext());
+        int playButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonPlayWidth), parent.getApplicationContext());
+        RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams(getScreenSize() - playButtonWidth - trashButtonWidth, GComponent.DpToPixel(150, parent));
+        sBParams.leftMargin = trashButtonWidth;
+        sentenceBoard.setLayoutParams(sBParams);
+    }
+
+
+    private int getScreenSize()
+    {
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.x;
+    }
+
+    private void setupButtons()
+    {
+        final GirafButton trashCanButton = (GirafButton) parent.findViewById(R.id.btnClear);
+        trashCanButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                clearSentenceboard();
+            }
+        });
 
         final GirafButton btnPictosearch = (GirafButton) parent.findViewById(R.id.btnPictosearch);
         btnPictosearch.setOnClickListener(new View.OnClickListener() {
@@ -297,20 +286,7 @@ public class SpeechBoardFragment extends Fragment
             }
         });
 
-        if(displayPictogramList != null && backToNormalView)
-        {
-            displayPictograms(displayPictogramList, this.getActivity());
-        }
-
-        if(backToNormalView)
-        {
-            ((GirafButton) parent.findViewById(R.id.btnPictosearch)).setIcon(getResources().getDrawable(R.drawable.exit));
-            parent.findViewById(R.id.btnClear).setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            ((GirafButton) parent.findViewById(R.id.btnPictosearch)).setIcon(getResources().getDrawable(R.drawable.icon_search));
-        }
+        ((GirafButton) parent.findViewById(R.id.btnPictosearch)).setIcon(getResources().getDrawable(R.drawable.icon_search));
     }
 
 public void setGridviewColNumb()
