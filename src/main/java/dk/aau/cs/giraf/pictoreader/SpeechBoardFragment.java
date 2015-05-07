@@ -114,7 +114,7 @@ public class SpeechBoardFragment extends Fragment
 
         user=MainActivity.getUser();
 
-        //check whether there are categories
+        //check whether there are categories, if not then we will have null pointer exceptions
         if(user.getCategoryAt(0)!=null)
         {
             setupCategoryGrid();
@@ -292,17 +292,13 @@ public class SpeechBoardFragment extends Fragment
 public void setGridviewColNumb()
     {
         GridView pictogramGrid = (GridView) parent.findViewById(R.id.pictogramgrid);
-
-        //Setup the view for the sentences
         GridView sentenceBoardGrid = (GridView) parent.findViewById(R.id.sentenceboard);
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
 
+        int width = getScreenSize();
         int colWidth = GComponent.DpToPixel(125, parent.getApplicationContext());
         sentenceBoardGrid.setColumnWidth(colWidth);
 
+        //Get the width for the trash- and playbutton.
         int trashButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonTrashWidth), parent.getApplicationContext());
         int playButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonPlayWidth), parent.getApplicationContext());
 
@@ -356,11 +352,7 @@ public void setGridviewColNumb()
         speechboardPictograms = (ArrayList) pictograms;
 
         activity.findViewById(R.id.pcategory).setVisibility(View.GONE);
-        activity.findViewById(R.id.btnClear).setVisibility(View.GONE);
-        /*
-        activity.findViewById(R.id.catButton).setVisibility(View.GONE);
-        activity.findViewById(R.id.crocButton).setVisibility(View.GONE);
-        */
+
         LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
         pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
 
@@ -398,6 +390,7 @@ public void setGridviewColNumb()
             }
 
         }
+        /*
         else
         {
             backToNormalView = false;
@@ -405,15 +398,7 @@ public void setGridviewColNumb()
             Activity activity = this.getActivity();
             activity.findViewById(R.id.pcategory).setVisibility(View.VISIBLE);
             activity.findViewById(R.id.btnClear).setVisibility(View.VISIBLE);
-            //activity.findViewById(R.id.btnSettings).setVisibility(View.VISIBLE);
 
-            /*
-            if(guadianID != -1 || childID != -1)
-            {
-                activity.findViewById(R.id.catButton).setVisibility(View.VISIBLE);
-                activity.findViewById(R.id.crocButton).setVisibility(View.VISIBLE);
-            }
-            */
 
             LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
             pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -447,7 +432,7 @@ public void setGridviewColNumb()
 
             GirafButton btnSearch = (GirafButton) parent.findViewById(R.id.btnPictosearch);
             btnSearch.setIcon(getResources().getDrawable(R.drawable.icon_search));
-        }
+        }*/
     }
 
     /**
