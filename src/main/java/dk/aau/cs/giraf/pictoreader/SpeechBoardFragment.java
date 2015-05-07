@@ -35,6 +35,8 @@ import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 public class SpeechBoardFragment extends Fragment
 {
     private Activity parent;
+    public static final int GET_MULTIPLE_PICTOGRAMS = 104;
+    public static final String PICTO_SEARCH_MULTI_TAG = "multi";
 
     //Remembers the index of the pictogram that is currently being dragged.
     public static int draggedPictogramIndex = -1;
@@ -376,7 +378,7 @@ public void setGridviewColNumb()
 
             try{
                 intent.setComponent(new ComponentName("dk.aau.cs.giraf.pictosearch", "dk.aau.cs.giraf.pictosearch.PictoAdminMain"));
-                intent.putExtra("purpose", "multi");
+                intent.putExtra("purpose", PICTO_SEARCH_MULTI_TAG);
 
                 if (intent.getExtras().getLong("currentChildId", -1) != -1) {
                     intent.putExtra(getString(R.string.current_child_id), intent.getExtras().getLong("currentChildId", -1));
@@ -387,7 +389,7 @@ public void setGridviewColNumb()
                 intent.putExtra(getString(R.string.current_guardian_id), intent.getExtras().getLong("currentGuardianId", -1));
 
 
-                startActivityForResult(intent, 103);
+                startActivityForResult(intent, GET_MULTIPLE_PICTOGRAMS);
             } catch (Exception e){
                 Toast.makeText(parent, "Pictosearch er ikke installeret.", Toast.LENGTH_LONG).show();
             }
