@@ -31,6 +31,10 @@
     <string name="fourthTab">Kamera</string>
     <string name="TakePictureButton">Tag Billed</string>
 
+    <!-- Strings for help (Showcase) -->
+    <string name="category_help_title_text"> Jeg er en title kage</string>
+    <string name="category_help_content_text"> Jeg er en content kage</string>
+
 
     <!-- Old DigiPecs v1 String Values. -->
 
@@ -72,5 +76,6 @@
     <string name="returnItem">Tilbage</string>
     <string name="title_activity_setting">SettingActivity</string>
     <string name="picture">default picture content description</string><string name="btnSettingsSave">Save Settings</string>
+
 
 </resources>

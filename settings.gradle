@@ -1,1 +1,2 @@
 include ':PICTOREADER'
+include ':ShowcaseView'

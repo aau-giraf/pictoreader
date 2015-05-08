@@ -11,18 +11,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 
 import com.google.analytics.tracking.android.EasyTracker;
+
 import dk.aau.cs.giraf.activity.GirafActivity;
-import dk.aau.cs.giraf.dblib.models.Profile;
-import dk.aau.cs.giraf.gui.GComponent;
-import dk.aau.cs.giraf.gui.GToast;
-import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.dblib.Helper;
 import dk.aau.cs.giraf.dblib.controllers.ApplicationController;
 import dk.aau.cs.giraf.dblib.controllers.ProfileController;
 import dk.aau.cs.giraf.dblib.models.Application;
+import dk.aau.cs.giraf.dblib.models.Profile;
+import dk.aau.cs.giraf.gui.GComponent;
+import dk.aau.cs.giraf.gui.GToast;
+import dk.aau.cs.giraf.gui.GirafButton;
+import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
 
 /**
  *
@@ -37,6 +38,7 @@ public class MainActivity extends GirafActivity {
     private static Application app;
     private static Intent girafIntent;
     private GirafButton btnOptions;
+    private GirafButton btnHelp;
     // Helper that will be used to fetch profiles
     private final Helper helper = new Helper(this);
 
@@ -57,12 +59,23 @@ public class MainActivity extends GirafActivity {
     }
 
     /** Called when the activity is first created. */
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main, null);
         createOptionsButton();
+
+
+        //TODO: ADD TO METHOD
+        btnHelp = new GirafButton(this, getResources().getDrawable(R.drawable.icon_help));
+        btnHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ShowcaseManager.ShowcaseCapable currentContent = (ShowcaseManager.ShowcaseCapable) getSupportFragmentManager().findFragmentById(R.id.SpeechBoard);
+                currentContent.toggleShowcase();
+            }
+        });
+        addGirafButtonToActionBar(btnHelp, GirafActivity.RIGHT);
 
         //Set the background
         v.setBackgroundColor(GComponent.GetBackgroundColor());
