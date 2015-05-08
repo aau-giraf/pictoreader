@@ -23,7 +23,6 @@ import dk.aau.cs.giraf.dblib.models.Profile;
 import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.gui.GirafButton;
-import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
 
 /**
  *
@@ -65,7 +64,7 @@ public class MainActivity extends GirafActivity {
         View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main, null);
         createOptionsButton();
 
-
+        /*
         //TODO: ADD TO METHOD
         btnHelp = new GirafButton(this, getResources().getDrawable(R.drawable.icon_help));
         btnHelp.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +75,7 @@ public class MainActivity extends GirafActivity {
             }
         });
         addGirafButtonToActionBar(btnHelp, GirafActivity.RIGHT);
+        */
 
         //Set the background
         v.setBackgroundColor(GComponent.GetBackgroundColor());

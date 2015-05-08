@@ -12,13 +12,6 @@
     android:orientation="vertical"
     tools:context="dk.aau.cs.giraf.pictoreader.SpeechBoardFragment">
 
-    <FrameLayout
-        android:id="@+id/speechboard_framelayout"
-        android:tag="FRAGMENT_CONTAINER"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:visibility="gone"/>
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
