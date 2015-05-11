@@ -66,7 +66,6 @@ public class MainActivity extends GirafActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main, null);
-        createOptionsButton();
 
         //Set the background
         v.setBackgroundColor(GComponent.GetBackgroundColor());
@@ -88,6 +87,7 @@ public class MainActivity extends GirafActivity {
             childID = girafIntent.getExtras().getLong("currentChildID", -1);
         }
 
+        createOptionsButton();
         //TODO: ADD TO METHOD
         btnHelp = new GirafButton(this, getResources().getDrawable(R.drawable.icon_help));
         btnHelp.setOnClickListener(new View.OnClickListener() {
@@ -189,7 +189,7 @@ public class MainActivity extends GirafActivity {
             }
         });
         //TODO if guardian add else nothing
-        if (getIntent().getExtras().getLong(getString(R.string.current_child_id)) == -1) {
+        if (childID == -1) {
             addGirafButtonToActionBar(btnOptions, LEFT);
         }
     }

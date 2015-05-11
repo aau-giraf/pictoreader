@@ -26,7 +26,6 @@ import java.util.List;
 import dk.aau.cs.giraf.dblib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 import dk.aau.cs.giraf.dblib.models.Category;
-import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
@@ -426,18 +425,18 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
         //Find the width that is needed for the sentence board, and the left margin needed because of
         //the trash button.
-        int trashButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonTrashWidth), parent.getApplicationContext());
-        int playButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonPlayWidth), parent.getApplicationContext());
-        RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams(getScreenSize() - playButtonWidth - trashButtonWidth, GComponent.DpToPixel(150, parent));
-
+        float trashButtonWidth = GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonTrashWidth));
+        float playButtonWidth = GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonPlayWidth));
+        RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams(getScreenSize() - (int) playButtonWidth - (int) trashButtonWidth, (int) GirafScalingUtilities.convertDpToPixel(parent, 150));
         if(guardianMode) {
-            int searchButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonSearchWidth), parent.getApplicationContext());
-            sBParams.leftMargin = trashButtonWidth + searchButtonWidth;
+            float searchButtonWidth = GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonSearchWidth));
+            sBParams.leftMargin = (int) trashButtonWidth + (int) searchButtonWidth;
         }
 
         else {
-            sBParams.leftMargin = trashButtonWidth;
+            sBParams.leftMargin = (int) trashButtonWidth;
         }
+
         sentenceBoard.setLayoutParams(sBParams);
     }
 
@@ -554,19 +553,18 @@ public void setGridviewColNumb()
         GridView sentenceBoardGrid = (GridView) parent.findViewById(R.id.sentenceboard);
 
         int width = getScreenSize();
-        int colWidth = GComponent.DpToPixel(125, parent.getApplicationContext());
+        int colWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), 125);
         sentenceBoardGrid.setColumnWidth(colWidth);
 
         //Get the width for the trash- and playbutton.
-        int trashButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonTrashWidth), parent.getApplicationContext());
-        int playButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonPlayWidth), parent.getApplicationContext());
+        int trashButtonWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonTrashWidth));
+        int playButtonWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonPlayWidth));
 
         int sentenceWidth = width - (trashButtonWidth + playButtonWidth);
         int noInSentence = sentenceWidth/colWidth;
 
         sentenceBoardGrid.setNumColumns(noInSentence);
 
-        //This size is determined out from whether we are in normal view or not
         int pictogramgridWidth = 0;
 
         if(guardianMode)
