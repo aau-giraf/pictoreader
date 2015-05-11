@@ -429,7 +429,15 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         int trashButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonTrashWidth), parent.getApplicationContext());
         int playButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonPlayWidth), parent.getApplicationContext());
         RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams(getScreenSize() - playButtonWidth - trashButtonWidth, GComponent.DpToPixel(150, parent));
-        sBParams.leftMargin = trashButtonWidth;
+
+        if(guardianMode) {
+            int searchButtonWidth = GComponent.DpToPixel((int) getResources().getDimension(R.dimen.buttonSearchWidth), parent.getApplicationContext());
+            sBParams.leftMargin = trashButtonWidth + searchButtonWidth;
+        }
+
+        else {
+            sBParams.leftMargin = trashButtonWidth;
+        }
         sentenceBoard.setLayoutParams(sBParams);
     }
 
