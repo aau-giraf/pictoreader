@@ -77,7 +77,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     private PictoMediaPlayer pictoMediaPlayer;
     private List<dk.aau.cs.giraf.dblib.models.Pictogram> displayPictogramList = null;
 
-    private boolean backToNormalView = false;
+    private boolean justSearched = false;
 
     //TODO: DELETE THESE?
     long guardianID = (long) MainActivity.getGuardianID();
@@ -344,8 +344,9 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
         setupButtons();
 
-        if(displayPictogramList != null && backToNormalView)
+        if(displayPictogramList != null && justSearched)
         {
+            justSearched = false;
             displayPictograms(displayPictogramList, this.getActivity());
         }
     }
@@ -615,6 +616,7 @@ public void setGridviewColNumb()
      * Opens pictosearch application, so pictograms can be loaded into pictocreator.
      */
     private void callPictosearch(){
+            justSearched = true;
             Intent intent = new Intent();
 
             try{
@@ -634,7 +636,8 @@ public void setGridviewColNumb()
             } catch (Exception e){
                 Toast.makeText(parent, "Pictosearch er ikke installeret.", Toast.LENGTH_LONG).show();
             }
-        }
+    }
+
     /**
      * This method gets the pictogram that are returned by pictosearch.
      * @param requestCode
