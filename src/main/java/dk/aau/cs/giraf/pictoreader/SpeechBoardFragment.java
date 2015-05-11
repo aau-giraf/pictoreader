@@ -67,6 +67,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
     private ShowcaseManager showcaseManager;
     private boolean isFirstRun;
+    private boolean guardianMode = false;
 
     //This variable is used! Android studio is a liar
     private PictogramCategoryController pictogramCategoryController;
@@ -79,8 +80,8 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     private boolean backToNormalView = false;
 
     //TODO: DELETE THESE?
-    //int guadianID = (int) MainActivity.getGuardianID();
-    //int childID = MainActivity.getChildID();
+    long guardianID = (long) MainActivity.getGuardianID();
+    long childID = MainActivity.getChildID();
 
     public SpeechBoardFragment(Context c)
     {
@@ -317,6 +318,17 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
     private void setupEverything() {
 
+        //Used to see which elements in the gui should be shown, resized etc.
+        if (childID != -1)
+        {
+            guardianMode = false;
+        }
+
+        else if(guardianID != -1)
+        {
+            guardianMode = true;
+        }
+
         View v = LayoutInflater.from(parent.getApplicationContext()).inflate(R.layout.speechboard_layout, null);
         parent.setContentView(v);
 
@@ -338,44 +350,54 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         }
     }
 
-    private void setupCategoryGrid()
-    {
-        displayedCategory = user.getCategoryAt(0);
-        displayedMainCategory = displayedCategory;
+    private void setupCategoryGrid() {
+        if (!guardianMode) {
+            displayedCategory = user.getCategoryAt(0);
+            displayedMainCategory = displayedCategory;
 
-        //Setup the view for the categories
-        GridView categoryGrid = (GridView) parent.findViewById(R.id.category);
-        categoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parent, R.id.category, user, displayedMainCategoryIndex));
+            //Setup the view for the categories
+            GridView categoryGrid = (GridView) parent.findViewById(R.id.category);
+            categoryGrid.setAdapter(new PARROTCategoryAdapter(user.getCategories(), parent, R.id.category, user, displayedMainCategoryIndex));
+        }
     }
 
     private void setupPictogramGrid()
     {
-        //Setup the view for the listing of pictograms in pictogramgrid
-        final GridView pictogramGrid = (GridView) parent.findViewById(R.id.pictogramgrid);
+        Activity activity = this.getActivity();
+        GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
 
+        if(guardianMode) {
+            activity.findViewById(R.id.pcategory).setVisibility(View.GONE);
+
+            LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
+            pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+
+            pictogramGrid.invalidate();
+        }
         //setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
         setGridviewColNumb();
 
-        try
-        {
-            SpeechBoardFragment.speechboardPictograms.clear();
-
-            if (pictogramController.getPictogramsByCategory(displayedCategory).size() > MaxNumberOfAllowedPictogramsInCategory)
+        if(!guardianMode) {
+            try
             {
-                speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory).subList(0, MaxNumberOfAllowedPictogramsInCategory);
-            }
-            else
-            {
-                speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
-            }
-        }
-        catch (OutOfMemoryError e)
-        {
-            e.getStackTrace();
-            return;
-        }
+                SpeechBoardFragment.speechboardPictograms.clear();
 
-        pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parent.getApplicationContext(), parent, user));
+                if (pictogramController.getPictogramsByCategory(displayedCategory).size() > MaxNumberOfAllowedPictogramsInCategory)
+                {
+                    speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory).subList(0, MaxNumberOfAllowedPictogramsInCategory);
+                }
+                else
+                {
+                    speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
+                }
+            }
+            catch (OutOfMemoryError e)
+            {
+                e.getStackTrace();
+                return;
+            }
+            pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parent.getApplicationContext(), parent, user));
+        }
     }
 
     private void setupSentenceBoard()
@@ -427,22 +449,40 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 clearSentenceboard();
             }
         });
-        /*
-        final GirafButton btnPictosearch = (GirafButton) parent.findViewById(R.id.btnPictosearch);
-        btnPictosearch.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Create new fragment and transaction
-                callPictosearch();
-            }
-        });
-*/
+
+        //If it is not a citizen who is using the application, the Search button should be created
+        if(childID == -1) {
+            final GirafButton btnPictosearch = (GirafButton) parent.findViewById(R.id.btnSearch);
+            btnPictosearch.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // Create new fragment and transaction
+                    callPictosearch();
+                }
+            });
+
+            //We update the width of the trashcan button to the same size of the play and search btn
+            trashCanButton.getLayoutParams().width = (int) getResources().getDimension(R.dimen.buttonTrashGuardianWidth);
+        }
+
+        else
+        {
+
+            final GirafButton btnPictosearch = (GirafButton) parent.findViewById(R.id.btnSearch);
+            btnPictosearch.setVisibility(View.GONE);
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            //Set the margins to 0 on the trash can button because it should not be next to the
+            //search button any longer
+            lp.setMargins(0, 0, 0, 0);
+            parent.findViewById(R.id.trashButtonLayout).setLayoutParams(lp);
+        }
+
+
         final GirafButton btnPlay = (GirafButton) parent.findViewById(R.id.btnPlay);
         btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_stop));
-                if (pictoMediaPlayer.isPlaying())
-                {
+                if (pictoMediaPlayer.isPlaying()) {
                     btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
                     pictoMediaPlayer.stopSound();
                     return;
@@ -458,10 +498,12 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 if (sentencePictogramList != null)
                     pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
 
+                //Used to change the icon of the play button from Stop to Start when it is done playing pictograms
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        while(pictoMediaPlayer.isPlaying() == true) {}
+                        while (pictoMediaPlayer.isPlaying() == true) {
+                        }
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -472,8 +514,6 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 }).start();
             }
         });
-
-        //((GirafButton) parent.findViewById(R.id.btnPictosearch)).setIcon(getResources().getDrawable(R.drawable.icon_search));
     }
 
     private void removeEmptyPictograms()
@@ -520,7 +560,7 @@ public void setGridviewColNumb()
         //This size is determined out from whether we are in normal view or not
         int pictogramgridWidth = 0;
 
-        if(backToNormalView)
+        if(guardianMode)
         {
             pictogramgridWidth = sentenceWidth + trashButtonWidth;
         }
@@ -529,7 +569,6 @@ public void setGridviewColNumb()
         {
             pictogramgridWidth = sentenceWidth;
         }
-
 
         int pictogramWidth = 200;
         if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
@@ -576,9 +615,6 @@ public void setGridviewColNumb()
      * Opens pictosearch application, so pictograms can be loaded into pictocreator.
      */
     private void callPictosearch(){
-        if(!backToNormalView)
-        {
-            backToNormalView = true;
             Intent intent = new Intent();
 
             try{
@@ -598,53 +634,7 @@ public void setGridviewColNumb()
             } catch (Exception e){
                 Toast.makeText(parent, "Pictosearch er ikke installeret.", Toast.LENGTH_LONG).show();
             }
-
         }
-        /*
-        else
-        {
-            backToNormalView = false;
-            setGridviewColNumb();
-            Activity activity = this.getActivity();
-            activity.findViewById(R.id.pcategory).setVisibility(View.VISIBLE);
-            activity.findViewById(R.id.btnClear).setVisibility(View.VISIBLE);
-
-
-            LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
-            pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
-
-            if(displayedCategory != null)
-            {
-                try
-                {
-                    SpeechBoardFragment.speechboardPictograms.clear();
-
-                    if (pictogramController.getPictogramsByCategory(displayedCategory).size() > MaxNumberOfAllowedPictogramsInCategory)
-                    {
-                        speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory).subList(0, MaxNumberOfAllowedPictogramsInCategory);
-                    }
-                    else
-                    {
-                        speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
-                    }
-                }
-                catch (OutOfMemoryError e)
-                {
-                    e.getStackTrace();
-                    return;
-                }
-            }
-
-            GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
-
-            pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, activity.getApplicationContext(), activity, user));
-            pictogramGrid.invalidate();
-
-            GirafButton btnSearch = (GirafButton) parent.findViewById(R.id.btnPictosearch);
-            btnSearch.setIcon(getResources().getDrawable(R.drawable.icon_search));
-        }*/
-    }
-
     /**
      * This method gets the pictogram that are returned by pictosearch.
      * @param requestCode

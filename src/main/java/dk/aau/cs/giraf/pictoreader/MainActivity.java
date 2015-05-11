@@ -32,6 +32,8 @@ import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
  */
 public class MainActivity extends GirafActivity {
 
+    public static final int GET_MULTIPLE_PICTOGRAMS = 104;
+
     private static PARROTProfile parrotUser;
     private static long guardianID;
     private static long childID;
@@ -39,6 +41,7 @@ public class MainActivity extends GirafActivity {
     private static Intent girafIntent;
     private GirafButton btnOptions;
     private GirafButton btnHelp;
+    private GirafButton btnSearch;
     // Helper that will be used to fetch profiles
     private final Helper helper = new Helper(this);
 
@@ -65,19 +68,6 @@ public class MainActivity extends GirafActivity {
         View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main, null);
         createOptionsButton();
 
-
-        //TODO: ADD TO METHOD
-        btnHelp = new GirafButton(this, getResources().getDrawable(R.drawable.icon_help));
-        btnHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final ShowcaseManager.ShowcaseCapable currentContent = (ShowcaseManager.ShowcaseCapable) getSupportFragmentManager().findFragmentById(R.id.SpeechBoard);
-                currentContent.toggleShowcase();
-            }
-        });
-        addGirafButtonToActionBar(btnHelp, GirafActivity.RIGHT);
-
-
         //Set the background
         v.setBackgroundColor(GComponent.GetBackgroundColor());
 
@@ -97,6 +87,17 @@ public class MainActivity extends GirafActivity {
             guardianID = girafIntent.getExtras().getLong("currentGuardianID", -1);
             childID = girafIntent.getExtras().getLong("currentChildID", -1);
         }
+
+        //TODO: ADD TO METHOD
+        btnHelp = new GirafButton(this, getResources().getDrawable(R.drawable.icon_help));
+        btnHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ShowcaseManager.ShowcaseCapable currentContent = (ShowcaseManager.ShowcaseCapable) getSupportFragmentManager().findFragmentById(R.id.SpeechBoard);
+                currentContent.toggleShowcase();
+            }
+        });
+        addGirafButtonToActionBar(btnHelp, GirafActivity.RIGHT);
 
         ApplicationController applicationController = new ApplicationController(getApplicationContext()); //mcontext
 

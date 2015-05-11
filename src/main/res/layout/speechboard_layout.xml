@@ -101,12 +101,28 @@
                 app:icon="@drawable/icon_play"
                 android:id="@+id/btnPlay" />
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/trashButtonLayout"
+            android:layout_width="@dimen/buttonTrashWidth"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/buttonSearchWidth"
+            android:orientation="horizontal">
+            <dk.aau.cs.giraf.gui.GirafButton
+                android:id="@+id/btnClear"
+                app:icon="@drawable/icon_delete"
+                android:layout_width="@dimen/buttonTrashWidth"
+                android:layout_height="fill_parent"
+                />
+        </RelativeLayout>
+
         <dk.aau.cs.giraf.gui.GirafButton
             android:orientation="horizontal"
-            android:id="@+id/btnClear"
-            app:icon="@drawable/icon_delete"
-            android:layout_width="@dimen/buttonTrashWidth"
-            android:layout_alignParentLeft="true"
+            android:id="@+id/btnSearch"
+            app:icon="@drawable/icon_search"
+            android:layout_width="@dimen/buttonSearchWidth"
+            android:layout_alignParentLeft="false"
             android:layout_height="fill_parent"
             />
     </RelativeLayout>
