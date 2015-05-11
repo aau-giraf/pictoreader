@@ -19,7 +19,6 @@ import dk.aau.cs.giraf.dblib.Helper;
 import dk.aau.cs.giraf.dblib.controllers.ApplicationController;
 import dk.aau.cs.giraf.dblib.controllers.ProfileController;
 import dk.aau.cs.giraf.dblib.models.Application;
-import dk.aau.cs.giraf.dblib.models.Profile;
 import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.gui.GirafButton;
@@ -32,8 +31,6 @@ import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
  */
 public class MainActivity extends GirafActivity {
 
-    public static final int GET_MULTIPLE_PICTOGRAMS = 104;
-
     private static PARROTProfile parrotUser;
     private static long guardianID;
     private static long childID;
@@ -41,13 +38,8 @@ public class MainActivity extends GirafActivity {
     private static Intent girafIntent;
     private GirafButton btnOptions;
     private GirafButton btnHelp;
-    private GirafButton btnSearch;
     // Helper that will be used to fetch profiles
     private final Helper helper = new Helper(this);
-
-    // Profiles of which the categories will be loaded from
-    private Profile childProfile;
-    private Profile guardianProfile;
 
     @Override
     public void onStart() {
@@ -76,10 +68,8 @@ public class MainActivity extends GirafActivity {
         boolean outsideGIRAF = false;
 
         if (ActivityManager.isUserAMonkey()) {
-            Helper h = new Helper(this);
-
-            guardianID = h.profilesHelper.getGuardians().get(0).getId();
-            childID = h.profilesHelper.getChildren().get(0).getId();
+            guardianID = helper.profilesHelper.getGuardians().get(0).getId();
+            childID = helper.profilesHelper.getChildren().get(0).getId();
         }
         else {
             girafIntent = getIntent();
@@ -88,16 +78,7 @@ public class MainActivity extends GirafActivity {
         }
 
         createOptionsButton();
-        //TODO: ADD TO METHOD
-        btnHelp = new GirafButton(this, getResources().getDrawable(R.drawable.icon_help));
-        btnHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final ShowcaseManager.ShowcaseCapable currentContent = (ShowcaseManager.ShowcaseCapable) getSupportFragmentManager().findFragmentById(R.id.SpeechBoard);
-                currentContent.toggleShowcase();
-            }
-        });
-        addGirafButtonToActionBar(btnHelp, GirafActivity.RIGHT);
+        createHelpButton();
 
         ApplicationController applicationController = new ApplicationController(getApplicationContext()); //mcontext
 
@@ -172,6 +153,18 @@ public class MainActivity extends GirafActivity {
                 outsideGIRAF = false;
             }
         }
+    }
+
+    private void createHelpButton() {
+        btnHelp = new GirafButton(this, getResources().getDrawable(R.drawable.icon_help));
+        btnHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ShowcaseManager.ShowcaseCapable currentContent = (ShowcaseManager.ShowcaseCapable) getSupportFragmentManager().findFragmentById(R.id.SpeechBoard);
+                currentContent.toggleShowcase();
+            }
+        });
+        addGirafButtonToActionBar(btnHelp, GirafActivity.RIGHT);
     }
 
     private void createOptionsButton() {
