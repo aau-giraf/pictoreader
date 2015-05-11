@@ -3,7 +3,6 @@ package dk.aau.cs.giraf.pictoreader;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import dk.aau.cs.giraf.gui.GComponent;
-import dk.aau.cs.giraf.dblib.controllers.CategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 import dk.aau.cs.giraf.dblib.models.Category;
-import dk.aau.cs.giraf.pictogram.Pictogram;
 
 /**
  * 
@@ -74,10 +69,6 @@ public class PictogramAdapter extends BaseAdapter {
 		ImageView imageView;
 		View view = convertView;
 		TextView textView;
-		//view.setTag(position);
-        int sizeLarge = GComponent.DpToPixel(180, context);
-        int sizeSmall = GComponent.DpToPixel(145, context);
-
 
         dk.aau.cs.giraf.dblib.models.Pictogram pct = pics.get(position);
 

@@ -1,7 +1,5 @@
 	package dk.aau.cs.giraf.pictoreader;
 	
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,15 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.security.spec.ECField;
 import java.util.ArrayList;
-import java.util.List;
 
-import dk.aau.cs.giraf.gui.GComponent;
-import dk.aau.cs.giraf.gui.GGridView;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
-import dk.aau.cs.giraf.dblib.models.Category;
 import dk.aau.cs.giraf.dblib.models.Pictogram;
+import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
 
 
     /**
@@ -57,7 +51,6 @@ public class SentenceboardAdapter extends BaseAdapter {
 			//return the number of pictograms
 
             return pictogramList.size();
-			//return pictogramController.getPictograms().size();
 		}
 
 		@Override
@@ -127,7 +120,7 @@ public class SentenceboardAdapter extends BaseAdapter {
             LinearLayout.LayoutParams picLayoutParams;
 
             //size adapted using dp to calculate pixels
-            int size = GComponent.DpToPixel(100, context);
+            int size = (int) GirafScalingUtilities.convertDpToPixel(context, 100);
 
             imageLayoutParams = new LinearLayout.LayoutParams(size, size);
 

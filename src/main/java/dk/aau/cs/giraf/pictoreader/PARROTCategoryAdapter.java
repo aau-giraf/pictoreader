@@ -3,9 +3,7 @@ package dk.aau.cs.giraf.pictoreader;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,11 +14,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.aau.cs.giraf.gui.GComponent;
-import dk.aau.cs.giraf.gui.GSelectableContent;
-import dk.aau.cs.giraf.dblib.models.Application;
 import dk.aau.cs.giraf.dblib.models.Category;
-import dk.aau.cs.giraf.pictogram.Pictogram;
+import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
 
 /**
  * 
@@ -97,7 +92,7 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 
        if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(context);
-            imageView.setLayoutParams(new GridView.LayoutParams(GComponent.DpToPixel(150, this.context), GComponent.DpToPixel(150, this.context)));
+            imageView.setLayoutParams(new GridView.LayoutParams((int) GirafScalingUtilities.convertDpToPixel(this.context, 150), (int) GirafScalingUtilities.convertDpToPixel(this.context, 150)));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setPadding(8, 8, 8, 8);
             imageView.setBackgroundColor(10);
@@ -107,8 +102,8 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 
         else {
             imageView = (ImageView) view.findViewById(R.id.categorybitmap);
-            imageView.getLayoutParams().width = GComponent.DpToPixel(135, this.context);
-            imageView.getLayoutParams().height = GComponent.DpToPixel(135, this.context);
+            imageView.getLayoutParams().width = (int) GirafScalingUtilities.convertDpToPixel(this.context, 135);
+            imageView.getLayoutParams().height = (int) GirafScalingUtilities.convertDpToPixel(this.context, 135);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             textView = (TextView) view.findViewById(R.id.categorytext);
         }

@@ -5,11 +5,12 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;;
+import android.widget.CheckBox;
 import android.widget.Switch;
 
-import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.pictoreader.PARROTProfile.PictogramSize;
+
+;
 
 public class OptionFragment extends Fragment{
 
@@ -29,7 +30,6 @@ public class OptionFragment extends Fragment{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
 		setHasOptionsMenu(true);
-        //GComponent.SetBaseColor(0xFF961BC2);
     }
 
 	/**
