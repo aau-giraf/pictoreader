@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 
@@ -19,7 +20,6 @@ import dk.aau.cs.giraf.dblib.Helper;
 import dk.aau.cs.giraf.dblib.controllers.ApplicationController;
 import dk.aau.cs.giraf.dblib.controllers.ProfileController;
 import dk.aau.cs.giraf.dblib.models.Application;
-import dk.aau.cs.giraf.gui.GComponent;
 import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
@@ -59,18 +59,23 @@ public class MainActivity extends GirafActivity {
         super.onCreate(savedInstanceState);
         View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main, null);
 
-        //Set the background
-        v.setBackgroundColor(GComponent.GetBackgroundColor());
-
         setContentView(v);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        final Bundle extras = getIntent().getExtras();
         boolean outsideGIRAF = false;
 
         if (ActivityManager.isUserAMonkey()) {
             guardianID = helper.profilesHelper.getGuardians().get(0).getId();
             childID = helper.profilesHelper.getChildren().get(0).getId();
         }
+
+        else if (extras == null || (!extras.containsKey(getString(R.string.current_child_id)) && !extras.containsKey(getString(R.string.current_guardian_id)))) {
+            Toast.makeText(this, String.format(getString(R.string.error_must_be_started_from_giraf), getString(R.string.pictoreader)), Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
         else {
             girafIntent = getIntent();
             guardianID = girafIntent.getExtras().getLong("currentGuardianID", -1);
