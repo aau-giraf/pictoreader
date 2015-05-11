@@ -427,7 +427,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 clearSentenceboard();
             }
         });
-
+        /*
         final GirafButton btnPictosearch = (GirafButton) parent.findViewById(R.id.btnPictosearch);
         btnPictosearch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -435,7 +435,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 callPictosearch();
             }
         });
-
+*/
         final GirafButton btnPlay = (GirafButton) parent.findViewById(R.id.btnPlay);
         btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
         btnPlay.setOnClickListener(new View.OnClickListener() {
@@ -473,7 +473,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             }
         });
 
-        ((GirafButton) parent.findViewById(R.id.btnPictosearch)).setIcon(getResources().getDrawable(R.drawable.icon_search));
+        //((GirafButton) parent.findViewById(R.id.btnPictosearch)).setIcon(getResources().getDrawable(R.drawable.icon_search));
     }
 
     private void removeEmptyPictograms()

@@ -58,33 +58,6 @@
                     android:layout_height="match_parent"
                     android:fadeScrollbars="false"
                     android:layout_weight="1" />
-
-                <dk.aau.cs.giraf.gui.GVerticalScrollViewSnapper
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="right"
-                        >
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/btnPictosearchLayout">
-
-                            <dk.aau.cs.giraf.gui.GirafButton
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                app:icon="@drawable/icon_search"
-                                android:id="@+id/btnPictosearch"/>
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                </dk.aau.cs.giraf.gui.GVerticalScrollViewSnapper>
-
             </LinearLayout>
 
         </LinearLayout>
