@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
-import dk.aau.cs.giraf.pictogram.Pictogram;
-
 /**
  * 
  * @author Lisbeth Nielsen, SW605f13 Parrot-group
@@ -31,12 +29,9 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
          * @param context this is the application context.
          */
         public LoadImage(ImageView imageView, TextView textView, Context context) {
-        	//Log.v("LoadImage;Message","begin LoadImage");
         	 this.imageView = new WeakReference<ImageView>(imageView);
         	 this.textView = new WeakReference<TextView>(textView);
              this.context= context;
-             //Log.v("LoadImage;Message","end LoadImage");
-             
         }
 	/**
 	 * This method needs a pictogram as input, to make the image into a bitmap and creep it in memory
@@ -44,35 +39,31 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
 	 */
     @Override
     protected Bitmap doInBackground(Object... params) {
-    	//Log.v("LoadImage;Message","begin doInBackground");
     	pictogram = (dk.aau.cs.giraf.dblib.models.Pictogram) params[0];
         Bitmap bitmap = null;
         
         //decode the into bitmap that there is to be shown
         if(pictogram.getId() == -1)
 		{
-        	//Log.v("LoadImage;Message","doInBackground usynlig");
         	bitmap=BitmapFactory.decodeResource(context.getResources(), R.drawable.usynlig);
 
         }
         else	
     	{
-        	//Log.v("LoadImage;Message","doInBackground path" + pictogram.getImagePath());
         	bitmap = pictogram.getImageData();
     	}
-        //Log.v("LoadImage;Message","end doInBackground");
+
         return bitmap;
     }
 
     @Override
     protected void onPostExecute(Bitmap result) {
-    	//Log.v("LoadImage;Message","begin onPostExecute");
         if(result != null && imageView != null){
     	     final ImageView imageViewTemp = imageView.get();
     	     final TextView textViewTemp = textView.get();
              if (imageViewTemp != null) {
             	 //set the text in TextView
-          		 if(MainActivity.getUser().getShowText() == true)//pct.getPictogramID() != -1 && MainActivity.getUser().getShowText()==true)
+          		 if(MainActivity.getUser().getShowText() == true)
         		 {
         			textViewTemp.setTextSize(20);	//TODO this value should be customizable
         			textViewTemp.setText(pictogram.getInlineText());
@@ -82,7 +73,5 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
              }
 
         }
-        //Log.v("LoadImage;Message","end onPostExecute");
     }
-
 }
