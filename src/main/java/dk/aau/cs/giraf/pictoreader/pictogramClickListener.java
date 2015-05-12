@@ -60,9 +60,6 @@ class pictogramClickListener implements OnClickListener {
             sentence.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.sentencePictogramList, activity));
         }
         else{
-            //TEST CODE SØREN
-            waitingDialog = GirafWaitingDialog.newInstance("TEST", "testtest");
-            waitingDialog.show(mainActivity.getSupportFragmentManager(), "testtest");
             SpeechBoardFragment.displayedMainCategoryIndex = SpeechBoardFragment.draggedPictogramIndex;
             CategoryController categoryController = new CategoryController(activity.getApplicationContext());
             try {
