@@ -22,6 +22,7 @@ import dk.aau.cs.giraf.dblib.controllers.ProfileController;
 import dk.aau.cs.giraf.dblib.models.Application;
 import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.gui.GirafButton;
+import dk.aau.cs.giraf.gui.GirafConfirmDialog;
 import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
 
 /**
@@ -29,7 +30,7 @@ import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
  * @author SW605f13-PARROT and PARROT spring 2012.
  *  This is the main Activity Class in Parrot.
  */
-public class MainActivity extends GirafActivity {
+public class MainActivity extends GirafActivity implements GirafConfirmDialog.Confirmation {
 
     private static PARROTProfile parrotUser;
     private static long guardianID;
@@ -40,6 +41,10 @@ public class MainActivity extends GirafActivity {
     private GirafButton btnHelp;
     // Helper that will be used to fetch profiles
     private final Helper helper = new Helper(this);
+
+    private static final String CONFIRM_EXTEND_TAG = "EXTEND_DIALOG";
+    private static final int CONFIRM_EXTEND_ID = 1;
+    public boolean extendPictograms;
 
     @Override
     public void onStart() {
@@ -248,5 +253,15 @@ public class MainActivity extends GirafActivity {
     public static Application getApp()
     {
         return app;
+    }
+
+    SpeechBoardFragment sp = new SpeechBoardFragment(this);
+    @Override
+    public void confirmDialog(int dialogID) {
+        if (dialogID == CONFIRM_EXTEND_ID)
+            sp.confirmDialog(dialogID);
+        else
+            sp.confirmDialog(-1);
+
     }
 }

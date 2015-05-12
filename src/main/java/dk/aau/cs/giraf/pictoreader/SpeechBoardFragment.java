@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ import dk.aau.cs.giraf.dblib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 import dk.aau.cs.giraf.dblib.models.Category;
 import dk.aau.cs.giraf.gui.GirafButton;
+import dk.aau.cs.giraf.gui.GirafConfirmDialog;
 import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
 import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
@@ -38,11 +41,20 @@ import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
  */
 
 @SuppressLint("ValidFragment") //Avoid default constructor
-public class SpeechBoardFragment extends Fragment implements ShowcaseManager.ShowcaseCapable
+public class SpeechBoardFragment extends Fragment implements ShowcaseManager.ShowcaseCapable, GirafConfirmDialog.Confirmation
 {
+    private static final String CONFIRM_EXTEND_TAG = "EXTEND_DIALOG";
+    private static final int CONFIRM_EXTEND_ID = 1;
+    private FragmentActivity myContext;
     private Activity parent;
+
+
+    //Lasse
     public static final int GET_MULTIPLE_PICTOGRAMS = 104;
     public static final String PICTO_SEARCH_MULTI_TAG = "multi";
+    protected Intent dataForSpeechBoardResult;
+
+    List<dk.aau.cs.giraf.dblib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
 
     //Remembers the index of the pictogram that is currently being dragged.
     public static int draggedPictogramIndex = -1;
@@ -92,6 +104,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.parent = activity;
+        myContext =(FragmentActivity) activity;
         pictogramController = new PictogramController(activity.getApplicationContext());
         pictogramCategoryController = new PictogramCategoryController(activity.getApplicationContext());
     }
@@ -465,6 +478,9 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 public void onClick(View v) {
                     // Create new fragment and transaction
                     callPictosearch();
+                    GirafConfirmDialog girafConfirmDialog = GirafConfirmDialog.newInstance("Extend", "Vil du extend?", CONFIRM_EXTEND_ID, "yes plz", R.drawable.icon_accept, "Nej", R.drawable.icon_cancel);
+                    girafConfirmDialog.show(myContext.getSupportFragmentManager(), CONFIRM_EXTEND_TAG);
+
                 }
             });
 
@@ -650,29 +666,51 @@ public void setGridviewColNumb()
      * @param resultCode
      * @param data
      */
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == parent.RESULT_OK){
-            loadPictogram(data);
+            dataForSpeechBoardResult = data;
+            //loadPictogram(data);
         }
     }
+    //private boolean flag = true;
 
-    private void loadPictogram(Intent data){
+    public void loadPictogram(boolean flag){
         long[] pictogramIDs = {};
         try{
-            pictogramIDs = data.getExtras().getLongArray("checkoutIds");
+            pictogramIDs = dataForSpeechBoardResult.getExtras().getLongArray("checkoutIds");
+            for (int i = 0; i < pictogramIDs.length; i++){
+                Log.v("No in sentence", ""+ String.valueOf(pictogramIDs[i]));
+            }
         }
         catch (Exception e){
             e.printStackTrace();
         }
-
-        List<dk.aau.cs.giraf.dblib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
-        for (int i = 0; i < pictogramIDs.length; i++)
-        {
-            selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
+        if (!flag){
+            for (int i = 0; i < pictogramIDs.length; i++) {
+                selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
+            }
+        }
+        if (flag){
+            for (int i = selectedPictograms.size(); i < selectedPictograms.size() + pictogramIDs.length; i++){
+                selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
+            }
+        }
+        for (int i = 0; i < pictogramIDs.length; i++){
+            Log.v("hej", String.valueOf(pictogramIDs[i]));
         }
         displayPictogramList = selectedPictograms;
+    }
+
+    @Override
+    public void confirmDialog(int i) {
+        if (i == 1)
+            loadPictogram(true);
+        else
+            loadPictogram(false);
+
     }
 }
