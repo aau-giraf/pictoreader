@@ -5,8 +5,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
 
+import dk.aau.cs.giraf.activity.GirafActivity;
 import dk.aau.cs.giraf.dblib.controllers.CategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
+import dk.aau.cs.giraf.gui.GirafWaitingDialog;
 
 /**
  * Created by lasse on 15/04/15.
@@ -15,10 +17,12 @@ import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 
 class pictogramClickListener implements OnClickListener {
 
+    private GirafWaitingDialog waitingDialog;
     private final int position;
     private final int owner;
     private PARROTProfile user;
     private final Activity activity;
+    private GirafActivity mainActivity;
     private PictogramController pictogramController;
 
 
@@ -56,6 +60,9 @@ class pictogramClickListener implements OnClickListener {
             sentence.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.sentencePictogramList, activity));
         }
         else{
+            //TEST CODE SØREN
+            waitingDialog = GirafWaitingDialog.newInstance("TEST", "testtest");
+            waitingDialog.show(mainActivity.getSupportFragmentManager(), "testtest");
             SpeechBoardFragment.displayedMainCategoryIndex = SpeechBoardFragment.draggedPictogramIndex;
             CategoryController categoryController = new CategoryController(activity.getApplicationContext());
             try {
