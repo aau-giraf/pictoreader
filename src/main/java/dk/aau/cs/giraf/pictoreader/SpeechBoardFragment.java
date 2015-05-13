@@ -42,9 +42,6 @@ import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
 @SuppressLint("ValidFragment") //Avoid default constructor
 public class SpeechBoardFragment extends Fragment implements ShowcaseManager.ShowcaseCapable
 {
-    private static final String CONFIRM_EXTEND_TAG = "EXTEND_DIALOG";
-    private static final int CONFIRM_EXTEND_ID = 1;
-    private FragmentActivity myContext;
     private Activity parent;
 
 
@@ -103,7 +100,6 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.parent = activity;
-        myContext =(FragmentActivity) activity;
         pictogramController = new PictogramController(activity.getApplicationContext());
         pictogramCategoryController = new PictogramCategoryController(activity.getApplicationContext());
     }
@@ -562,7 +558,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         }
     }
 
-public void setGridviewColNumb()
+    public void setGridviewColNumb()
     {
         GridView pictogramGrid = (GridView) parent.findViewById(R.id.pictogramgrid);
         GridView sentenceBoardGrid = (GridView) parent.findViewById(R.id.sentenceboard);
@@ -633,6 +629,9 @@ public void setGridviewColNumb()
         pictogramGrid.invalidate();
     }
 
+    /**
+     * Clears the selected pictograms
+     */
     public void ClearPictograms()
     {
         selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();;
@@ -668,8 +667,6 @@ public void setGridviewColNumb()
      * @param resultCode
      * @param data
      */
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -678,6 +675,10 @@ public void setGridviewColNumb()
         }
     }
 
+    /**
+     * This method loads the pictograms into the gird
+     * @param data
+     */
     public void loadPictogram(Intent data){
         long[] pictogramIDs = {};
         try{
