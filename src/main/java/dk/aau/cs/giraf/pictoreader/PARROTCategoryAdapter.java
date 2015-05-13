@@ -102,8 +102,8 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 
         else {
             imageView = (ImageView) view.findViewById(R.id.categorybitmap);
-            imageView.getLayoutParams().width = (int) GirafScalingUtilities.convertDpToPixel(this.context, 135);
-            imageView.getLayoutParams().height = (int) GirafScalingUtilities.convertDpToPixel(this.context, 135);
+            imageView.getLayoutParams().width = (int) GirafScalingUtilities.convertDpToPixel(this.context, 150);
+            imageView.getLayoutParams().height = (int) GirafScalingUtilities.convertDpToPixel(this.context, 150);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             textView = (TextView) view.findViewById(R.id.categorytext);
         }
@@ -125,7 +125,6 @@ public class PARROTCategoryAdapter extends BaseAdapter{
         imageView.setMaxHeight(5);
         imageView.setMaxWidth(5);
 
-        //imageView.setOnTouchListener(new pictogramTouchListener(position, ID, activity, user));
         imageView.setOnClickListener(new pictogramClickListener(position,ID,activity,user)); //
 
         return view;

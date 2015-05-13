@@ -35,7 +35,7 @@
                 android:numColumns="1"
                 android:fadeScrollbars="false"
                 android:gravity="center"
-                android:layout_gravity="bottom" />
+                android:layout_gravity="bottom"/>
 
         </LinearLayout>
 
@@ -100,7 +100,10 @@
             android:layout_height="150dp"
             android:orientation="horizontal"
             android:layout_gravity="right"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
             <dk.aau.cs.giraf.gui.GirafButton
                 android:layout_width="@dimen/buttonPlayWidth"
@@ -114,8 +117,10 @@
             android:layout_width="@dimen/buttonTrashWidth"
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="@dimen/buttonSearchWidth"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
             <dk.aau.cs.giraf.gui.GirafButton
                 android:id="@+id/btnClear"
                 app:icon="@drawable/icon_delete"
@@ -124,13 +129,5 @@
                 />
         </RelativeLayout>
 
-        <dk.aau.cs.giraf.gui.GirafButton
-            android:orientation="horizontal"
-            android:id="@+id/btnSearch"
-            app:icon="@drawable/icon_search"
-            android:layout_width="@dimen/buttonSearchWidth"
-            android:layout_alignParentLeft="false"
-            android:layout_height="fill_parent"
-            />
     </RelativeLayout>
 </LinearLayout>
