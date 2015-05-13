@@ -23,6 +23,7 @@ import dk.aau.cs.giraf.dblib.models.Application;
 import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.gui.GirafConfirmDialog;
+import dk.aau.cs.giraf.gui.GirafCustomButtonsDialog;
 import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
 
 /**
@@ -30,7 +31,7 @@ import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
  * @author SW605f13-PARROT and PARROT spring 2012.
  *  This is the main Activity Class in Parrot.
  */
-public class MainActivity extends GirafActivity implements GirafConfirmDialog.Confirmation {
+public class MainActivity extends GirafActivity implements GirafCustomButtonsDialog.CustomButtons {
 
     private static PARROTProfile parrotUser;
     private static long guardianID;
@@ -41,10 +42,12 @@ public class MainActivity extends GirafActivity implements GirafConfirmDialog.Co
     private GirafButton btnHelp;
     // Helper that will be used to fetch profiles
     private final Helper helper = new Helper(this);
-
+    private GirafCustomButtonsDialog girafConfirmDialog;
     private static final String CONFIRM_EXTEND_TAG = "EXTEND_DIALOG";
+    private static final String KEY = "KEY";
     private static final int CONFIRM_EXTEND_ID = 1;
     public boolean extendPictograms;
+    private SpeechBoardFragment speechBoardFragment;
 
     @Override
     public void onStart() {
@@ -57,7 +60,13 @@ public class MainActivity extends GirafActivity implements GirafConfirmDialog.Co
         super.onStop();
         EasyTracker.getInstance(this).activityStop(this);  // Add this method.
     }
-
+    private Fragment createSpeechBoardFragment(){
+        Bundle b = new Bundle();
+        b.putString(KEY, "Somethingyaayayda");
+        SpeechBoardFragment sp = new SpeechBoardFragment(this.getApplicationContext());
+        sp.setArguments(b);
+        return sp;
+    }
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -129,16 +138,17 @@ public class MainActivity extends GirafActivity implements GirafConfirmDialog.Co
             Log.v("MessageParrot", "returned");
 
             // Create new fragment and transaction
-            Fragment newFragment = new SpeechBoardFragment(this.getApplicationContext());
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+            //Fragment sbf = new SpeechBoardFragment(this.getApplicationContext());
+            getFragmentManager().beginTransaction().add(R.id.main, createSpeechBoardFragment()).commit();
 
             // Replace whatever is in the fragment_container view with this fragment,
             // and add the transaction to the back stack
-            transaction.add(R.id.main, newFragment);
-            transaction.addToBackStack(null);
+            //transaction.add(R.id.main, createSpeechBoardFragment());
+            //transaction.addToBackStack(null);
 
             // Commit the transaction
-            transaction.commit();
+            //transaction.commit();
         }
         else
         {
@@ -255,13 +265,50 @@ public class MainActivity extends GirafActivity implements GirafConfirmDialog.Co
         return app;
     }
 
-    SpeechBoardFragment sp = new SpeechBoardFragment(this);
-    @Override
-    public void confirmDialog(int dialogID) {
-        if (dialogID == CONFIRM_EXTEND_ID)
-            sp.confirmDialog(dialogID);
-        else
-            sp.confirmDialog(-1);
 
+    public void onSearchButtonClick(){
+        // Create new fragment and transaction
+        girafConfirmDialog = GirafCustomButtonsDialog.newInstance("Beskrivende Titel", "Vil du beholde dine tidligere valgte piktogrammer?",
+                CONFIRM_EXTEND_ID);
+        girafConfirmDialog.show(getSupportFragmentManager(), CONFIRM_EXTEND_TAG);
+    }
+
+    @Override
+    public void fillButtonContainer(int dialogID, GirafCustomButtonsDialog.ButtonContainer buttonContainer) {
+        final Bundle bundle = new Bundle();
+        final SpeechBoardFragment spf = new SpeechBoardFragment(this.getApplicationContext());
+        GirafButton yes = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept));
+        GirafButton no = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel));
+        buttonContainer.addGirafButton(no);
+        buttonContainer.addGirafButton(yes);
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bundle.putBoolean("extend",true);
+                spf.setArguments(bundle);
+                MainActivity.this.girafConfirmDialog.dismiss();
+                MainActivity.this.speechBoardFragment.callPictosearch();
+
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bundle.putBoolean("extend",false);
+                spf.setArguments(bundle);
+                MainActivity.this.girafConfirmDialog.dismiss();
+                MainActivity.this.speechBoardFragment.callPictosearch();
+            }
+        });
+
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+
+        if(fragment instanceof SpeechBoardFragment) {
+            speechBoardFragment = (SpeechBoardFragment) fragment;
+        }
     }
 }

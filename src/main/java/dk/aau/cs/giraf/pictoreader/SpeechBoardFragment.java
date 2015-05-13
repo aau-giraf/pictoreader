@@ -2,9 +2,11 @@ package dk.aau.cs.giraf.pictoreader;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -23,6 +25,8 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import dk.aau.cs.giraf.dblib.controllers.PictogramCategoryController;
@@ -30,6 +34,7 @@ import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 import dk.aau.cs.giraf.dblib.models.Category;
 import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.gui.GirafConfirmDialog;
+import dk.aau.cs.giraf.gui.GirafCustomButtonsDialog;
 import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
 import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
@@ -41,7 +46,7 @@ import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
  */
 
 @SuppressLint("ValidFragment") //Avoid default constructor
-public class SpeechBoardFragment extends Fragment implements ShowcaseManager.ShowcaseCapable, GirafConfirmDialog.Confirmation
+public class SpeechBoardFragment extends Fragment implements ShowcaseManager.ShowcaseCapable
 {
     private static final String CONFIRM_EXTEND_TAG = "EXTEND_DIALOG";
     private static final int CONFIRM_EXTEND_ID = 1;
@@ -52,7 +57,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     //Lasse
     public static final int GET_MULTIPLE_PICTOGRAMS = 104;
     public static final String PICTO_SEARCH_MULTI_TAG = "multi";
-    protected Intent dataForSpeechBoardResult;
+    int lastSize = 0;
 
     List<dk.aau.cs.giraf.dblib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
 
@@ -114,6 +119,12 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Boolean e = getArguments().getBoolean("extend");
+        return inflater.inflate(R.layout.speechboard_layout, container, false);
     }
 
     @Override
@@ -385,7 +396,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
             pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
 
-            pictogramGrid.invalidate();
+            //pictogramGrid.invalidate();
         }
         //setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
         setGridviewColNumb();
@@ -471,28 +482,23 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             }
         });
 
+        final GirafButton btnPictosearch = (GirafButton) parent.findViewById(R.id.btnSearch);
+        btnPictosearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)SpeechBoardFragment.this.parent).onSearchButtonClick();
+            }
+        });
+
         //If it is not a citizen who is using the application, the Search button should be created
         if(childID == -1) {
-            final GirafButton btnPictosearch = (GirafButton) parent.findViewById(R.id.btnSearch);
-            btnPictosearch.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    // Create new fragment and transaction
-                    callPictosearch();
-                    GirafConfirmDialog girafConfirmDialog = GirafConfirmDialog.newInstance("Extend", "Vil du extend?", CONFIRM_EXTEND_ID, "yes plz", R.drawable.icon_accept, "Nej", R.drawable.icon_cancel);
-                    girafConfirmDialog.show(myContext.getSupportFragmentManager(), CONFIRM_EXTEND_TAG);
-
-                }
-            });
-
             //We update the width of the trashcan button to the same size of the play and search btn
             trashCanButton.getLayoutParams().width = (int) getResources().getDimension(R.dimen.buttonTrashGuardianWidth);
         }
-
         else
         {
-
-            final GirafButton btnPictosearch = (GirafButton) parent.findViewById(R.id.btnSearch);
             btnPictosearch.setVisibility(View.GONE);
+
             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             //Set the margins to 0 on the trash can button because it should not be next to the
             //search button any longer
@@ -637,7 +643,7 @@ public void setGridviewColNumb()
     /**
      * Opens pictosearch application, so pictograms can be loaded into pictocreator.
      */
-    private void callPictosearch(){
+    public void callPictosearch(){
             justSearched = true;
             Intent intent = new Intent();
 
@@ -667,21 +673,21 @@ public void setGridviewColNumb()
      * @param data
      */
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == parent.RESULT_OK){
-            dataForSpeechBoardResult = data;
-            //loadPictogram(data);
+
+            loadPictogram(data);
         }
     }
-    //private boolean flag = true;
 
-    public void loadPictogram(boolean flag){
+    public void loadPictogram(Intent data){
         long[] pictogramIDs = {};
+        boolean save = getArguments().getBoolean("extend");
         try{
-            pictogramIDs = dataForSpeechBoardResult.getExtras().getLongArray("checkoutIds");
+            pictogramIDs = data.getExtras().getLongArray("checkoutIds");
             for (int i = 0; i < pictogramIDs.length; i++){
                 Log.v("No in sentence", ""+ String.valueOf(pictogramIDs[i]));
             }
@@ -689,28 +695,13 @@ public void setGridviewColNumb()
         catch (Exception e){
             e.printStackTrace();
         }
-        if (!flag){
-            for (int i = 0; i < pictogramIDs.length; i++) {
-                selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
-            }
+        if (!save) {
+            selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
         }
-        if (flag){
-            for (int i = selectedPictograms.size(); i < selectedPictograms.size() + pictogramIDs.length; i++){
-                selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
-            }
-        }
-        for (int i = 0; i < pictogramIDs.length; i++){
-            Log.v("hej", String.valueOf(pictogramIDs[i]));
+
+        for (int i = 0; i < pictogramIDs.length; i++) {
+            selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
         }
         displayPictogramList = selectedPictograms;
-    }
-
-    @Override
-    public void confirmDialog(int i) {
-        if (i == 1)
-            loadPictogram(true);
-        else
-            loadPictogram(false);
-
     }
 }
