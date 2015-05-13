@@ -2,11 +2,9 @@ package dk.aau.cs.giraf.pictoreader;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -25,17 +23,12 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import dk.aau.cs.giraf.dblib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 import dk.aau.cs.giraf.dblib.models.Category;
-import dk.aau.cs.giraf.dblib.models.Pictogram;
 import dk.aau.cs.giraf.gui.GirafButton;
-import dk.aau.cs.giraf.gui.GirafConfirmDialog;
-import dk.aau.cs.giraf.gui.GirafCustomButtonsDialog;
 import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
 import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
@@ -487,7 +480,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         btnPictosearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)SpeechBoardFragment.this.parent).onSearchButtonClick();
+                ((MainActivity)SpeechBoardFragment.this.parent).createExtendDialog();
             }
         });
 
