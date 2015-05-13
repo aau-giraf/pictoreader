@@ -117,7 +117,6 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Boolean e = getArguments().getBoolean("extend");
         return inflater.inflate(R.layout.speechboard_layout, container, false);
     }
 

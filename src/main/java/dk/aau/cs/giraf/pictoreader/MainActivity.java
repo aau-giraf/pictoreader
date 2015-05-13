@@ -60,11 +60,11 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         EasyTracker.getInstance(this).activityStop(this);  // Add this method.
     }
     private Fragment createSpeechBoardFragment(){
-        Bundle b = new Bundle();
-        b.putBoolean("extend", true);
-        SpeechBoardFragment sp = new SpeechBoardFragment(this.getApplicationContext());
-        sp.setArguments(b);
-        return sp;
+        //Bundle b = new Bundle();
+        //b.putBoolean("extend", true);
+        //SpeechBoardFragment sp = new SpeechBoardFragment(this.getApplicationContext());
+        //sp.setArguments(b);
+        return new SpeechBoardFragment(this.getApplicationContext());
     }
     /** Called when the activity is first created. */
     @Override
@@ -173,6 +173,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         });
         addGirafButtonToActionBar(btnHelp, GirafActivity.RIGHT);
     }
+
     private void createExtendDialogButtons(){
         extendButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept));
         extendButton.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +186,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         });
 
         replaceButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel));
+
         replaceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
