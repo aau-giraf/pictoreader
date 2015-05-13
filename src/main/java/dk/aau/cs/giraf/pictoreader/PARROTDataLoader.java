@@ -71,27 +71,6 @@ public class PARROTDataLoader {
 
 	}
 
-
-	/**
-	 * TODO This is not used in PARROT, should it be deleted.
-	 * gets all the children from guardian
-	 * @param guardianID profile id of a guardian.
-	 * @return An ArrayList of all the children asociated with the guardian who is currently using the system.
-	 */
-	public ArrayList<PARROTProfile> getChildrenFromGuardian(int guardianID)
-	{
-		ArrayList<PARROTProfile> parrotChildren = new ArrayList<PARROTProfile>();
-		Profile guardian = help.profilesHelper.getProfileById(guardianID);
-		List<Profile> children = help.profilesHelper.getChildrenByGuardian(guardian);
-		
-		for(int i = 0;i<children.size();i++)
-		{
-			parrotChildren.add(loadProfile(children.get(i).getId(), app.getId()));
-		}
-		return parrotChildren;
-	}
-
-
 	/**
 	 * This method loads a specific PARROTProfile, which are to be shown in PARROT
 	 * 
@@ -137,14 +116,8 @@ public class PARROTDataLoader {
 
             categories =  categoryController.getCategoriesByProfileId(prof.getId());
 
-
-
 			//Get the child's categories. This return null if the child does not exist.
-			//categories = categoryHelper.getCategoriesFromProfile(prof);
-            //categories = categoryHelper.getCategoriesFromProfile(prof);
             categories = help.categoryHelper.getCategoriesByProfileId(prof.getId());
-
-
 
 			if(categories!=null)
 			{
@@ -231,9 +204,6 @@ public class PARROTDataLoader {
 		ProfileController profileController = new ProfileController(_context);
         Profile prof = profileController.getProfileById(user.getProfileID());
 		Setting<String, String, String> profileSetting = new Setting<String, String, String>();
-
-
-//		profileSetting = help.profileApplicationHelper.getProfileApplicationByProfileIdAndApplicationId(app, prof).getSettings();
 
 		profileSetting.remove("SentenceboardSettings");
 		profileSetting.remove("PictogramSettings");

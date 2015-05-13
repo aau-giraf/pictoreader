@@ -2,11 +2,11 @@ package dk.aau.cs.giraf.pictoreader;
 
 import android.app.Activity;
 import android.content.ClipData;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import dk.aau.cs.giraf.gui.GGridView;
+import android.widget.GridView;
+
 import dk.aau.cs.giraf.dblib.controllers.CategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 
@@ -48,7 +48,7 @@ public class pictogramTouchListener implements OnTouchListener {
                     return false;
                 }
                 SpeechBoardFragment.displayedMainCategory = SpeechBoardFragment.displayedCategory;
-                GGridView pictogramGrid = (GGridView) activity.findViewById(R.id.pictogramgrid);
+                GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
 
                 try
                 {
@@ -71,12 +71,6 @@ public class pictogramTouchListener implements OnTouchListener {
 
                 //SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
                 pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
-
-                //Setup the view for the categories
-                GGridView mainCategoryGrid = (GGridView) activity.findViewById(R.id.category);
-
-
-                //mainCategoryGrid.setAdapter(new PARROTCategoryAdapter(categoryController.getCategoriesByProfileId(user.getProfileID()), activity, R.id.supercategory, user, SpeechBoardFragment.displayedMainCategoryIndex));
             }
 
 			ClipData data = ClipData.newPlainText("label", "text"); 
