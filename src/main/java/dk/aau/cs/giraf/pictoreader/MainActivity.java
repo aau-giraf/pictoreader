@@ -42,11 +42,10 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     private GirafButton btnHelp;
     // Helper that will be used to fetch profiles
     private final Helper helper = new Helper(this);
+
     private GirafCustomButtonsDialog girafConfirmDialog;
     private static final String CONFIRM_EXTEND_TAG = "EXTEND_DIALOG";
-    private static final String KEY = "KEY";
     private static final int CONFIRM_EXTEND_ID = 1;
-    public boolean extendPictograms;
     private SpeechBoardFragment speechBoardFragment;
 
     @Override
@@ -62,7 +61,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     }
     private Fragment createSpeechBoardFragment(){
         Bundle b = new Bundle();
-        b.putString(KEY, "Somethingyaayayda");
+        b.putBoolean("extend", true);
         SpeechBoardFragment sp = new SpeechBoardFragment(this.getApplicationContext());
         sp.setArguments(b);
         return sp;
@@ -134,21 +133,8 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
 
         if(parrotUser != null)
         {
-            Log.v("No in sentence", ""+ parrotUser.getNumberOfSentencePictograms());
-            Log.v("MessageParrot", "returned");
-
             // Create new fragment and transaction
-
-            //Fragment sbf = new SpeechBoardFragment(this.getApplicationContext());
             getFragmentManager().beginTransaction().add(R.id.main, createSpeechBoardFragment()).commit();
-
-            // Replace whatever is in the fragment_container view with this fragment,
-            // and add the transaction to the back stack
-            //transaction.add(R.id.main, createSpeechBoardFragment());
-            //transaction.addToBackStack(null);
-
-            // Commit the transaction
-            //transaction.commit();
         }
         else
         {
@@ -275,12 +261,10 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
 
     @Override
     public void fillButtonContainer(int dialogID, GirafCustomButtonsDialog.ButtonContainer buttonContainer) {
-        final Bundle bundle = new Bundle();
         final SpeechBoardFragment spf = new SpeechBoardFragment(this.getApplicationContext());
+        final Bundle bundle = new Bundle();
         GirafButton yes = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept));
         GirafButton no = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel));
-        buttonContainer.addGirafButton(no);
-        buttonContainer.addGirafButton(yes);
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -297,16 +281,18 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
                 bundle.putBoolean("extend",false);
                 spf.setArguments(bundle);
                 MainActivity.this.girafConfirmDialog.dismiss();
+                MainActivity.this.speechBoardFragment.ClearPictograms();
                 MainActivity.this.speechBoardFragment.callPictosearch();
             }
         });
+        buttonContainer.addGirafButton(no);
+        buttonContainer.addGirafButton(yes);
 
     }
 
     @Override
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);
-
         if(fragment instanceof SpeechBoardFragment) {
             speechBoardFragment = (SpeechBoardFragment) fragment;
         }

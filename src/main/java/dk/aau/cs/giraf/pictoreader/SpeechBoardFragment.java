@@ -32,6 +32,7 @@ import java.util.List;
 import dk.aau.cs.giraf.dblib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 import dk.aau.cs.giraf.dblib.models.Category;
+import dk.aau.cs.giraf.dblib.models.Pictogram;
 import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.gui.GirafConfirmDialog;
 import dk.aau.cs.giraf.gui.GirafCustomButtonsDialog;
@@ -640,6 +641,11 @@ public void setGridviewColNumb()
         pictogramGrid.invalidate();
     }
 
+    public void ClearPictograms()
+    {
+        selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();;
+    }
+
     /**
      * Opens pictosearch application, so pictograms can be loaded into pictocreator.
      */
@@ -658,8 +664,6 @@ public void setGridviewColNumb()
                 }
 
                 intent.putExtra(getString(R.string.current_guardian_id), intent.getExtras().getLong("currentGuardianId", -1));
-
-
                 startActivityForResult(intent, GET_MULTIPLE_PICTOGRAMS);
             } catch (Exception e){
                 Toast.makeText(parent, "Pictosearch er ikke installeret.", Toast.LENGTH_LONG).show();
@@ -678,14 +682,12 @@ public void setGridviewColNumb()
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == parent.RESULT_OK){
-
             loadPictogram(data);
         }
     }
 
     public void loadPictogram(Intent data){
         long[] pictogramIDs = {};
-        boolean save = getArguments().getBoolean("extend");
         try{
             pictogramIDs = data.getExtras().getLongArray("checkoutIds");
             for (int i = 0; i < pictogramIDs.length; i++){
@@ -695,10 +697,6 @@ public void setGridviewColNumb()
         catch (Exception e){
             e.printStackTrace();
         }
-        if (!save) {
-            selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
-        }
-
         for (int i = 0; i < pictogramIDs.length; i++) {
             selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
         }
