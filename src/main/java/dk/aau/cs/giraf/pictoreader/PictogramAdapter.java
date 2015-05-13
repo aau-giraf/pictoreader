@@ -29,10 +29,10 @@ public class PictogramAdapter extends BaseAdapter {
     private PictogramController catController;
     PictogramController pictogramController;
     private List<dk.aau.cs.giraf.dblib.models.Pictogram> pics;
-    private PARROTProfile user;
+    private PictoreaderProfile user;
 	
 
-	public PictogramAdapter(List<dk.aau.cs.giraf.dblib.models.Pictogram> pics, Context c, Activity act, PARROTProfile user)
+	public PictogramAdapter(List<dk.aau.cs.giraf.dblib.models.Pictogram> pics, Context c, Activity act, PictoreaderProfile user)
 	{
 		super();
 		this.pics=pics;
@@ -85,7 +85,7 @@ public class PictogramAdapter extends BaseAdapter {
 		
 		//setup layout for imageView
 		LinearLayout.LayoutParams layoutParams;
-		if(MainActivity.getUser().getPictogramSize()== PARROTProfile.PictogramSize.LARGE)
+		if(MainActivity.getUser().getPictogramSize()== PictoreaderProfile.PictogramSize.LARGE)
 		{
 			layoutParams = new LinearLayout.LayoutParams(180, 180);
 		}

@@ -30,7 +30,7 @@ import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
  */
 public class MainActivity extends GirafActivity implements GirafCustomButtonsDialog.CustomButtons {
 
-    private static PARROTProfile parrotUser;
+    private static PictoreaderProfile parrotUser;
     private static long guardianID;
     private static long childID;
     private static Application app;
@@ -59,13 +59,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         super.onStop();
         EasyTracker.getInstance(this).activityStop(this);  // Add this method.
     }
-    private Fragment createSpeechBoardFragment(){
-        //Bundle b = new Bundle();
-        //b.putBoolean("extend", true);
-        //SpeechBoardFragment sp = new SpeechBoardFragment(this.getApplicationContext());
-        //sp.setArguments(b);
-        return new SpeechBoardFragment(this.getApplicationContext());
-    }
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -134,8 +128,8 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
 
         if(parrotUser != null)
         {
-            // Create new fragment and transaction
-            getFragmentManager().beginTransaction().add(R.id.main, createSpeechBoardFragment()).commit();
+            speechBoardFragment = new SpeechBoardFragment(this.getApplicationContext());
+            getFragmentManager().beginTransaction().add(R.id.main, speechBoardFragment).commit();
         }
         else
         {
@@ -244,15 +238,15 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     /**
      * @return the child's user profile.
      */
-    public static PARROTProfile getUser()
+    public static PictoreaderProfile getUser()
     {
         return parrotUser;
     }
     /**
      * set the current child user profile
-     * @param user, a PARROTProfile that is a childs profile.
+     * @param user, a PictoreaderProfile that is a childs profile.
      */
-    public static void setUser(PARROTProfile user) {
+    public static void setUser(PictoreaderProfile user) {
         parrotUser = user;
     }
     /**

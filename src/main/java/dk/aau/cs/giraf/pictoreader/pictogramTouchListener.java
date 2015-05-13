@@ -2,7 +2,6 @@ package dk.aau.cs.giraf.pictoreader;
 
 import android.app.Activity;
 import android.content.ClipData;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -13,12 +12,12 @@ import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 public class pictogramTouchListener implements OnTouchListener {
 	private int position;
     private int owner;
-    private PARROTProfile user;
+    private PictoreaderProfile user;
     private Activity activity;
     private PictogramController pictogramController;
 
 
-	public pictogramTouchListener(int position, int owner, Activity activity, PARROTProfile user)
+	public pictogramTouchListener(int position, int owner, Activity activity, PictoreaderProfile user)
 	{
 		this.position=position;
         this.owner = owner;

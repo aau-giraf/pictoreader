@@ -17,12 +17,12 @@ class pictogramClickListener implements OnClickListener {
 
     private final int position;
     private final int owner;
-    private PARROTProfile user;
+    private PictoreaderProfile user;
     private final Activity activity;
     private PictogramController pictogramController;
 
 
-    public pictogramClickListener(int position, int owner, Activity activity, PARROTProfile user) {
+    public pictogramClickListener(int position, int owner, Activity activity, PictoreaderProfile user) {
         this.position = position;
         this.owner = owner;
         this.activity = activity;

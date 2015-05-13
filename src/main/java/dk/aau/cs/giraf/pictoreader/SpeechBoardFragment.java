@@ -71,7 +71,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     public static Category displayedCategory = null;
     public static Category displayedMainCategory = null;
     public static int displayedMainCategoryIndex = 0;
-    private PARROTProfile user = null;
+    private PictoreaderProfile user = null;
     public static SpeechBoardBoxDragListener speechDragListener;
     private PictogramController pictogramController;
 
@@ -593,7 +593,7 @@ public void setGridviewColNumb()
         }
 
         int pictogramWidth = 200;
-        if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
+        if(PictoreaderProfile.PictogramSize.MEDIUM == user.getPictogramSize())
         {
             pictogramWidth = 160;
         }

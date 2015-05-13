@@ -16,7 +16,7 @@ import dk.aau.cs.giraf.pictogram.Pictogram;
  * This is the PARROT Profile class. It handles the information associated with the current user, such as available pictograms
  * organized in categories and settings, as well as personal information whenever it is needed.
  */
-public class PARROTProfile {
+public class PictoreaderProfile {
 	private String name;
 	private Pictogram icon;
 	private ArrayList<Category> categories = new ArrayList<Category>();
@@ -32,18 +32,18 @@ public class PARROTProfile {
 	public static enum PictogramSize{MEDIUM, LARGE}
 	
 	/**
-	 * Creates a PARROTProfile.
+	 * Creates a PictoreaderProfile.
 	 * @param name, the name of the person. 
 	 * @param icon, a pictogram.
 	 */
-	public PARROTProfile(String name, Pictogram icon)
+	public PictoreaderProfile(String name, Pictogram icon)
 	{
 		this.setName(name);
 		this.setIcon(icon);
 	}
 
 	/**
-	 * @return this PARROTProfile's categories.
+	 * @return this PictoreaderProfile's categories.
 	 */
 	public ArrayList<Category> getCategories() {
 		return categories;
@@ -95,14 +95,14 @@ public class PARROTProfile {
 	
 	/**
 	 * 
-	 * @return the name of this PARROTProfile.
+	 * @return the name of this PictoreaderProfile.
 	 */
 	public String getName() {
 		return name;
 	}
 	
 	/**
-	 * Set the name of this PARROTProfile.
+	 * Set the name of this PictoreaderProfile.
 	 * @param name.
 	 */
 	public void setName(String name) {
@@ -110,14 +110,14 @@ public class PARROTProfile {
 	}
 	
 	/**
-	 * @return PARROTProfile's icon, that should be a image of the person. 
+	 * @return PictoreaderProfile's icon, that should be a image of the person.
 	 */
 	public Pictogram getIcon() {
 		return icon;
 	}
 
 	/**
-	 * get icon from PARROTProfile
+	 * get icon from PictoreaderProfile
 	 * @param icon, a pictogram with a image of the person.
 	 */
 	public void setIcon(Pictogram icon) {
