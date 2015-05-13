@@ -22,7 +22,6 @@ import dk.aau.cs.giraf.dblib.controllers.ProfileController;
 import dk.aau.cs.giraf.dblib.models.Application;
 import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.gui.GirafButton;
-import dk.aau.cs.giraf.gui.GirafConfirmDialog;
 import dk.aau.cs.giraf.gui.GirafCustomButtonsDialog;
 import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
 
@@ -46,7 +45,10 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     private GirafCustomButtonsDialog girafConfirmDialog;
     private static final String CONFIRM_EXTEND_TAG = "EXTEND_DIALOG";
     private static final int CONFIRM_EXTEND_ID = 1;
+
     private SpeechBoardFragment speechBoardFragment;
+    private GirafButton replaceButton;
+    private GirafButton extendButton;
 
     @Override
     public void onStart() {
@@ -97,6 +99,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
 
         createOptionsButton();
         createHelpButton();
+        createExtendButton();
 
         ApplicationController applicationController = new ApplicationController(getApplicationContext()); //mcontext
 
@@ -172,6 +175,27 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         });
         addGirafButtonToActionBar(btnHelp, GirafActivity.RIGHT);
     }
+    private void createExtendButton(){
+        extendButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept));
+        extendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.girafConfirmDialog.dismiss();
+                MainActivity.this.speechBoardFragment.callPictosearch();
+
+            }
+        });
+
+        replaceButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel));
+        replaceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.girafConfirmDialog.dismiss();
+                MainActivity.this.speechBoardFragment.ClearPictograms();
+                MainActivity.this.speechBoardFragment.callPictosearch();
+            }
+        });
+    }
 
     private void createOptionsButton() {
         btnOptions = new GirafButton(this,getResources().getDrawable(R.drawable.icon_settings));
@@ -243,7 +267,6 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         return childID;
     }
     /**
-     *
      * @return instance of App with this apps data
      */
     public static Application getApp()
@@ -252,9 +275,10 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     }
 
     /**
-     * Create new fragment and transaction
+     * Creates an extend dialog, promt the user if the would like to save the
+     * current selected pictograms.
      */
-    public void onSearchButtonClick(){
+    public void createExtendDialog(){
         girafConfirmDialog = GirafCustomButtonsDialog.newInstance(
                 "Beskrivende Titel",
                 "Vil du beholde dine tidligere valgte piktogrammer?",
@@ -266,32 +290,12 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
      * Implements fillButtonContainer,
      * @param buttonContainer
      * @param dialogID
-     * Sets listeners for extend and replace buttons
      * Adds the buttons the the button container
      */
     @Override
     public void fillButtonContainer(int dialogID, GirafCustomButtonsDialog.ButtonContainer buttonContainer) {
-        GirafButton extendButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept));
-        GirafButton replaceButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel));
-        extendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.this.girafConfirmDialog.dismiss();
-                MainActivity.this.speechBoardFragment.callPictosearch();
-
-            }
-        });
-        replaceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.this.girafConfirmDialog.dismiss();
-                MainActivity.this.speechBoardFragment.ClearPictograms();
-                MainActivity.this.speechBoardFragment.callPictosearch();
-            }
-        });
         buttonContainer.addGirafButton(replaceButton);
         buttonContainer.addGirafButton(extendButton);
-
     }
 
     @Override
