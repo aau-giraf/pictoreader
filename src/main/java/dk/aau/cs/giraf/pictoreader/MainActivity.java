@@ -251,25 +251,24 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         return app;
     }
 
-
+    /**
+     * Create new fragment and transaction
+     */
     public void onSearchButtonClick(){
-        // Create new fragment and transaction
-        girafConfirmDialog = GirafCustomButtonsDialog.newInstance("Beskrivende Titel", "Vil du beholde dine tidligere valgte piktogrammer?",
+        girafConfirmDialog = GirafCustomButtonsDialog.newInstance(
+                "Beskrivende Titel",
+                "Vil du beholde dine tidligere valgte piktogrammer?",
                 CONFIRM_EXTEND_ID);
         girafConfirmDialog.show(getSupportFragmentManager(), CONFIRM_EXTEND_TAG);
     }
 
     @Override
     public void fillButtonContainer(int dialogID, GirafCustomButtonsDialog.ButtonContainer buttonContainer) {
-        final SpeechBoardFragment spf = new SpeechBoardFragment(this.getApplicationContext());
-        final Bundle bundle = new Bundle();
         GirafButton yes = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept));
         GirafButton no = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel));
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bundle.putBoolean("extend",true);
-                spf.setArguments(bundle);
                 MainActivity.this.girafConfirmDialog.dismiss();
                 MainActivity.this.speechBoardFragment.callPictosearch();
 
@@ -278,8 +277,6 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bundle.putBoolean("extend",false);
-                spf.setArguments(bundle);
                 MainActivity.this.girafConfirmDialog.dismiss();
                 MainActivity.this.speechBoardFragment.ClearPictograms();
                 MainActivity.this.speechBoardFragment.callPictosearch();
