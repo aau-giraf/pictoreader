@@ -36,19 +36,17 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     private static Application app;
     private static Intent girafIntent;
     private GirafButton btnOptions;
-
+    private GirafButton btnHelp;
     // Helper that will be used to fetch profiles
     private final Helper helper = new Helper(this);
 
-
+    private GirafCustomButtonsDialog girafConfirmDialog;
     private static final String CONFIRM_EXTEND_TAG = "EXTEND_DIALOG";
     private static final int CONFIRM_EXTEND_ID = 1;
 
     private SpeechBoardFragment speechBoardFragment;
-    private GirafCustomButtonsDialog extendPictogramsDialog;
     private GirafButton replaceButton;
     private GirafButton extendButton;
-    private GirafButton btnHelp;
 
     @Override
     public void onStart() {
@@ -99,8 +97,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
 
         createOptionsButton();
         createHelpButton();
-        createExtendPictogramsButton();
-        createReplacePictogramsButton();
+        createExtendDialogButtons();
 
         ApplicationController applicationController = new ApplicationController(getApplicationContext()); //mcontext
 
@@ -176,25 +173,22 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         });
         addGirafButtonToActionBar(btnHelp, GirafActivity.RIGHT);
     }
-
-    private void createExtendPictogramsButton() {
+    private void createExtendDialogButtons(){
         extendButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept));
         extendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.this.extendPictogramsDialog.dismiss();
+                MainActivity.this.girafConfirmDialog.dismiss();
                 MainActivity.this.speechBoardFragment.callPictosearch();
 
             }
         });
-    }
 
-    private void createReplacePictogramsButton() {
         replaceButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel));
         replaceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.this.extendPictogramsDialog.dismiss();
+                MainActivity.this.girafConfirmDialog.dismiss();
                 MainActivity.this.speechBoardFragment.ClearPictograms();
                 MainActivity.this.speechBoardFragment.callPictosearch();
             }
@@ -210,12 +204,12 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
                 btnOptions.setVisibility(View.INVISIBLE);
                 getFragmentManager().beginTransaction()
                         .add(newFragment, "options")
-                        // Add this transaction to the back stack
+                                // Add this transaction to the back stack
                         .addToBackStack("options")
                         .commit();
             }
         });
-
+        //TODO if guardian add else nothing
         if (childID == -1) {
             addGirafButtonToActionBar(btnOptions, LEFT);
         }
@@ -287,11 +281,11 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
      * current selected pictograms.
      */
     public void createExtendDialog(){
-        extendPictogramsDialog = GirafCustomButtonsDialog.newInstance(
+        girafConfirmDialog = GirafCustomButtonsDialog.newInstance(
                 "Beskrivende Titel",
                 "Vil du beholde dine tidligere valgte piktogrammer?",
                 CONFIRM_EXTEND_ID);
-        extendPictogramsDialog.show(getSupportFragmentManager(), CONFIRM_EXTEND_TAG);
+        girafConfirmDialog.show(getSupportFragmentManager(), CONFIRM_EXTEND_TAG);
     }
 
     /**
@@ -302,6 +296,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
      */
     @Override
     public void fillButtonContainer(int dialogID, GirafCustomButtonsDialog.ButtonContainer buttonContainer) {
+        createExtendDialogButtons();
         buttonContainer.addGirafButton(replaceButton);
         buttonContainer.addGirafButton(extendButton);
     }
