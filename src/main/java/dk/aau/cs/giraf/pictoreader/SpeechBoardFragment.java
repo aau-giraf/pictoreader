@@ -42,6 +42,7 @@ import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
 public class SpeechBoardFragment extends Fragment implements ShowcaseManager.ShowcaseCapable
 {
     private Activity parent;
+
     public static final int GET_MULTIPLE_PICTOGRAMS = 104;
     public static final String PICTO_SEARCH_MULTI_TAG = "multi";
 
@@ -413,7 +414,19 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         //Setup the view for the sentences
         GridView sentenceBoardGrid = (GridView) parent.findViewById(R.id.sentenceboard);
         sentenceBoardGrid.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent.getApplicationContext()));
-        int noInSentence=user.getNumberOfSentencePictograms();
+
+        //Get the size of the trashcan and playbutton width
+        int trashButtonWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonTrashWidth));
+        int playButtonWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonPlayWidth));
+        int screenSize = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getScreenSize());
+
+        //Calculate the size of the sentenceboard
+        int sentenceSize = screenSize - trashButtonWidth - playButtonWidth;
+
+        //Calculate how many pictograms there are room for on the sentence board
+        int pictogramMarginSize = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), 16);
+        int pictogramSize = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), 100);
+        int noInSentence = sentenceSize / pictogramMarginSize + pictogramSize;
         sentenceBoardGrid.setNumColumns(noInSentence);
 
         //Add empty pictograms to the list, so it is possible to drag a pictogram to an empty location
@@ -427,11 +440,8 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
         RelativeLayout sentenceBoard = (RelativeLayout) parent.findViewById(R.id.sentenceBoardLayout);
 
-        //Find the width that is needed for the sentence board, and the left margin needed because of
-        //the trash button.
-        int trashButtonWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonTrashWidth));
-        int playButtonWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonPlayWidth));
-        RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams(getScreenSize() - (int) playButtonWidth - (int) trashButtonWidth, (int) GirafScalingUtilities.convertDpToPixel(parent, 150));
+        //Set the left margin of the sentence board, so it starts where the trashcan button ends
+       RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams(getScreenSize() - playButtonWidth - trashButtonWidth, (int) GirafScalingUtilities.convertDpToPixel(parent, 150));
         sBParams.leftMargin = trashButtonWidth;
         sentenceBoard.setLayoutParams(sBParams);
     }

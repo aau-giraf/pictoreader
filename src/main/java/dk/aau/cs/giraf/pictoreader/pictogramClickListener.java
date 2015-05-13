@@ -44,9 +44,7 @@ class pictogramClickListener implements OnClickListener {
             {
                 if (p == null)
                 {
-
                     SpeechBoardFragment.sentencePictogramList.set(count,SpeechBoardFragment.speechboardPictograms.get(position));
-                    break;
                 }
                 else{
                     count++;
