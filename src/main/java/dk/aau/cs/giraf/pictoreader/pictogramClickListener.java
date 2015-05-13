@@ -59,40 +59,35 @@ class pictogramClickListener implements OnClickListener {
             GridView sentence = (GridView) activity.findViewById(R.id.sentenceboard);
             sentence.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.sentencePictogramList, activity));
         }
-        else{
-            SpeechBoardFragment.displayedMainCategoryIndex = SpeechBoardFragment.draggedPictogramIndex;
-            CategoryController categoryController = new CategoryController(activity.getApplicationContext());
-            try {
-                SpeechBoardFragment.displayedCategory = categoryController.getCategoriesByProfileId(user.getProfileID()).get(position);
-            }
-            catch (OutOfMemoryError e)
-            {
-                e.getStackTrace();
-                return ;
-            }
-            SpeechBoardFragment.displayedMainCategory = SpeechBoardFragment.displayedCategory;
-            GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
-
-            try
-            {
-                SpeechBoardFragment.speechboardPictograms.clear();
-
-                if (pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).size() > SpeechBoardFragment.MaxNumberOfAllowedPictogramsInCategory)
-                {
-                    SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).subList(0, SpeechBoardFragment.MaxNumberOfAllowedPictogramsInCategory);
+        else {
+            if (SpeechBoardFragment.displayedMainCategoryIndex != SpeechBoardFragment.draggedPictogramIndex) {
+                SpeechBoardFragment.displayedMainCategoryIndex = SpeechBoardFragment.draggedPictogramIndex;
+                CategoryController categoryController = new CategoryController(activity.getApplicationContext());
+                try {
+                    SpeechBoardFragment.displayedCategory = categoryController.getCategoriesByProfileId(user.getProfileID()).get(position);
+                } catch (OutOfMemoryError e) {
+                    e.getStackTrace();
+                    return;
                 }
-                else
-                {
-                    SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
-                }
-            }
-            catch (OutOfMemoryError e)
-            {
-                e.getStackTrace();
-                return;
-            }
 
-            pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
+                SpeechBoardFragment.displayedMainCategory = SpeechBoardFragment.displayedCategory;
+                GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
+
+                try {
+                    SpeechBoardFragment.speechboardPictograms.clear();
+
+                    if (pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).size() > SpeechBoardFragment.MaxNumberOfAllowedPictogramsInCategory) {
+                        SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).subList(0, SpeechBoardFragment.MaxNumberOfAllowedPictogramsInCategory);
+                    } else {
+                        SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
+                    }
+                } catch (OutOfMemoryError e) {
+                    e.getStackTrace();
+                    return;
+                }
+
+                pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
+            }
         }
 
     }

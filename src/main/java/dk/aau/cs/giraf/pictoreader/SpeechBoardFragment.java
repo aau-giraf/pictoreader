@@ -380,7 +380,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         }
         //setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
         setGridviewColNumb();
-
+        /*
         if(!guardianMode) {
             try
             {
@@ -401,7 +401,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 return;
             }
             pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parent.getApplicationContext(), parent, user));
-        }
+        }*/
     }
 
     private void setupSentenceBoard()
