@@ -262,11 +262,18 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         girafConfirmDialog.show(getSupportFragmentManager(), CONFIRM_EXTEND_TAG);
     }
 
+    /**
+     * Implements fillButtonContainer,
+     * @param buttonContainer
+     * @param dialogID
+     * Sets listeners for extend and replace buttons
+     * Adds the buttons the the button container
+     */
     @Override
     public void fillButtonContainer(int dialogID, GirafCustomButtonsDialog.ButtonContainer buttonContainer) {
-        GirafButton yes = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept));
-        GirafButton no = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel));
-        yes.setOnClickListener(new View.OnClickListener() {
+        GirafButton extendButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept));
+        GirafButton replaceButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel));
+        extendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.this.girafConfirmDialog.dismiss();
@@ -274,7 +281,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
 
             }
         });
-        no.setOnClickListener(new View.OnClickListener() {
+        replaceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.this.girafConfirmDialog.dismiss();
@@ -282,8 +289,8 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
                 MainActivity.this.speechBoardFragment.callPictosearch();
             }
         });
-        buttonContainer.addGirafButton(no);
-        buttonContainer.addGirafButton(yes);
+        buttonContainer.addGirafButton(replaceButton);
+        buttonContainer.addGirafButton(extendButton);
 
     }
 
