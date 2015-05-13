@@ -415,6 +415,10 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         GridView sentenceBoardGrid = (GridView) parent.findViewById(R.id.sentenceboard);
         sentenceBoardGrid.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent.getApplicationContext()));
 
+        //Setup the column width of the sentence board
+        int colWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), 125);
+        sentenceBoardGrid.setColumnWidth(colWidth);
+
         //Get the size of the trashcan and playbutton width
         int trashButtonWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonTrashWidth));
         int playButtonWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonPlayWidth));
@@ -424,9 +428,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         int sentenceSize = screenSize - trashButtonWidth - playButtonWidth;
 
         //Calculate how many pictograms there are room for on the sentence board
-        int pictogramMarginSize = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), 16);
-        int pictogramSize = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), 100);
-        int noInSentence = sentenceSize / pictogramMarginSize + pictogramSize;
+        int noInSentence = sentenceSize / colWidth;
         sentenceBoardGrid.setNumColumns(noInSentence);
 
         //Add empty pictograms to the list, so it is possible to drag a pictogram to an empty location
@@ -441,7 +443,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         RelativeLayout sentenceBoard = (RelativeLayout) parent.findViewById(R.id.sentenceBoardLayout);
 
         //Set the left margin of the sentence board, so it starts where the trashcan button ends
-       RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams(getScreenSize() - playButtonWidth - trashButtonWidth, (int) GirafScalingUtilities.convertDpToPixel(parent, 150));
+        RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams(getScreenSize() - playButtonWidth - trashButtonWidth, (int) GirafScalingUtilities.convertDpToPixel(parent, 150));
         sBParams.leftMargin = trashButtonWidth;
         sentenceBoard.setLayoutParams(sBParams);
     }
@@ -542,19 +544,11 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 public void setGridviewColNumb()
     {
         GridView pictogramGrid = (GridView) parent.findViewById(R.id.pictogramgrid);
-        GridView sentenceBoardGrid = (GridView) parent.findViewById(R.id.sentenceboard);
-
-        int width = getScreenSize();
-        int colWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), 125);
-        sentenceBoardGrid.setColumnWidth(colWidth);
 
         //Get the width for the trashbutton.
         int trashButtonWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonTrashWidth));
-
+        int width = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(),getScreenSize());
         int sentenceWidth = width - trashButtonWidth;
-        int noInSentence = sentenceWidth/colWidth;
-
-        sentenceBoardGrid.setNumColumns(noInSentence);
 
         int pictogramgridWidth = 0;
 
