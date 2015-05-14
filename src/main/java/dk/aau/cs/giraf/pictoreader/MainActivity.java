@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
@@ -18,17 +20,16 @@ import dk.aau.cs.giraf.dblib.Helper;
 import dk.aau.cs.giraf.dblib.controllers.ApplicationController;
 import dk.aau.cs.giraf.dblib.controllers.ProfileController;
 import dk.aau.cs.giraf.dblib.models.Application;
-import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.gui.GirafCustomButtonsDialog;
-import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
+import dk.aau.cs.giraf.showcaseview.ShowcaseManager;
 
 /**
  *
  * @author SW605f13-PARROT and PARROT spring 2012.
  *  This is the main Activity Class in Parrot.
  */
-public class MainActivity extends GirafActivity implements GirafCustomButtonsDialog.CustomButtons {
+public class MainActivity extends GirafActivity implements GirafCustomButtonsDialog.CustomButtons{
 
     private static PictoreaderProfile parrotUser;
     private static long guardianID;
@@ -47,6 +48,11 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     private SpeechBoardFragment speechBoardFragment;
     private GirafButton replaceButton;
     private GirafButton extendButton;
+
+    /**
+     * Used to showcase views
+     */
+    private ShowcaseManager showcaseManager;
 
     @Override
     public void onStart() {
@@ -90,7 +96,6 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         }
 
         createOptionsButton();
-        createHelpButton();
         createExtendPictogramsButton();
         createReplacePictogramsButton();
         createSearchButton();
@@ -130,7 +135,8 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         if(parrotUser != null)
         {
             speechBoardFragment = new SpeechBoardFragment(this.getApplicationContext());
-            getFragmentManager().beginTransaction().add(R.id.main, speechBoardFragment).commit();
+            //getFragmentManager().beginTransaction().add(R.id.main, speechBoardFragment).commit();
+            getFragmentManager().beginTransaction().add(R.id.main,speechBoardFragment,"HEJ").commit();
         }
         else //TODO - Se if possibile if yes - create giraf component, else delete.
         {
@@ -154,6 +160,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
 
             }
         }
+        createHelpButton();
     }
 
     private void createHelpButton() {
@@ -161,7 +168,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ShowcaseManager.ShowcaseCapable currentContent = (ShowcaseManager.ShowcaseCapable) getSupportFragmentManager().findFragmentById(R.id.SpeechBoard);
+                final ShowcaseManager.ShowcaseCapable currentContent = (ShowcaseManager.ShowcaseCapable) getFragmentManager().findFragmentByTag("HEJ");
                 currentContent.toggleShowcase();
             }
         });
