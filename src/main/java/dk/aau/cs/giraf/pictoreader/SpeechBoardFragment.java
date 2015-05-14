@@ -443,18 +443,6 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 clearSentenceboard();
             }
         });
-        //TODO- ved ikke helt om dette er merget korrekt.
-        //We update the width of the trashcan button to the same size of the play and search btn
-        trashCanButton.getLayoutParams().width = (int) getResources().getDimension(R.dimen.buttonTrashGuardianWidth);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        //Set the margins to 0 on the trash can button because it should not be next to the
-        //search button any longer
-        lp.setMargins(0, 0, 0, 0);
-        parent.findViewById(R.id.trashButtonLayout).setLayoutParams(lp);
-
-
-
-
         final GirafButton btnPlay = (GirafButton) parent.findViewById(R.id.btnPlay);
         btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
         btnPlay.setOnClickListener(new View.OnClickListener() {
