@@ -180,12 +180,12 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     }
     private void createReplacePictogramsButton() {
         replaceButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel));
-
         replaceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.this.girafConfirmDialog.dismiss();
                 MainActivity.this.speechBoardFragment.ClearPictograms();
+                MainActivity.this.speechBoardFragment.clearSentenceboard();
                 MainActivity.this.speechBoardFragment.callPictosearch();
             }
         });
@@ -305,8 +305,8 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
      */
     @Override
     public void fillButtonContainer(int dialogID, GirafCustomButtonsDialog.ButtonContainer buttonContainer) {
-        //createExtendPictogramsButton();
-        //createReplacePictogramsButton();
+        createExtendPictogramsButton();
+        createReplacePictogramsButton();
         buttonContainer.addGirafButton(replaceButton);
         buttonContainer.addGirafButton(extendButton);
     }

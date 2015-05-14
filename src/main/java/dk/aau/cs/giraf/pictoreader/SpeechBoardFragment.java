@@ -47,47 +47,31 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     private Activity parent;
     public static final int GET_MULTIPLE_PICTOGRAMS = 104;
     public static final String PICTO_SEARCH_MULTI_TAG = "multi";
-
     List<dk.aau.cs.giraf.dblib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
-
     //Remembers the index of the pictogram that is currently being dragged.
     public static int draggedPictogramIndex = -1;
     public static int dragOwnerID =-1;
     //We need to set a max on the number of loaded pictograms, since too many would crash
     //the application because of insufficient heap space
     public static int MaxNumberOfAllowedPictogramsInCategory = 125;
-
     //Serves as the back-end storage for the visual speechboard
     public static List<dk.aau.cs.giraf.dblib.models.Pictogram> speechboardPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
-
     //This category contains the pictograms on the sentenceboard
     public static ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram> sentencePictogramList = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
-
     public static Category displayedCategory = null;
     public static Category displayedMainCategory = null;
     public static int displayedMainCategoryIndex = 0;
     private PictoreaderProfile user = null;
     public static SpeechBoardBoxDragListener speechDragListener;
     private PictogramController pictogramController;
-
     private ShowcaseManager showcaseManager;
-    private boolean isFirstRun;
-    private boolean guardianMode = false;
-
     //This variable is used! Android studio is a liar
     private PictogramCategoryController pictogramCategoryController;
-
     private Context context;
-
     private PictoMediaPlayer pictoMediaPlayer;
     private List<dk.aau.cs.giraf.dblib.models.Pictogram> displayPictogramList = null;
-
     private boolean justSearched = false;
     GirafActivity girafActivity;
-
-    //TODO: DELETE THESE?
-    long guardianID = (long) MainActivity.getGuardianID();
-    long childID = MainActivity.getChildID();
 
     public SpeechBoardFragment(Context c)
     {
@@ -101,7 +85,6 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         this.parent = activity;
         pictogramController = new PictogramController(activity.getApplicationContext());
         pictogramCategoryController = new PictogramCategoryController(activity.getApplicationContext());
-
         girafActivity = (GirafActivity) activity;
     }
 
@@ -287,7 +270,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             @Override
             public void onDone(ShowcaseView showcaseView) {
                 showcaseManager = null;
-                isFirstRun = false;
+                //isFirstRun = false;
             }
         });
 
@@ -330,18 +313,6 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     }
 
     private void setupEverything() {
-
-        //Used to see which elements in the gui should be shown, resized etc.
-        if (childID != -1)
-        {
-            guardianMode = false;
-        }
-
-        else if(guardianID != -1)
-        {
-            guardianMode = true;
-        }
-
         View v = LayoutInflater.from(parent.getApplicationContext()).inflate(R.layout.speechboard_layout, null);
         parent.setContentView(v);
 
@@ -365,7 +336,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     }
 
     private void setupCategoryGrid() {
-        if (!guardianMode) {
+        if (!isGuardianMode()) {
             displayedCategory = user.getCategoryAt(0);
             displayedMainCategory = displayedCategory;
 
@@ -380,12 +351,10 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         Activity activity = this.getActivity();
         GridView pictogramGrid = (GridView) activity.findViewById(R.id.pictogramgrid);
 
-        if(guardianMode) {
+        if(isGuardianMode()) {
             activity.findViewById(R.id.pcategory).setVisibility(View.GONE);
-
             LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
             pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
-
             //pictogramGrid.invalidate();
         }
         //setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
@@ -547,7 +516,9 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             }
         }
     }
-
+    private boolean isGuardianMode(){
+        return MainActivity.getGuardianID() != -1;
+    }
     public void setGridviewColNumb()
     {
         GridView pictogramGrid = (GridView) parent.findViewById(R.id.pictogramgrid);
@@ -559,7 +530,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
         int pictogramgridWidth = 0;
 
-        if(guardianMode)
+        if(isGuardianMode())
         {
             pictogramgridWidth = sentenceWidth + trashButtonWidth;
         }
