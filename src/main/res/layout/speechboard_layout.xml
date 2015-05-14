@@ -17,6 +17,12 @@
         android:layout_height="0dp"
         android:layout_weight="4"
         android:orientation="horizontal" >
+        <dk.aau.cs.giraf.gui.GirafPictogramItemView
+            android:id="@+id/editable_pictogram_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:onClick="onIconClick"
+            app:editable="true"/>
 
 
         <!-- Screen Design for Photos -->

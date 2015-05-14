@@ -3,13 +3,12 @@ package dk.aau.cs.giraf.pictoreader.showcase;
 import android.app.Activity;
 import android.view.View;
 
-import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.Target;
-
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import dk.aau.cs.giraf.pictoreader.R;
+import dk.aau.cs.giraf.showcaseview.ShowcaseView;
+import dk.aau.cs.giraf.showcaseview.targets.Target;
 
 /**
  * Used to handle multiple showcases
