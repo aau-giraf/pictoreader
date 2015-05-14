@@ -23,7 +23,7 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 {
 	private Activity parrent;
 	public dk.aau.cs.giraf.dblib.models.Pictogram draggedPictogram = null;
-	private PARROTProfile profile = MainActivity.getUser();
+	private PictoreaderProfile profile = MainActivity.getUser();
 	int numberOfSentencePictograms = profile.getNumberOfSentencePictograms();
 	boolean insideOfMe = false;
     private Context _context;
@@ -31,12 +31,12 @@ public class SpeechBoardBoxDragListener implements OnDragListener
     private PictogramCategoryController pictogramCategoryController;
     private CategoryController categoryController;
 
-    private PARROTProfile user = null;
+    private PictoreaderProfile user = null;
 
 	/**
 	 * @param active
 	 */
-	public SpeechBoardBoxDragListener(Activity active, Context c, PARROTProfile user) {
+	public SpeechBoardBoxDragListener(Activity active, Context c, PictoreaderProfile user) {
 		parrent = active;
         _context = c;
         this.user = user;

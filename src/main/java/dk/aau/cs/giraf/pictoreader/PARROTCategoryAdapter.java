@@ -31,10 +31,10 @@ public class PARROTCategoryAdapter extends BaseAdapter{
 	private Context context;
     private int ID;
     private Activity activity;
-    PARROTProfile user;
+    PictoreaderProfile user;
 
 
-	public PARROTCategoryAdapter(List<Category> categories, Activity activity, int ID, PARROTProfile user, int marked)
+	public PARROTCategoryAdapter(List<Category> categories, Activity activity, int ID, PictoreaderProfile user, int marked)
 	{
 		this.categories = categories;
         this.marked = new ArrayList<Boolean>();

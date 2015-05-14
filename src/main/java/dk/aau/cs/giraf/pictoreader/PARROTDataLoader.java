@@ -1,21 +1,17 @@
 package dk.aau.cs.giraf.pictoreader;
 
 
-import java.net.ContentHandler;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.content.Intent;
 
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
 import android.util.Log;
-import dk.aau.cs.giraf.categorylib.CatLibHelper;
+
 import dk.aau.cs.giraf.dblib.Helper;
 import dk.aau.cs.giraf.dblib.controllers.ApplicationController;
 import dk.aau.cs.giraf.dblib.controllers.CategoryController;
@@ -77,9 +73,9 @@ public class PARROTDataLoader {
 	 *
      * @param childId
      * @param appId
-     * @return PARROTProfile or null.
+     * @return PictoreaderProfile or null.
 	 */
-	public PARROTProfile loadProfile(long childId, long appId)
+	public PictoreaderProfile loadProfile(long childId, long appId)
 	{
 		Profile prof =null;
 		List<Category> categories = null;
@@ -88,11 +84,11 @@ public class PARROTDataLoader {
 		
 		if(childId != -1 && appId >=0)
 		 {
-			//Get the childs profile and setup the PARROTProfile.
+			//Get the childs profile and setup the PictoreaderProfile.
             ProfileController profileController = new ProfileController(_context);
 			prof = profileController.getProfileById(childId);
 			Pictogram pic = new Pictogram(5, "name",1, null,null, "inline", -1, parent.getApplicationContext());
-			PARROTProfile parrotUser = new PARROTProfile(prof.getName(), pic);
+			PictoreaderProfile parrotUser = new PictoreaderProfile(prof.getName(), pic);
 			parrotUser.setProfileID(prof.getId());
             ApplicationController applicationController = new ApplicationController(_context);
 
@@ -154,11 +150,11 @@ public class PARROTDataLoader {
 	}
 	
 	/**
-	 * loads the specific settings from the database into a PARROTProfile,  
+	 * loads the specific settings from the database into a PictoreaderProfile,
 	 * @param PARROTProfile parrotUser
-	 * @return PARROTProfile, an updated PARROTProfile of parrotUser.
+	 * @return PictoreaderProfile, an updated PictoreaderProfile of parrotUser.
 	 */
-	private PARROTProfile loadSettings(PARROTProfile parrotUser, Setting<String, String, String> profileSettings) {
+	private PictoreaderProfile loadSettings(PictoreaderProfile parrotUser, Setting<String, String, String> profileSettings) {
 
 		try{
 			//get the Setting from the profileSettings
@@ -167,16 +163,16 @@ public class PARROTDataLoader {
 			String PictogramSize = String.valueOf(profileSettings.get("PictogramSettings").get("PictogramSize"));
 			int sentenceColour = Integer.valueOf(profileSettings.get("SentenceboardSettings").get("Color"));	
 			
-			//load it into PARROTProfile
+			//load it into PictoreaderProfile
 			parrotUser.setSentenceBoardColor(sentenceColour);
 			parrotUser.setNumberOfSentencePictograms(noOfBoxes);
 			if(PictogramSize.equalsIgnoreCase("MEDIUM"))
 			{ 
-				parrotUser.setPictogramSize(PARROTProfile.PictogramSize.MEDIUM);
+				parrotUser.setPictogramSize(PictoreaderProfile.PictogramSize.MEDIUM);
 			}
 			else if(PictogramSize.equalsIgnoreCase("LARGE"))
 			{
-				parrotUser.setPictogramSize(PARROTProfile.PictogramSize.LARGE);
+				parrotUser.setPictogramSize(PictoreaderProfile.PictogramSize.LARGE);
 			}
 			
 			if(showText)
@@ -196,10 +192,10 @@ public class PARROTDataLoader {
 		return parrotUser;
 	}
 	/**
-	 * Saves the settings from a PARROTProfile into the database
-	 * @param user, the child's PARROTProfile
+	 * Saves the settings from a PictoreaderProfile into the database
+	 * @param user, the child's PictoreaderProfile
 	 */
-	public void saveChanges(PARROTProfile user)
+	public void saveChanges(PictoreaderProfile user)
 	{
 		ProfileController profileController = new ProfileController(_context);
         Profile prof = profileController.getProfileById(user.getProfileID());

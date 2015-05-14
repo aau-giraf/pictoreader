@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Switch;
 
-import dk.aau.cs.giraf.pictoreader.PARROTProfile.PictogramSize;
+import dk.aau.cs.giraf.pictoreader.PictoreaderProfile.PictogramSize;
 
 ;
 
 public class OptionFragment extends Fragment{
 
-	private PARROTProfile user;
+	private PictoreaderProfile user;
 	private PARROTDataLoader dataloader;
 	private Activity parrent;
 	
@@ -101,9 +101,9 @@ public class OptionFragment extends Fragment{
 		
 		int noOfPlacesInSentenceboard = user.getNumberOfSentencePictograms();
 		boolean showText = user.getShowText();
-		PARROTProfile.PictogramSize pictogramSize = user.getPictogramSize();
+		PictoreaderProfile.PictogramSize pictogramSize = user.getPictogramSize();
 		
-		if(pictogramSize == PARROTProfile.PictogramSize.MEDIUM)
+		if(pictogramSize == PictoreaderProfile.PictogramSize.MEDIUM)
 		{
 			Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
             if(switchPictogramSize.isChecked());
@@ -113,7 +113,7 @@ public class OptionFragment extends Fragment{
             }
             switchPictogramSize.toggle();
 		}
-		else if(pictogramSize == PARROTProfile.PictogramSize.LARGE)
+		else if(pictogramSize == PictoreaderProfile.PictogramSize.LARGE)
 		{
             Switch switchPictogramSize = (Switch) parrent.findViewById(R.id.swtPictogramSize);
             switchPictogramSize.setChecked(true);

@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ import dk.aau.cs.giraf.activity.GirafActivity;
 import dk.aau.cs.giraf.dblib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 import dk.aau.cs.giraf.dblib.models.Category;
+import dk.aau.cs.giraf.dblib.models.GuardianOf;
 import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
@@ -42,9 +45,10 @@ import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
 public class SpeechBoardFragment extends Fragment implements ShowcaseManager.ShowcaseCapable
 {
     private Activity parent;
-
     public static final int GET_MULTIPLE_PICTOGRAMS = 104;
     public static final String PICTO_SEARCH_MULTI_TAG = "multi";
+
+    List<dk.aau.cs.giraf.dblib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
 
     //Remembers the index of the pictogram that is currently being dragged.
     public static int draggedPictogramIndex = -1;
@@ -62,7 +66,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     public static Category displayedCategory = null;
     public static Category displayedMainCategory = null;
     public static int displayedMainCategoryIndex = 0;
-    private PARROTProfile user = null;
+    private PictoreaderProfile user = null;
     public static SpeechBoardBoxDragListener speechDragListener;
     private PictogramController pictogramController;
 
@@ -106,6 +110,11 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.speechboard_layout, container, false);
     }
 
     @Override
@@ -465,19 +474,17 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 clearSentenceboard();
             }
         });
+        //TODO- ved ikke helt om dette er merget korrekt.
+        //We update the width of the trashcan button to the same size of the play and search btn
+        trashCanButton.getLayoutParams().width = (int) getResources().getDimension(R.dimen.buttonTrashGuardianWidth);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        //Set the margins to 0 on the trash can button because it should not be next to the
+        //search button any longer
+        lp.setMargins(0, 0, 0, 0);
+        parent.findViewById(R.id.trashButtonLayout).setLayoutParams(lp);
 
-        //If it is not a citizen who is using the application, the Search button should be created
-        if(guardianMode) {
-            //Add the search button to the top bar
-            GirafButton btnSearch = new GirafButton(girafActivity, getResources().getDrawable(R.drawable.icon_search));
-            btnSearch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    callPictosearch();
-                }
-            });
-            girafActivity.addGirafButtonToActionBar(btnSearch, GirafActivity.RIGHT);
-        }
+
+
 
         final GirafButton btnPlay = (GirafButton) parent.findViewById(R.id.btnPlay);
         btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
@@ -541,7 +548,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         }
     }
 
-public void setGridviewColNumb()
+    public void setGridviewColNumb()
     {
         GridView pictogramGrid = (GridView) parent.findViewById(R.id.pictogramgrid);
 
@@ -563,7 +570,7 @@ public void setGridviewColNumb()
         }
 
         int pictogramWidth = 200;
-        if(PARROTProfile.PictogramSize.MEDIUM == user.getPictogramSize())
+        if(PictoreaderProfile.PictogramSize.MEDIUM == user.getPictogramSize())
         {
             pictogramWidth = 160;
         }
@@ -606,9 +613,17 @@ public void setGridviewColNumb()
     }
 
     /**
+     * Clears the selected pictograms
+     */
+    public void ClearPictograms()
+    {
+        selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();;
+    }
+
+    /**
      * Opens pictosearch application, so pictograms can be loaded into pictocreator.
      */
-    private void callPictosearch(){
+    public void callPictosearch(){
             justSearched = true;
             Intent intent = new Intent();
 
@@ -623,8 +638,6 @@ public void setGridviewColNumb()
                 }
 
                 intent.putExtra(getString(R.string.current_guardian_id), intent.getExtras().getLong("currentGuardianId", -1));
-
-
                 startActivityForResult(intent, GET_MULTIPLE_PICTOGRAMS);
             } catch (Exception e){
                 Toast.makeText(parent, "Pictosearch er ikke installeret.", Toast.LENGTH_LONG).show();
@@ -640,24 +653,27 @@ public void setGridviewColNumb()
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == parent.RESULT_OK){
             loadPictogram(data);
         }
     }
 
-    private void loadPictogram(Intent data){
+    /**
+     * This method loads the pictograms into the gird
+     * @param data
+     */
+    public void loadPictogram(Intent data){
         long[] pictogramIDs = {};
         try{
             pictogramIDs = data.getExtras().getLongArray("checkoutIds");
+            for (int i = 0; i < pictogramIDs.length; i++){
+                Log.v("No in sentence", ""+ String.valueOf(pictogramIDs[i]));
+            }
         }
         catch (Exception e){
             e.printStackTrace();
         }
-
-        List<dk.aau.cs.giraf.dblib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
-        for (int i = 0; i < pictogramIDs.length; i++)
-        {
+        for (int i = 0; i < pictogramIDs.length; i++) {
             selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
         }
         displayPictogramList = selectedPictograms;

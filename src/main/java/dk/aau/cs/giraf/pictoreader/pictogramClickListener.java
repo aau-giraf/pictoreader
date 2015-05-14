@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
-
-import dk.aau.cs.giraf.activity.GirafActivity;
 import dk.aau.cs.giraf.dblib.controllers.CategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 import dk.aau.cs.giraf.gui.GirafWaitingDialog;
@@ -20,13 +18,12 @@ class pictogramClickListener implements OnClickListener {
     private GirafWaitingDialog waitingDialog;
     private final int position;
     private final int owner;
-    private PARROTProfile user;
+    private PictoreaderProfile user;
     private final Activity activity;
-    private GirafActivity mainActivity;
     private PictogramController pictogramController;
 
 
-    public pictogramClickListener(int position, int owner, Activity activity, PARROTProfile user) {
+    public pictogramClickListener(int position, int owner, Activity activity, PictoreaderProfile user) {
         this.position = position;
         this.owner = owner;
         this.activity = activity;
@@ -44,7 +41,9 @@ class pictogramClickListener implements OnClickListener {
             {
                 if (p == null)
                 {
+
                     SpeechBoardFragment.sentencePictogramList.set(count,SpeechBoardFragment.speechboardPictograms.get(position));
+                    break;
                 }
                 else{
                     count++;
