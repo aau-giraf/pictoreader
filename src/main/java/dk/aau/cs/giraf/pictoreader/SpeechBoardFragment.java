@@ -448,8 +448,8 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         long[] pictogramIDs = {};
         try{
             pictogramIDs = data.getExtras().getLongArray("checkoutIds");
-            for (int i = 0; i < pictogramIDs.length; i++){
-                Log.v("No in sentence", ""+ String.valueOf(pictogramIDs[i]));
+            for (long pictogramID : pictogramIDs) {
+                Log.v("No in sentence", "" + String.valueOf(pictogramID));
             }
         }
         catch (Exception e){
@@ -488,64 +488,6 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         centerRightButtonParams.setMargins(margin, margin, margin, margin);
 
         showcaseManager = new ShowcaseManager();
-/*
-        //Playbutton
-        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
-            @Override
-            public void configShowCaseView(final ShowcaseView showcaseView) {
-
-                final ViewTarget categorySettingsButtonTarget = new ViewTarget(R.id.btnPlay, getActivity());
-
-                showcaseView.setShowcase(categorySettingsButtonTarget, true);
-                showcaseView.setContentTitle("Pik lyd");
-                showcaseView.setContentText("På Pik");
-                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                showcaseView.setButtonPosition(rightButtonParams);
-
-                final int textXPosition = categorySettingsButtonTarget.getPoint().x;
-                final int textYPosition = categorySettingsButtonTarget.getPoint().y - (int) GirafScalingUtilities.convertDpToPixel(getActivity(), 200);
-                showcaseView.setTextPostion(textXPosition, textYPosition);
-            }
-        });
-
-        //trash
-        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
-            @Override
-            public void configShowCaseView(final ShowcaseView showcaseView) {
-
-                final ViewTarget categorySettingsButtonTarget = new ViewTarget(R.id.btnClear, getActivity());
-
-                showcaseView.setShowcase(categorySettingsButtonTarget, true);
-                showcaseView.setContentTitle("Ryd");
-                showcaseView.setContentText("Sætning");
-                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                showcaseView.setButtonPosition(rightButtonParams);
-
-                final int textXPosition = categorySettingsButtonTarget.getPoint().x;
-                final int textYPosition = categorySettingsButtonTarget.getPoint().y - (int) GirafScalingUtilities.convertDpToPixel(getActivity(), 200);
-                showcaseView.setTextPostion(textXPosition, textYPosition);
-            }
-        });
-        //Categoier
-        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
-            @Override
-            public void configShowCaseView(final ShowcaseView showcaseView) {
-
-                final ViewTarget categorySettingsButtonTarget = new ViewTarget(R.id.category, getActivity());
-
-                showcaseView.setShowcase(categorySettingsButtonTarget, true);
-                showcaseView.setContentTitle("Vis");
-                showcaseView.setContentText("Categorier");
-                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                showcaseView.setButtonPosition(rightButtonParams);
-
-                final int textXPosition = categorySettingsButtonTarget.getPoint().x;
-                final int textYPosition = categorySettingsButtonTarget.getPoint().y - (int) GirafScalingUtilities.convertDpToPixel(getActivity(), 200);
-                showcaseView.setTextPostion(textXPosition, textYPosition);
-            }
-        });
-        */
-
         //Settings button
         final ViewTarget settingsButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.settings_button), 1.5f);
         showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
@@ -555,7 +497,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 showcaseView.setContentTitle("Møtrik");
                 showcaseView.setContentText("Hvis du har en skrue løs");
                 showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                showcaseView.setButtonPosition(lps);
+                showcaseView.setButtonPosition(centerRightButtonParams);
                 showcaseView.setTextPostion(textX, textY);
             }
         });
@@ -569,28 +511,11 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 showcaseView.setContentTitle("Forstørrelsesglas");
                 showcaseView.setContentText("Hvis du leder skal du finde");
                 showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                showcaseView.setButtonPosition(lps);
+                showcaseView.setButtonPosition(centerRightButtonParams);
                 showcaseView.setTextPostion(textX, textY);
             }
         });
-
-        if (isFirstRun) {
-            final ViewTarget helpButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.help_button), 1.5f);
-
-            showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
-                @Override
-                public void configShowCaseView(final ShowcaseView showcaseView) {
-                    showcaseView.setShowcase(helpButtonTarget, true);
-                    showcaseView.setContentTitle("Hjælpe knap");
-                    showcaseView.setContentText("Hvis du bliver i tvivl kan du altid få hjælp her");
-                    showcaseView.setStyle(R.style.GirafLastCustomShowcaseTheme);
-                    showcaseView.setButtonPosition(lps);
-                    showcaseView.setTextPostion(textX, textY);
-                }
-            });
-        }
         //trash
-
         final ViewTarget trashButtonTarget = new ViewTarget(R.id.btnClear, getActivity());
         showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
             @Override
@@ -599,31 +524,41 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 showcaseView.setContentTitle("Skraldespand");
                 showcaseView.setContentText("Hvis det hele er noget lort");
                 showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                showcaseView.setButtonPosition(lps);
+                showcaseView.setButtonPosition(centerRightButtonParams);
                 showcaseView.setTextPostion(textX, textY);
             }
         });
 
         final ViewTarget playButtonTarget = new ViewTarget(R.id.btnPlay, getActivity());
-
         showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
             @Override
             public void configShowCaseView(final ShowcaseView showcaseView) {
                 showcaseView.setShowcase(playButtonTarget, true);
                 showcaseView.setContentTitle("Grøn Trekant");
                 showcaseView.setContentText("Afspil ting");
+                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
+                showcaseView.setButtonPosition(centerRightButtonParams);
+                showcaseView.setTextPostion(textX, textY);
+            }
+        });
+
+        final ViewTarget helpButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.help_button), 1.5f);
+        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+            @Override
+            public void configShowCaseView(final ShowcaseView showcaseView) {
+                showcaseView.setShowcase(helpButtonTarget, true);
+                showcaseView.setContentTitle("Hjælpe knap");
+                showcaseView.setContentText("Hvis du bliver i tvivl kan du altid få hjælp her");
                 showcaseView.setStyle(R.style.GirafLastCustomShowcaseTheme);
                 showcaseView.setButtonPosition(centerRightButtonParams);
                 showcaseView.setTextPostion(textX, textY);
             }
         });
 
-
         showcaseManager.setOnDoneListener(new ShowcaseManager.OnDoneListener() {
             @Override
             public void onDone(ShowcaseView showcaseView) {
                 showcaseManager = null;
-                isFirstRun = false;
             }
         });
 
