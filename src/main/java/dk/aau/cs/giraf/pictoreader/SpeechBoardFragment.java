@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -29,7 +28,6 @@ import dk.aau.cs.giraf.activity.GirafActivity;
 import dk.aau.cs.giraf.dblib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 import dk.aau.cs.giraf.dblib.models.Category;
-import dk.aau.cs.giraf.dblib.models.GuardianOf;
 import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
@@ -125,9 +123,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         centerRightButtonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         centerRightButtonParams.setMargins(margin, margin, margin, margin);
 
-
         showcaseManager = new ShowcaseManager();
-
 
         //if (categoryActivity.getCurrentUser().getRole() != Profile.Roles.CHILD) {
             // Add showcase for categoryGrid
@@ -355,7 +351,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             activity.findViewById(R.id.pcategory).setVisibility(View.GONE);
             LinearLayout pictogramGridWrapper = (LinearLayout) activity.findViewById(R.id.ppictogramview);
             pictogramGridWrapper.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
-            //pictogramGrid.invalidate();
+            pictogramGrid.invalidate();
         }
         //setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
         setGridviewColNumb();
@@ -505,8 +501,16 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         }
     }
     private boolean isGuardianMode(){
-        return MainActivity.getGuardianID() != -1;
+        if(MainActivity.getChildID() != -1) {
+            return false;
+        }
+
+        else if (MainActivity.getGuardianID() != -1) {
+            return true;
+        }
+        return false;
     }
+
     public void setGridviewColNumb()
     {
         GridView pictogramGrid = (GridView) parent.findViewById(R.id.pictogramgrid);
