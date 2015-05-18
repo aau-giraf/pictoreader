@@ -393,6 +393,11 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         pictogramGrid.setAdapter(new PictogramAdapter(pictograms, activity.getApplicationContext(), activity, user));
         pictogramGrid.invalidate();
     }
+
+    /**
+     * Returns true if the user have selected some pictogramz
+     * @return
+     */
     public boolean isAnyPictogramSelected(){
         return !selectedPictograms.isEmpty();
     }
