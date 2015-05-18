@@ -488,6 +488,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
         showcaseManager = new ShowcaseManager();
 
+        //Playbutton
         showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
             @Override
             public void configShowCaseView(final ShowcaseView showcaseView) {
@@ -497,6 +498,60 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 showcaseView.setShowcase(categorySettingsButtonTarget, true);
                 showcaseView.setContentTitle("Pik lyd");
                 showcaseView.setContentText("På Pik");
+                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
+                showcaseView.setButtonPosition(rightButtonParams);
+
+                final int textXPosition = categorySettingsButtonTarget.getPoint().x;
+                final int textYPosition = categorySettingsButtonTarget.getPoint().y - (int) GirafScalingUtilities.convertDpToPixel(getActivity(), 200);
+                showcaseView.setTextPostion(textXPosition, textYPosition);
+            }
+        });
+        //trash
+        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+            @Override
+            public void configShowCaseView(final ShowcaseView showcaseView) {
+
+                final ViewTarget categorySettingsButtonTarget = new ViewTarget(R.id.btnClear, getActivity());
+
+                showcaseView.setShowcase(categorySettingsButtonTarget, true);
+                showcaseView.setContentTitle("Ryd");
+                showcaseView.setContentText("Sætning");
+                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
+                showcaseView.setButtonPosition(rightButtonParams);
+
+                final int textXPosition = categorySettingsButtonTarget.getPoint().x;
+                final int textYPosition = categorySettingsButtonTarget.getPoint().y - (int) GirafScalingUtilities.convertDpToPixel(getActivity(), 200);
+                showcaseView.setTextPostion(textXPosition, textYPosition);
+            }
+        });
+        //Categoier
+        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+            @Override
+            public void configShowCaseView(final ShowcaseView showcaseView) {
+
+                final ViewTarget categorySettingsButtonTarget = new ViewTarget(R.id.category, getActivity());
+
+                showcaseView.setShowcase(categorySettingsButtonTarget, true);
+                showcaseView.setContentTitle("Vis");
+                showcaseView.setContentText("Categorier");
+                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
+                showcaseView.setButtonPosition(rightButtonParams);
+
+                final int textXPosition = categorySettingsButtonTarget.getPoint().x;
+                final int textYPosition = categorySettingsButtonTarget.getPoint().y - (int) GirafScalingUtilities.convertDpToPixel(getActivity(), 200);
+                showcaseView.setTextPostion(textXPosition, textYPosition);
+            }
+        });
+        //Piktogrammer
+        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+            @Override
+            public void configShowCaseView(final ShowcaseView showcaseView) {
+
+                final ViewTarget categorySettingsButtonTarget = new ViewTarget(R.id.categoryView, getActivity());
+
+                showcaseView.setShowcase(categorySettingsButtonTarget, true);
+                showcaseView.setContentTitle("Viser");
+                showcaseView.setContentText("Kategorier");
                 showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
                 showcaseView.setButtonPosition(rightButtonParams);
 

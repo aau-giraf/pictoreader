@@ -175,7 +175,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         addGirafButtonToActionBar(btnHelp, GirafActivity.RIGHT);
     }
     private void createExtendPictogramsButton() {
-        extendButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept));
+        extendButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept), "Ja");
         extendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,7 +186,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         });
     }
     private void createReplacePictogramsButton() {
-        replaceButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel));
+        replaceButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel), "Nej");
         replaceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
