@@ -254,6 +254,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 clearSentenceboard();
             }
         });
+
         if (isGuardianMode()){
             RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams((int) GirafScalingUtilities.convertDpToPixel(parent, 100), (int) GirafScalingUtilities.convertDpToPixel(parent, 150));
             trashCanButton.setLayoutParams(sBParams);
