@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -69,6 +70,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     private List<dk.aau.cs.giraf.dblib.models.Pictogram> displayPictogramList = null;
     private boolean justSearched = false;
     GirafActivity girafActivity;
+    private ProgressBar loadingPictogramsIndicator;
 
     /**
      * Used to showcase views
@@ -170,28 +172,6 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         }
         //setup pictogramGrid.setNumColumns and sentenceBoardGrid.setColumnWidth
         setGridviewColNumb();
-        /*
-        if(!guardianMode) {
-            try
-            {
-                SpeechBoardFragment.speechboardPictograms.clear();
-
-                if (pictogramController.getPictogramsByCategory(displayedCategory).size() > MaxNumberOfAllowedPictogramsInCategory)
-                {
-                    speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory).subList(0, MaxNumberOfAllowedPictogramsInCategory);
-                }
-                else
-                {
-                    speechboardPictograms = pictogramController.getPictogramsByCategory(displayedCategory);
-                }
-            }
-            catch (OutOfMemoryError e)
-            {
-                e.getStackTrace();
-                return;
-            }
-            pictogramGrid.setAdapter(new PictogramAdapter(speechboardPictograms, parent.getApplicationContext(), parent, user));
-        }*/
     }
 
     private void setupSentenceBoard()
