@@ -165,6 +165,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
 
     private void createHelpButton() {
         btnHelp = new GirafButton(this, getResources().getDrawable(R.drawable.icon_help));
+        btnHelp.setId(R.id.help_button);
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,6 +200,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     }
     private void createOptionsButton() {
         btnOptions = new GirafButton(this,getResources().getDrawable(R.drawable.icon_settings));
+        btnOptions.setId(R.id.settings_button);
         btnOptions.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Create new fragment and transaction
@@ -218,6 +220,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     }
     private void createSearchButton(){
         GirafButton btnSearch = new GirafButton(this, getResources().getDrawable(R.drawable.icon_search));
+        btnSearch.setId(R.id.search_button);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -463,6 +463,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
     @Override
     public void showShowcase() {
+
         // Create a relative location for the next button
         final RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -476,8 +477,8 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
         // Create a relative location for the next button
         final RelativeLayout.LayoutParams rightButtonParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        rightButtonParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        rightButtonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        rightButtonParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        rightButtonParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         rightButtonParams.setMargins(margin, margin, margin, margin);
 
         // Create a relative location for the next button
@@ -487,7 +488,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         centerRightButtonParams.setMargins(margin, margin, margin, margin);
 
         showcaseManager = new ShowcaseManager();
-
+/*
         //Playbutton
         showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
             @Override
@@ -506,6 +507,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 showcaseView.setTextPostion(textXPosition, textYPosition);
             }
         });
+
         //trash
         showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
             @Override
@@ -542,7 +544,53 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 showcaseView.setTextPostion(textXPosition, textYPosition);
             }
         });
-        //Piktogrammer
+        */
+
+        //Settings button
+        final ViewTarget settingsButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.settings_button), 1.5f);
+        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+            @Override
+            public void configShowCaseView(final ShowcaseView showcaseView) {
+                showcaseView.setShowcase(settingsButtonTarget, true);
+                showcaseView.setContentTitle("Møtrik");
+                showcaseView.setContentText("Hvis du har en skrue løs");
+                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
+                showcaseView.setButtonPosition(lps);
+                showcaseView.setTextPostion(textX, textY);
+            }
+        });
+
+        //Search Button
+        final ViewTarget searchButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.search_button), 1.5f);
+        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+            @Override
+            public void configShowCaseView(final ShowcaseView showcaseView) {
+                showcaseView.setShowcase(searchButtonTarget, true);
+                showcaseView.setContentTitle("Forstørrelsesglas");
+                showcaseView.setContentText("Hvis du leder skal du finde");
+                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
+                showcaseView.setButtonPosition(lps);
+                showcaseView.setTextPostion(textX, textY);
+            }
+        });
+
+        if (isFirstRun) {
+            final ViewTarget helpButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.help_button), 1.5f);
+
+            showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+                @Override
+                public void configShowCaseView(final ShowcaseView showcaseView) {
+                    showcaseView.setShowcase(helpButtonTarget, true);
+                    showcaseView.setContentTitle("Hjælpe knap");
+                    showcaseView.setContentText("Hvis du bliver i tvivl kan du altid få hjælp her");
+                    showcaseView.setStyle(R.style.GirafLastCustomShowcaseTheme);
+                    showcaseView.setButtonPosition(lps);
+                    showcaseView.setTextPostion(textX, textY);
+                }
+            });
+        }
+        //Piktogrammer - only of child
+        /*
         showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
             @Override
             public void configShowCaseView(final ShowcaseView showcaseView) {
@@ -560,6 +608,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 showcaseView.setTextPostion(textXPosition, textYPosition);
             }
         });
+        */
 
         showcaseManager.setOnDoneListener(new ShowcaseManager.OnDoneListener() {
             @Override
