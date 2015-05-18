@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
@@ -18,17 +20,16 @@ import dk.aau.cs.giraf.dblib.Helper;
 import dk.aau.cs.giraf.dblib.controllers.ApplicationController;
 import dk.aau.cs.giraf.dblib.controllers.ProfileController;
 import dk.aau.cs.giraf.dblib.models.Application;
-import dk.aau.cs.giraf.gui.GToast;
 import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.gui.GirafCustomButtonsDialog;
-import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
+import dk.aau.cs.giraf.showcaseview.ShowcaseManager;
 
 /**
  *
  * @author SW605f13-PARROT and PARROT spring 2012.
  *  This is the main Activity Class in Parrot.
  */
-public class MainActivity extends GirafActivity implements GirafCustomButtonsDialog.CustomButtons {
+public class MainActivity extends GirafActivity implements GirafCustomButtonsDialog.CustomButtons{
 
     private static PictoreaderProfile parrotUser;
     private static long guardianID;
@@ -47,6 +48,11 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     private SpeechBoardFragment speechBoardFragment;
     private GirafButton replaceButton;
     private GirafButton extendButton;
+
+    /**
+     * Used to showcase views
+     */
+    private ShowcaseManager showcaseManager;
 
     @Override
     public void onStart() {
@@ -90,7 +96,6 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         }
 
         createOptionsButton();
-        createHelpButton();
         createExtendPictogramsButton();
         createReplacePictogramsButton();
         createSearchButton();
@@ -130,7 +135,8 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         if(parrotUser != null)
         {
             speechBoardFragment = new SpeechBoardFragment(this.getApplicationContext());
-            getFragmentManager().beginTransaction().add(R.id.main, speechBoardFragment).commit();
+            //getFragmentManager().beginTransaction().add(R.id.main, speechBoardFragment).commit();
+            getFragmentManager().beginTransaction().add(R.id.main,speechBoardFragment,"HEJ").commit();
         }
         else //TODO - Se if possibile if yes - create giraf component, else delete.
         {
@@ -154,21 +160,23 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
 
             }
         }
+        createHelpButton();
     }
 
     private void createHelpButton() {
         btnHelp = new GirafButton(this, getResources().getDrawable(R.drawable.icon_help));
+        btnHelp.setId(R.id.help_button);
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ShowcaseManager.ShowcaseCapable currentContent = (ShowcaseManager.ShowcaseCapable) getSupportFragmentManager().findFragmentById(R.id.SpeechBoard);
+                final ShowcaseManager.ShowcaseCapable currentContent = (ShowcaseManager.ShowcaseCapable) getFragmentManager().findFragmentByTag("HEJ");
                 currentContent.toggleShowcase();
             }
         });
         addGirafButtonToActionBar(btnHelp, GirafActivity.RIGHT);
     }
     private void createExtendPictogramsButton() {
-        extendButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept));
+        extendButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept), "Ja");
         extendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,7 +187,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         });
     }
     private void createReplacePictogramsButton() {
-        replaceButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel));
+        replaceButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel), "Nej");
         replaceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,6 +200,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     }
     private void createOptionsButton() {
         btnOptions = new GirafButton(this,getResources().getDrawable(R.drawable.icon_settings));
+        btnOptions.setId(R.id.settings_button);
         btnOptions.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Create new fragment and transaction
@@ -211,17 +220,21 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     }
     private void createSearchButton(){
         GirafButton btnSearch = new GirafButton(this, getResources().getDrawable(R.drawable.icon_search));
+        btnSearch.setId(R.id.search_button);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createExtendDialog();
+                if(MainActivity.this.speechBoardFragment.isAnyPictogramSelected()){
+                    createExtendDialog();
+                }
+                else
+                    MainActivity.this.speechBoardFragment.callPictosearch();
             }
         });
         //Add the search buttOn to the top bar if not child
         if (childID == -1) {
             addGirafButtonToActionBar(btnSearch, GirafActivity.RIGHT);
         }
-
     }
 
     @Override

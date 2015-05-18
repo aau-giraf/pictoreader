@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:GComponent="http://schemas.android.com/apk/res-auto"
     android:id="@+id/SpeechBoard"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -17,7 +16,6 @@
         android:layout_height="0dp"
         android:layout_weight="4"
         android:orientation="horizontal" >
-
 
         <!-- Screen Design for Photos -->
         <LinearLayout
@@ -60,7 +58,6 @@
                     android:layout_height="match_parent"
                     android:fadeScrollbars="false"
                     android:layout_weight="1"
-
                     android:horizontalSpacing="15dp"
                     android:paddingBottom="5dp"
                     android:stretchMode="columnWidth"

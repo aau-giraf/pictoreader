@@ -18,9 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +27,11 @@ import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 import dk.aau.cs.giraf.dblib.models.Category;
 import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
-import dk.aau.cs.giraf.pictoreader.showcase.ShowcaseManager;
+import dk.aau.cs.giraf.showcaseview.ShowcaseManager;
 import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
+
+import dk.aau.cs.giraf.showcaseview.ShowcaseView;
+import dk.aau.cs.giraf.showcaseview.targets.ViewTarget;
 
 /**
  * @author PARROT spring 2012 and adapted by SW605f13
@@ -62,7 +62,6 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     private PictoreaderProfile user = null;
     public static SpeechBoardBoxDragListener speechDragListener;
     private PictogramController pictogramController;
-    private ShowcaseManager showcaseManager;
     //This variable is used! Android studio is a liar
     private PictogramCategoryController pictogramCategoryController;
     private Context context;
@@ -70,6 +69,16 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     private List<dk.aau.cs.giraf.dblib.models.Pictogram> displayPictogramList = null;
     private boolean justSearched = false;
     GirafActivity girafActivity;
+
+    /**
+     * Used to showcase views
+     */
+    private ShowcaseManager showcaseManager;
+    private boolean isFirstRun = true;
+    private boolean isChildCategory;
+
+    //OnSelectedPictogramsUpdateListener onSelectedPictogramsUpdateListener;
+    //CategoryActivity categoryActivity;
 
     public SpeechBoardFragment(Context c)
     {
@@ -96,200 +105,6 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.speechboard_layout, container, false);
-    }
-
-    @Override
-    public void showShowcase() {
-        // Create a relative location for the next button
-        final RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        lps.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        final int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
-        lps.setMargins(margin, margin, margin, margin);
-
-        // Calculate position for the help text
-        final int textX = this.getActivity().findViewById(R.id.category_sidebar).getLayoutParams().width + margin * 2;
-        final int textY = getResources().getDisplayMetrics().heightPixels / 2 + margin;
-
-        // Create a relative location for the next button
-        final RelativeLayout.LayoutParams rightButtonParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        rightButtonParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        rightButtonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        rightButtonParams.setMargins(margin, margin, margin, margin);
-
-        // Create a relative location for the next button
-        final RelativeLayout.LayoutParams centerRightButtonParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        centerRightButtonParams.addRule(RelativeLayout.CENTER_VERTICAL);
-        centerRightButtonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        centerRightButtonParams.setMargins(margin, margin, margin, margin);
-
-        showcaseManager = new ShowcaseManager();
-
-        //if (categoryActivity.getCurrentUser().getRole() != Profile.Roles.CHILD) {
-            // Add showcase for categoryGrid
-            showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
-                @Override
-                public void configShowCaseView(final ShowcaseView showcaseView) {
-
-                    final ViewTarget categorySettingsButtonTarget = new ViewTarget(R.id.category, getActivity());
-
-                    showcaseView.setShowcase(categorySettingsButtonTarget, true);
-                    showcaseView.setContentTitle(getString(R.string.category_help_title_text));
-                    showcaseView.setContentText(getString(R.string.category_help_content_text));
-                    showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                    showcaseView.setButtonPosition(rightButtonParams);
-
-                    final int textXPosition = categorySettingsButtonTarget.getPoint().x;
-                    final int textYPosition = categorySettingsButtonTarget.getPoint().y - (int) GirafScalingUtilities.convertDpToPixel(getActivity(), 200);
-                    showcaseView.setTextPostion(textXPosition, textYPosition);
-                }
-            });
-            /*
-            // Add showcase for copyToUserButton
-            showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
-                @Override
-                public void configShowCaseView(final ShowcaseView showcaseView) {
-
-                    final ViewTarget copyToUserButtonTarget = new ViewTarget(R.id.userSettingsButton, getActivity());
-
-                    showcaseView.setShowcase(copyToUserButtonTarget, true);
-                    showcaseView.setContentTitle(getString(R.string.copy_category_to_user_button_showcase_help_titel_text));
-                    showcaseView.setContentText(getString(R.string.copy_category_to_user_button_showcase_help_content_text));
-                    showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                    showcaseView.setButtonPosition(rightButtonParams);
-
-                    final int textXPosition = (int) GirafScalingUtilities.convertDpToPixel(getActivity(), 220);
-                    final int textYPosition = copyToUserButtonTarget.getPoint().y - (int) GirafScalingUtilities.convertDpToPixel(getActivity(), 200);
-                    showcaseView.setTextPostion(textXPosition, textYPosition);
-                }
-            });
-       // }
-
-        // Add showcase for deletePictogramButton
-        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
-            @Override
-            public void configShowCaseView(final ShowcaseView showcaseView) {
-
-                final ViewTarget deletePictogramButtonTarget = new ViewTarget(R.id.deletePictogramButton, getActivity());
-
-                showcaseView.setShowcase(deletePictogramButtonTarget, true);
-                showcaseView.setContentTitle(getString(R.string.delete_pictogram_button_showcase_help_titel_text));
-                showcaseView.setContentText(getString(R.string.delete_pictogram_button_showcase_help_content_text));
-                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                showcaseView.setButtonPosition(centerRightButtonParams);
-
-                final View deletePictogramButton = categoryDetailLayout.findViewById(R.id.deletePictogramButton);
-
-                final int textXPosition = deletePictogramButtonTarget.getPoint().x - deletePictogramButton.getWidth() * 3;
-                final int textYPosition = deletePictogramButtonTarget.getPoint().y - (int) GirafScalingUtilities.convertDpToPixel(getActivity(), 200);
-                showcaseView.setTextPostion(textXPosition, textYPosition);
-            }
-        });
-
-        // Add showcase for addPictogramButton
-        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
-            @Override
-            public void configShowCaseView(final ShowcaseView showcaseView) {
-
-                final ViewTarget addPictogramButtonTarget = new ViewTarget(R.id.addPictogramButton, getActivity());
-
-                showcaseView.setShowcase(addPictogramButtonTarget, true);
-                showcaseView.setContentTitle(getString(R.string.add_pictogram_button_showcase_help_titel_text));
-                showcaseView.setContentText(getString(R.string.add_pictogram_button_showcase_help_content_text));
-                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                showcaseView.setButtonPosition(centerRightButtonParams);
-                //showcaseView.setTextPostion();
-            }
-        });
-
-        // Add showcase for either empty_gridview_text or the first pictogram in the grid (Depends if there is a pictogram in the current category)
-        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
-            @Override
-            public void configShowCaseView(final ShowcaseView showcaseView) {
-
-                int[] categoryDetailLayoutPositionOnScreen = new int[2];
-                categoryDetailLayout.getLocationOnScreen(categoryDetailLayoutPositionOnScreen);
-                showcaseView.setContentTitle(getString(R.string.pictogram_grid_showcase_help_titel_text));
-
-                if (pictogramGrid.getCount() == 0) {
-                    final ViewTarget pictogramGridTarget = new ViewTarget(R.id.empty_gridview_text, getActivity(), 1.3f);
-                    showcaseView.setShowcase(pictogramGridTarget, false);
-
-                    showcaseView.setContentText(getString(R.string.pictogram_grid_empty_showcase_help_content_text));
-
-                    // Calculate the position of the help text
-                    final int textXPosition = categoryDetailLayoutPositionOnScreen[0] + margin * 2;
-                    final int textYPosition = categoryDetailLayoutPositionOnScreen[1] + margin * 2;
-
-                    showcaseView.setTextPostion(textXPosition, textYPosition);
-
-                } else {
-                    final ViewTarget pictogramTarget = new ViewTarget(pictogramGrid.getChildAt(0), 1.3f);
-                    showcaseView.setShowcase(pictogramTarget, true);
-                    showcaseView.setContentText(getString(R.string.pictogram_grid_pictogram_showcase_help_content_text));
-
-                    // Calculate the position of the help text
-                    final int textXPosition = (int) (categoryDetailLayoutPositionOnScreen[0] * 2.5);
-                    final int textYPosition = (int) (categoryDetailLayoutPositionOnScreen[1] * 1.5 + margin * 2);
-
-                    showcaseView.setTextPostion(textXPosition, textYPosition);
-                }
-                if (!isFirstRun) {
-                    showcaseView.setStyle(R.style.GirafLastCustomShowcaseTheme);
-                } else {
-                    showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                }
-
-                showcaseView.setHideOnTouchOutside(true);
-                showcaseView.setButtonPosition(rightButtonParams);
-
-            }
-        });
-
-        if (isFirstRun) {
-            final ViewTarget helpButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.help_button), 1.5f);
-
-            showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
-                @Override
-                public void configShowCaseView(final ShowcaseView showcaseView) {
-                    showcaseView.setShowcase(helpButtonTarget, true);
-                    showcaseView.setContentTitle("Hjælpe knap");
-                    showcaseView.setContentText("Hvis du bliver i tvivl kan du altid få hjælp her");
-                    showcaseView.setStyle(R.style.GirafLastCustomShowcaseTheme);
-                    showcaseView.setButtonPosition(lps);
-                    showcaseView.setTextPostion(textX, textY);
-                }
-            });
-        }*/
-
-        showcaseManager.setOnDoneListener(new ShowcaseManager.OnDoneListener() {
-            @Override
-            public void onDone(ShowcaseView showcaseView) {
-                showcaseManager = null;
-                //isFirstRun = false;
-            }
-        });
-
-        showcaseManager.start(getActivity());
-    }
-
-    @Override
-    public synchronized void hideShowcase() {
-
-        if (showcaseManager != null) {
-            showcaseManager.stop();
-            showcaseManager = null;
-        }
-    }
-
-    @Override
-    public synchronized void toggleShowcase() {
-
-        if (showcaseManager != null) {
-            hideShowcase();
-        } else {
-            showShowcase();
-        }
     }
 
     @Override
@@ -439,6 +254,11 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 clearSentenceboard();
             }
         });
+
+        if (isGuardianMode()){
+            RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams((int) GirafScalingUtilities.convertDpToPixel(parent, 100), (int) GirafScalingUtilities.convertDpToPixel(parent, 150));
+            trashCanButton.setLayoutParams(sBParams);
+        }
         final GirafButton btnPlay = (GirafButton) parent.findViewById(R.id.btnPlay);
         btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
         btnPlay.setOnClickListener(new View.OnClickListener() {
@@ -452,28 +272,28 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
                 //Used for removing empty pictograms in the sentence board, and repositioning
                 //the pictograms after the empty ones.
-                removeEmptyPictograms();
+            removeEmptyPictograms();
 
-                GridView sentence = (GridView) parent.findViewById(R.id.sentenceboard);
-                sentence.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
-                sentence.invalidate();
-                if (sentencePictogramList != null)
-                    pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
+            GridView sentence = (GridView) parent.findViewById(R.id.sentenceboard);
+            sentence.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
+            sentence.invalidate();
+            if (sentencePictogramList != null)
+            pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
 
                 //Used to change the icon of the play button from Stop to Start when it is done playing pictograms
                 new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        while (pictoMediaPlayer.isPlaying() == true) {
-                        }
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
-                            }
-                        });
+                @Override
+                public void run() {
+                    while (pictoMediaPlayer.isPlaying() == true) {
                     }
-                }).start();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
+                        }
+                    });
+                }
+            }).start();
             }
         });
     }
@@ -576,6 +396,13 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     }
 
     /**
+     * Returns true if the user have selected some pictogramz
+     * @return
+     */
+    public boolean isAnyPictogramSelected(){
+        return !selectedPictograms.isEmpty();
+    }
+    /**
      * Clears the selected pictograms
      */
     public void ClearPictograms()
@@ -629,8 +456,8 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         long[] pictogramIDs = {};
         try{
             pictogramIDs = data.getExtras().getLongArray("checkoutIds");
-            for (int i = 0; i < pictogramIDs.length; i++){
-                Log.v("No in sentence", ""+ String.valueOf(pictogramIDs[i]));
+            for (long pictogramID : pictogramIDs) {
+                Log.v("No in sentence", "" + String.valueOf(pictogramID));
             }
         }
         catch (Exception e){
@@ -640,5 +467,131 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             selectedPictograms.add(pictogramController.getPictogramById(pictogramIDs[i]));
         }
         displayPictogramList = selectedPictograms;
+    }
+
+    @Override
+    public void showShowcase() {
+
+        // Create a relative location for the next button
+        final RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        final int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+        lps.setMargins(margin, margin, margin, margin);
+
+        // Calculate position for the help text
+        final int textX = parent.findViewById(R.id.btnClear).getLayoutParams().width + margin * 2;
+        final int textY = getResources().getDisplayMetrics().heightPixels / 2 + margin;
+
+        // Create a relative location for the next button
+        final RelativeLayout.LayoutParams rightButtonParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rightButtonParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        rightButtonParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        rightButtonParams.setMargins(margin, margin, margin, margin);
+
+        // Create a relative location for the next button
+        final RelativeLayout.LayoutParams centerRightButtonParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        centerRightButtonParams.addRule(RelativeLayout.CENTER_VERTICAL);
+        centerRightButtonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        centerRightButtonParams.setMargins(margin, margin, margin, margin);
+
+        showcaseManager = new ShowcaseManager();
+        //Settings button
+        if(isGuardianMode()) {
+            final ViewTarget settingsButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.settings_button), 1.5f);
+            showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+                @Override
+                public void configShowCaseView(final ShowcaseView showcaseView) {
+                    showcaseView.setShowcase(settingsButtonTarget, true);
+                    showcaseView.setContentTitle("Møtrik");
+                    showcaseView.setContentText("Hvis du har en skrue løs");
+                    showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
+                    showcaseView.setButtonPosition(centerRightButtonParams);
+                    showcaseView.setTextPostion(textX, textY);
+                }
+            });
+
+        //Search Button
+        final ViewTarget searchButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.search_button), 1.5f);
+        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+            @Override
+            public void configShowCaseView(final ShowcaseView showcaseView) {
+                showcaseView.setShowcase(searchButtonTarget, true);
+                showcaseView.setContentTitle("Forstørrelsesglas");
+                showcaseView.setContentText("Hvis du leder skal du finde");
+                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
+                showcaseView.setButtonPosition(centerRightButtonParams);
+                showcaseView.setTextPostion(textX, textY);
+            }
+        });
+        }
+
+        //trash
+        final ViewTarget trashButtonTarget = new ViewTarget(R.id.btnClear, getActivity());
+        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+            @Override
+            public void configShowCaseView(final ShowcaseView showcaseView) {
+                showcaseView.setShowcase(trashButtonTarget, true);
+                showcaseView.setContentTitle("Skraldespand");
+                showcaseView.setContentText("Hvis det hele er noget lort");
+                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
+                showcaseView.setButtonPosition(centerRightButtonParams);
+                showcaseView.setTextPostion(textX, textY);
+            }
+        });
+
+        final ViewTarget playButtonTarget = new ViewTarget(R.id.btnPlay, getActivity());
+        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+            @Override
+            public void configShowCaseView(final ShowcaseView showcaseView) {
+                showcaseView.setShowcase(playButtonTarget, true);
+                showcaseView.setContentTitle("Grøn Trekant");
+                showcaseView.setContentText("Afspil ting");
+                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
+                showcaseView.setButtonPosition(centerRightButtonParams);
+                showcaseView.setTextPostion(textX, textY);
+            }
+        });
+
+        final ViewTarget helpButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.help_button), 1.5f);
+        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+            @Override
+            public void configShowCaseView(final ShowcaseView showcaseView) {
+                showcaseView.setShowcase(helpButtonTarget, true);
+                showcaseView.setContentTitle("Hjælpe knap");
+                showcaseView.setContentText("Hvis du bliver i tvivl kan du altid få hjælp her");
+                showcaseView.setStyle(R.style.GirafLastCustomShowcaseTheme);
+                showcaseView.setButtonPosition(centerRightButtonParams);
+                showcaseView.setTextPostion(textX, textY);
+            }
+        });
+
+        showcaseManager.setOnDoneListener(new ShowcaseManager.OnDoneListener() {
+            @Override
+            public void onDone(ShowcaseView showcaseView) {
+                showcaseManager = null;
+            }
+        });
+
+        showcaseManager.start(getActivity());
+    }
+
+    @Override
+    public synchronized void hideShowcase() {
+
+        if (showcaseManager != null) {
+            showcaseManager.stop();
+            showcaseManager = null;
+        }
+    }
+
+    @Override
+    public synchronized void toggleShowcase() {
+
+        if (showcaseManager != null) {
+            hideShowcase();
+        } else {
+            showShowcase();
+        }
     }
 }
