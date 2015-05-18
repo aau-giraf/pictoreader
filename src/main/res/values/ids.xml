@@ -3,4 +3,5 @@
     <item name="help_button" type="id"/>
     <item name="search_button" type="id"/>
     <item name="settings_button" type="id"/>
+    <item name="test_id" type="id"/>
 </resources>

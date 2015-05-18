@@ -393,7 +393,9 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         pictogramGrid.setAdapter(new PictogramAdapter(pictograms, activity.getApplicationContext(), activity, user));
         pictogramGrid.invalidate();
     }
-
+    public boolean isAnyPictogramSelected(){
+        return !selectedPictograms.isEmpty();
+    }
     /**
      * Clears the selected pictograms
      */
@@ -489,18 +491,19 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
         showcaseManager = new ShowcaseManager();
         //Settings button
-        final ViewTarget settingsButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.settings_button), 1.5f);
-        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
-            @Override
-            public void configShowCaseView(final ShowcaseView showcaseView) {
-                showcaseView.setShowcase(settingsButtonTarget, true);
-                showcaseView.setContentTitle("Møtrik");
-                showcaseView.setContentText("Hvis du har en skrue løs");
-                showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                showcaseView.setButtonPosition(centerRightButtonParams);
-                showcaseView.setTextPostion(textX, textY);
-            }
-        });
+        if(isGuardianMode()) {
+            final ViewTarget settingsButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.settings_button), 1.5f);
+            showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+                @Override
+                public void configShowCaseView(final ShowcaseView showcaseView) {
+                    showcaseView.setShowcase(settingsButtonTarget, true);
+                    showcaseView.setContentTitle("Møtrik");
+                    showcaseView.setContentText("Hvis du har en skrue løs");
+                    showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
+                    showcaseView.setButtonPosition(centerRightButtonParams);
+                    showcaseView.setTextPostion(textX, textY);
+                }
+            });
 
         //Search Button
         final ViewTarget searchButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.search_button), 1.5f);
@@ -515,6 +518,8 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 showcaseView.setTextPostion(textX, textY);
             }
         });
+        }
+
         //trash
         final ViewTarget trashButtonTarget = new ViewTarget(R.id.btnClear, getActivity());
         showcaseManager.addShowCase(new ShowcaseManager.Showcase() {

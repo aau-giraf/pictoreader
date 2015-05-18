@@ -224,7 +224,11 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createExtendDialog();
+                if(MainActivity.this.speechBoardFragment.isAnyPictogramSelected()){
+                    createExtendDialog();
+                }
+                else
+                    MainActivity.this.speechBoardFragment.callPictosearch();
             }
         });
         //Add the search button to the top bar if not child
