@@ -235,7 +235,6 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         if (childID == -1) {
             addGirafButtonToActionBar(btnSearch, GirafActivity.RIGHT);
         }
-
     }
 
     @Override
