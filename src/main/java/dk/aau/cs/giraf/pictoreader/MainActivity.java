@@ -217,7 +217,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
                 createExtendDialog();
             }
         });
-        //Add the search button to the top bar if not child
+        //Add the search buttOn to the top bar if not child
         if (childID == -1) {
             addGirafButtonToActionBar(btnSearch, GirafActivity.RIGHT);
         }
