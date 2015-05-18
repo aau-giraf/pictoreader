@@ -589,26 +589,35 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 }
             });
         }
-        //Piktogrammer - only of child
-        /*
+        //trash
+
+        final ViewTarget trashButtonTarget = new ViewTarget(R.id.btnClear, getActivity());
         showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
             @Override
             public void configShowCaseView(final ShowcaseView showcaseView) {
-
-                final ViewTarget categorySettingsButtonTarget = new ViewTarget(R.id.categoryView, getActivity());
-
-                showcaseView.setShowcase(categorySettingsButtonTarget, true);
-                showcaseView.setContentTitle("Viser");
-                showcaseView.setContentText("Kategorier");
+                showcaseView.setShowcase(trashButtonTarget, true);
+                showcaseView.setContentTitle("Skraldespand");
+                showcaseView.setContentText("Hvis det hele er noget lort");
                 showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                showcaseView.setButtonPosition(rightButtonParams);
-
-                final int textXPosition = categorySettingsButtonTarget.getPoint().x;
-                final int textYPosition = categorySettingsButtonTarget.getPoint().y - (int) GirafScalingUtilities.convertDpToPixel(getActivity(), 200);
-                showcaseView.setTextPostion(textXPosition, textYPosition);
+                showcaseView.setButtonPosition(lps);
+                showcaseView.setTextPostion(textX, textY);
             }
         });
-        */
+
+        final ViewTarget playButtonTarget = new ViewTarget(R.id.btnPlay, getActivity());
+
+        showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
+            @Override
+            public void configShowCaseView(final ShowcaseView showcaseView) {
+                showcaseView.setShowcase(playButtonTarget, true);
+                showcaseView.setContentTitle("Grøn Trekant");
+                showcaseView.setContentText("Afspil ting");
+                showcaseView.setStyle(R.style.GirafLastCustomShowcaseTheme);
+                showcaseView.setButtonPosition(centerRightButtonParams);
+                showcaseView.setTextPostion(textX, textY);
+            }
+        });
+
 
         showcaseManager.setOnDoneListener(new ShowcaseManager.OnDoneListener() {
             @Override
