@@ -305,7 +305,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
      */
     public void createExtendDialog(){
         girafConfirmDialog = GirafCustomButtonsDialog.newInstance(
-                "Beskrivende Titel",
+                "Behold Piktogrammer",
                 "Vil du beholde dine tidligere valgte piktogrammer?",
                 CONFIRM_EXTEND_ID);
         girafConfirmDialog.show(getSupportFragmentManager(), CONFIRM_EXTEND_TAG);
