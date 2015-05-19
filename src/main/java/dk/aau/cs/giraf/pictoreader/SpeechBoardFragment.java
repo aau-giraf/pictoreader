@@ -395,14 +395,15 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             try{
                 intent.setComponent(new ComponentName("dk.aau.cs.giraf.pictosearch", "dk.aau.cs.giraf.pictosearch.PictoAdminMain"));
                 intent.putExtra("purpose", PICTO_SEARCH_MULTI_TAG);
+                intent.putExtra("currentGuardianID", MainActivity.getGuardianID());
 
-                if (intent.getExtras().getLong("currentChildId", -1) != -1) {
-                    intent.putExtra(getString(R.string.current_child_id), intent.getExtras().getLong("currentChildId", -1));
+                if (intent.getExtras().getLong("currentChildID", -1) != -1) {
+                    intent.putExtra(getString(R.string.current_child_id), intent.getExtras().getLong("currentChildID", -1));
                 } else {
                     intent.putExtra(getString(R.string.current_child_id), (long) -1);
                 }
 
-                intent.putExtra(getString(R.string.current_guardian_id), intent.getExtras().getLong("currentGuardianId", -1));
+                intent.putExtra(getString(R.string.current_guardian_id), intent.getExtras().getLong("currentGuardianID", -1));
                 startActivityForResult(intent, GET_MULTIPLE_PICTOGRAMS);
             } catch (Exception e){
                 Toast.makeText(parent, "Pictosearch er ikke installeret.", Toast.LENGTH_LONG).show();
