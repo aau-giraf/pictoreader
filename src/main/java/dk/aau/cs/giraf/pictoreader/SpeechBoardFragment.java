@@ -483,8 +483,8 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                 @Override
                 public void configShowCaseView(final ShowcaseView showcaseView) {
                     showcaseView.setShowcase(settingsButtonTarget, true);
-                    showcaseView.setContentTitle("Møtrik");
-                    showcaseView.setContentText("Hvis du har en skrue løs");
+                    showcaseView.setContentTitle("Indstillinger");
+                    showcaseView.setContentText("Her kan du ændre indstillingerne");
                     showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
                     showcaseView.setButtonPosition(centerRightButtonParams);
                     showcaseView.setTextPostion(textX, textY);
@@ -497,8 +497,8 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             @Override
             public void configShowCaseView(final ShowcaseView showcaseView) {
                 showcaseView.setShowcase(searchButtonTarget, true);
-                showcaseView.setContentTitle("Forstørrelsesglas");
-                showcaseView.setContentText("Hvis du leder skal du finde");
+                showcaseView.setContentTitle("Søgning");
+                showcaseView.setContentText("Her søger du efter pictogrammer");
                 showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
                 showcaseView.setButtonPosition(centerRightButtonParams);
                 showcaseView.setTextPostion(textX, textY);
@@ -512,8 +512,8 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             @Override
             public void configShowCaseView(final ShowcaseView showcaseView) {
                 showcaseView.setShowcase(trashButtonTarget, true);
-                showcaseView.setContentTitle("Skraldespand");
-                showcaseView.setContentText("Hvis det hele er noget lort");
+                showcaseView.setContentTitle("Fjern pictogrammer");
+                showcaseView.setContentText("Her fjerner du pictogrammer der er tilføjet til sætnings kassen");
                 showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
                 showcaseView.setButtonPosition(centerRightButtonParams);
                 showcaseView.setTextPostion(textX, textY);
@@ -525,8 +525,8 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             @Override
             public void configShowCaseView(final ShowcaseView showcaseView) {
                 showcaseView.setShowcase(playButtonTarget, true);
-                showcaseView.setContentTitle("Grøn Trekant");
-                showcaseView.setContentText("Afspil ting");
+                showcaseView.setContentTitle("Afspil");
+                showcaseView.setContentText("Her afspiller du pictogrammerne der er tilføjet til sætnings kassen");
                 showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
                 showcaseView.setButtonPosition(centerRightButtonParams);
                 showcaseView.setTextPostion(textX, textY);
