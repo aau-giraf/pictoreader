@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -29,10 +28,9 @@ import dk.aau.cs.giraf.dblib.models.Category;
 import dk.aau.cs.giraf.gui.GirafButton;
 import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 import dk.aau.cs.giraf.showcaseview.ShowcaseManager;
-import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
-
 import dk.aau.cs.giraf.showcaseview.ShowcaseView;
 import dk.aau.cs.giraf.showcaseview.targets.ViewTarget;
+import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
 
 /**
  * @author PARROT spring 2012 and adapted by SW605f13
@@ -70,14 +68,11 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     private List<dk.aau.cs.giraf.dblib.models.Pictogram> displayPictogramList = null;
     private boolean justSearched = false;
     GirafActivity girafActivity;
-    private ProgressBar loadingPictogramsIndicator;
 
     /**
      * Used to showcase views
      */
     private ShowcaseManager showcaseManager;
-    private boolean isFirstRun = true;
-    private boolean isChildCategory;
 
     //OnSelectedPictogramsUpdateListener onSelectedPictogramsUpdateListener;
     //CategoryActivity categoryActivity;

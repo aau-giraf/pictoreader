@@ -115,7 +115,7 @@ public class SentenceboardAdapter extends BaseAdapter {
             }
 
 			//setup layout for imageView
-            GridView sentenceBoard = (GridView) view.findViewById(R.id.sentenceboard); // SKAL SKRIVES TIL AT TILPASSE HØJDE
+            GridView sentenceBoard = (GridView) view.findViewById(R.id.sentenceboard);
 			LinearLayout.LayoutParams imageLayoutParams;
             LinearLayout.LayoutParams picLayoutParams;
 
