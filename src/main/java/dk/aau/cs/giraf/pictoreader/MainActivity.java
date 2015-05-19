@@ -162,7 +162,6 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         }
         createHelpButton();
     }
-
     private void createHelpButton() {
         btnHelp = new GirafButton(this, getResources().getDrawable(R.drawable.icon_help));
         btnHelp.setId(R.id.help_button);
@@ -206,6 +205,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
                 // Create new fragment and transaction
                 Fragment newFragment = new OptionFragment();
                 btnOptions.setVisibility(View.INVISIBLE);
+                btnHelp.setVisibility(View.INVISIBLE);
                 getFragmentManager().beginTransaction()
                         .add(newFragment, "options")
                                 // Add this transaction to the back stack
@@ -241,6 +241,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     public void onBackPressed()
     {
         btnOptions.setVisibility(View.VISIBLE);
+        btnHelp.setVisibility(View.VISIBLE);
         try
         {
             OptionFragment optionFragment = (OptionFragment) getFragmentManager().findFragmentByTag("options");
