@@ -384,16 +384,16 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     {
         selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();;
     }
-
     /**
      * Opens pictosearch application, so pictograms can be loaded into pictocreator.
      */
+
     public void callPictosearch(){
             justSearched = true;
-            Intent intent = new Intent();
+            Intent intent = new Intent(this.context, dk.aau.cs.giraf.pictosearch.PictoAdminMain.class);
 
             try{
-                intent.setComponent(new ComponentName("dk.aau.cs.giraf.pictosearch", "dk.aau.cs.giraf.pictosearch.PictoAdminMain"));
+                //intent.setComponent(new ComponentName("dk.aau.cs.giraf.pictosearch", "dk.aau.cs.giraf.pictosearch.PictoAdminMain"));
                 intent.putExtra("purpose", PICTO_SEARCH_MULTI_TAG);
                 intent.putExtra("currentGuardianID", MainActivity.getGuardianID());
 
