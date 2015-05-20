@@ -3,7 +3,6 @@ package dk.aau.cs.giraf.pictoreader;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -184,7 +183,17 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         sentenceBoardGrid.setColumnWidth(colWidth);
 
         //Get the size of the trashcan and playbutton width
-        int trashButtonWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonTrashWidth));
+        int trashButtonWidth = 0;
+        if(isGuardianMode()) {
+            trashButtonWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonPlayWidth));
+            RelativeLayout trashLayout = (RelativeLayout) parent.findViewById(R.id.trashButtonLayout);
+            trashLayout.getLayoutParams().width = (int) getResources().getDimension(R.dimen.buttonTrashWidth);
+        }
+
+        else {
+            trashButtonWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonTrashWidth));
+        }
+
         int playButtonWidth = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getResources().getDimension(R.dimen.buttonPlayWidth));
         int screenSize = (int) GirafScalingUtilities.convertDpToPixel(parent.getApplicationContext(), getScreenSize());
 
@@ -239,38 +248,40 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_stop));
-                if (pictoMediaPlayer.isPlaying()) {
-                    btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
-                    pictoMediaPlayer.stopSound();
-                    return;
-                }
-
-                //Used for removing empty pictograms in the sentence board, and repositioning
-                //the pictograms after the empty ones.
-            removeEmptyPictograms();
-
-            GridView sentence = (GridView) parent.findViewById(R.id.sentenceboard);
-            sentence.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
-            sentence.invalidate();
-
-            if (sentencePictogramList != null)
-                pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
-
-                //Used to change the icon of the play button from Stop to Start when it is done playing pictograms
-                new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (pictoMediaPlayer.isPlaying() == true) {
+                removeEmptyPictograms();
+                if (sentencePictogramList.get(0) != null) {
+                    btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_stop));
+                    if (pictoMediaPlayer.isPlaying()) {
+                        btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
+                        pictoMediaPlayer.stopSound();
+                        return;
                     }
-                    getActivity().runOnUiThread(new Runnable() {
+
+                    //Used for removing empty pictograms in the sentence board, and repositioning
+                    //the pictograms after the empty ones.
+                    removeEmptyPictograms();
+
+                    GridView sentence = (GridView) parent.findViewById(R.id.sentenceboard);
+                    sentence.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
+                    sentence.invalidate();
+
+                    pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
+
+                    //Used to change the icon of the play button from Stop to Start when it is done playing pictograms
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
+                            while (pictoMediaPlayer.isPlaying() == true) {
+                            }
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
+                                }
+                            });
                         }
-                    });
+                    }).start();
                 }
-            }).start();
             }
         });
     }
@@ -395,7 +406,6 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             Intent intent = new Intent(this.context, dk.aau.cs.giraf.pictosearch.PictoAdminMain.class);
 
             try{
-                //intent.setComponent(new ComponentName("dk.aau.cs.giraf.pictosearch", "dk.aau.cs.giraf.pictosearch.PictoAdminMain"));
                 intent.putExtra("purpose", PICTO_SEARCH_MULTI_TAG);
                 intent.putExtra("currentGuardianID", MainActivity.getGuardianID());
 
