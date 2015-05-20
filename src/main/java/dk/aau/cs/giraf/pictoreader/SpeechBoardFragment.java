@@ -234,6 +234,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             RelativeLayout.LayoutParams sBParams = new RelativeLayout.LayoutParams((int) GirafScalingUtilities.convertDpToPixel(parent, 100), (int) GirafScalingUtilities.convertDpToPixel(parent, 150));
             trashCanButton.setLayoutParams(sBParams);
         }
+
         final GirafButton btnPlay = (GirafButton) parent.findViewById(R.id.btnPlay);
         btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
         btnPlay.setOnClickListener(new View.OnClickListener() {
@@ -252,8 +253,9 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             GridView sentence = (GridView) parent.findViewById(R.id.sentenceboard);
             sentence.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
             sentence.invalidate();
+
             if (sentencePictogramList != null)
-            pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
+                pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
 
                 //Used to change the icon of the play button from Stop to Start when it is done playing pictograms
                 new Thread(new Runnable() {
