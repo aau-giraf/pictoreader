@@ -43,6 +43,8 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     private Activity parent;
     public static final int GET_MULTIPLE_PICTOGRAMS = 104;
     public static final String PICTO_SEARCH_MULTI_TAG = "multi";
+    public static final String REMOVE_PICTOGRAMS = "Fjern piktogrammer";
+    public static final String HERE_YOU_REMOVE_PICTOGRAMS = "Her fjerner du piktogrammer der er tilføjet til sætnings kassen";
     List<dk.aau.cs.giraf.dblib.models.Pictogram> selectedPictograms = new ArrayList<dk.aau.cs.giraf.dblib.models.Pictogram>();
     //Remembers the index of the pictogram that is currently being dragged.
     public static int draggedPictogramIndex = -1;
@@ -520,8 +522,8 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
             @Override
             public void configShowCaseView(final ShowcaseView showcaseView) {
                 showcaseView.setShowcase(trashButtonTarget, true);
-                showcaseView.setContentTitle("Fjern piktogrammer");
-                showcaseView.setContentText("Her fjerner du piktogrammer der er tilføjet til sætnings kassen");
+                showcaseView.setContentTitle(REMOVE_PICTOGRAMS);
+                showcaseView.setContentText(HERE_YOU_REMOVE_PICTOGRAMS);
                 showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
                 showcaseView.setButtonPosition(centerRightButtonParams);
                 showcaseView.setTextPostion(textX, textY);
