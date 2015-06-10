@@ -25,6 +25,7 @@ import dk.aau.cs.giraf.dblib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 import dk.aau.cs.giraf.dblib.models.Category;
 import dk.aau.cs.giraf.gui.GirafButton;
+import dk.aau.cs.giraf.pictogram.CompleteListener;
 import dk.aau.cs.giraf.pictogram.PictoMediaPlayer;
 import dk.aau.cs.giraf.showcaseview.ShowcaseManager;
 import dk.aau.cs.giraf.showcaseview.ShowcaseView;
@@ -273,11 +274,9 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            while (pictoMediaPlayer.isPlaying() == true) {
-                            }
-                            getActivity().runOnUiThread(new Runnable() {
+                            pictoMediaPlayer.setCustomListener(new CompleteListener() {
                                 @Override
-                                public void run() {
+                                public void soundDonePlaying() {
                                     btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
                                 }
                             });
