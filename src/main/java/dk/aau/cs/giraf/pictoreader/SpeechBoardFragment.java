@@ -3,10 +3,13 @@ package dk.aau.cs.giraf.pictoreader;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -34,7 +37,7 @@ import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
 /**
  * @author PARROT spring 2012 and adapted by SW605f13
  * This class handles the views and actions of the speechLearning "Tale" function
- * Updated last by: sw608f15
+ * Updated last by: sw614f16
  */
 
 @SuppressLint("ValidFragment") //Avoid default constructor
@@ -65,23 +68,40 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
     //This variable is used! Android studio is a liar
     private PictogramCategoryController pictogramCategoryController;
     private Context context;
-    private PictoMediaPlayer pictoMediaPlayer;
     private List<dk.aau.cs.giraf.dblib.models.Pictogram> displayPictogramList = null;
     private boolean justSearched = false;
+    private PictoMediaPlayer myPictoMediaPlayer;
     GirafActivity girafActivity;
+    boolean isBound = false;
 
     /**
      * Used to showcase views
      */
     private ShowcaseManager showcaseManager;
 
-    //OnSelectedPictogramsUpdateListener onSelectedPictogramsUpdateListener;
-    //CategoryActivity categoryActivity;
+
+    /**
+     * Used to Bind to the PictoMediaPlayer service in Pictogram-lib
+     */
+    private ServiceConnection myConnection = new ServiceConnection() {
+
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            PictoMediaPlayer.MyLocalBinder binder = (PictoMediaPlayer.MyLocalBinder) service;
+            myPictoMediaPlayer = binder.getService();
+            isBound = true;
+        }
+
+        public void onServiceDisconnected(ComponentName arg0) {
+            isBound = false;
+        }
+
+    };
+
 
     public SpeechBoardFragment(Context c)
     {
         context = c;
-        pictoMediaPlayer =  new PictoMediaPlayer(c);
     }
 
     @Override
@@ -126,6 +146,10 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         parent.setContentView(v);
 
         user=MainActivity.getUser();
+
+        //Binds the PictogramMediaPlayer
+        Intent intent = new Intent(parent, PictoMediaPlayer.class);
+        parent.bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
 
         //check whether there are categories, if not then we will have null pointer exceptions
         if(user.getCategoryAt(0)!=null)
@@ -232,6 +256,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         return size.x;
     }
 
+
     private void setupButtons()
     {
         final GirafButton trashCanButton = (GirafButton) parent.findViewById(R.id.btnClear);
@@ -250,13 +275,21 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (myPictoMediaPlayer == null)
+                {
+                    Log.e("PictoMediaPlayer", "Not bound");
+                    Toast.makeText(parent, getString(R.string.PictoMediaPlayerNotBound),Toast.LENGTH_LONG);
+                }
+
                 removeEmptyPictograms();
                 if (sentencePictogramList.get(0) != null) {
                     btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_stop));
-                    if (pictoMediaPlayer.isPlaying()) {
-                        btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
-                        pictoMediaPlayer.stopSound();
-                        return;
+                    if (myPictoMediaPlayer != null) {
+                        if (myPictoMediaPlayer.isPlaying()) {
+                            btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
+                            myPictoMediaPlayer.stopSound();
+                            return;
+                        }
                     }
 
                     //Used for removing empty pictograms in the sentence board, and repositioning
@@ -266,23 +299,25 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                     GridView sentence = (GridView) parent.findViewById(R.id.sentenceboard);
                     sentence.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
                     sentence.invalidate();
+                    if(myPictoMediaPlayer != null) {
+                        myPictoMediaPlayer.playListOfPictograms(sentencePictogramList);
 
-                    pictoMediaPlayer.playListOfPictograms(sentencePictogramList);
 
-                    //Used to change the icon of the play button from Stop to Start when it is done playing pictograms
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            while (pictoMediaPlayer.isPlaying() == true) {
-                            }
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
+                        //Used to change the icon of the play button from Stop to Start when it is done playing pictograms
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                while (myPictoMediaPlayer.isPlaying() == true) {
                                 }
-                            });
-                        }
-                    }).start();
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
+                                    }
+                                });
+                            }
+                        }).start();
+                    }
                 }
             }
         });
@@ -303,6 +338,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
                     if(sentencePictogramList.get(j) != null)
                     {
                         sentencePictogramList.set(j-1, sentencePictogramList.get(j));
+
                         sentencePictogramList.set(j,null);
                         change = true;
                     }
@@ -368,6 +404,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
         sentenceBoard.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
         sentenceBoard.invalidate();
+
     }
 
     public void displayPictograms(List<dk.aau.cs.giraf.dblib.models.Pictogram> pictograms, Activity activity)

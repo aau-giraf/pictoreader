@@ -27,6 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- The service have to be defined -->
+        <service android:name="dk.aau.cs.giraf.pictogram.PictoMediaPlayer"
+            android:enabled="true"
+            android:exported="true">
+
+        </service>
 
       <!--
         Dont ever specify fragments in AndroidManifest.xml

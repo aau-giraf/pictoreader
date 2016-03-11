@@ -8,9 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
@@ -54,6 +52,9 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
      */
     private ShowcaseManager showcaseManager;
 
+
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -77,6 +78,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
 
         final Bundle extras = getIntent().getExtras();
         boolean outsideGIRAF = false;
+
 
         if (ActivityManager.isUserAMonkey()) {
             guardianID = helper.profilesHelper.getGuardians().get(0).getId();

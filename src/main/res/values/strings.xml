@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_must_be_started_from_giraf">"%1$s skal startes fra GIRAF"</string>
-    
+
+    <!-- Toast Strings -->
+    <string name="PictoMediaPlayerNotBound">Kan ikke spille lyd</string>
+
+
     <!-- In SettingsActivity --> 
     <string name="sentensboardOptions">Sætnings board</string>
     <string name="pictogramOptions">Piktogram</string>
