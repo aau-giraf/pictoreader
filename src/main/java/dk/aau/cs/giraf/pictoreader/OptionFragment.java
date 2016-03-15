@@ -82,16 +82,6 @@ public class OptionFragment extends Fragment{
             }
         });
 
-
-        /*Button buttonBack = (Button) parrent.findViewById(R.id.btnBack);
-
-        buttonBack.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                getFragmentManager().popBackStack();
-                getFragmentManager().beginTransaction().add(new SpeechBoardFragment(parrent.getApplicationContext()), "1").commit();
-            }
-        });*/
-
     }
 	
 	/**

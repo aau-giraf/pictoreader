@@ -523,21 +523,8 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         centerRightButtonParams.setMargins(margin, margin, margin, margin);
 
         showcaseManager = new ShowcaseManager();
-        //Settings button
-        if(isGuardianMode()) {
-            final ViewTarget settingsButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.settings_button), 1.5f);
-            showcaseManager.addShowCase(new ShowcaseManager.Showcase() {
-                @Override
-                public void configShowCaseView(final ShowcaseView showcaseView) {
-                    showcaseView.setShowcase(settingsButtonTarget, true);
-                    showcaseView.setContentTitle("Indstillinger");
-                    showcaseView.setContentText("Her kan du ændre indstillingerne");
-                    showcaseView.setStyle(R.style.GirafCustomShowcaseTheme);
-                    showcaseView.setButtonPosition(centerRightButtonParams);
-                    showcaseView.setTextPostion(textX, textY);
-                }
-            });
 
+        if(isGuardianMode()) {
         //Search Button
         final ViewTarget searchButtonTarget = new ViewTarget(getActivity().getActionBar().getCustomView().findViewById(R.id.search_button), 1.5f);
         showcaseManager.addShowCase(new ShowcaseManager.Showcase() {

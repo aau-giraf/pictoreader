@@ -97,7 +97,6 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
             childID = girafIntent.getExtras().getLong("currentChildID", -1);
         }
 
-        createOptionsButton();
         createExtendPictogramsButton();
         createReplacePictogramsButton();
         createSearchButton();
@@ -199,27 +198,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
             }
         });
     }
-    private void createOptionsButton() {
-        btnOptions = new GirafButton(this,getResources().getDrawable(R.drawable.icon_settings));
-        btnOptions.setId(R.id.settings_button);
-        btnOptions.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Create new fragment and transaction
-                Fragment newFragment = new OptionFragment();
-                btnOptions.setVisibility(View.INVISIBLE);
-                btnHelp.setVisibility(View.INVISIBLE);
-                getFragmentManager().beginTransaction()
-                        .add(newFragment, "options")
-                                // Add this transaction to the back stack
-                        .addToBackStack("options")
-                        .commit();
-            }
-        });
-        //TODO if guardian add else nothing
-        if (childID == -1) {
-            addGirafButtonToActionBar(btnOptions, LEFT);
-        }
-    }
+
     private void createSearchButton(){
         GirafButton btnSearch = new GirafButton(this, getResources().getDrawable(R.drawable.icon_search));
         btnSearch.setId(R.id.search_button);
@@ -236,31 +215,6 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         //Add the search buttOn to the top bar if not child
         if (childID == -1) {
             addGirafButtonToActionBar(btnSearch, GirafActivity.RIGHT);
-        }
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        btnOptions.setVisibility(View.VISIBLE);
-        btnHelp.setVisibility(View.VISIBLE);
-        try
-        {
-            OptionFragment optionFragment = (OptionFragment) getFragmentManager().findFragmentByTag("options");
-
-            if (optionFragment.isResumed())
-            {
-                getFragmentManager().popBackStack();
-                getFragmentManager().beginTransaction().add(new SpeechBoardFragment(this.getApplicationContext()), "1").commit();
-            }
-            else
-            {
-                finish();
-            }
-        }
-        catch (Exception e)
-        {
-            finish();
         }
     }
 
