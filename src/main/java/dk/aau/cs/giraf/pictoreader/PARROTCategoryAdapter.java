@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.aau.cs.giraf.dblib.controllers.BaseImageControllerHelper;
 import dk.aau.cs.giraf.dblib.models.Category;
 import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
 
@@ -84,7 +85,9 @@ public class PARROTCategoryAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         TextView textView;
-        Bitmap bitmap = categories.get(position).getImage();
+
+        BaseImageControllerHelper helper = new BaseImageControllerHelper(context);
+        Bitmap bitmap = helper.getImage(categories.get(position));
 
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

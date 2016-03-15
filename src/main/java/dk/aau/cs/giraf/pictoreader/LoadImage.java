@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
+import dk.aau.cs.giraf.dblib.Helper;
 
 /**
  * 
@@ -21,6 +22,7 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
         private Context context;
         private final WeakReference<TextView> textView;
         private dk.aau.cs.giraf.dblib.models.Pictogram pictogram;
+
 
         /**
          * 
@@ -50,7 +52,8 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
         }
         else	
     	{
-        	bitmap = pictogram.getImageData();
+            Helper helper = new Helper(context);
+        	bitmap = helper.pictogramHelper.getImage(pictogram);
     	}
 
         return bitmap;

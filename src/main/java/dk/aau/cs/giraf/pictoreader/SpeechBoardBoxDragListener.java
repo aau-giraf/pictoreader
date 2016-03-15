@@ -2,10 +2,13 @@
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
 import android.widget.GridView;
+
+import dk.aau.cs.giraf.dblib.controllers.BaseImageControllerHelper;
 import dk.aau.cs.giraf.dblib.controllers.CategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramCategoryController;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
@@ -96,7 +99,6 @@ public class SpeechBoardBoxDragListener implements OnDragListener
 			if (insideOfMe){
 
 				//We want to drop a view into the sentenceboard
-	//1
 				if( self.getId() == R.id.sentenceboard && SpeechBoardFragment.dragOwnerID != R.id.sentenceboard)	
 				{
 					GridView speech = (GridView) parrent.findViewById(R.id.sentenceboard);
@@ -117,11 +119,13 @@ public class SpeechBoardBoxDragListener implements OnDragListener
                         }
                         else if(SpeechBoardFragment.dragOwnerID == R.id.category )
                         {
+                            BaseImageControllerHelper helper = new BaseImageControllerHelper(_context);
                             Category cat = SpeechBoardFragment.displayedCategory;
                             draggedPictogram = new Pictogram();
                             draggedPictogram.setName(cat.getName());
                             draggedPictogram.setInlineText(cat.getName());
-                            draggedPictogram.setImage(cat.getImage());
+                            Bitmap bitmap = helper.getImage(cat);
+                            helper.setImage(cat, bitmap);
                             draggedPictogram.setId(cat.getId()*-1);
                         }
                         else

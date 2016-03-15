@@ -3,7 +3,7 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            url 'http://cs-cust06-int.cs.aau.dk/artifactory/libraries'
+            url 'http://jenkins.giraf.cs.aau.dk:8080/libraries-releases'
         }
     }
     dependencies {
@@ -20,7 +20,7 @@ apply plugin: 'com.github.triplet.play'
 repositories {
     mavenCentral()
     maven {
-        url 'http://cs-cust06-int.cs.aau.dk/artifactory/libraries'
+        url 'http://jenkins.giraf.cs.aau.dk:8080/libraries-releases'
     }
 
 }
@@ -28,16 +28,16 @@ repositories {
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     //compile project(':ShowcaseView')
-    compile(group: 'dk.aau.cs.giraf', name: 'pictosearch', version: '2.0.6', ext: 'aar')
+    compile(group: 'dk.aau.cs.giraf', name: 'pictosearch', version: '2.0.8', ext: 'aar')
     compile(group: 'dk.aau.cs.giraf', name: 'ShowcaseView', version: '1.0.0', ext: 'aar')
-    compile(group: 'dk.aau.cs.giraf', name: 'localDb', version: '5.1.4', ext: 'aar')
-    compile(group: 'dk.aau.cs.giraf', name: 'meta-database', version: '3.2.2')
-    compile(group: 'dk.aau.cs.giraf', name: 'oasisLib', version: '7.3.0', ext: 'aar')
+    compile(group: 'dk.aau.cs.giraf', name: 'localDb', version: '5.1.5', ext: 'aar')
+    compile(group: 'dk.aau.cs.giraf', name: 'meta-database', version: '3.2.3')
+    compile(group: 'dk.aau.cs.giraf', name: 'oasisLib', version: '9.0.2', ext: 'aar')
     compile(group: 'dk.aau.cs.giraf', name: 'categoryLib', version: '1.0', ext: 'aar')
     compile(group: 'dk.aau.cs.giraf', name: 'ambilwarna', version: '1.0', ext: 'aar')
     //compile(group: 'dk.aau.cs.giraf', name: 'pictogramLib', version: '2.0.0', ext: 'aar')
     compile(group: 'dk.aau.cs.giraf', name: 'pictogramLib', version: '5.0.0', ext: 'aar')
-    compile(group: 'dk.aau.cs.giraf', name: 'girafComponent', version: '10.0.0', ext: 'aar')
+    compile(group: 'dk.aau.cs.giraf', name: 'girafComponent', version: '10.4.0', ext: 'aar')
     compile files('libraries/libGoogleAnalyticsServices.jar')
 }
 

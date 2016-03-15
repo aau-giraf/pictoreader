@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import dk.aau.cs.giraf.dblib.controllers.BaseImageControllerHelper;
 import dk.aau.cs.giraf.dblib.controllers.PictogramController;
 import dk.aau.cs.giraf.dblib.models.Pictogram;
 import dk.aau.cs.giraf.utilities.GirafScalingUtilities;
@@ -158,7 +159,8 @@ public class SentenceboardAdapter extends BaseAdapter {
                 }
                 else
                 {
-                    bitmap = pct.getImage();
+                    BaseImageControllerHelper helper = new BaseImageControllerHelper(context);
+                    bitmap = helper.getImage(pct);
                 }
             }
             catch (Exception e)
