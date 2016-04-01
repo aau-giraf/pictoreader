@@ -69,7 +69,7 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap>{
           		 if(MainActivity.getUser().getShowText() == true)
         		 {
         			textViewTemp.setTextSize(20);	//TODO this value should be customizable
-        			textViewTemp.setText(pictogram.getInlineText());
+        			textViewTemp.setText(pictogram.getName());
         		 }
           		 //set the bitmap into the ImageView
                  imageViewTemp.setImageBitmap(result);

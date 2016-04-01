@@ -143,7 +143,7 @@ public class SentenceboardAdapter extends BaseAdapter {
 				
 				textView.setTextSize(15);	//TODO this value should be customizable
                 try{
-				textView.setText(pct.getInlineText());
+				textView.setText(pct.getName());
                 }
                 catch (Exception e)
                 {
