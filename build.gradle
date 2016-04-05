@@ -3,32 +3,33 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            url 'http://jenkins.giraf.cs.aau.dk:8080/libraries-releases'
+            url 'http://jenkins.giraf.cs.aau.dk:8080/libraries'
         }
+        mavenLocal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
-        classpath 'dk.aau.cs.giraf:auto-deploy-gradle-plugin:1.1'
+        classpath 'dk.aau.cs.giraf:auto-deploy-gradle-plugin:1.6.1'
         classpath 'com.github.triplet.gradle:play-publisher:1.1.4'
     }
 }
 
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 apply plugin: 'dk.giraf.deploy'
 apply plugin: 'com.github.triplet.play'
 
 repositories {
     mavenCentral()
     maven {
-        url 'http://jenkins.giraf.cs.aau.dk:8080/libraries-releases'
+        url 'http://jenkins.giraf.cs.aau.dk:8080/libraries'
     }
-
+    mavenLocal()
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     //compile project(':ShowcaseView')
-    compile(group: 'dk.aau.cs.giraf', name: 'pictosearch', version: '2.0.8', ext: 'aar')
+    compile(group: 'dk.aau.cs.giraf', name: 'pictosearch', version: '2.1.6', ext: 'aar')
     compile(group: 'dk.aau.cs.giraf', name: 'ShowcaseView', version: '1.0.0', ext: 'aar')
     compile(group: 'dk.aau.cs.giraf', name: 'localDb', version: '5.1.5', ext: 'aar')
     compile(group: 'dk.aau.cs.giraf', name: 'meta-database', version: '3.2.3')
@@ -36,7 +37,7 @@ dependencies {
     compile(group: 'dk.aau.cs.giraf', name: 'categoryLib', version: '1.0', ext: 'aar')
     compile(group: 'dk.aau.cs.giraf', name: 'ambilwarna', version: '1.0', ext: 'aar')
     //compile(group: 'dk.aau.cs.giraf', name: 'pictogramLib', version: '2.0.0', ext: 'aar')
-    compile(group: 'dk.aau.cs.giraf', name: 'pictogramLib', version: '5.0.0', ext: 'aar')
+    compile(group: 'dk.aau.cs.giraf', name: 'pictogramLib', version: '0.0-SNAPSHOT', ext: 'aar')
     compile(group: 'dk.aau.cs.giraf', name: 'girafComponent', version: '10.4.0', ext: 'aar')
     compile files('libraries/libGoogleAnalyticsServices.jar')
 }
@@ -45,7 +46,7 @@ dependencies {
 
 android {
     compileSdkVersion 15
-    buildToolsVersion "21.1.2"
+    buildToolsVersion "23.0.3"
     packagingOptions {
         exclude 'LICENSE.txt'
         exclude 'META-INF/LICENSE.txt'

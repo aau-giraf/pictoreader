@@ -275,49 +275,51 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
         btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (myPictoMediaPlayer == null)
-                {
-                    Log.e("PictoMediaPlayer", "Not bound");
-                    Toast.makeText(parent, getString(R.string.PictoMediaPlayerNotBound),Toast.LENGTH_LONG);
-                }
+
 
                 removeEmptyPictograms();
                 if (sentencePictogramList.get(0) != null) {
-                    btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_stop));
                     if (myPictoMediaPlayer != null) {
                         if (myPictoMediaPlayer.isPlaying()) {
                             btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
                             myPictoMediaPlayer.stopSound();
                             return;
                         }
+                        else {
+                            btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_stop));
+
+                            //Used for removing empty pictograms in the sentence board, and repositioning
+                            //the pictograms after the empty ones.
+                            removeEmptyPictograms();
+
+                            GridView sentence = (GridView) parent.findViewById(R.id.sentenceboard);
+                            sentence.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
+                            sentence.invalidate();
+
+                            myPictoMediaPlayer.playListOfPictograms(sentencePictogramList);
+
+
+                        }
+                    }
+                    else{
+                        Log.e("PictoMediaPlayer", "Not bound");
+                        Toast.makeText(parent, getString(R.string.PictoMediaPlayerNotBound),Toast.LENGTH_LONG);
                     }
 
-                    //Used for removing empty pictograms in the sentence board, and repositioning
-                    //the pictograms after the empty ones.
-                    removeEmptyPictograms();
-
-                    GridView sentence = (GridView) parent.findViewById(R.id.sentenceboard);
-                    sentence.setAdapter(new SentenceboardAdapter(sentencePictogramList, parent));
-                    sentence.invalidate();
-                    if(myPictoMediaPlayer != null) {
-                        myPictoMediaPlayer.playListOfPictograms(sentencePictogramList);
-
-
-                        //Used to change the icon of the play button from Stop to Start when it is done playing pictograms
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                while (myPictoMediaPlayer.isPlaying() == true) {
-                                }
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
-                                    }
-                                });
+                    //Used to change the icon of the play button from Stop to Start when it is done playing pictograms
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            while (myPictoMediaPlayer.isPlaying() == true) {
                             }
-                        }).start();
-                    }
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
+                                }
+                            });
+                        }
+                    }).start();
                 }
             }
         });
