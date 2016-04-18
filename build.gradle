@@ -37,7 +37,7 @@ dependencies {
     compile(group: 'dk.aau.cs.giraf', name: 'categoryLib', version: '1.0', ext: 'aar')
     compile(group: 'dk.aau.cs.giraf', name: 'ambilwarna', version: '1.0', ext: 'aar')
     //compile(group: 'dk.aau.cs.giraf', name: 'pictogramLib', version: '2.0.0', ext: 'aar')
-    compile(group: 'dk.aau.cs.giraf', name: 'pictogramLib', version: '5.0.0', ext: 'aar')
+    compile(group: 'dk.aau.cs.giraf', name: 'pictogramLib', version: '5.1.0', ext: 'aar')
     compile(group: 'dk.aau.cs.giraf', name: 'girafComponent', version: '10.4.0', ext: 'aar')
     compile files('libraries/libGoogleAnalyticsServices.jar')
 }
