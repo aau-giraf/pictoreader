@@ -278,7 +278,7 @@ public class SpeechBoardFragment extends Fragment implements ShowcaseManager.Sho
 
 
                 removeEmptyPictograms();
-                if (sentencePictogramList.get(0) != null) {
+                if (!sentencePictogramList.isEmpty() && sentencePictogramList.get(0) != null) {
                     if (myPictoMediaPlayer != null) {
                         if (myPictoMediaPlayer.isPlaying()) {
                             btnPlay.setIcon(getResources().getDrawable(R.drawable.icon_play));
