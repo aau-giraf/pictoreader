@@ -10,10 +10,10 @@ import android.view.View;
 public class SentenceboardTouchListener implements View.OnTouchListener {
     private int position;
 
-    public SentenceboardTouchListener(int position)
-    {
-        this.position=position;
+    public SentenceboardTouchListener(int position) {
+        this.position = position;
     }
+
     @Override
     public boolean onTouch(View view, MotionEvent event) {
 
@@ -21,15 +21,14 @@ public class SentenceboardTouchListener implements View.OnTouchListener {
 
             SpeechBoardFragment.draggedPictogramIndex = position;
             SpeechBoardFragment.dragOwnerID = R.id.sentenceboard;
-            SpeechBoardFragment.speechDragListener.draggedPictogram = SpeechBoardFragment.sentencePictogramList.get(position);
+            SpeechBoardFragment.speechDragListener.draggedPictogram =
+                SpeechBoardFragment.sentencePictogramList.get(position);
 
             ClipData data = ClipData.newPlainText("label", "text");
             PictogramDragShadow shadowBuilder = new PictogramDragShadow(view);
             view.startDrag(data, shadowBuilder, view, 0);
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
