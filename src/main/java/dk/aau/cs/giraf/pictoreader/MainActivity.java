@@ -23,11 +23,11 @@ import dk.aau.cs.giraf.gui.GirafCustomButtonsDialog;
 import dk.aau.cs.giraf.showcaseview.ShowcaseManager;
 
 /**
- *
  * @author SW605f13-PARROT and PARROT spring 2012.
- *  This is the main Activity Class in Parrot.
+ *         This is the main Activity Class in Parrot.
  */
-public class MainActivity extends GirafActivity implements GirafCustomButtonsDialog.CustomButtons{
+
+public class MainActivity extends GirafActivity implements GirafCustomButtonsDialog.CustomButtons {
 
     private static PictoreaderProfile parrotUser;
     private static long guardianID;
@@ -48,11 +48,9 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     private GirafButton extendButton;
 
     /**
-     * Used to showcase views
+     * Used to showcase views.
      */
     private ShowcaseManager showcaseManager;
-
-
 
 
     @Override
@@ -67,31 +65,33 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         EasyTracker.getInstance(this).activityStop(this);  // Add this method.
     }
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main, null);
+        View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main, null);
 
-        setContentView(v);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(view);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         final Bundle extras = getIntent().getExtras();
-        boolean outsideGIRAF = false;
+        boolean outsideGiraf = false;
 
 
         if (ActivityManager.isUserAMonkey()) {
             guardianID = helper.profilesHelper.getGuardians().get(0).getId();
             childID = helper.profilesHelper.getChildren().get(0).getId();
-        }
-
-        else if (extras == null || (!extras.containsKey(getString(R.string.current_child_id)) && !extras.containsKey(getString(R.string.current_guardian_id)))) {
-            Toast.makeText(this, String.format(getString(R.string.error_must_be_started_from_giraf), getString(R.string.pictoreader)), Toast.LENGTH_SHORT).show();
+        } else if (extras == null || (!extras.containsKey(getString(R.string.current_child_id)) &&
+            !extras.containsKey(getString(R.string.current_guardian_id))))
+        {
+            Toast.makeText(this, String.format(getString(R.string.error_must_be_started_from_giraf),
+                getString(R.string.pictoreader)), Toast.LENGTH_SHORT).show();
             finish();
             return;
-        }
-
-        else {
+        } else {
             girafIntent = getIntent();
             guardianID = girafIntent.getExtras().getLong("currentGuardianID", -1);
             childID = girafIntent.getExtras().getLong("currentChildID", -1);
@@ -106,55 +106,44 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         app = applicationController.getApplicationByPackageName();
         PARROTDataLoader dataLoader = new PARROTDataLoader(this, true, this.getApplicationContext());
 
-        if(guardianID == -1 )
-        {
+        if (guardianID == -1) {
             ProfileController profileController = new ProfileController(this.getApplicationContext());
-            Toast toastMessage = Toast.makeText(this.getApplicationContext(), "Kunne ikke finde en brugerprofil.", Toast.LENGTH_LONG);
+            Toast toastMessage = Toast.makeText(this.getApplicationContext(),
+                "Kunne ikke finde en brugerprofil.", Toast.LENGTH_LONG);
             toastMessage.show();
-            outsideGIRAF = true;
-            try
-            {
-                parrotUser = dataLoader.loadProfile(profileController.getProfilesByName("Offentlig Bruger").get(0).getId(), app.getId());
-            }
-            catch (Exception e)
-            {
+            outsideGiraf = true;
+            try {
+                parrotUser = dataLoader.loadProfile(
+                    profileController.getProfilesByName("Offentlig Bruger").get(0).getId(), app.getId());
+            } catch (Exception e) {
                 parrotUser = null;
             }
-        }
-        else
-        {
-            if (childID != -1)
-            {
+        } else {
+            if (childID != -1) {
                 parrotUser = dataLoader.loadProfile(childID, app.getId());
-            }
-            else
-            {
-                parrotUser = dataLoader.loadProfile( guardianID, app.getId());
+            } else {
+                parrotUser = dataLoader.loadProfile(guardianID, app.getId());
             }
         }
 
-        if(parrotUser != null)
-        {
+        if (parrotUser != null) {
             speechBoardFragment = new SpeechBoardFragment(this.getApplicationContext());
             //getFragmentManager().beginTransaction().add(R.id.main, speechBoardFragment).commit();
-            getFragmentManager().beginTransaction().add(R.id.main,speechBoardFragment,"HEJ").commit();
-        }
-        else //TODO - Se if possibile if yes - create giraf component, else delete.
-        {
-            if (outsideGIRAF)
-            {
+            getFragmentManager().beginTransaction().add(R.id.main, speechBoardFragment, "HEJ").commit();
+        } else { //TODO - Se if possibile if yes - create giraf component, else delete.
+            if (outsideGiraf) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
                 builder.setMessage("Bruger ikke fundet.")
-                        .setTitle("Fejl")
-                        .setNegativeButton(R.string.returnItem, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                // User clicked OK, so save the mSelectedItems results somewhere
-                                // or return them to the component that opened the dialog
-                                finish();
-                            }
-                        });
+                    .setTitle("Fejl")
+                    .setNegativeButton(R.string.returnItem, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked OK, so save the mSelectedItems results somewhere
+                            // or return them to the component that opened the dialog
+                            finish();
+                        }
+                    });
                 // 3. Get the AlertDialog from create()
                 AlertDialog dialog = builder.create();
                 dialog.show();
@@ -163,34 +152,38 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         }
         createHelpButton();
     }
+
     private void createHelpButton() {
         btnHelp = new GirafButton(this, getResources().getDrawable(R.drawable.icon_help));
         btnHelp.setId(R.id.help_button);
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                final ShowcaseManager.ShowcaseCapable currentContent = (ShowcaseManager.ShowcaseCapable) getFragmentManager().findFragmentByTag("HEJ");
+            public void onClick(View view) {
+                final ShowcaseManager.ShowcaseCapable currentContent = (ShowcaseManager.ShowcaseCapable)
+                    getFragmentManager().findFragmentByTag("HEJ");
                 currentContent.toggleShowcase();
             }
         });
         addGirafButtonToActionBar(btnHelp, GirafActivity.RIGHT);
     }
+
     private void createExtendPictogramsButton() {
         extendButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_accept), "Ja");
         extendButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 MainActivity.this.girafConfirmDialog.dismiss();
                 MainActivity.this.speechBoardFragment.callPictosearch();
 
             }
         });
     }
+
     private void createReplacePictogramsButton() {
         replaceButton = new GirafButton(this, getResources().getDrawable(R.drawable.icon_cancel), "Nej");
         replaceButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 MainActivity.this.girafConfirmDialog.dismiss();
                 MainActivity.this.speechBoardFragment.ClearPictograms();
                 MainActivity.this.speechBoardFragment.clearSentenceboard();
@@ -199,17 +192,17 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
         });
     }
 
-    private void createSearchButton(){
+    private void createSearchButton() {
         GirafButton btnSearch = new GirafButton(this, getResources().getDrawable(R.drawable.icon_search));
         btnSearch.setId(R.id.search_button);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if(MainActivity.this.speechBoardFragment.isAnyPictogramSelected()){
+            public void onClick(View view) {
+                if (MainActivity.this.speechBoardFragment.isAnyPictogramSelected()) {
                     createExtendDialog();
-                }
-                else
+                } else {
                     MainActivity.this.speechBoardFragment.callPictosearch();
+                }
             }
         });
         //Add the search buttOn to the top bar if not child
@@ -219,39 +212,41 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     }
 
     /**
+     * Returns the child's user profile.
      * @return the child's user profile.
      */
-    public static PictoreaderProfile getUser()
-    {
+    public static PictoreaderProfile getUser() {
         return parrotUser;
     }
+
     /**
-     * set the current child user profile
-     * @param user, a PictoreaderProfile that is a childs profile.
+     * Set the current child user profile.
+     *
+     * @param user a PictoreaderProfile that is a childs profile
      */
     public static void setUser(PictoreaderProfile user) {
         parrotUser = user;
     }
+
     /**
+     * Guardian/parent id.
      * @return the guardian/parents id.
      */
-    public static long getGuardianID() {
+    public static long getGuardianId() {
         return guardianID;
     }
 
     /**
-     *
-     * @return ChildID
+     * @return ChildID.
      */
-    public static long getChildID()
-    {
+    public static long getChildId() {
         return childID;
     }
+
     /**
-     * @return instance of App with this apps data
+     * @return instance of App with this apps data.
      */
-    public static Application getApp()
-    {
+    public static Application getApp() {
         return app;
     }
 
@@ -259,22 +254,22 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
      * Creates an extend dialog, promt the user if the would like to save the
      * current selected pictograms.
      */
-    public void createExtendDialog(){
+    public void createExtendDialog() {
         girafConfirmDialog = GirafCustomButtonsDialog.newInstance(
-                "Behold Piktogrammer",
-                "Vil du beholde dine tidligere valgte piktogrammer?",
-                CONFIRM_EXTEND_ID);
+            "Behold Piktogrammer",
+            "Vil du beholde dine tidligere valgte piktogrammer?",
+            CONFIRM_EXTEND_ID);
         girafConfirmDialog.show(getSupportFragmentManager(), CONFIRM_EXTEND_TAG);
     }
 
     /**
-     * Implements fillButtonContainer,
-     * @param buttonContainer
-     * @param dialogID
-     * Adds the buttons the the button container
+     * Implements fillButtonContainer.
+     *
+     * @param buttonContainer Button container
+     * @param dialogId        Adds the buttons the the button container
      */
     @Override
-    public void fillButtonContainer(int dialogID, GirafCustomButtonsDialog.ButtonContainer buttonContainer) {
+    public void fillButtonContainer(int dialogId, GirafCustomButtonsDialog.ButtonContainer buttonContainer) {
         createExtendPictogramsButton();
         createReplacePictogramsButton();
         buttonContainer.addGirafButton(replaceButton);
@@ -284,7 +279,7 @@ public class MainActivity extends GirafActivity implements GirafCustomButtonsDia
     @Override
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);
-        if(fragment instanceof SpeechBoardFragment) {
+        if (fragment instanceof SpeechBoardFragment) {
             speechBoardFragment = (SpeechBoardFragment) fragment;
         }
     }
