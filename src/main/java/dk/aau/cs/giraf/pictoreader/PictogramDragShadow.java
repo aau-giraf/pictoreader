@@ -1,9 +1,6 @@
 package dk.aau.cs.giraf.pictoreader;
 
-import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.view.View;
@@ -13,29 +10,30 @@ import android.view.View;
  */
 public class PictogramDragShadow extends View.DragShadowBuilder {
 
-    private Drawable mShadow;
+    private Drawable shadow;
     private View dragView;
 
 
-    public PictogramDragShadow(View v) {
-        super(v);
+    public PictogramDragShadow(View view) {
+        super(view);
 
-        mShadow = v.getResources().getDrawable(R.drawable.trans);
-        mShadow.setCallback(v);
-        mShadow.setBounds(25, 25, v.getWidth(), v.getHeight());
-        dragView = v;
+        shadow = view.getResources().getDrawable(R.drawable.trans);
+        shadow.setCallback(view);
+        shadow.setBounds(25, 25, view.getWidth(), view.getHeight());
+        dragView = view;
     }
+
     @Override
     public void onDrawShadow(Canvas canvas) {
-        canvas.scale((float)1.3, (float)1.3);
-        mShadow.draw(canvas);
+        canvas.scale((float) 1.3, (float) 1.3);
+        shadow.draw(canvas);
         getView().draw(canvas);
     }
 
     @Override
     public void onProvideShadowMetrics(Point shadowSize, Point touchPoint) {
         shadowSize.set(1000, 1000);
-        touchPoint.set(touchPoint.x + dragView.getWidth()/2, touchPoint.y + dragView.getHeight()/2);
+        touchPoint.set(touchPoint.x + dragView.getWidth() / 2, touchPoint.y + dragView.getHeight() / 2);
     }
 }
 

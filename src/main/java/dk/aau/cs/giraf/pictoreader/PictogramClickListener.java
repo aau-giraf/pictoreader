@@ -13,7 +13,7 @@ import dk.aau.cs.giraf.gui.GirafWaitingDialog;
  */
 
 
-class pictogramClickListener implements OnClickListener {
+class PictogramClickListener implements OnClickListener {
 
     private GirafWaitingDialog waitingDialog;
     private final int position;
@@ -23,7 +23,7 @@ class pictogramClickListener implements OnClickListener {
     private PictogramController pictogramController;
 
 
-    public pictogramClickListener(int position, int owner, Activity activity, PictoreaderProfile user) {
+    public PictogramClickListener(int position, int owner, Activity activity, PictoreaderProfile user) {
         this.position = position;
         this.owner = owner;
         this.activity = activity;
@@ -34,18 +34,15 @@ class pictogramClickListener implements OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if(owner != R.id.category)
-        {
+        if (owner != R.id.category) {
             int count = 0;
-            for(dk.aau.cs.giraf.dblib.models.Pictogram p: SpeechBoardFragment.sentencePictogramList)
-            {
-                if (p == null)
-                {
+            for (dk.aau.cs.giraf.dblib.models.Pictogram p : SpeechBoardFragment.sentencePictogramList) {
+                if (p == null) {
 
-                    SpeechBoardFragment.sentencePictogramList.set(count,SpeechBoardFragment.speechboardPictograms.get(position));
+                    SpeechBoardFragment.sentencePictogramList.set(count,
+                        SpeechBoardFragment.speechboardPictograms.get(position));
                     break;
-                }
-                else{
+                } else {
                     count++;
                 }
 
@@ -55,13 +52,13 @@ class pictogramClickListener implements OnClickListener {
             SpeechBoardFragment.dragOwnerID = owner;
             GridView sentence = (GridView) activity.findViewById(R.id.sentenceboard);
             sentence.setAdapter(new SentenceboardAdapter(SpeechBoardFragment.sentencePictogramList, activity));
-        }
-        else {
+        } else {
             if (SpeechBoardFragment.displayedMainCategoryIndex != SpeechBoardFragment.draggedPictogramIndex) {
                 SpeechBoardFragment.displayedMainCategoryIndex = SpeechBoardFragment.draggedPictogramIndex;
                 CategoryController categoryController = new CategoryController(activity.getApplicationContext());
                 try {
-                    SpeechBoardFragment.displayedCategory = categoryController.getCategoriesByProfileId(user.getProfileID()).get(position);
+                    SpeechBoardFragment.displayedCategory = categoryController.getCategoriesByProfileId(
+                        user.getProfileID()).get(position);
                 } catch (OutOfMemoryError e) {
                     e.getStackTrace();
                     return;
@@ -73,17 +70,24 @@ class pictogramClickListener implements OnClickListener {
                 try {
                     SpeechBoardFragment.speechboardPictograms.clear();
 
-                    if (pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).size() > SpeechBoardFragment.MaxNumberOfAllowedPictogramsInCategory) {
-                        SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).subList(0, SpeechBoardFragment.MaxNumberOfAllowedPictogramsInCategory);
+                    if (pictogramController.getPictogramsByCategory(
+                        SpeechBoardFragment.displayedCategory).size() >
+                        SpeechBoardFragment.MaxNumberOfAllowedPictogramsInCategory)
+                    {
+                        SpeechBoardFragment.speechboardPictograms =
+                            pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory).subList(0,
+                                SpeechBoardFragment.MaxNumberOfAllowedPictogramsInCategory);
                     } else {
-                        SpeechBoardFragment.speechboardPictograms = pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
+                        SpeechBoardFragment.speechboardPictograms =
+                            pictogramController.getPictogramsByCategory(SpeechBoardFragment.displayedCategory);
                     }
                 } catch (OutOfMemoryError e) {
                     e.getStackTrace();
                     return;
                 }
 
-                pictogramGrid.setAdapter(new PictogramAdapter(SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
+                pictogramGrid.setAdapter(new PictogramAdapter(
+                    SpeechBoardFragment.speechboardPictograms, activity.getApplicationContext(), activity, user));
             }
         }
 
